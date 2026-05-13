@@ -1,0 +1,99 @@
+<!-- ================================================================
+     NEWS SECTION — sections/news.html
+
+     HOW TO ADD A LIVE SOCIAL FEED (Curator.io — recommended):
+       1. Go to https://curator.io and create a free account.
+       2. Click "Add Feed Source" → connect your LinkedIn Company page
+          and/or Bluesky account.
+       3. Customise the feed (colours: teal #0D9488, navy #0D1B2A).
+       4. Click "Publish" → "Get Embed Code".
+       5. You will receive two code snippets, e.g.:
+            <div id="curator-feed-default-feed-layout"></div>
+            <script ... ></script>
+       6. REPLACE the .news-placeholder-box div below with those
+          two lines. Delete the placeholder entirely.
+
+     ALTERNATIVE: Elfsight (https://elfsight.com) — same process,
+     slightly different embed code format.
+     ================================================================ -->
+<section id="news">
+  <div class="container">
+
+    <span class="section-label fade-up">Latest</span>
+    <h2 class="section-title fade-up">News &amp; updates</h2>
+
+    <p class="section-intro fade-up">
+      Follow us on social media for real-time lab updates, paper announcements,
+      events, and more.
+    </p>
+
+    <!-- Direct social links -->
+    <div class="news-social-links fade-up" style="margin-bottom:2.5rem;">
+
+      <!-- EDIT HREF: replace with actual Bluesky profile URL -->
+      <a class="news-social-btn"
+         href="https://bsky.app/profile/nmoraislab.bsky.social"
+         target="_blank" rel="noopener">
+        <!-- Bluesky butterfly-ish cloud icon (SVG) -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.347.906.36 1.495c-1.066.637-.31 2.83.098 4.39l1.716 6.463c-2.187-.211-4.04.354-4.174 2.07-.144 1.84 1.65 3.002 3.476 3.184 1.083.108 2.216-.068 3.131-.432-1.524 1.22-2.607 3.082-2.607 5.83H12v.004-.004c0-2.748-1.083-4.61-2.607-5.83.915.364 2.048.54 3.131.432 1.826-.182 3.62-1.344 3.476-3.184-.134-1.716-1.987-2.281-4.174-2.07L13.542 5.885c.408-1.56 1.164-3.753.098-4.39C12.653.906 11.434.944 8.798 2.805 6.046 4.747 3.087 8.686 2 10.8"/>
+        </svg>
+        Bluesky
+      </a>
+
+      <!-- EDIT HREF: replace with actual LinkedIn page URL -->
+      <a class="news-social-btn"
+         href="https://www.linkedin.com/company/disease-transcriptomics-lab"
+         target="_blank" rel="noopener">
+        <!-- LinkedIn icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+
+    </div><!-- /news-social-links -->
+
+    <!-- ── SOCIAL FEED WIDGET AREA ──────────────────────────────
+         Replace the .news-placeholder-box below with your
+         Curator.io or Elfsight embed code.
+         ──────────────────────────────────────────────────────── -->
+    <div class="news-widget-wrap fade-up" style="transition-delay:.1s;">
+
+      <!-- DELETE this entire .news-placeholder-box block once you
+           have pasted the real Curator.io embed code above it. -->
+      <div class="news-placeholder-box">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+             stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>
+          <strong>Live social feed</strong><br>
+          Paste your <strong>Curator.io</strong> embed code here to display
+          live posts from LinkedIn and Bluesky.<br><br>
+          Look for the comment<br>
+          <code>&lt;!-- SOCIAL FEED WIDGET AREA --&gt;</code><br>
+          in <code>sections/news.html</code>.
+        </p>
+        <a class="btn"
+           href="https://curator.io"
+           target="_blank" rel="noopener"
+           style="background:var(--teal);color:white;font-size:.85rem;padding:.6rem 1.2rem;">
+          Set up Curator.io →
+        </a>
+      </div>
+      <!-- END placeholder -->
+
+      <!-- PASTE CURATOR.IO EMBED CODE HERE -->
+      <!-- Example:
+        <div id="curator-feed-default-feed-layout"></div>
+        <script type="text/javascript"
+          src="https://cdn.curator.io/published/YOUR-FEED-ID.js"
+          charset="UTF-8" async></script>
+      -->
+
+    </div><!-- /news-widget-wrap -->
+
+  </div>
+</section>

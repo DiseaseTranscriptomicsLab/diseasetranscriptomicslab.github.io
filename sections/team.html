@@ -1,0 +1,285 @@
+<!-- ================================================================
+     TEAM SECTION — sections/team.html
+
+     HOW TO EDIT:
+       1. PI card: update bio, interests, email, social links.
+          Replace photo placeholder with:
+          <img src="assets/photos/nuno-morais.jpg" alt="Nuno Morais" />
+
+       2. Team members: duplicate or delete .member-card blocks.
+          For each card update:
+            - flag emoji in .member-flag (see: https://emojipedia.org/flags)
+            - .member-name (text after the flag span)
+            - .member-role-badge
+            - .member-bio → short bio paragraph
+            - .member-interests → research interests
+            - .member-email a → href and display address
+            - .social-links → update hrefs (use "#" to hide a link)
+
+       3. Real photo: replace:
+            <div class="member-photo">
+              <div class="member-photo-placeholder">XX</div>
+            </div>
+          with:
+            <div class="member-photo">
+              <img src="assets/photos/firstname-lastname.jpg" alt="Full Name" />
+            </div>
+
+       4. Country flags — common emojis:
+            Portugal 🇵🇹  Poland 🇵🇱  Spain 🇪🇸  UK 🇬🇧
+            Germany 🇩🇪  France 🇫🇷  Italy 🇮🇹  USA 🇺🇸
+     ================================================================ -->
+<section id="team" style="background:var(--fog);">
+  <div class="container">
+
+    <span class="section-label fade-up">People</span>
+    <h2 class="section-title fade-up">Meet the team</h2>
+    <p class="section-intro fade-up">
+      A multidisciplinary group combining computational biology,
+      bioinformatics, and molecular biology expertise.
+    </p>
+
+    <!-- ── PI CARD ────────────────────────────────────────────── -->
+    <div class="pi-card fade-up">
+
+      <div class="pi-photo">
+        <!-- Replace with: <img src="assets/photos/nuno-morais.jpg" alt="Nuno Morais" /> -->
+        <div class="pi-photo-placeholder">NM</div>
+      </div>
+
+      <div class="pi-info">
+        <span class="pi-badge">Principal Investigator</span>
+
+        <div class="member-name-row">
+          <div class="pi-name">Nuno Luís Barbosa Morais</div>
+          <span class="member-flag">🇵🇹</span>
+        </div>
+
+        <p class="pi-interests">
+          <strong>Research interests:</strong>
+          [Interest 1] · [Interest 2] · [Interest 3] · [Interest 4]
+        </p>
+
+        <div class="pi-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>
+        </div>
+
+        <div class="social-links">
+          <a class="social-link"
+             href="https://orcid.org/0000-0002-1215-0538"
+             target="_blank" rel="noopener">ORCID</a>
+          <a class="social-link"
+             href="https://bsky.app/profile/nmoraislab.bsky.social"
+             target="_blank" rel="noopener">Bluesky</a>
+          <a class="social-link"
+             href="https://www.linkedin.com/company/disease-transcriptomics-lab"
+             target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social-link"
+             href="https://scholar.google.com/citations?user=bSqN8OYAAAAJ"
+             target="_blank" rel="noopener">Google Scholar</a>
+          <a class="social-link"
+             href="https://github.com/nuno-agostinho"
+             target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div><!-- /pi-card -->
+
+    <!-- ── TEAM GRID ─────────────────────────────────────────── -->
+    <div class="team-grid">
+
+      <!-- Diana Vieira ─────────────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.05s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">DV</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">Postdoctoral Researcher</span>
+          <div class="member-name-row">
+            <div class="member-name">Diana Vieira</div>
+            <span class="member-flag">🇵🇹</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jacek Marzec ─────────────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.1s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">JM</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">Postdoctoral Researcher</span>
+          <div class="member-name-row">
+            <div class="member-name">Jacek Marzec</div>
+            <span class="member-flag">🇵🇱</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rita Silva ───────────────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.15s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">RS</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">PhD Student</span>
+          <div class="member-name-row">
+            <div class="member-name">Rita Silva</div>
+            <span class="member-flag">🇵🇹</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alexandre Kaizeler ───────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.2s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">AK</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">PhD Student</span>
+          <div class="member-name-row">
+            <div class="member-name">Alexandre Kaizeler</div>
+            <span class="member-flag">🇵🇹</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Francisca Xara-Brasil ────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.25s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">FX</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">PhD Student</span>
+          <div class="member-name-row">
+            <div class="member-name">Francisca Xara-Brasil</div>
+            <span class="member-flag">🇵🇹</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daniel Marques ───────────────────────────────────── -->
+      <div class="member-card fade-up" style="transition-delay:.3s;">
+        <div class="member-photo">
+          <div class="member-photo-placeholder">DM</div>
+        </div>
+        <div class="member-info">
+          <span class="member-role-badge">Master's Student</span>
+          <div class="member-name-row">
+            <div class="member-name">Daniel Marques</div>
+            <span class="member-flag">🇵🇹</span>
+          </div>
+          <p class="member-bio">[Add a short bio here.]</p>
+          <div class="member-interests">
+            <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
+          </div>
+          <div class="member-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
+          </div>
+          <div class="social-links">
+            <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
+            <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD MORE MEMBERS: copy a .member-card block above -->
+
+    </div><!-- /team-grid -->
+  </div>
+</section>

@@ -1,0 +1,319 @@
+<!-- ================================================================
+     SOFTWARE SECTION — sections/software.html
+
+     HOW TO EDIT:
+       Each tool is a .tool-card. Fields to update:
+         - .tool-badge class: use "webapp" (online app), "pkg" (R/software),
+           or "dev" (in development)
+         - .tool-badge text: "Online Web App", "R Package / Software",
+           or "In Development"
+         - .tool-name      : tool name
+         - .tool-desc      : one-line description
+         - .tool-links     : update all href values; add/remove links as needed
+           Link types available: class="launch" (primary CTA), plain (secondary)
+
+       To add a new tool: duplicate any .tool-card block.
+       Add class="software-only" to the card for dashed border (non-web tools).
+
+     ICONS:
+       webapp  → green badge  (Online Web App)
+       pkg     → blue badge   (R Package / Software)
+       dev     → grey badge   (In Development)
+     ================================================================ -->
+<section id="software">
+  <div class="container">
+
+    <span class="section-label fade-up">Software</span>
+    <h2 class="section-title fade-up">Bioinformatics tools</h2>
+    <p class="section-intro fade-up">
+      Open-source, user-friendly applications for transcriptomic analysis: freely
+      accessible via our
+      <a href="https://compbio.imm.medicina.ulisboa.pt" target="_blank" rel="noopener">software hub</a>
+      and
+      <a href="https://github.com/DiseaseTranscriptomicsLab" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+
+    <!-- ── WEB APPS ─────────────────────────────────────────── -->
+    <div class="software-section-divider fade-up">Online Web Apps</div>
+    <div class="software-grid">
+
+      <!-- voyAGEr -->
+      <div class="tool-card fade-up">
+        <span class="tool-badge webapp">
+          <!-- globe icon -->
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Online Web App
+        </span>
+        <div class="tool-name">voyAGEr</div>
+        <p class="tool-desc">
+          Analysis of age-related gene expression changes across tissues using
+          large-scale human transcriptomic data from GTEx and TCGA.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://compbio.imm.medicina.ulisboa.pt/app/voyAGEr"
+             target="_blank" rel="noopener">
+            Launch app ↗
+          </a>
+          <a class="tool-link"
+             href="https://doi.org/10.7554/eLife.88623.3"
+             target="_blank" rel="noopener">
+            Paper
+          </a>
+          <a class="tool-link"
+             href="https://github.com/DiseaseTranscriptomicsLab/voyAGEr"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- betAS -->
+      <div class="tool-card fade-up" style="transition-delay:.05s;">
+        <span class="tool-badge webapp">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Online Web App
+        </span>
+        <div class="tool-name">betAS</div>
+        <p class="tool-desc">
+          Intuitive differential alternative splicing analyses using beta
+          distributions for robust, interpretable results.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://compbio.imm.medicina.ulisboa.pt/app/betAS"
+             target="_blank" rel="noopener">
+            Launch app ↗
+          </a>
+          <a class="tool-link"
+             href="https://rnajournal.cshlp.org/content/30/4/337.abstract"
+             target="_blank" rel="noopener">
+            Paper
+          </a>
+          <a class="tool-link"
+             href="https://github.com/DiseaseTranscriptomicsLab/betAS"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- cTRAP -->
+      <div class="tool-card fade-up" style="transition-delay:.1s;">
+        <span class="tool-badge webapp">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Online Web App
+        </span>
+        <div class="tool-name">cTRAP</div>
+        <p class="tool-desc">
+          Identification of candidate causal perturbations from differential
+          gene expression data via CMap connectivity mapping.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://compbio.imm.medicina.ulisboa.pt/app/cTRAP"
+             target="_blank" rel="noopener">
+            Launch app ↗
+          </a>
+          <a class="tool-link"
+             href="https://www.bioconductor.org/packages/release/bioc/html/cTRAP.html"
+             target="_blank" rel="noopener">
+            Bioconductor
+          </a>
+          <a class="tool-link"
+             href="https://nuno-agostinho.github.io/cTRAP/"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- psichomics -->
+      <div class="tool-card fade-up" style="transition-delay:.15s;">
+        <span class="tool-badge webapp">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Online Web App
+        </span>
+        <div class="tool-name">psichomics</div>
+        <p class="tool-desc">
+          Alternative splicing quantification, visualisation, and analysis from
+          TCGA, GTEx, and SRA datasets: with an R/Bioconductor package.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://compbio.imm.medicina.ulisboa.pt/app/psichomics"
+             target="_blank" rel="noopener">
+            Launch app ↗
+          </a>
+          <a class="tool-link"
+             href="https://doi.org/10.1093/nar/gky888"
+             target="_blank" rel="noopener">
+            Paper
+          </a>
+          <a class="tool-link"
+             href="https://bioconductor.org/packages/release/bioc/html/psichomics.html"
+             target="_blank" rel="noopener">
+            Bioconductor
+          </a>
+          <a class="tool-link"
+             href="https://github.com/nuno-agostinho/psichomics"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- scStudio -->
+      <div class="tool-card fade-up" style="transition-delay:.2s;">
+        <span class="tool-badge webapp">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Online Web App
+        </span>
+        <div class="tool-name">scStudio</div>
+        <p class="tool-desc">
+          Interactive and flexible analysis platform for single-cell RNA-seq data,
+          supporting exploratory and reproducible workflows.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://compbio.imm.medicina.ulisboa.pt/app/scStudio"
+             target="_blank" rel="noopener">
+            Launch app ↗
+          </a>
+          <a class="tool-link"
+             href="https://www.biorxiv.org/content/10.1101/2025.04.17.649161v1"
+             target="_blank" rel="noopener">
+            bioRxiv
+          </a>
+          <a class="tool-link"
+             href="https://github.com/DiseaseTranscriptomicsLab/scStudio"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /software-grid web apps -->
+
+    <!-- ── R PACKAGES / SOFTWARE (not yet web apps) ─────────── -->
+    <div class="software-section-divider fade-up" style="transition-delay:.25s;">
+      R Packages &amp; Software
+    </div>
+    <div class="software-grid">
+
+      <!-- markeR — finished software, not yet a web app -->
+      <div class="tool-card software-only fade-up">
+        <span class="tool-badge pkg">
+          <!-- package icon -->
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/>
+          </svg>
+          Bioconductor Package
+        </span>
+        <div class="tool-name">markeR</div>
+        <p class="tool-desc">
+          Toolkit for evaluating gene sets as phenotype markers from gene
+          expression data: available as a Bioconductor R package with a full tutorial.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link launch"
+             href="https://bioconductor.org/packages/release/bioc/html/markeR.html"
+             target="_blank" rel="noopener">
+            Bioconductor
+          </a>
+          <a class="tool-link"
+             href="https://www.biorxiv.org/content/10.64898/2025.12.05.692517v1"
+             target="_blank" rel="noopener">
+            bioRxiv
+          </a>
+          <a class="tool-link"
+             href="https://github.com/DiseaseTranscriptomicsLab/markeR/"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+          <a class="tool-link"
+             href="https://diseasetranscriptomicslab.github.io/markeR/articles/markeR.html"
+             target="_blank" rel="noopener">
+            Tutorial
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /software-grid packages -->
+
+    <!-- ── IN DEVELOPMENT ───────────────────────────────────── -->
+    <div class="software-section-divider fade-up">In Development</div>
+    <div class="software-grid">
+
+      <!-- CHARM -->
+      <div class="tool-card software-only fade-up">
+        <span class="tool-badge dev">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          In Development
+        </span>
+        <div class="tool-name">CHARM</div>
+        <p class="tool-desc">
+          Platform for studying how RNA-binding proteins regulate expression,
+          splicing, and RNA binding through ENCODE data.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link"
+             href="https://github.com/DiseaseTranscriptomicsLab/CHARM/"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- CREOLE -->
+      <div class="tool-card software-only fade-up" style="transition-delay:.05s;">
+        <span class="tool-badge dev">
+          <!-- code icon -->
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          In Development
+        </span>
+        <div class="tool-name">CREOLE</div>
+        <p class="tool-desc">
+          Reference-free identification of open reading frames and encoded
+          proteins from nanopore long-read transcriptomic data.
+        </p>
+        <div class="tool-links">
+          <a class="tool-link"
+             href="https://github.com/comprna/CREOLE"
+             target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /software-grid dev -->
+  </div>
+</section>
