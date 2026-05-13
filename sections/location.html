@@ -1,0 +1,61 @@
+<!-- ================================================================
+     LOCATION SECTION — sections/location.html
+
+     HOW TO EDIT:
+       - Update the address text below if needed.
+       - To move the map pin, change the marker= lat,lon and
+         adjust the bbox= (west,south,east,north) in the iframe src.
+         Use https://www.openstreetmap.org to find coordinates.
+       - Update the Google Maps link href to match the address.
+     ================================================================ -->
+<section id="location">
+  <div class="container">
+
+    <span class="section-label fade-up">Find us</span>
+    <h2 class="section-title fade-up">Where we are</h2>
+
+    <div class="location-inner fade-up" style="transition-delay:.1s;">
+
+      <div class="location-address">
+        <h3>Disease Transcriptomics Lab</h3>
+        <p>
+          NOVA Medical School<br>
+          Universidade NOVA de Lisboa
+        </p>
+        <p>
+          Rua do Instituto Bacteriológico, 5<br>
+          1150-190 Lisboa<br>
+          Portugal
+        </p>
+        <p>
+          <a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>
+        </p>
+        <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:.75rem;">
+          <a href="https://www.nms.unl.pt" target="_blank" rel="noopener"
+             class="btn btn-outline"
+             style="font-size:.85rem; padding:.5rem 1.2rem; width:fit-content;">
+            NOVA Medical School ↗
+          </a>
+          <a href="https://www.google.com/maps/place/38.7189,-9.1396"
+             target="_blank" rel="noopener"
+             class="btn btn-outline"
+             style="font-size:.85rem; padding:.5rem 1.2rem; width:fit-content;">
+            Open in Google Maps ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <!-- OpenStreetMap embed — marker at Rua do Instituto Bacteriológico, 5, Lisboa -->
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-9.1436%2C38.7159%2C-9.1356%2C38.7219&amp;layer=mapnik&amp;marker=38.7189%2C-9.1396"
+          title="NOVA Medical School — Rua do Instituto Bacteriológico, Lisboa"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+    </div>
+
+  </div>
+</section>

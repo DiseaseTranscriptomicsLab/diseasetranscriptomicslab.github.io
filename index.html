@@ -13,9 +13,6 @@
   <!-- Favicon -->
   <link rel="icon" href="assets/logos/logo-icon.png" type="image/png" />
 
-  <!-- ============================================================
-       FONTS
-       ============================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
@@ -27,17 +24,13 @@
 <body>
 
   <!-- ============================================================
-       NAVIGATION
-       Edit link labels or add new ones below.
+       NAVIGATION — edit links here
        ============================================================ -->
   <nav id="main-nav">
     <div class="container nav-inner">
 
       <a href="#hero" class="nav-logo" aria-label="Disease Transcriptomics Lab home">
-        <img
-          src="assets/logos/logo-icon.png"
-          alt="Disease Transcriptomics Lab logo"
-        />
+        <img src="assets/logos/logo-icon.png" alt="Disease Transcriptomics Lab logo" />
       </a>
 
       <ul class="nav-links" role="list">
@@ -50,7 +43,7 @@
           <a href="https://github.com/DiseaseTranscriptomicsLab"
              target="_blank" rel="noopener"
              class="btn btn-outline"
-             style="padding:.4rem 1rem; font-size:.85rem; color:rgba(255,255,255,.75); border-color:rgba(255,255,255,.25);">
+             style="padding:.4rem 1rem;font-size:.85rem;color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.25);">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
               <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
             </svg>
@@ -60,15 +53,13 @@
         <li>
           <a href="mailto:nmorais@nms.unl.pt"
              class="btn btn-primary"
-             style="padding:.4rem 1rem; font-size:.85rem;">
+             style="padding:.4rem 1rem;font-size:.85rem;">
             Contact
           </a>
         </li>
       </ul>
 
-      <button class="nav-toggle"
-              aria-label="Toggle navigation menu"
-              id="nav-toggle-btn">
+      <button class="nav-toggle" aria-label="Toggle navigation menu" id="nav-toggle-btn">
         <span></span><span></span><span></span>
       </button>
 
@@ -83,1139 +74,73 @@
       <a href="https://github.com/DiseaseTranscriptomicsLab" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:nmorais@nms.unl.pt">Contact</a>
     </div>
-
   </nav>
 
 
   <!-- ============================================================
-       HERO SECTION
-       Edit: sections/hero.html (then paste content here)
+       PAGE SECTIONS
+       Each section is fetched from sections/*.html by main.js.
+       To edit content: open the file listed in the comment,
+       make your changes, then commit + push to GitHub.
+
+       ⚠ Local preview: fetch() requires an HTTP server.
+         Run:  python3 -m http.server 8000
+         Then open:  http://localhost:8000
        ============================================================ -->
-  <section id="hero">
-    <div class="container">
 
-      <div class="hero-inner fade-up">
+  <div id="section-hero"></div>
+  <!-- Edit: sections/hero.html -->
 
-        <!-- Lab full logo -->
-        <div class="hero-logo-block">
-          <img
-            src="assets/logos/logo-full-dark.png"
-            alt="Disease Transcriptomics Lab: NMorais Lab"
-          />
-        </div>
+  <div id="section-about"></div>
+  <!-- Edit: sections/about.html -->
 
-        <!-- Small location kicker -->
-        <div class="hero-kicker">NOVA Medical School · Lisbon, Portugal</div>
+  <div id="section-team"></div>
+  <!-- Edit: sections/team.html  ← add team members here -->
 
-        <!-- Lab name -->
-        <!-- <div class="hero-lab-name">Disease Transcriptomics Lab</div>-->
+  <div id="section-software"></div>
+  <!-- Edit: sections/software.html  ← add tools here -->
 
-        <!-- EDIT HERO TITLE — the <span> is highlighted in teal -->
-        <h1 class="hero-title">
-          Decoding RNA<br>to understand<br><span>disease</span>
-        </h1>
+  <div id="section-publications"></div>
+  <!-- Edit: sections/publications.html  ← add papers here -->
 
-        <!-- EDIT HERO DESCRIPTION -->
-        <p class="hero-desc">
-          We apply computational approaches to high-throughput transcriptomic data,
-          uncovering how RNA-level changes drive cancer, neurodegeneration, and
-          ageing-related pathologies, and we build open tools to make these
-          analyses accessible to all researchers.
-        </p>
+  <div id="section-news"></div>
+  <!-- Edit: sections/news.html -->
 
-        <!-- EDIT CALL-TO-ACTION BUTTONS -->
-        <div class="hero-ctas">
-          <a href="#software" class="btn btn-primary">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                 stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-            Explore our tools
-          </a>
-          <a href="#publications" class="btn btn-outline">View publications</a>
-        </div>
+  <div id="section-alumni"></div>
+  <!-- Edit: sections/alumni.html  ← add former members here -->
 
-      </div><!-- /hero-inner -->
-
-      <!-- EDIT AFFILIATION BADGES -->
-      <div class="hero-affiliations fade-up" style="transition-delay:.2s;">
-        <span>Find us at</span>
-        <a href="https://www.nms.unl.pt/en-us/research/research/research-groups/research-group/n/disease-transcriptomics"
-           class="affil-badge" target="_blank" rel="noopener">NMS · UNL</a>
-        <a href="https://compbio.imm.medicina.ulisboa.pt" class="affil-badge"
-           target="_blank" rel="noopener">Software Hub ↗</a>
-        <a href="https://github.com/DiseaseTranscriptomicsLab" class="affil-badge"
-           target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-
-    </div>
-  </section>
+  <div id="section-location"></div>
+  <!-- Edit: sections/location.html -->
 
 
   <!-- ============================================================
-       ABOUT SECTION
-       Edit: sections/about.html (then paste content here)
-       ============================================================ -->
-  <section id="about">
-    <div class="container">
-
-      <div class="about-stack">
-
-        <!-- ── EDIT LAB PHOTO ──────────────────────────────────────
-             OPTION A (placeholder, current): shows a dashed box.
-             OPTION B (real photo): replace the entire .lab-photo-wrap
-             div below with:
-
-               <div class="lab-photo-wrap">
-                 <img src="assets/team-photo.jpg"
-                      alt="NMorais Lab members 2025" />
-               </div>
-
-             Recommended image size: at least 1400 × 600 px.
-             ──────────────────────────────────────────────────────── -->
-        <div class="lab-photo-wrap fade-up">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <path d="m21 15-5-5L5 21"/>
-          </svg>
-          <p>
-            <strong>Lab photo placeholder</strong><br>
-            Replace this block with your team photo (see the HTML comment above).<br>
-            Recommended: 1400 × 600 px or wider.
-          </p>
-        </div>
-
-        <!-- ── EDIT ABOUT TEXT ─────────────────────────────────────
-             Update the paragraphs below with the current lab description.
-             ──────────────────────────────────────────────────────── -->
-        <div class="about-text fade-up" style="transition-delay:.1s;">
-          <div>
-            <span class="section-label">About the Lab</span>
-            <h2 class="section-title">Bridging RNA biology and disease</h2>
-          </div>
-
-          <p>
-            The Disease Transcriptomics Lab, led by <strong>Nuno Morais</strong>, is a
-            computational biology group at <strong>NOVA Medical School</strong>, Lisbon.
-            We apply mostly computational approaches, particularly those involving the
-            analysis of high-throughput genomic and transcriptomic data, to fundamental
-            questions in biomedical research.
-          </p>
-
-          <p>
-            We have a long-term interest in the systems-level transcriptional regulation
-            underlying mammalian cell specification, often perturbed in disease, spanning
-            <strong>cancer</strong>, <strong>neurodegeneration</strong>, and other
-            ageing-related pathologies.
-          </p>
-
-          <p>
-            A central commitment of the lab is open, reproducible science: every tool we
-            build is freely available, documented, and designed to be usable by
-            non-computational scientists. Along the way, we develop applications to assist
-            colleagues in analyses of transcriptomic data, transparently sharing our
-            approaches and avoiding "black boxes".
-          </p>
-
-          <!-- ── EDIT MISSION PILLARS ───────────────────────────── -->
-          <div class="mission-pillars">
-            <div class="pillar">
-              <h4>Cancer</h4>
-              <p>Splicing and expression alterations driving tumour progression.</p>
-            </div>
-            <div class="pillar">
-              <h4>Neurodegeneration</h4>
-              <p>RNA dysregulation in ageing brain and neurodegenerative disease.</p>
-            </div>
-            <div class="pillar">
-              <h4>Open Tools</h4>
-              <p>User-friendly bioinformatics software for the whole community.</p>
-            </div>
-          </div>
-
-        </div><!-- /about-text -->
-
-      </div><!-- /about-stack -->
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       TEAM SECTION
-       Edit: sections/team.html (then paste content here)
-       ============================================================ -->
-  <section id="team" style="background:var(--fog);">
-    <div class="container">
-
-      <span class="section-label fade-up">People</span>
-      <h2 class="section-title fade-up">Meet the team</h2>
-      <p class="section-intro fade-up">
-        A multidisciplinary group combining computational biology,
-        bioinformatics, and molecular biology expertise.
-      </p>
-
-      <!-- ── PI CARD ────────────────────────────────────────────── -->
-      <div class="pi-card fade-up">
-
-        <div class="pi-photo">
-          <!-- Replace with: <img src="assets/photos/nuno-morais.jpg" alt="Nuno Morais" /> -->
-          <div class="pi-photo-placeholder">NM</div>
-        </div>
-
-        <div class="pi-info">
-          <span class="pi-badge">Principal Investigator</span>
-
-          <div class="member-name-row">
-            <div class="pi-name">Nuno Luís Barbosa Morais</div>
-            <span class="member-flag">🇵🇹</span>
-          </div>
-
-          <p class="member-bio">[Add a short bio here.]</p>
-
-          <p class="pi-interests">
-            <strong>Research interests:</strong>
-            [Interest 1] · [Interest 2] · [Interest 3] · [Interest 4]
-          </p>
-
-          <div class="pi-email">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-            </svg>
-            <a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>
-          </div>
-
-          <div class="social-links">
-            <a class="social-link"
-               href="https://orcid.org/0000-0002-1215-0538"
-               target="_blank" rel="noopener">ORCID</a>
-            <a class="social-link"
-               href="https://bsky.app/profile/nmoraislab.bsky.social"
-               target="_blank" rel="noopener">Bluesky</a>
-            <a class="social-link"
-               href="https://www.linkedin.com/company/disease-transcriptomics-lab"
-               target="_blank" rel="noopener">LinkedIn</a>
-            <a class="social-link"
-               href="https://scholar.google.com/citations?user=bSqN8OYAAAAJ"
-               target="_blank" rel="noopener">Google Scholar</a>
-            <a class="social-link"
-               href="https://github.com/nuno-agostinho"
-               target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-      </div><!-- /pi-card -->
-
-      <!-- ── TEAM GRID ─────────────────────────────────────────── -->
-      <div class="team-grid">
-
-        <!-- Diana Vieira ─────────────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.05s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">DV</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">Postdoctoral Researcher</span>
-            <div class="member-name-row">
-              <div class="member-name">Diana Vieira</div>
-              <span class="member-flag">🇵🇹</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Jacek Marzec ─────────────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.1s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">JM</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">Postdoctoral Researcher</span>
-            <div class="member-name-row">
-              <div class="member-name">Jacek Marzec</div>
-              <span class="member-flag">🇵🇱</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rita Silva ───────────────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.15s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">RS</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">PhD Student</span>
-            <div class="member-name-row">
-              <div class="member-name">Rita Silva</div>
-              <span class="member-flag">🇵🇹</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Alexandre Kaizeler ───────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.2s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">AK</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">PhD Student</span>
-            <div class="member-name-row">
-              <div class="member-name">Alexandre Kaizeler</div>
-              <span class="member-flag">🇵🇹</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Francisca Xara-Brasil ────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.25s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">FX</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">PhD Student</span>
-            <div class="member-name-row">
-              <div class="member-name">Francisca Xara-Brasil</div>
-              <span class="member-flag">🇵🇹</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Daniel Marques ───────────────────────────────────── -->
-        <div class="member-card fade-up" style="transition-delay:.3s;">
-          <div class="member-photo">
-            <div class="member-photo-placeholder">DM</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-badge">Master's Student</span>
-            <div class="member-name-row">
-              <div class="member-name">Daniel Marques</div>
-              <span class="member-flag">🇵🇹</span>
-            </div>
-            <p class="member-bio">[Add a short bio here.]</p>
-            <div class="member-interests">
-              <strong>Interests:</strong> [Topic 1] · [Topic 2] · [Topic 3]
-            </div>
-            <div class="member-email">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <a href="mailto:placeholder@nms.unl.pt">[email@nms.unl.pt]</a>
-            </div>
-            <div class="social-links">
-              <a class="social-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">Bluesky</a>
-              <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ADD MORE MEMBERS: copy a .member-card block above -->
-
-      </div><!-- /team-grid -->
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SOFTWARE SECTION
-       Edit: sections/software.html (then paste content here)
-       ============================================================ -->
-  <section id="software">
-    <div class="container">
-
-      <span class="section-label fade-up">Software</span>
-      <h2 class="section-title fade-up">Bioinformatics tools</h2>
-      <p class="section-intro fade-up">
-        Open-source, user-friendly applications for transcriptomic analysis: freely
-        accessible via our
-        <a href="https://compbio.imm.medicina.ulisboa.pt" target="_blank" rel="noopener">software hub</a>
-        and
-        <a href="https://github.com/DiseaseTranscriptomicsLab" target="_blank" rel="noopener">GitHub</a>.
-      </p>
-
-      <!-- ── WEB APPS ─────────────────────────────────────────── -->
-      <div class="software-section-divider fade-up">Online Web Apps</div>
-      <div class="software-grid">
-
-        <!-- voyAGEr -->
-        <div class="tool-card fade-up">
-          <span class="tool-badge webapp">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            Online Web App
-          </span>
-          <div class="tool-name">voyAGEr</div>
-          <p class="tool-desc">
-            Analysis of age-related gene expression changes across tissues using
-            large-scale human transcriptomic data from GTEx and TCGA.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://compbio.imm.medicina.ulisboa.pt/app/voyAGEr"
-               target="_blank" rel="noopener">
-              Launch app ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://doi.org/10.7554/eLife.88623.3"
-                 target="_blank" rel="noopener">
-                Paper
-              </a>
-              <a class="tool-link"
-                 href="https://github.com/DiseaseTranscriptomicsLab/voyAGEr"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- betAS -->
-        <div class="tool-card fade-up" style="transition-delay:.05s;">
-          <span class="tool-badge webapp">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            Online Web App
-          </span>
-          <div class="tool-name">betAS</div>
-          <p class="tool-desc">
-            Intuitive differential alternative splicing analyses using beta
-            distributions for robust, interpretable results.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://compbio.imm.medicina.ulisboa.pt/app/betAS"
-               target="_blank" rel="noopener">
-              Launch app ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://rnajournal.cshlp.org/content/30/4/337.abstract"
-                 target="_blank" rel="noopener">
-                Paper
-              </a>
-              <a class="tool-link"
-                 href="https://github.com/DiseaseTranscriptomicsLab/betAS"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- cTRAP -->
-        <div class="tool-card fade-up" style="transition-delay:.1s;">
-          <span class="tool-badge webapp">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            Online Web App
-          </span>
-          <div class="tool-name">cTRAP</div>
-          <p class="tool-desc">
-            Identification of candidate causal perturbations from differential
-            gene expression data via CMap connectivity mapping.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://compbio.imm.medicina.ulisboa.pt/app/cTRAP"
-               target="_blank" rel="noopener">
-              Launch app ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://www.bioconductor.org/packages/release/bioc/html/cTRAP.html"
-                 target="_blank" rel="noopener">
-                Bioconductor
-              </a>
-              <a class="tool-link"
-                 href="https://nuno-agostinho.github.io/cTRAP/"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- psichomics -->
-        <div class="tool-card fade-up" style="transition-delay:.15s;">
-          <span class="tool-badge webapp">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            Online Web App
-          </span>
-          <div class="tool-name">psichomics</div>
-          <p class="tool-desc">
-            Alternative splicing quantification, visualisation, and analysis from
-            TCGA, GTEx, and SRA datasets: with an R/Bioconductor package.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://compbio.imm.medicina.ulisboa.pt/app/psichomics"
-               target="_blank" rel="noopener">
-              Launch app ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://doi.org/10.1093/nar/gky888"
-                 target="_blank" rel="noopener">
-                Paper
-              </a>
-              <a class="tool-link"
-                 href="https://bioconductor.org/packages/release/bioc/html/psichomics.html"
-                 target="_blank" rel="noopener">
-                Bioconductor
-              </a>
-              <a class="tool-link"
-                 href="https://github.com/nuno-agostinho/psichomics"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- scStudio -->
-        <div class="tool-card fade-up" style="transition-delay:.2s;">
-          <span class="tool-badge webapp">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            Online Web App
-          </span>
-          <div class="tool-name">scStudio</div>
-          <p class="tool-desc">
-            Interactive and flexible analysis platform for single-cell RNA-seq data,
-            supporting exploratory and reproducible workflows.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://compbio.imm.medicina.ulisboa.pt/app/scStudio"
-               target="_blank" rel="noopener">
-              Launch app ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://www.biorxiv.org/content/10.1101/2025.04.17.649161v1"
-                 target="_blank" rel="noopener">
-                bioRxiv
-              </a>
-              <a class="tool-link"
-                 href="https://github.com/DiseaseTranscriptomicsLab/scStudio"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /software-grid web apps -->
-
-      <!-- ── R PACKAGES / SOFTWARE ─────────────────────────────── -->
-      <div class="software-section-divider fade-up" style="transition-delay:.25s;">
-        R Packages &amp; Software
-      </div>
-      <div class="software-grid">
-
-        <!-- markeR -->
-        <div class="tool-card software-only fade-up">
-          <span class="tool-badge pkg">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-              <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/>
-            </svg>
-            Bioconductor Package
-          </span>
-          <div class="tool-name">markeR</div>
-          <p class="tool-desc">
-            Toolkit for evaluating gene sets as phenotype markers from gene
-            expression data: available as a Bioconductor R package with a full tutorial.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link launch"
-               href="https://bioconductor.org/packages/release/bioc/html/markeR.html"
-               target="_blank" rel="noopener">
-              Bioconductor ↗
-            </a>
-            <div class="tool-link-row">
-              <a class="tool-link"
-                 href="https://www.biorxiv.org/content/10.64898/2025.12.05.692517v1"
-                 target="_blank" rel="noopener">
-                bioRxiv
-              </a>
-              <a class="tool-link"
-                 href="https://github.com/DiseaseTranscriptomicsLab/markeR/"
-                 target="_blank" rel="noopener">
-                GitHub
-              </a>
-              <a class="tool-link"
-                 href="https://diseasetranscriptomicslab.github.io/markeR/articles/markeR.html"
-                 target="_blank" rel="noopener">
-                Tutorial
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /software-grid packages -->
-
-      <!-- ── IN DEVELOPMENT ───────────────────────────────────── -->
-      <div class="software-section-divider fade-up">In Development</div>
-      <div class="software-grid">
-
-        <!-- CHARM -->
-        <div class="tool-card software-only fade-up">
-          <span class="tool-badge dev">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-            </svg>
-            In Development
-          </span>
-          <div class="tool-name">CHARM</div>
-          <p class="tool-desc">
-            Platform for studying how RNA-binding proteins regulate expression,
-            splicing, and RNA binding through ENCODE data.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link"
-               href="https://github.com/DiseaseTranscriptomicsLab/CHARM/"
-               target="_blank" rel="noopener">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- CREOLE -->
-        <div class="tool-card software-only fade-up" style="transition-delay:.05s;">
-          <span class="tool-badge dev">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-            </svg>
-            In Development
-          </span>
-          <div class="tool-name">CREOLE</div>
-          <p class="tool-desc">
-            Reference-free identification of open reading frames and encoded
-            proteins from nanopore long-read transcriptomic data.
-          </p>
-          <div class="tool-links">
-            <a class="tool-link"
-               href="https://github.com/comprna/CREOLE"
-               target="_blank" rel="noopener">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-      </div><!-- /software-grid dev -->
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       PUBLICATIONS SECTION
-       Edit: sections/publications.html (then paste content here)
-       ============================================================ -->
-  <section id="publications" style="background:var(--fog);">
-    <div class="container">
-
-      <span class="section-label fade-up">Research output</span>
-      <h2 class="section-title fade-up">Selected publications</h2>
-      <p class="section-intro fade-up">
-        A curated list of key papers from the lab. For the full list, visit
-        <a href="https://orcid.org/0000-0002-1215-0538" target="_blank" rel="noopener">
-          Nuno Morais' ORCID profile ↗
-        </a>
-      </p>
-
-      <ul class="pub-list">
-
-        <!-- 2025 ─────────────────────────────────────────────── -->
-        <li class="pub-item fade-up">
-          <div class="pub-year">2025</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1158/2326-6066.CIR-24-0797"
-                 target="_blank" rel="noopener">
-                Sustained Macrophage Reprogramming Is Required for CD8+ T cell-Dependent Long-Term Tumor Eradication
-              </a>
-            </div>
-            <div class="pub-authors">
-              Jardim C, Bica M, Reis-Sobreiro M, Teixeira da Mota A, Lopes R, Pinto MF, Sousa NS,
-              Mensurado S, Boekhoff H, Scolaro T, Reugebrink M, Goncalves-Sousa N, Kubo H, Gomes CM,
-              Brito C, Argüello RJ, Leites EP, Morais VA, Silva-Santos B, Barbosa-Morais NL, Serre K.
-            </div>
-            <div class="pub-journal">Cancer Immunol Res · 2025 · 13(8):1207-1225</div>
-            <div class="pub-tags">
-              <span class="pub-tag">cancer immunology</span>
-              <span class="pub-tag">macrophages</span>
-              <span class="pub-tag">T cells</span>
-            </div>
-          </div>
-        </li>
-
-        <!-- 2024 ─────────────────────────────────────────────── -->
-        <li class="pub-item fade-up" style="transition-delay:.04s;">
-          <div class="pub-year">2024</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.7554/eLife.88623"
-                 target="_blank" rel="noopener">
-                voyAGEr: a free web interface for the analysis of age-related gene expression alterations in human tissues
-              </a>
-            </div>
-            <div class="pub-authors">
-              Schneider AL, Martins-Silva R, Kaizeler A, Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">eLife · 2024 · 12:RP88623</div>
-            <div class="pub-tags">
-              <span class="pub-tag">ageing</span>
-              <span class="pub-tag">gene expression</span>
-              <span class="pub-tag">web tool</span>
-            </div>
-          </div>
-        </li>
-
-        <li class="pub-item fade-up" style="transition-delay:.08s;">
-          <div class="pub-year">2024</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1261/rna.079764.123"
-                 target="_blank" rel="noopener">
-                betAS: intuitive analysis and visualization of differential alternative splicing using beta distributions
-              </a>
-            </div>
-            <div class="pub-authors">
-              Ascensão-Ferreira M, Martins-Silva R, Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">RNA · 2024 · 30(4):337-353</div>
-            <div class="pub-tags">
-              <span class="pub-tag">alternative splicing</span>
-              <span class="pub-tag">statistics</span>
-              <span class="pub-tag">software</span>
-            </div>
-          </div>
-        </li>
-
-        <!-- 2020 ─────────────────────────────────────────────── -->
-        <li class="pub-item fade-up" style="transition-delay:.12s;">
-          <div class="pub-year">2020</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.3389/fnins.2020.607215"
-                 target="_blank" rel="noopener">
-                Unraveling Targetable Systemic and Cell-Type-Specific Molecular Phenotypes of Alzheimer's and Parkinson's Brains With Digital Cytometry
-              </a>
-            </div>
-            <div class="pub-authors">
-              Bordone MC, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">Front Neurosci · 2020 · 14:607215</div>
-            <div class="pub-tags">
-              <span class="pub-tag">neurodegeneration</span>
-              <span class="pub-tag">Alzheimer's</span>
-              <span class="pub-tag">Parkinson's</span>
-            </div>
-          </div>
-        </li>
-
-        <li class="pub-item fade-up" style="transition-delay:.16s;">
-          <div class="pub-year">2020</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1261/rna.077446.120"
-                 target="_blank" rel="noopener">
-                NineTeen Complex-subunit Salsa is required for efficient splicing of a subset of introns and dorsal-ventral patterning
-              </a>
-            </div>
-            <div class="pub-authors">
-              Rathore OS, Silva RD, Ascensão-Ferreira M, Matos R, Carvalho C, Marques B, Tiago MN,
-              Prudêncio P, Andrade RP, Roignant JY, Barbosa-Morais NL, Martinho RG.
-            </div>
-            <div class="pub-journal">RNA · 2020 · 26(12):1935-1956</div>
-            <div class="pub-tags">
-              <span class="pub-tag">splicing</span>
-              <span class="pub-tag">Drosophila</span>
-            </div>
-          </div>
-        </li>
-
-        <!-- 2019 ─────────────────────────────────────────────── -->
-        <li class="pub-item fade-up" style="transition-delay:.2s;">
-          <div class="pub-year">2019</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.7554/eLife.47678"
-                 target="_blank" rel="noopener">
-                Androgen-regulated transcription of ESRP2 drives alternative splicing patterns in prostate cancer
-              </a>
-            </div>
-            <div class="pub-authors">
-              Munkley J, Li L, Krishnan SRG, Hysenaj G, Scott E, Dalgliesh C, Oo HZ, Maia TM,
-              Cheung K, Ehrmann I, Livermore KE, Zielinska H, Thompson O, Knight B, McCullagh P,
-              McGrath J, Crundwell M, Harries LW, Daugaard M, Cockell S, Barbosa-Morais NL,
-              Oltean S, Elliott DJ.
-            </div>
-            <div class="pub-journal">eLife · 2019 · 8:e47678</div>
-            <div class="pub-tags">
-              <span class="pub-tag">prostate cancer</span>
-              <span class="pub-tag">alternative splicing</span>
-            </div>
-          </div>
-        </li>
-
-        <li class="pub-item fade-up" style="transition-delay:.24s;">
-          <div class="pub-year">2019</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1371/journal.pcbi.1006832"
-                 target="_blank" rel="noopener">
-                Pan-cancer association of a centrosome amplification gene expression signature with genomic alterations and clinical outcome
-              </a>
-            </div>
-            <div class="pub-authors">
-              de Almeida BP, Vieira AF, Paredes J, Bettencourt-Dias M, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">PLoS Comput Biol · 2019 · 15(3):e1006832</div>
-            <div class="pub-tags">
-              <span class="pub-tag">pan-cancer</span>
-              <span class="pub-tag">centrosome</span>
-              <span class="pub-tag">gene expression</span>
-            </div>
-          </div>
-        </li>
-
-        <li class="pub-item fade-up" style="transition-delay:.28s;">
-          <div class="pub-year">2019</div>
-          <div class="pub-content">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1093/nar/gky888"
-                 target="_blank" rel="noopener">
-                psichomics: graphical application for alternative splicing quantification and analysis
-              </a>
-            </div>
-            <div class="pub-authors">
-              Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">Nucleic Acids Res · 2019 · 47(2):e7</div>
-            <div class="pub-tags">
-              <span class="pub-tag">alternative splicing</span>
-              <span class="pub-tag">software</span>
-            </div>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       NEWS SECTION
-       Edit: sections/news.html (then paste content here)
-       The Bluesky feed is loaded live via the public AT Protocol API.
-       ============================================================ -->
-  <section id="news">
-    <div class="container">
-
-      <span class="section-label fade-up">Latest</span>
-      <h2 class="section-title fade-up">News &amp; updates</h2>
-
-      <p class="section-intro fade-up">
-        Follow us for real-time lab updates, paper announcements, and more.
-      </p>
-
-      <!-- Social follow buttons (centered) -->
-      <div class="news-social-links fade-up" style="margin-bottom:2.5rem; justify-content:center;">
-
-        <a class="news-social-btn"
-           href="https://bsky.app/profile/nmoraislab.bsky.social"
-           target="_blank" rel="noopener">
-          <!-- Bluesky icon -->
-          <svg width="16" height="16" viewBox="0 0 600 530" fill="currentColor">
-            <path d="M300 131c-53-80-141-128-192-94-51 35-62 131-20 182 22 28 69 50 107 72C64 342 0 382 0 382s89-16 134 6c44 22 99 83 166 83s122-61 166-83c45-22 134-6 134-6s-64-40-195-91c38-22 85-44 107-72 42-51 31-147-20-182-51-34-139 14-192 94z"/>
-          </svg>
-          Bluesky
-        </a>
-
-        <a class="news-social-btn"
-           href="https://www.linkedin.com/company/disease-transcriptomics-lab"
-           target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-          LinkedIn
-        </a>
-
-        <a class="news-social-btn"
-           href="https://x.com/NMoraisLab"
-           target="_blank" rel="noopener">
-          <!-- X / Twitter icon -->
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.726-8.836L1.254 2.25H8.08l4.254 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
-          </svg>
-          X / Twitter
-        </a>
-
-      </div>
-
-      <!-- Live Bluesky feed (public AT Protocol API, no key required) -->
-      <div class="bsky-feed-wrap fade-up" style="transition-delay:.1s;">
-        <div id="bsky-feed-grid" class="bsky-grid">
-          <div class="bsky-loading">Loading posts from Bluesky…</div>
-        </div>
-        <div class="bsky-footer">
-          <a class="bsky-follow-btn"
-             href="https://bsky.app/profile/nmoraislab.bsky.social"
-             target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 600 530" fill="currentColor">
-              <path d="M300 131c-53-80-141-128-192-94-51 35-62 131-20 182 22 28 69 50 107 72C64 342 0 382 0 382s89-16 134 6c44 22 99 83 166 83s122-61 166-83c45-22 134-6 134-6s-64-40-195-91c38-22 85-44 107-72 42-51 31-147-20-182-51-34-139 14-192 94z"/>
-            </svg>
-            Follow @nmoraislab on Bluesky
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       ALUMNI SECTION
-       Edit: sections/alumni.html (then paste content here)
-       Entries are ordered by most recent departure date.
-       Format: Name · Role · (years)
-       ============================================================ -->
-  <section id="alumni" style="background:var(--fog);">
-    <div class="container">
-
-      <span class="section-label fade-up">Lab alumni</span>
-      <h2 class="section-title fade-up">Former members</h2>
-      <p class="section-intro fade-up">
-        Past members of the lab who have gone on to further positions in academia and industry.
-      </p>
-
-      <!-- Ordered by most recent departure; link names to LinkedIn if available -->
-      <ul class="alumni-list-flat fade-up" style="transition-delay:.1s;">
-
-        <li class="alumni-item">
-          [Name — edit in sections/alumni.html]
-          <span class="alumni-meta">· Postdoctoral Researcher · (2020–2024)</span>
-        </li>
-
-        <li class="alumni-item">
-          [Name — edit in sections/alumni.html]
-          <span class="alumni-meta">· PhD Student · (2019–2023)</span>
-        </li>
-
-        <li class="alumni-item">
-          [Name — edit in sections/alumni.html]
-          <span class="alumni-meta">· Master's Student · (2022)</span>
-        </li>
-
-        <!-- To add: <li class="alumni-item"><a href="https://linkedin.com/in/..." target="_blank" rel="noopener">Full Name</a><span class="alumni-meta">· Role · (years)</span></li> -->
-
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       LOCATION SECTION
-       Update the address and coordinates below if needed.
-       ============================================================ -->
-  <section id="location">
-    <div class="container">
-
-      <span class="section-label fade-up">Find us</span>
-      <h2 class="section-title fade-up">Where we are</h2>
-
-      <div class="location-inner fade-up" style="transition-delay:.1s;">
-
-        <div class="location-address">
-          <h3>Disease Transcriptomics Lab</h3>
-          <p>
-            NOVA Medical School<br>
-            Universidade NOVA de Lisboa
-          </p>
-          <p>
-            Rua do Instituto Bacteriológico, 5<br>
-            1150-190 Lisboa<br>
-            Portugal
-          </p>
-          <p>
-            <a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>
-          </p>
-          <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:.75rem;">
-            <a href="https://www.nms.unl.pt" target="_blank" rel="noopener"
-               class="btn btn-outline" style="font-size:.85rem; padding:.5rem 1.2rem; width:fit-content;">
-              NOVA Medical School ↗
-            </a>
-            <a href="https://www.google.com/maps/search/Rua+do+Instituto+Bacteriologico+5+Lisboa"
-               target="_blank" rel="noopener"
-               class="btn btn-outline" style="font-size:.85rem; padding:.5rem 1.2rem; width:fit-content;">
-              Open in Google Maps ↗
-            </a>
-          </div>
-        </div>
-
-        <div class="map-wrap">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-9.1400%2C38.7165%2C-9.1320%2C38.7215&amp;layer=mapnik&amp;marker=38.7192%2C-9.1360"
-            title="NOVA Medical School — Rua do Instituto Bacteriológico, Lisboa"
-            loading="lazy"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       FOOTER
-       Edit address and links below.
+       FOOTER — edit address and links here
        ============================================================ -->
   <footer>
     <div class="container">
 
       <div class="footer-inner">
 
-        <!-- Column 1: Lab identity + address -->
         <div class="footer-col">
           <div class="footer-logo">
-            <img
-              src="assets/logos/logo-icon.png"
-              alt="Disease Transcriptomics Lab"
-              style="height:40px;width:auto;margin-bottom:.75rem;"
-            />
+            <img src="assets/logos/logo-icon.png"
+                 alt="Disease Transcriptomics Lab"
+                 style="height:40px;width:auto;margin-bottom:.75rem;" />
           </div>
           <h4>Disease Transcriptomics Lab</h4>
-          <!-- EDIT ADDRESS -->
           <p>
             NOVA Medical School · Lisbon<br>
             Rua do Instituto Bacteriológico, 5<br>
             1150-190 Lisboa · Portugal
           </p>
           <br>
-          <!-- EDIT EMAIL -->
           <p>
-            <a href="mailto:nmorais@nms.unl.pt"
-               style="color:var(--teal);">
+            <a href="mailto:nmorais@nms.unl.pt" style="color:var(--teal);">
               nmorais@nms.unl.pt
             </a>
           </p>
         </div>
 
-        <!-- Column 2: Quick links -->
         <div class="footer-col">
           <h4>Quick links</h4>
           <ul>
@@ -1224,46 +149,28 @@
             <li><a href="#software">Tools</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#news">News</a></li>
-            <li>
-              <a href="https://compbio.imm.medicina.ulisboa.pt"
-                 target="_blank" rel="noopener">Software Hub ↗</a>
-            </li>
-            <li>
-              <a href="https://github.com/DiseaseTranscriptomicsLab"
-                 target="_blank" rel="noopener">GitHub ↗</a>
-            </li>
+            <li><a href="https://compbio.imm.medicina.ulisboa.pt" target="_blank" rel="noopener">Software Hub ↗</a></li>
+            <li><a href="https://github.com/DiseaseTranscriptomicsLab" target="_blank" rel="noopener">GitHub ↗</a></li>
           </ul>
         </div>
 
-        <!-- Column 3: Affiliations -->
         <div class="footer-col">
           <h4>Affiliations</h4>
           <ul>
-            <li>
-              <a href="https://www.nms.unl.pt"
-                 target="_blank" rel="noopener">NOVA Medical School</a>
-            </li>
-            <li>
-              <a href="https://gimm.pt"
-                 target="_blank" rel="noopener">GIMM</a>
-            </li>
+            <li><a href="https://www.nms.unl.pt" target="_blank" rel="noopener">NOVA Medical School</a></li>
+            <li><a href="https://gimm.pt" target="_blank" rel="noopener">GIMM</a></li>
           </ul>
         </div>
 
-      </div><!-- /footer-inner -->
+      </div>
 
       <div class="footer-bottom">
-        <div>
-          Disease Transcriptomics Lab · NOVA Medical School · Lisboa
-        </div>
+        <div>Disease Transcriptomics Lab · NOVA Medical School · Lisboa</div>
         <div>
           © <span id="year"></span> NMorais Lab ·
           Built with
-          <a href="https://www.anthropic.com/claude"
-             target="_blank" rel="noopener"
-             style="color:rgba(255,255,255,.45);">
-            Claude Sonnet 4.6
-          </a>
+          <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener"
+             style="color:rgba(255,255,255,.45);">Claude Sonnet 4.6</a>
         </div>
       </div>
 
@@ -1271,85 +178,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-
-  <!-- ============================================================
-       BLUESKY FEED — uses the public AT Protocol API (no key needed)
-       Fetches the 6 most recent posts from @nmoraislab.bsky.social
-       ============================================================ -->
-  <script>
-  (function () {
-    const HANDLE  = 'nmoraislab.bsky.social';
-    const LIMIT   = 6;
-    const API_URL = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${HANDLE}&limit=${LIMIT}&filter=posts_no_replies`;
-
-    function formatDate(isoStr) {
-      const d = new Date(isoStr);
-      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    }
-
-    function escapeHtml(str) {
-      return (str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
-    function renderCard(item) {
-      const post   = item.post;
-      const record = post.record;
-      const author = post.author;
-      const text   = escapeHtml(record.text || '');
-      const date   = formatDate(record.createdAt);
-      const uri    = post.uri; // at://did:.../app.bsky.feed.post/rkey
-      const rkey   = uri.split('/').pop();
-      const postUrl = `https://bsky.app/profile/${author.handle}/post/${rkey}`;
-      const avatarHtml = author.avatar
-        ? `<img src="${escapeHtml(author.avatar)}" alt="${escapeHtml(author.displayName || author.handle)}" loading="lazy" />`
-        : '';
-
-      return `
-        <div class="bsky-card">
-          <div class="bsky-card-header">
-            <div class="bsky-avatar">${avatarHtml}</div>
-            <span class="bsky-handle">@${escapeHtml(author.handle)}</span>
-            <span class="bsky-date">${date}</span>
-          </div>
-          <p class="bsky-text">${text.replace(/\n/g, '<br>')}</p>
-          <a class="bsky-link" href="${escapeHtml(postUrl)}" target="_blank" rel="noopener">
-            View on Bluesky ↗
-          </a>
-        </div>`;
-    }
-
-    async function loadFeed() {
-      const grid = document.getElementById('bsky-feed-grid');
-      if (!grid) return;
-
-      try {
-        const res  = await fetch(API_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const feed = (data.feed || []).filter(item => !item.reason); // skip reposts
-
-        if (feed.length === 0) {
-          grid.innerHTML = '<p class="bsky-error">No posts found yet — check back soon!</p>';
-          return;
-        }
-
-        grid.innerHTML = feed.slice(0, LIMIT).map(renderCard).join('');
-      } catch (err) {
-        grid.innerHTML = `<p class="bsky-error">Could not load Bluesky posts. <a href="https://bsky.app/profile/${HANDLE}" target="_blank" rel="noopener">Visit our profile ↗</a></p>`;
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadFeed);
-    } else {
-      loadFeed();
-    }
-  })();
-  </script>
 
 </body>
 </html>

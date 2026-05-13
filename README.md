@@ -1,130 +1,192 @@
-# NMorais Lab — Disease Transcriptomics Lab Website
+# Disease Transcriptomics Lab — Website
 
-> **Built with the assistance of [Claude Sonnet 4.6](https://www.anthropic.com/claude) by Anthropic.**  
-> The initial codebase, structure, and design were generated and refined using Claude Sonnet 4.6 as a senior web development assistant. All scientific content and logos belong to the NMorais Lab.
+> Built with [Claude Sonnet 4.6](https://www.anthropic.com/claude) (Anthropic).
+> All scientific content and logos belong to the Disease Transcriptomics Lab.
 
 ---
 
 ## Overview
 
-A static, single-repository website for the **Disease Transcriptomics Lab (NMorais Lab)** at NOVA Medical School, Lisbon. Designed to be hosted on **GitHub Pages** with a custom domain.
+Static website for the **Disease Transcriptomics Lab** at NOVA Medical School, Lisbon.  
+Hosted on **GitHub Pages** at `https://diseasetranscriptomicslab.github.io` (or a custom domain).
 
 ---
 
 ## File Architecture
 
 ```
-nmoraislab/
+nmoraislab.github.io/
 │
-├── index.html                  ← Main entry point — assembles all sections via <script> includes
-│
+├── index.html                   ← Shell: nav + section placeholders + footer
+│                                  (do not put content here — edit sections/ instead)
 ├── css/
-│   └── styles.css              ← All design tokens, layout, and component styles
+│   └── styles.css               ← All design tokens, layout, and component styles
 │
 ├── js/
-│   └── main.js                 ← Navigation, scroll animations, mobile menu
+│   └── main.js                  ← Section loader · Nav · Animations · Bluesky feed
 │
-├── sections/
-│   ├── hero.html               ← Hero / landing section
-│   ├── about.html              ← About the lab + mission
-│   ├── team.html               ← PI card + team member cards ← EDIT TEAM HERE
-│   ├── software.html           ← Web apps + software tools   ← EDIT TOOLS HERE
-│   ├── publications.html       ← Selected publications list  ← EDIT PUBS HERE
-│   └── news.html               ← Social media feed widget    ← EDIT NEWS HERE
+├── sections/                    ← ★ EDIT CONTENT HERE ★
+│   ├── hero.html                ← Hero / landing section
+│   ├── about.html               ← About the lab + lab photo
+│   ├── team.html                ← PI card + team member cards
+│   ├── software.html            ← Web apps, R packages, tools in development
+│   ├── publications.html        ← Selected publications list
+│   ├── news.html                ← Social follow buttons (Bluesky feed is auto-loaded)
+│   ├── alumni.html              ← Former lab members
+│   └── location.html            ← Address + OpenStreetMap embed
 │
 └── assets/
-    └── logos/ 
-        ├── logo-icon.png           ← DNA icon (white, transparent bg) — used in nav
-        └── logo-full-dark.png      ← Full logo (white text, transparent bg) — used in hero
+    ├── logos/
+    │   ├── logo-icon.png        ← DNA icon (white on transparent) — nav + footer
+    │   └── logo-full-dark.png   ← Full logo (white on transparent) — hero
+    └── photos/                  ← Team photos (add here, reference in team.html)
 ```
 
 ---
 
-## How to Edit Content (No Coding Required)
+## How It Works
 
-Each section lives in its own file inside `/sections/`. Open the relevant file in any text editor (Notepad, TextEdit, VS Code) and look for the `<!-- EDIT ... HERE -->` comments.
+`index.html` is a **shell** — it contains only the navigation, placeholder `<div>`s, and the footer. When the page loads, `js/main.js` fetches each `sections/*.html` file over HTTP and injects it into the matching placeholder. This keeps every section independently editable.
+
+---
+
+### ⚠ Local preview — you must use an HTTP server
+
+> **Opening `index.html` directly in your browser will show a blank page.**  
+> Browsers block `fetch()` on `file://` for security. This is expected behaviour.
+
+**To preview the site locally:**
+
+1. Open a **Terminal** (on Mac: Spotlight → "Terminal")
+2. Navigate to the site folder:
+   ```bash
+   cd /path/to/nmoraislab.github.io
+   ```
+3. Start a local server:
+   ```bash
+   python3 -m http.server 8000
+   ```
+4. Open **[http://localhost:8000](http://localhost:8000)** in your browser
+
+If you see a yellow banner at the top of the page, you opened the file directly — follow the instructions in the banner.
+
+> **On GitHub Pages (HTTPS), everything works automatically** — no server needed after pushing.
+
+---
+
+---
+
+## How to Edit Content
+
+Open the relevant file in `sections/`, make your changes, then commit and push.
 
 | File | What to edit |
 |---|---|
-| `sections/team.html` | Add/remove team member cards, update names, emails, roles, social links |
-| `sections/software.html` | Add new tools, update links, change descriptions |
-| `sections/publications.html` | Add publications in reverse chronological order |
-| `sections/news.html` | Paste your Curator.io / Elfsight social feed embed code |
-| `sections/about.html` | Update lab description, replace lab photo |
-| `sections/hero.html` | Edit headline and hero tagline |
+| `sections/team.html` | Add/remove team members, update names, emails, roles, ORCID, social links, bios |
+| `sections/software.html` | Add tools, update links and descriptions |
+| `sections/publications.html` | Add papers (newest first) |
+| `sections/alumni.html` | Add former members (newest departure first) |
+| `sections/about.html` | Lab description, replace lab photo placeholder |
+| `sections/hero.html` | Headline, tagline, affiliation badges |
+| `sections/news.html` | Social button URLs (Bluesky/LinkedIn/X); Bluesky feed is automatic |
+| `sections/location.html` | Address text, map pin coordinates |
+
+### Adding a team member
+
+Copy any `.member-card` block in `sections/team.html` and update:
+- Name, flag emoji, role badge
+- Bio text (`.member-bio`)
+- Research interests (`.member-interests`)
+- Email `href` and display text
+- Social links: ORCID, LinkedIn, Bluesky, GitHub (use `href="#"` to hide unused ones)
+- Photo: replace `<div class="member-photo-placeholder">XX</div>` with `<img src="assets/photos/firstname-lastname.jpg" />`
+
+### Adding a publication
+
+Copy a `.pub-item` block in `sections/publications.html` and update the year, title, DOI link, authors, journal, and tags.
+
+### Adding an alumni entry
+
+Add an `<li class="alumni-item">` to the list in `sections/alumni.html`:
+```html
+<li class="alumni-item">
+  <a href="https://linkedin.com/in/..." target="_blank" rel="noopener">Full Name</a>
+  <span class="alumni-meta">· Role · (2021–2025)</span>
+</li>
+```
+Keep entries ordered by most recent departure date.
 
 ---
 
-## Hosting on GitHub Pages (Recommended)
+## Bluesky Live Feed
 
-### Step 1 — Create a repository
-1. Go to [github.com](https://github.com) and create a **new repository**.
-2. Name it `nmoraislab.github.io` (for a root URL) **or** any name like `website` (the site will be at `yourusername.github.io/website`).
-3. Set visibility to **Public**.
+The News section automatically fetches and displays the 6 most recent posts from `@nmoraislab.bsky.social` using the **public AT Protocol API** — no account or API key required.
 
-### Step 2 — Upload the files
-Upload the entire folder contents (all files and folders) to the repository root.  
-Or use Git:
-```bash
-git init
-git add .
-git commit -m "Initial lab website"
-git remote add origin https://github.com/YOUR_ORG/nmoraislab.github.io.git
-git push -u origin main
+- Posts include images when present (single, pair, or grid layout)
+- Reposts are filtered out (original posts only)
+- To change the account, edit the `HANDLE` constant at the top of `loadBlueskyFeed()` in `js/main.js`
+
+---
+
+## Design Tokens
+
+To retheme the site, edit the CSS variables at the top of `css/styles.css`:
+
+```css
+:root {
+  --navy:       #0D1B2A;   /* dark background, headings */
+  --teal:       #0D9488;   /* accent colour             */
+  --teal-light: #14B8A6;   /* hover states              */
+  --slate:      #64748B;   /* secondary text            */
+  --fog:        #F0F4F8;   /* alternate section bg      */
+}
 ```
 
-### Step 3 — Enable GitHub Pages
-1. Go to **Settings → Pages**.
-2. Under *Source*, select **Deploy from a branch → main → / (root)**.
-3. Click **Save**. Your site will be live at `https://YOUR_ORG.github.io` within ~2 minutes.
-
-### Step 4 — Connect a custom domain (e.g. `lab.nmoraislab.org`)
-1. In the repository root, create a file named exactly `CNAME` containing just your domain:
-   ```
-   lab.nmoraislab.org
-   ```
-2. In your DNS provider, add these **A records** pointing to GitHub's servers:
-   ```
-   185.199.108.153
-   185.199.109.153
-   185.199.110.153
-   185.199.111.153
-   ```
-3. Also add a **CNAME record**: `www` → `YOUR_ORG.github.io`
-4. Back in GitHub → Settings → Pages → Custom domain, enter `lab.nmoraislab.org` and enable **Enforce HTTPS**.
-
-DNS propagation takes up to 48 hours. After that, HTTPS is automatic via Let's Encrypt.
-
 ---
 
-## Social Feed (News Section)
+## Deploying to GitHub Pages
 
-The news section is designed to host a **Curator.io** embed (free tier supports ~25 posts).
+1. Push the repository to GitHub.
+2. Go to **Settings → Pages → Source → Deploy from branch → main → / (root)**.
+3. The site is live at `https://YOUR_ORG.github.io` within ~2 minutes.
 
-1. Sign up at [curator.io](https://curator.io)
-2. Connect your **LinkedIn Company page** and/or **Bluesky** account
-3. Create a feed, style it to match the site (teal/white palette)
-4. Copy the two-line embed code and paste it into `sections/news.html`  
-   Look for: `<!-- PASTE CURATOR.IO EMBED CODE HERE -->`
+### Custom domain
+
+Create a `CNAME` file in the repository root containing your domain:
+```
+lab.nmoraislab.org
+```
+Add DNS **A records** pointing to GitHub's IPs:
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+And a **CNAME record**: `www` → `YOUR_ORG.github.io`.
+
+Enable **Enforce HTTPS** in GitHub → Settings → Pages.
 
 ---
 
 ## Updating the Site
 
-After any edit, simply **commit and push** to the `main` branch on GitHub. Pages re-deploys automatically within ~60 seconds.
+After any edit, commit and push to `main`. GitHub Pages redeploys automatically within ~60 seconds.
 
-For non-Git users: use the **GitHub web editor** (click any file → pencil icon ✏️ → edit → Commit changes).
+For non-Git users: use the **GitHub web editor** (click a file → pencil icon ✏ → edit → Commit changes).
 
 ---
 
 ## Credits
 
-- Website generated with **Claude Sonnet 4.6** (Anthropic, 2025)
+- Website built with **Claude Sonnet 4.6** (Anthropic, 2025)
 - Fonts: [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) + [DM Sans](https://fonts.google.com/specimen/DM+Sans) via Google Fonts
-- Social feed: [Curator.io](https://curator.io)
+- Map: [OpenStreetMap](https://www.openstreetmap.org) (free, no API key)
+- Social feed: [AT Protocol public API](https://docs.bsky.app) (free, no key)
 - Hosting: [GitHub Pages](https://pages.github.com)
-- Lab logo design: NMorais Lab
+- Icons: inline SVG (Simple Icons for brand logos)
+- Lab logo: Disease Transcriptomics Lab
 
 ---
 
-*NMorais Lab · Disease Transcriptomics · NOVA Medical School · GIMM · Lisbon, Portugal*
+*Disease Transcriptomics Lab · NOVA Medical School · Lisboa, Portugal*
