@@ -28,6 +28,7 @@ async function loadSections() {
     loadSection('section-software',     'software.html'),
     loadSection('section-publications', 'publications.html'),
     loadSection('section-news',         'news.html'),
+    loadSection('section-outreach',     'outreach.html'),
     loadSection('section-alumni',       'alumni.html'),
     loadSection('section-location',     'location.html'),
   ]);

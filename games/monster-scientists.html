@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Monster Scientists / Cientistas de Monstros</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d1b2a;
+    --bg2: #1a2e45;
+    --card: #1e3a5f;
+    --accent1: #f7c948;
+    --accent2: #ff6b6b;
+    --accent3: #6bcfff;
+    --green: #4ecb71;
+    --red: #ff4f4f;
+    --text: #f0f4ff;
+    --text2: #a8c0dd;
+    --radius: 22px;
+    --font-head: 'Baloo 2', 'Comic Sans MS', cursive;
+    --font-body: 'Quicksand', 'Comic Sans MS', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 60% 50%, rgba(255,255,255,0.15) 0%, transparent 100%);
+    z-index: 0;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    min-height: 100vh;
+    padding: 24px 16px;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.4s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: var(--accent1);
+    text-shadow: 0 3px 0 rgba(0,0,0,0.4);
+    text-align: center;
+    line-height: 1.1;
+  }
+  h2 {
+    font-family: var(--font-head);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--accent3);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  p, .label {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: var(--text2);
+    text-align: center;
+    line-height: 1.5;
+    max-width: 560px;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    font-family: var(--font-head);
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    border: none;
+    border-radius: 60px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s, filter 0.1s;
+    outline: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.35);
+  }
+  .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.3); }
+  .btn:hover  { filter: brightness(1.12); transform: translateY(-2px); }
+  .btn-primary   { background: var(--accent1); color: #1a1a1a; }
+  .btn-green     { background: var(--green);   color: #fff; }
+  .btn-red       { background: var(--red);     color: #fff; }
+  .btn-ghost     { background: rgba(255,255,255,0.08); color: var(--text); border: 2px solid rgba(255,255,255,0.18); }
+  .btn-choice    { background: var(--card); color: var(--text); border: 2px solid rgba(255,255,255,0.12); text-align:left; border-radius: 16px; padding: 16px 24px; width: 100%; max-width: 500px; font-family: var(--font-body); font-weight: 800; }
+  .btn-choice:hover { border-color: var(--accent1); background: #1e3a5f; }
+  .action-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+
+  #homeBtn {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    font-size: 1.4rem;
+    padding: 10px 14px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent1);
+    color: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    transition: transform 0.1s, filter 0.1s;
+  }
+  #homeBtn:hover { transform: scale(1.1); filter: brightness(1.1); }
+  #homeBtn:active { transform: scale(0.95); }
+
+  #backToLangBtn {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    display: none;
+    font-size: 1rem;
+    padding: 8px 14px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.18);
+    background: rgba(10,20,40,0.75);
+    color: var(--text2);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+    transition: border-color 0.15s, color 0.15s, transform 0.1s;
+    white-space: nowrap;
+    font-family: var(--font-head);
+  }
+  #backToLangBtn:hover { border-color: var(--accent3); color: var(--accent3); transform: translateX(-2px); }
+  #backToLangBtn.show { display: block; }
+
+  /* ===== LIVES INTRO BANNER ===== */
+  .lives-intro-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(255,79,79,0.12), rgba(247,201,72,0.08));
+    border: 2px solid rgba(255,79,79,0.3);
+    border-radius: 18px;
+    padding: 14px 22px;
+    max-width: 380px;
+    width: 100%;
+  }
+  .lives-intro-hearts {
+    display: flex;
+    gap: 3px;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .lives-intro-text {
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .lives-intro-text strong { color: var(--accent2); }
+
+  /* ===== LIVES BAR ===== */
+  #livesBar {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    display: none;
+    gap: 6px;
+    align-items: center;
+    background: rgba(10,20,40,0.7);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 8px 16px;
+    backdrop-filter: blur(8px);
+  }
+  #livesBar.show { display: flex; }
+  .life-heart { font-size: 1.5rem; transition: transform 0.3s, opacity 0.3s; }
+  .life-heart.lost { opacity: 0.2; transform: scale(0.7); }
+
+  /* ===== LANGUAGE SCREEN ===== */
+  #langScreen { gap: 0; justify-content: center; padding: 0; }
+
+  .lang-hero {
+    width: 100%;
+    max-width: 800px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px 48px;
+    position: relative;
+  }
+  .lang-monsters-row {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+  }
+  .lang-monster-wrap { display: inline-block; }
+  .lang-monster-wrap:nth-child(1) { animation: heroFloat1 3.2s ease-in-out infinite; margin-right: -12px; }
+  .lang-monster-wrap:nth-child(2) { animation: heroFloat2 2.8s ease-in-out infinite; z-index:2; position:relative; }
+  .lang-monster-wrap:nth-child(3) { animation: heroFloat3 3.5s ease-in-out infinite; margin-left: -12px; }
+  @keyframes heroFloat1 { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-16px) rotate(-2deg)} }
+  @keyframes heroFloat2 { 0%,100%{transform:translateY(-4px) scale(1.07)} 50%{transform:translateY(-22px) scale(1.1)} }
+  @keyframes heroFloat3 { 0%,100%{transform:translateY(-2px) rotate(4deg)} 50%{transform:translateY(-14px) rotate(1deg)} }
+
+  .lang-title {
+    font-family: var(--font-head);
+    font-size: clamp(2.4rem, 8vw, 4.4rem);
+    color: var(--accent1);
+    text-shadow: 0 4px 0 rgba(0,0,0,0.5), 0 0 60px rgba(247,201,72,0.25);
+    text-align: center;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+  .lang-subtitle {
+    font-family: var(--font-head);
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--accent3);
+    text-align: center;
+    margin-bottom: 12px;
+    opacity: 0.9;
+  }
+  .lang-tagline {
+    font-size: 1rem;
+    color: var(--text2);
+    text-align: center;
+    margin-bottom: 36px;
+    max-width: 360px;
+    line-height: 1.6;
+  }
+  .lang-good-evil {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 36px;
+    font-family: var(--font-head);
+    font-size: 1rem;
+  }
+  .lang-tag-good { color: var(--green); background: rgba(78,203,113,0.12); border: 1.5px solid rgba(78,203,113,0.3); border-radius: 999px; padding: 6px 18px; }
+  .lang-tag-evil { color: var(--red);   background: rgba(255,79,79,0.12);  border: 1.5px solid rgba(255,79,79,0.3);  border-radius: 999px; padding: 6px 18px; }
+
+  .lang-btn-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .lang-btn {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    padding: 16px 40px;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.4);
+    transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lang-btn:hover { transform: translateY(-4px); filter: brightness(1.1); box-shadow: 0 10px 0 rgba(0,0,0,0.35); }
+  .lang-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.3); }
+  .lang-btn-pt { background: linear-gradient(135deg, #00b341, #007a2e); color: #fff; }
+  .lang-btn-en { background: linear-gradient(135deg, #1a3a8f, #0d2160); color: #fff; border: 3px solid #c8102e; }
+
+  .lang-dots { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .lang-dot { position: absolute; border-radius: 50%; }
+  .lang-dot-1 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(247,201,72,0.07), transparent 70%); top: -100px; right: -100px; }
+  .lang-dot-2 { width: 260px; height: 260px; background: radial-gradient(circle, rgba(107,207,255,0.07), transparent 70%); bottom: -60px; left: -80px; }
+  .lang-dot-3 { width: 160px; height: 160px; background: radial-gradient(circle, rgba(78,203,113,0.06), transparent 70%); top: 40%; left: -40px; }
+
+  /* ===== LAB CURIOSITY BOX ===== */
+  .lab-curiosity-box {
+    background: linear-gradient(135deg, rgba(107,207,255,0.08), rgba(78,203,113,0.06));
+    border: 1.5px solid rgba(107,207,255,0.25);
+    border-radius: 18px;
+    padding: 14px 20px 10px;
+    max-width: 560px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lab-curiosity-inner {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .lab-curiosity-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .lab-curiosity-text {
+    font-size: 0.88rem;
+    color: var(--text2);
+    line-height: 1.55;
+    font-weight: 600;
+  }
+  .lab-curiosity-text strong { color: var(--accent3); }
+  .lab-curiosity-link {
+    display: inline-block;
+    align-self: flex-end;
+    font-family: var(--font-head);
+    font-size: 0.75rem;
+    color: var(--accent3);
+    text-decoration: none;
+    border: 1px solid rgba(107,207,255,0.3);
+    border-radius: 999px;
+    padding: 4px 14px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lab-curiosity-link:hover { background: rgba(107,207,255,0.12); color: #fff; }
+
+  /* ===== LANG SWITCHER (top right) ===== */
+  #langSwitcher {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 300;
+    display: none;
+    gap: 6px;
+  }
+  #langSwitcher.show { display: flex; }
+  .lang-switch-btn {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.15);
+    background: rgba(10,20,40,0.75);
+    color: var(--text2);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    line-height: 1.2;
+  }
+  .lang-switch-btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .lang-switch-btn.active { background: var(--accent1); color: #1a1a1a; border-color: var(--accent1); font-weight: 800; }
+
+  /* ===== LEVEL STEP INDICATOR ===== */
+  .progress-wrap { width: 100%; max-width: 320px; margin-bottom: 8px; }
+  .level-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .level-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .level-step-dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    color: var(--text2);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .level-step-dot.done    { background: rgba(78,203,113,0.25); border-color: var(--green); color: var(--green); }
+  .level-step-dot.current { background: var(--accent1); border-color: var(--accent1); color: #1a1a1a; font-weight: 900; }
+  .level-step-lbl {
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    color: var(--text2);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .level-step-lbl.current { color: var(--accent1); opacity: 1; }
+  .level-step-line {
+    width: 40px; height: 2px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .level-step-line.done { background: var(--green); }
+
+  /* ===== MONSTER CARDS ===== */
+  .monster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 660px;
+    margin: 12px 0;
+  }
+  .monster-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  .monster-card .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 3px solid var(--bg2);
+    z-index: 2;
+  }
+  .badge-yes { background: var(--green); }
+  .badge-no  { background: var(--red); }
+  .monster-label { font-family: var(--font-head); font-size: 0.82rem; text-align: center; padding: 4px 10px; border-radius: 999px; width: 100%; }
+  .label-yes { background: rgba(78,203,113,0.2); color: var(--green); }
+  .label-no  { background: rgba(255,79,79,0.2);  color: var(--red);   }
+
+  /* ===== PREDICTION ZONE ===== */
+  .prediction-zone {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  /* ===== FEEDBACK OVERLAY ===== */
+  .feedback-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.2s ease;
+  }
+  .feedback-overlay.correct { background: rgba(78,203,113,0.25); }
+  .feedback-overlay.wrong   { background: rgba(255,79,79,0.25);  }
+
+  .feedback-box {
+    background: rgba(10, 20, 40, 0.92);
+    border-radius: 24px;
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+  .feedback-overlay.correct .feedback-box { border-color: var(--green); }
+  .feedback-overlay.wrong   .feedback-box { border-color: var(--accent2); }
+
+  .feedback-emoji { font-size: 5rem; animation: popIn 0.3s cubic-bezier(.36,.07,.19,.97); }
+  .feedback-text  { font-family: var(--font-head); font-size: 2rem; color: var(--text); margin-top: 4px; }
+
+  .feedback-hint-inner {
+    background: rgba(107,207,255,0.1);
+    border: 1.5px solid var(--accent3);
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin-top: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  .feedback-hint-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--accent3);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* ===== REVIEW PANEL POPUP ===== */
+  .review-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    animation: fadeIn 0.2s ease;
+  }
+  .review-popup-inner {
+    background: #1e3a5f;
+    border: 2px solid var(--accent3);
+    border-radius: 24px;
+    padding: 28px 24px;
+    max-width: 700px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.8);
+  }
+  .review-popup-inner h2 { font-size: 1.5rem; margin-bottom: 0; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes popIn {
+    0%   { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+    70%  { transform: scale(1.2) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%     { transform: translateX(-8px); }
+    40%     { transform: translateX(8px); }
+    60%     { transform: translateX(-6px); }
+    80%     { transform: translateX(6px); }
+  }
+  .shake { animation: shake 0.5s ease; }
+
+  @keyframes fadeOut { to { opacity: 0; transform: scale(0.5); } }
+  .fade-out { animation: fadeOut 0.6s ease forwards; }
+
+  /* ===== MONSTER IDLE ANIMATION ===== */
+  @keyframes monsterBob {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25%       { transform: translateY(-5px) rotate(1deg); }
+    75%       { transform: translateY(-2px) rotate(-1deg); }
+  }
+  @keyframes monsterBobSmall {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-3px); }
+  }
+  .monster-bob { animation: monsterBob 2.5s ease-in-out infinite; display: inline-block; }
+  .monster-bob-small { animation: monsterBobSmall 2s ease-in-out infinite; display: inline-block; }
+
+  /* Stagger for training grid monsters */
+  .monster-card:nth-child(1) .monster-bob-small { animation-delay: 0s; }
+  .monster-card:nth-child(2) .monster-bob-small { animation-delay: 0.3s; }
+  .monster-card:nth-child(3) .monster-bob-small { animation-delay: 0.6s; }
+  .monster-card:nth-child(4) .monster-bob-small { animation-delay: 0.2s; }
+  .monster-card:nth-child(5) .monster-bob-small { animation-delay: 0.5s; }
+  .monster-card:nth-child(6) .monster-bob-small { animation-delay: 0.8s; }
+
+  /* ===== RULE CHOICES ===== */
+  .choices-list { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 500px; }
+
+  /* ===== INTRO ===== */
+  .intro-illustration { margin: 16px 0; }
+  .feature-list { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin: 8px 0; width: 100%; max-width: 360px; }
+  .feature-pill { background: var(--bg2); border-radius: 12px; padding: 10px 20px; font-weight: 800; font-size: 1rem; border: 2px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 10px; width: 100%; }
+
+  /* ===== FINAL SCREEN ===== */
+  .science-box {
+    background: linear-gradient(135deg, #1e3a5f, #0d2137);
+    border: 2px solid var(--accent3);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    max-width: 560px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 0 40px rgba(107,207,255,0.15);
+  }
+  .science-box p { color: var(--text); font-size: 1.15rem; font-weight: 800; }
+  .dna-icon { font-size: 3rem; margin-bottom: 8px; }
+  .stars-row { font-size: 2.5rem; letter-spacing: 4px; }
+
+  /* ===== SCORE ===== */
+  .score-display { background: var(--bg2); border-radius: var(--radius); padding: 16px 32px; margin: 8px 0; display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .score-item { text-align: center; }
+  .score-num  { font-family: var(--font-head); font-size: 2.5rem; }
+  .score-lbl  { font-size: 0.85rem; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ===== TRAITS ===== */
+  .traits { font-size: 0.82rem; color: var(--text2); text-align: left; line-height: 1.6; }
+
+  /* ===== RULE REVEAL ===== */
+  .rule-reveal { background: linear-gradient(135deg, rgba(78,203,113,0.15), rgba(107,207,255,0.1)); border: 2px solid var(--green); border-radius: var(--radius); padding: 16px 24px; max-width: 500px; text-align: center; }
+  .rule-text { font-family: var(--font-head); font-size: 1.1rem; color: var(--green); }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title { background: rgba(247,201,72,0.12); border-left: 4px solid var(--accent1); border-radius: 0 12px 12px 0; padding: 8px 16px; font-family: var(--font-head); font-size: 1.1rem; color: var(--accent1); align-self: flex-start; margin: 4px 0; }
+
+  .scroll-area { overflow-y: auto; max-height: 80vh; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 4px; }
+
+  .spacer { height: 8px; }
+  .separator { width: 100%; max-width: 400px; height: 2px; background: rgba(255,255,255,0.06); border-radius: 999px; margin: 4px 0; }
+
+  /* ===== LEVEL SELECT ===== */
+  #levelScreen { gap: 28px; }
+  #levelScreen h1 { font-size: clamp(1.6rem, 5vw, 2.8rem); }
+  .level-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 680px; }
+  @media (max-width: 520px) { .level-select-grid { grid-template-columns: 1fr; } }
+
+  .lvl-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px 16px 20px;
+    border: 3px solid var(--lvl-color);
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  .lvl-card:hover { transform: translateY(-6px) scale(1.04); box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 24px var(--lvl-glow); filter: brightness(1.06); }
+  .lvl-card.locked { opacity: 0.38; cursor: not-allowed; pointer-events: none; filter: grayscale(0.6); }
+  .lvl-card.locked:hover { transform: none; box-shadow: none; filter: grayscale(0.6); }
+  .lvl-card.completed { border-color: var(--green) !important; --lvl-color: var(--green); --lvl-glow: rgba(78,203,113,0.4); }
+  .lvl-lock-icon { font-size: 1.6rem; margin-bottom: -4px; }
+  .lvl-card:active { transform: translateY(0) scale(0.98); }
+  .lvl-card-1 { --lvl-color: var(--green);   --lvl-glow: rgba(78,203,113,0.4); }
+  .lvl-card-2 { --lvl-color: var(--accent1);  --lvl-glow: rgba(247,201,72,0.4); }
+  .lvl-card-3 { --lvl-color: var(--accent2);  --lvl-glow: rgba(255,107,107,0.4); }
+
+  .lvl-icon { font-size: 3.2rem; line-height: 1; }
+  .lvl-name { font-family: var(--font-head); font-size: 1.3rem; font-weight: 800; color: var(--lvl-color); line-height: 1.1; }
+  .lvl-desc { font-size: 0.82rem; color: var(--text2); font-weight: 700; line-height: 1.45; }
+  .lvl-badge { font-size: 0.72rem; font-weight: 800; color: var(--lvl-color); background: rgba(255,255,255,0.06); border: 1.5px solid var(--lvl-color); border-radius: 999px; padding: 3px 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .level-select-story { background: var(--card); border: 2px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 18px 24px; max-width: 560px; width: 100%; text-align: center; }
+  .level-select-story p { color: var(--text); font-size: 1rem; line-height: 1.6; }
+
+  /* ===== EVIL MONSTER GLOW ===== */
+  .evil-pulse { filter: drop-shadow(0 0 8px #ff4f4f88); animation: evilPulse 1.5s ease-in-out infinite; }
+  @keyframes evilPulse {
+    0%, 100% { filter: drop-shadow(0 0 6px #ff4f4f88); }
+    50%       { filter: drop-shadow(0 0 18px #ff4f4fcc); }
+  }
+
+  /* ===== CONFIRM DIALOG ===== */
+  .confirm-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.75);
+    animation: fadeIn 0.2s ease;
+  }
+  .confirm-inner {
+    background: #1e3a5f;
+    border: 2px solid rgba(255,255,255,0.18);
+    border-radius: 22px;
+    padding: 32px 36px;
+    text-align: center;
+    max-width: 340px;
+    font-family: var(--font-head);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  .confirm-inner .icon { font-size: 2.5rem; }
+  .confirm-inner .msg { font-size: 1.3rem; color: var(--text); }
+  .confirm-inner .btn-row { display: flex; gap: 16px; justify-content: center; }
+</style>
+</head>
+<body>
+<button id="homeBtn" onclick="goHome()">🏠</button>
+<button id="backToLangBtn" onclick="goToLangScreen()">← 🌐</button>
+<div id="livesBar"></div>
+
+
+<!-- SCREEN 1: LANGUAGE -->
+<div id="langScreen" class="screen active">
+  <div class="lang-hero">
+    <div class="lang-dots">
+      <div class="lang-dot lang-dot-1"></div>
+      <div class="lang-dot lang-dot-2"></div>
+      <div class="lang-dot lang-dot-3"></div>
+    </div>
+    <div class="lang-monsters-row" id="langHeroMonsters">
+      <!-- filled by JS -->
+    </div>
+    <div class="lang-title">Monster Scientists</div>
+    <div class="lang-subtitle">Cientistas de Monstros</div>
+    <div class="lang-tagline">Can you tell the <strong style="color:var(--green)">good</strong> monsters from the <strong style="color:var(--red)">evil</strong> ones?<br>Consegues distinguir os monstros <strong style="color:var(--green)">bons</strong> dos <strong style="color:var(--red)">maus</strong>?</div>
+    <div class="lang-good-evil">
+      <span class="lang-tag-good">😊 Friendly & Safe</span>
+      <span class="lang-tag-evil">😈 Evil & Dangerous</span>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text2);margin-bottom:20px">Choose your language / Escolha o idioma</p>
+    <div class="lang-btn-row">
+      <button class="lang-btn lang-btn-pt" onclick="selectLang('pt')">🇵🇹 Português</button>
+      <button class="lang-btn lang-btn-en" onclick="selectLang('en')">🇬🇧 English</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: LEVEL SELECT -->
+<div id="levelScreen" class="screen">
+  <div id="levelHeroMonsters" style="display:flex;gap:8px;justify-content:center;margin-bottom:4px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5))"></div>
+  <h1 id="levelTitle"></h1>
+  <p id="levelStory" style="color:var(--text2);font-size:1rem;line-height:1.6;text-align:center;max-width:520px;padding:0 16px"></p>
+  <div class="level-select-grid">
+    <div class="lvl-card lvl-card-1" onclick="selectLevel(1)">
+      <div class="lvl-icon">🌱</div>
+      <div class="lvl-name" id="lvlName1"></div>
+      <div class="lvl-desc" id="lvlDesc1"></div>
+      <div class="lvl-badge" id="lvlBadge1"></div>
+    </div>
+    <div class="lvl-card lvl-card-2" onclick="selectLevel(2)">
+      <div class="lvl-icon">⚡</div>
+      <div class="lvl-name" id="lvlName2"></div>
+      <div class="lvl-desc" id="lvlDesc2"></div>
+      <div class="lvl-badge" id="lvlBadge2"></div>
+    </div>
+    <div class="lvl-card lvl-card-3" onclick="selectLevel(3)">
+      <div class="lvl-icon">🏆</div>
+      <div class="lvl-name" id="lvlName3"></div>
+      <div class="lvl-desc" id="lvlDesc3"></div>
+      <div class="lvl-badge" id="lvlBadge3"></div>
+    </div>
+  </div>
+  <div class="lab-curiosity-box">
+    <div class="lab-curiosity-inner">
+      <span class="lab-curiosity-icon">🔬</span>
+      <div class="lab-curiosity-text" id="labCuriosityText"></div>
+    </div>
+    <a href="https://www.nms.unl.pt/pt-pt/investigacao/investigacao/grupos-de-investigacao/grupo-de-investigacao/n/transcritomica-de-doenca" target="_blank" class="lab-curiosity-link" id="labCuriosityLink"></a>
+  </div>
+  <button onclick="confirmResetProgress()" id="resetProgressBtn" style="background:none;border:none;color:rgba(255,255,255,0.2);font-size:0.72rem;cursor:pointer;margin-top:4px;font-family:var(--font-body);text-decoration:underline;padding:4px 8px;transition:color 0.2s" onmouseover="this.style.color='rgba(255,255,255,0.5)'" onmouseout="this.style.color='rgba(255,255,255,0.2)'"></button>
+</div>
+
+<!-- SCREEN 3: INTRO -->
+<div id="introScreen" class="screen">
+  <div class="progress-wrap"><div class="level-steps" id="stepsIntro"></div></div>
+  <div class="spacer"></div>
+  <h1 id="introTitle"></h1>
+  <div class="intro-illustration" id="introIllustration"></div>
+  <p id="introText"></p>
+  <div class="spacer"></div>
+  <div class="feature-list" id="introFeatures"></div>
+  <div class="spacer"></div>
+  <div class="lives-intro-banner" id="livesIntroBanner">
+    <div class="lives-intro-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="lives-intro-text" id="livesIntroText"></div>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn btn-primary" id="introNextBtn" onclick="startTraining()"></button>
+</div>
+
+<!-- SCREEN 4: TRAINING -->
+<div id="trainingScreen" class="screen">
+  <div class="progress-wrap"><div class="level-steps" id="stepsTrain"></div></div>
+  <div class="scroll-area">
+    <h2 id="trainingTitle"></h2>
+    <p id="trainingSubtitle"></p>
+    <div class="spacer"></div>
+    <div class="section-title" id="trainGoodLabel"></div>
+    <div class="monster-grid" id="trainingGridYes"></div>
+    <div class="spacer"></div>
+    <div class="section-title" id="trainEvilLabel"></div>
+    <div class="monster-grid" id="trainingGridNo"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" id="trainingNextBtn" onclick="startPrediction()"></button>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<!-- SCREEN 5: PREDICTION -->
+<div id="predictionScreen" class="screen">
+  <div class="progress-wrap"><div class="level-steps" id="stepsPred"></div></div>
+  <h2 id="predictionTitle"></h2>
+  <p id="predictionCounter"></p>
+  <div class="prediction-zone">
+    <div id="predictionMonster"></div>
+    <div class="traits" id="predictionTraits"></div>
+    <div class="action-row">
+      <button class="btn btn-green" id="btnGood"  onclick="makeGuess(true)"></button>
+      <button class="btn btn-red"   id="btnEvil"   onclick="makeGuess(false)"></button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 6: RULE GUESS -->
+<div id="ruleScreen" class="screen">
+  <div class="progress-wrap"><div class="level-steps" id="stepsRule"></div></div>
+  <h2 id="ruleTitle"></h2>
+  <div class="score-display" id="levelScoreDisplay"></div>
+  <p id="ruleQuestion"></p>
+  <div class="choices-list" id="choicesList"></div>
+  <div class="rule-reveal" id="ruleReveal" style="display:none">
+    <div style="font-size:1.4rem;margin-bottom:6px">💡</div>
+    <div class="rule-text" id="ruleRevealText"></div>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn btn-primary" id="ruleNextBtn" style="display:none" onclick="endLevel()"></button>
+</div>
+
+<!-- SCREEN 7: GAME OVER -->
+<div id="gameOverScreen" class="screen">
+  <div style="font-size:4rem">💀</div>
+  <h1 id="gameOverTitle" style="color:var(--accent2)"></h1>
+  <p id="gameOverMsg"></p>
+  <div class="rule-reveal" id="gameOverReveal" style="margin:16px 0">
+    <div style="font-size:1.4rem;margin-bottom:6px">💡</div>
+    <div class="rule-text" id="gameOverRuleText"></div>
+  </div>
+  <div class="action-row">
+    <button class="btn btn-primary" id="tryAgainBtn" onclick="retryLevel()"></button>
+    <button class="btn btn-ghost" id="gameOverMenuBtn" onclick="showLevelSelect()"></button>
+  </div>
+</div>
+
+<!-- SCREEN 8: FINAL -->
+<div id="finalScreen" class="screen">
+  <div class="stars-row" id="finalStars">⭐⭐⭐</div>
+  <h1 id="finalTitle"></h1>
+  <div class="score-display" id="finalScoreDisplay"></div>
+  <div class="science-box">
+    <div class="dna-icon">🧬</div>
+    <p id="finalMessage"></p>
+  </div>
+  <div class="action-row">
+    <button class="btn btn-primary" onclick="restartGame()" id="restartBtn"></button>
+  </div>
+</div>
+
+<!-- FEEDBACK OVERLAY -->
+<div class="feedback-overlay" id="feedbackOverlay" style="display:none">
+  <div class="feedback-box" id="feedbackBox">
+    <div class="feedback-emoji" id="feedbackEmoji"></div>
+    <div class="feedback-text"  id="feedbackText"></div>
+    <div id="feedbackLivesLost" style="display:none;font-size:1.6rem;margin-top:4px"></div>
+    <div class="feedback-hint-inner" id="feedbackHintBox" style="display:none">
+      <div class="feedback-hint-text" id="feedbackHintText"></div>
+    </div>
+    <!-- Review panel button (on wrong) -->
+    <button class="btn btn-ghost" id="feedbackReviewBtn" onclick="showReviewPanel()" style="display:none;margin-top:8px;font-size:1rem;padding:10px 24px;"></button>
+    <button class="btn btn-primary" id="feedbackContinueBtn" onclick="continueAfterFeedback()" style="margin-top:16px;">
+      Continue
+    </button>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   TRANSLATIONS
+================================================================ */
+const T = {
+  pt: {
+    progressLabel: lv => `Nível ${lv} de 3`,
+    introTitles: ['Nível 1 — Observa!', 'Nível 2 — Atenção!', 'Nível 3 — Desafio Final!'],
+    introTexts: [
+      'O laboratório está em perigo! Há monstros à solta — alguns são <strong style="color:var(--green)">bons e sorridentes</strong> 😊, mas outros são <strong style="color:var(--red)">maus e querem destruir o mundo!</strong> 😈 Consegues descobrir o segredo de quais são maus?',
+      'Novos monstros, novas pistas! Observa com atenção — há algo diferente desta vez...',
+      'Agora os monstros são muito traiçoeiros! Examina com cuidado todas as suas características.'
+    ],
+    introFeaturesSets: [
+      ['🎨 Cor do corpo', '👁️ Número de olhos', '⭐ Número de manchas'],
+      ['🎨 Cor do corpo', '👁️ Número de olhos', '⭐ Número de manchas'],
+      ['🎨 Cor do corpo', '👁️ Número de olhos', '⭐ Número de manchas']
+    ],
+    btnStart: '🔬 Começar a Observar!',
+    levelSelectTitle: 'Escolhe o teu Desafio!',
+    levelSelectStory: '🌍 O mundo precisa de ti! Cada nível tem monstros com segredos diferentes. Consegues descobrir a regra que distingue os monstros bons dos maus?',
+    levelNames: ['Aprendiz', 'Explorador', 'Cientista'],
+    levelDescs: ['Monstros simples!\nFácil de aprender.', 'Monstros esquisitos!\nPrecisa de atenção.', 'Monstros traiçoeiros!\nPara os mais corajosos!'],
+    levelBadges: ['1 pista secreta', '2 pistas secretas', '3 pistas secretas'],
+    lockedText: '🔒 Bloqueado',
+    resetProgressBtn: 'Reiniciar progresso',
+    resetProgressConfirm: 'Apagar todo o progresso?',
+    completedText: '✅ Concluído!',
+    trainingTitle: ['Fase de Observação', 'Fase de Observação', 'Fase de Observação'],
+    trainingSubtitle: 'Estuda bem estes monstros — e descobre o segredo!',
+    trainGoodLabel: '😊 Monstros Bons!',
+    trainEvilLabel: '😈 Monstros Maus — vão destruir o mundo!',
+    btnReady: '✅ Estou Pronto!',
+    btnContinue: '➡ Continuar',
+    predictionTitle: 'Bom ou Mau?',
+    predCounter: (i, t) => `Monstro ${i} de ${t}`,
+    btnGood: '😊 É Bom!',
+    btnEvil: '😈 É Mau!',
+    feedbackCorrect: ['Ótimo!', 'Bravo!', 'Certo!', 'Fantástico!'],
+    feedbackWrong: 'Ops!',
+    correctWas: r => `A resposta certa era: ${r}`,
+    livesLostText: (lives) => `Tens ${lives} ${lives === 1 ? 'vida' : 'vidas'} restante${lives === 1 ? '' : 's'}!`,
+    reviewBtnText: '🔍 Ver o painel de pistas',
+    ruleTitle: 'Descobriste a regra?',
+    ruleQuestion: 'Qual é o segredo dos monstros?',
+    rules: [
+      'Monstros com muitas manchas são maus.',
+      'Monstros com muitas manchas OU verdes são maus.',
+      'Monstros verdes são maus. Monstros com muitas manchas E dois olhos também.'
+    ],
+    distractors: [
+      ['Monstros azuis são maus.', 'Monstros com poucos olhos são maus.', 'Monstros com 3 olhos são maus.'],
+      ['Monstros azuis OU com 3 olhos são maus.', 'Monstros com poucas manchas são maus.', 'Monstros roxos ou com 1 olho são maus.'],
+      ['Monstros azuis com 1 olho são maus.', 'Monstros com muitas manchas OU verdes são maus.', 'Monstros roxos com 3 olhos são maus.']
+    ],
+    scoreLabel: ['Acertos', 'Erros'],
+    ruleRevealPrefix: '💡 Segredo: ',
+    btnNextLevel: '🗺️ Escolher Próximo Nível',
+    btnFinish: '🏆 Ver Resultado Final',
+    finalTitle: 'Parabéns, Cientista!',
+    finalTitleLoss: 'Jogo Terminado...',
+    finalMessage: 'Tal como no jogo, os cientistas tentam prever quais tumores respondem ao tratamento usando pistas (genes).',
+    btnRestart: '🔄 Jogar de Novo',
+    livesIntroText: '<strong>5 vidas</strong> para acertar! Cada erro custa uma vida — se perderes todas, os monstros maus vencem!',
+    labCuriosity: '🔬 No nosso laboratório, em vez de monstros, olhamos para <strong>células</strong>! Estudamos as suas características — nomeadamente os <strong>genes que expressam</strong> — para perceber o que as torna perigosas... e procuramos a regra para as travar!',
+    labCuriosityLink: '🧬 Saber mais sobre o laboratório',
+    gameOverTitle: 'Perdeste as Vidas!',
+    gameOverMsg: 'Os monstros maus venceram desta vez... mas podes tentar outra vez!',
+    tryAgainBtn: '🔄 Tentar Outra Vez',
+    ruleRevealOnGameOver: (rule) => `O segredo era: ${rule}`,
+    goodLabel: '😊 Bom!',
+    evilLabel: '😈 Mau!',
+    traits: {
+      color: { green: 'Verde 🟢', purple: 'Roxo 🟣', blue: 'Azul 🔵' },
+      spots: { many: 'Muitas manchas ⭐', few: 'Poucas manchas ·' },
+      eyes: e => `${e} ${e === 1 ? 'olho' : 'olhos'}`
+    },
+    traitLine: (c, s, e) => `• 🎨 Cor: ${c}\n• ⭐ Manchas: ${s}\n• 👁️ Olhos: ${e}`,
+  },
+  en: {
+    progressLabel: lv => `Level ${lv} of 3`,
+    introTitles: ['Level 1 — Observe!', 'Level 2 — Pay attention!', 'Level 3 — Final Challenge!'],
+    introTexts: [
+      'The world is in danger! Monsters are on the loose — some are <strong style="color:var(--green)">good and smiley</strong> 😊, but others are <strong style="color:var(--red)">evil and want to destroy the world!</strong> 😈 Can you discover the secret of which ones are evil?',
+      'New monsters, new clues! Look carefully — something is different this time...',
+      'Now the monsters are extra tricky! Examine all their features very carefully.'
+    ],
+    introFeaturesSets: [
+      ['🎨 Body colour', '👁️ Number of eyes', '⭐ Number of spots'],
+      ['🎨 Body colour', '👁️ Number of eyes', '⭐ Number of spots'],
+      ['🎨 Body colour', '👁️ Number of eyes', '⭐ Number of spots']
+    ],
+    btnStart: '🔬 Start Observing!',
+    levelSelectTitle: 'Choose your Challenge!',
+    levelSelectStory: '🌍 The world needs you! Each level has monsters with different secrets. Can you discover the rule that tells good monsters from evil ones?',
+    levelNames: ['Apprentice', 'Explorer', 'Scientist'],
+    levelDescs: ['Simple monsters!\nEasy to learn.', 'Tricky monsters!\nPay close attention.', 'Sneaky monsters!\nFor the bravest scientists!'],
+    levelBadges: ['1 secret clue', '2 secret clues', '3 secret clues'],
+    lockedText: '🔒 Locked',
+    resetProgressBtn: 'Reset progress',
+    resetProgressConfirm: 'Erase all progress?',
+    completedText: '✅ Completed!',
+    trainingTitle: ['Observation Phase', 'Observation Phase', 'Observation Phase'],
+    trainingSubtitle: 'Study these monsters carefully — and find the secret!',
+    trainGoodLabel: '😊 Good Monsters!',
+    trainEvilLabel: '😈 Evil Monsters — they will destroy the world!',
+    btnReady: "✅ I'm Ready!",
+    btnContinue: '➡ Continue',
+    predictionTitle: 'Good or Evil?',
+    predCounter: (i, t) => `Monster ${i} of ${t}`,
+    btnGood: '😊 It\'s Good!',
+    btnEvil: '😈 It\'s Evil!',
+    feedbackCorrect: ['Great!', 'Bravo!', 'Correct!', 'Fantastic!'],
+    feedbackWrong: 'Oops!',
+    correctWas: r => `The correct answer was: ${r}`,
+    livesLostText: (lives) => `You have ${lives} ${lives === 1 ? 'life' : 'lives'} left!`,
+    reviewBtnText: '🔍 See the clue panel',
+    ruleTitle: 'Did you find the secret?',
+    ruleQuestion: "What is the monsters' secret rule?",
+    rules: [
+      'Monsters with many spots are evil.',
+      'Monsters with many spots OR that are green are evil.',
+      'Green monsters are evil. Monsters with many spots AND two eyes are also evil.'
+    ],
+    distractors: [
+      ['Blue monsters are evil.', 'Monsters with few eyes are evil.', 'Monsters with 3 eyes are evil.'],
+      ['Blue or 3-eyed monsters are evil.', 'Monsters with few spots are evil.', 'Purple or 1-eyed monsters are evil.'],
+      ['Blue monsters with 1 eye are evil.', 'Monsters with many spots OR green ones are evil.', 'Purple monsters with 3 eyes are evil.']
+    ],
+    scoreLabel: ['Correct', 'Wrong'],
+    ruleRevealPrefix: '💡 Secret: ',
+    btnNextLevel: '🗺️ Choose Next Level',
+    btnFinish: '🏆 See Final Result',
+    finalTitle: 'Congratulations, Scientist!',
+    finalTitleLoss: 'Game Over...',
+    finalMessage: 'Just like in the game, scientists try to predict which tumors respond to treatment using clues (genes).',
+    btnRestart: '🔄 Play Again',
+    livesIntroText: '<strong>5 lives</strong> to get it right! Each mistake costs one life — lose them all and the evil monsters win!',
+    labCuriosity: '🔬 In our real lab, instead of monsters, we look at <strong>cells</strong>! We study their characteristics — particularly the <strong>genes they express</strong> — to understand what makes them dangerous... and we search for the rule that stops them!',
+    labCuriosityLink: '🧬 Learn more about our lab',
+    gameOverTitle: 'You Lost All Lives!',
+    gameOverMsg: 'The evil monsters won this time... but you can try again!',
+    tryAgainBtn: '🔄 Try Again',
+    ruleRevealOnGameOver: (rule) => `The secret was: ${rule}`,
+    goodLabel: '😊 Good!',
+    evilLabel: '😈 Evil!',
+    traits: {
+      color: { green: 'Green 🟢', purple: 'Purple 🟣', blue: 'Blue 🔵' },
+      spots: { many: 'Many spots ⭐', few: 'Few spots ·' },
+      eyes: e => `${e} ${e === 1 ? 'eye' : 'eyes'}`
+    },
+    traitLine: (c, s, e) => `• 🎨 Color: ${c}\n• ⭐ Spots: ${s}\n• 👁️ Eyes: ${e}`,
+  }
+};
+
+/* ================================================================
+   GAME STATE
+================================================================ */
+let lang = 'en';
+let currentLevel = 1;
+let currentRule  = null;   // the active rule object for this play
+let lives = 5;
+const MAX_LIVES = 5;
+let trainingMonsters = [];
+let predictionMonsters = [];
+let predictionIndex = 0;
+let levelCorrect = 0;
+let levelWrong   = 0;
+let totalCorrect = 0;
+let totalWrong   = 0;
+let guessedRule  = false;
+let completedLevels = new Set();   // tracks which levels have been beaten
+
+function saveProgress() {
+  try { localStorage.setItem('msci_completed', JSON.stringify([...completedLevels])); } catch(e) {}
+}
+function loadProgress() {
+  try {
+    const saved = localStorage.getItem('msci_completed');
+    if (saved) completedLevels = new Set(JSON.parse(saved));
+  } catch(e) {}
+}
+
+/* ================================================================
+   RULE DEFINITIONS
+   Each rule: { id, eval(monster), labelPt, labelEn, distractorsPt, distractorsEn }
+================================================================ */
+const ALL_RULES = [
+  // ── LEVEL 1: single condition, no colour ──────────────────────────
+  {
+    id: 'many_spots', level: 1,
+    eval: m => m.spots === 'many',
+    labelPt: 'Monstros com muitas manchas são maus.',
+    labelEn: 'Monsters with many spots are evil.',
+    distractorsPt: ['Monstros com 3 olhos são maus.', 'Monstros com 1 olho são maus.'],
+    distractorsEn: ['Monsters with 3 eyes are evil.', 'Monsters with 1 eye are evil.'],
+  },
+  {
+    id: 'three_eyes', level: 1,
+    eval: m => m.eyes === 3,
+    labelPt: 'Monstros com 3 olhos são maus.',
+    labelEn: 'Monsters with 3 eyes are evil.',
+    distractorsPt: ['Monstros com muitas manchas são maus.', 'Monstros com 1 olho são maus.'],
+    distractorsEn: ['Monsters with many spots are evil.', 'Monsters with 1 eye are evil.'],
+  },
+  {
+    id: 'one_eye', level: 1,
+    eval: m => m.eyes === 1,
+    labelPt: 'Monstros com 1 olho são maus.',
+    labelEn: 'Monsters with 1 eye are evil.',
+    distractorsPt: ['Monstros com muitas manchas são maus.', 'Monstros com 3 olhos são maus.'],
+    distractorsEn: ['Monsters with many spots are evil.', 'Monsters with 3 eyes are evil.'],
+  },
+  // ── LEVEL 2: OR combos ────────────────────────────────────────────
+  {
+    id: 'many_spots_or_3eyes', level: 2,
+    eval: m => m.spots === 'many' || m.eyes === 3,
+    labelPt: 'Monstros com muitas manchas OU com 3 olhos são maus.',
+    labelEn: 'Monsters with many spots OR 3 eyes are evil.',
+    distractorsPt: ['Monstros com poucas manchas OU com 1 olho são maus.', 'Monstros com 1 olho OU muitas manchas são maus.'],
+    distractorsEn: ['Monsters with few spots OR 1 eye are evil.', 'Monsters with 1 eye OR many spots are evil.'],
+  },
+  {
+    id: 'few_spots_or_1eye', level: 2,
+    eval: m => m.spots === 'few' || m.eyes === 1,
+    labelPt: 'Monstros com poucas manchas OU com 1 olho são maus.',
+    labelEn: 'Monsters with few spots OR 1 eye are evil.',
+    distractorsPt: ['Monstros com muitas manchas OU com 3 olhos são maus.', 'Monstros com 3 olhos OU poucas manchas são maus.'],
+    distractorsEn: ['Monsters with many spots OR 3 eyes are evil.', 'Monsters with 3 eyes OR few spots are evil.'],
+  },
+  {
+    id: 'many_spots_or_1eye', level: 2,
+    eval: m => m.spots === 'many' || m.eyes === 1,
+    labelPt: 'Monstros com muitas manchas OU com 1 olho são maus.',
+    labelEn: 'Monsters with many spots OR 1 eye are evil.',
+    distractorsPt: ['Monstros com poucas manchas OU com 3 olhos são maus.', 'Monstros com 1 olho OU poucas manchas são maus.'],
+    distractorsEn: ['Monsters with few spots OR 3 eyes are evil.', 'Monsters with 1 eye OR few spots are evil.'],
+  },
+  // ── LEVEL 3: AND combos ────────────────────────────────────────────
+  {
+    id: 'many_spots_and_3eyes', level: 3,
+    eval: m => m.spots === 'many' && m.eyes === 3,
+    labelPt: 'Monstros com muitas manchas E com 3 olhos são maus.',
+    labelEn: 'Monsters with many spots AND 3 eyes are evil.',
+    distractorsPt: ['Monstros com poucas manchas E com 1 olho são maus.', 'Monstros com muitas manchas OU 3 olhos são maus.'],
+    distractorsEn: ['Monsters with few spots AND 1 eye are evil.', 'Monsters with many spots OR 3 eyes are evil.'],
+  },
+  {
+    id: 'many_spots_and_1eye', level: 3,
+    eval: m => m.spots === 'many' && m.eyes === 1,
+    labelPt: 'Monstros com muitas manchas E com 1 olho são maus.',
+    labelEn: 'Monsters with many spots AND 1 eye are evil.',
+    distractorsPt: ['Monstros com poucas manchas E com 3 olhos são maus.', 'Monstros com muitas manchas OU 1 olho são maus.'],
+    distractorsEn: ['Monsters with few spots AND 3 eyes are evil.', 'Monsters with many spots OR 1 eye are evil.'],
+  },
+  {
+    id: 'green_and_many_spots', level: 3,
+    eval: m => m.color === 'green' && m.spots === 'many',
+    labelPt: 'Monstros verdes E com muitas manchas são maus.',
+    labelEn: 'Green monsters AND many spots are evil.',
+    distractorsPt: ['Monstros roxos E com muitas manchas são maus.', 'Monstros verdes OU com muitas manchas são maus.'],
+    distractorsEn: ['Purple monsters AND many spots are evil.', 'Green monsters OR many spots are evil.'],
+  },
+];
+
+function pickRule(level) {
+  const pool = ALL_RULES.filter(r => r.level === level);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/* ================================================================
+   MONSTER GENERATION
+================================================================ */
+const COLORS = ['green', 'purple', 'blue'];
+const SPOTS  = ['few', 'many'];
+const EYE_OPTIONS = [1, 2, 3];
+
+function createMonster(overrides = {}) {
+  return {
+    color: overrides.color || COLORS[Math.floor(Math.random() * COLORS.length)],
+    spots: overrides.spots || SPOTS[Math.floor(Math.random() * SPOTS.length)],
+    eyes:  overrides.eyes  || EYE_OPTIONS[Math.floor(Math.random() * EYE_OPTIONS.length)],
+  };
+}
+
+function evaluateRule(monster) {
+  return currentRule ? currentRule.eval(monster) : false;
+}
+
+function ruleLabel() {
+  if (!currentRule) return '';
+  return lang === 'pt' ? currentRule.labelPt : currentRule.labelEn;
+}
+
+function generateTraining() {
+  const evil = [], good = [];
+  let attempts = 0;
+  while ((evil.length < 3 || good.length < 3) && attempts < 3000) {
+    attempts++;
+    const m = createMonster();
+    const isEvil = evaluateRule(m);
+    if (isEvil && evil.length < 3 && !evil.some(e => e.color===m.color && e.spots===m.spots && e.eyes===m.eyes)) evil.push(m);
+    if (!isEvil && good.length < 3 && !good.some(e => e.color===m.color && e.spots===m.spots && e.eyes===m.eyes)) good.push(m);
+  }
+  return [...evil, ...good];
+}
+
+function generatePrediction() {
+  const evil = [], good = [];
+  let attempts = 0;
+  while ((evil.length < 4 || good.length < 4) && attempts < 3000) {
+    attempts++;
+    const m = createMonster();
+    const isEvil = evaluateRule(m);
+    if (isEvil && evil.length < 4) evil.push(m);
+    if (!isEvil && good.length < 4) good.push(m);
+  }
+  const all = [...evil, ...good];
+  for (let i = all.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [all[i], all[j]] = [all[j], all[i]];
+  }
+  return all;
+}
+
+
+/* ================================================================
+   MONSTER SVG RENDERER
+================================================================ */
+const COLOR_MAP = {
+  green:  { body: '#4ecb71', shadow: '#2e8b48', eye: '#1a4a28', pupil: '#fff', spot: '#38a558' },
+  purple: { body: '#b06aff', shadow: '#7b3fbb', eye: '#3a1260', pupil: '#fff', spot: '#9050dd' },
+  blue:   { body: '#4db8ff', shadow: '#2a7fb8', eye: '#0d3a5e', pupil: '#fff', spot: '#2990d8' },
+};
+
+function renderMonster(monster, size = 110, isEvil = false, animated = false) {
+  const { color, spots, eyes } = monster;
+  const c = COLOR_MAP[color];
+  const cx = size / 2;
+  const cy = size / 2 + 4;
+  const r  = size * 0.36;
+
+  const arms = `
+    <ellipse cx="${cx - r - 10}" cy="${cy + 8}" rx="12" ry="7" fill="${c.body}" transform="rotate(-30 ${cx - r - 10} ${cy + 8})"/>
+    <ellipse cx="${cx + r + 10}" cy="${cy + 8}" rx="12" ry="7" fill="${c.body}" transform="rotate(30 ${cx + r + 10} ${cy + 8})"/>
+  `;
+
+  const legs = `
+    <ellipse cx="${cx - 16}" cy="${cy + r + 8}" rx="8" ry="14" fill="${c.body}"/>
+    <ellipse cx="${cx + 16}" cy="${cy + r + 8}" rx="8" ry="14" fill="${c.body}"/>
+    <ellipse cx="${cx - 16}" cy="${cy + r + 22}" rx="10" ry="6" fill="${c.shadow}"/>
+    <ellipse cx="${cx + 16}" cy="${cy + r + 22}" rx="10" ry="6" fill="${c.shadow}"/>
+  `;
+
+  const body = `
+    <ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r * 1.05}" fill="${c.body}"/>
+    <ellipse cx="${cx}" cy="${cy + 4}" rx="${r - 6}" ry="${r * 0.95}" fill="${c.body}" opacity="0.3"/>
+  `;
+
+  const spotsSvg = spots === 'many'
+    ? `
+      <circle cx="${cx - 18}" cy="${cy - 10}" r="7" fill="${c.spot}" opacity="0.7"/>
+      <circle cx="${cx + 14}" cy="${cy - 20}" r="5" fill="${c.spot}" opacity="0.7"/>
+      <circle cx="${cx + 20}" cy="${cy + 8}"  r="6" fill="${c.spot}" opacity="0.7"/>
+      <circle cx="${cx - 12}" cy="${cy + 16}" r="5" fill="${c.spot}" opacity="0.7"/>
+      <circle cx="${cx + 4}"  cy="${cy + 20}" r="4" fill="${c.spot}" opacity="0.6"/>
+    `
+    : `
+      <circle cx="${cx - 10}" cy="${cy + 10}" r="5" fill="${c.spot}" opacity="0.5"/>
+      <circle cx="${cx + 14}" cy="${cy - 4}"  r="4" fill="${c.spot}" opacity="0.5"/>
+    `;
+
+  const eyeY = cy - r * 0.25;
+  const eyeSize = 9;
+  let eyesSvg = '';
+  if (eyes === 1) {
+    eyesSvg = `
+      <circle cx="${cx}" cy="${eyeY}" r="${eyeSize}" fill="${c.eye}"/>
+      <circle cx="${cx}" cy="${eyeY}" r="${eyeSize * 0.5}" fill="${c.pupil}"/>
+      <circle cx="${cx + 3}" cy="${eyeY - 2}" r="2" fill="${c.pupil}" opacity="0.7"/>
+    `;
+  } else if (eyes === 2) {
+    eyesSvg = `
+      <circle cx="${cx - 13}" cy="${eyeY}" r="${eyeSize}" fill="${c.eye}"/>
+      <circle cx="${cx - 13}" cy="${eyeY}" r="${eyeSize * 0.5}" fill="${c.pupil}"/>
+      <circle cx="${cx - 10}" cy="${eyeY - 2}" r="2" fill="${c.pupil}" opacity="0.7"/>
+      <circle cx="${cx + 13}" cy="${eyeY}" r="${eyeSize}" fill="${c.eye}"/>
+      <circle cx="${cx + 13}" cy="${eyeY}" r="${eyeSize * 0.5}" fill="${c.pupil}"/>
+      <circle cx="${cx + 16}" cy="${eyeY - 2}" r="2" fill="${c.pupil}" opacity="0.7"/>
+    `;
+  } else {
+    eyesSvg = `
+      <circle cx="${cx - 20}" cy="${eyeY + 4}" r="${eyeSize - 1}" fill="${c.eye}"/>
+      <circle cx="${cx - 20}" cy="${eyeY + 4}" r="${(eyeSize - 1) * 0.5}" fill="${c.pupil}"/>
+      <circle cx="${cx}"      cy="${eyeY - 6}" r="${eyeSize}" fill="${c.eye}"/>
+      <circle cx="${cx}"      cy="${eyeY - 6}" r="${eyeSize * 0.5}" fill="${c.pupil}"/>
+      <circle cx="${cx + 3}"  cy="${eyeY - 8}" r="2" fill="${c.pupil}" opacity="0.7"/>
+      <circle cx="${cx + 20}" cy="${eyeY + 4}" r="${eyeSize - 1}" fill="${c.eye}"/>
+      <circle cx="${cx + 20}" cy="${eyeY + 4}" r="${(eyeSize - 1) * 0.5}" fill="${c.pupil}"/>
+    `;
+  }
+
+  const mouthY = cy + r * 0.45;
+  // Smiling while guessing, evil mouth revealed after confirmed evil
+  const mouth = isEvil
+    ? `<path d="M${cx - 14} ${mouthY + 8} Q${cx} ${mouthY} ${cx + 14} ${mouthY + 8}" stroke="${c.shadow}" stroke-width="3" fill="none" stroke-linecap="round"/>`
+    : `<path d="M${cx - 14} ${mouthY} Q${cx} ${mouthY + 12} ${cx + 14} ${mouthY}" stroke="${c.shadow}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+
+  const antennae = `
+    <line x1="${cx - 12}" y1="${cy - r}" x2="${cx - 18}" y2="${cy - r - 18}" stroke="${c.shadow}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx - 18}" cy="${cy - r - 20}" r="5" fill="${c.spot}"/>
+    <line x1="${cx + 12}" y1="${cy - r}" x2="${cx + 18}" y2="${cy - r - 18}" stroke="${c.shadow}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx + 18}" cy="${cy - r - 20}" r="5" fill="${c.spot}"/>
+  `;
+
+  // Evil horns
+  const horns = isEvil ? `
+    <polygon points="${cx - 16},${cy - r - 5} ${cx - 24},${cy - r - 22} ${cx - 8},${cy - r - 8}" fill="#ff4f4f" opacity="0.9"/>
+    <polygon points="${cx + 16},${cy - r - 5} ${cx + 24},${cy - r - 22} ${cx + 8},${cy - r - 8}" fill="#ff4f4f" opacity="0.9"/>
+  ` : antennae;
+
+  const animClass = animated ? (isEvil ? 'monster-bob evil-pulse' : 'monster-bob') : 'monster-bob-small';
+
+  return `<span class="${animClass}"><svg width="${size}" height="${size + 20}" viewBox="0 0 ${size} ${size + 20}" xmlns="http://www.w3.org/2000/svg">
+    ${horns}
+    ${legs}
+    ${arms}
+    ${body}
+    ${spotsSvg}
+    ${eyesSvg}
+    ${mouth}
+  </svg></span>`;
+}
+
+/* ================================================================
+   LIVES SYSTEM
+================================================================ */
+function updateLivesBar() {
+  const bar = document.getElementById('livesBar');
+  bar.innerHTML = '';
+  for (let i = 0; i < MAX_LIVES; i++) {
+    const h = document.createElement('span');
+    h.className = 'life-heart' + (i >= lives ? ' lost' : '');
+    h.textContent = '❤️';
+    bar.appendChild(h);
+  }
+}
+
+function loseLife() {
+  lives = Math.max(0, lives - 1);
+  updateLivesBar();
+  return lives === 0;
+}
+
+/* ================================================================
+   MONSTER CARD (training grid)
+================================================================ */
+function monsterCard(monster) {
+  const t = T[lang];
+  const isEvil = evaluateRule(monster);
+  const badge = isEvil
+    ? `<div class="badge badge-no">😈</div>`
+    : `<div class="badge badge-yes">😊</div>`;
+  const lbl = isEvil
+    ? `<div class="monster-label label-no">${t.evilLabel}</div>`
+    : `<div class="monster-label label-yes">${t.goodLabel}</div>`;
+
+  return `
+    <div class="monster-card">
+      ${badge}
+      ${renderMonster(monster, 80, isEvil, false)}
+      <div class="traits" style="font-size:0.72rem">${traitLine(monster)}</div>
+      ${lbl}
+    </div>`;
+}
+
+/* ================================================================
+   PREDICTION PHASE
+================================================================ */
+function startPrediction() {
+  // currentRule already set by selectLevel (or kept from game over retry)
+  predictionMonsters = generatePrediction();
+  predictionIndex = 0;
+  levelCorrect = 0;
+  levelWrong   = 0;
+  lives = MAX_LIVES;
+  updateLivesBar();
+  showPredictionQuestion();
+}
+
+function showPredictionQuestion() {
+  if (predictionIndex >= predictionMonsters.length) {
+    showRuleGuess();
+    return;
+  }
+
+  const t  = T[lang];
+  const lv = currentLevel;
+  const monster = predictionMonsters[predictionIndex];
+
+  renderSteps('stepsPred', lv);
+  document.getElementById('predictionTitle').textContent   = t.predictionTitle;
+  document.getElementById('predictionCounter').textContent = t.predCounter(predictionIndex + 1, predictionMonsters.length);
+  document.getElementById('btnGood').textContent  = t.btnGood;
+  document.getElementById('btnEvil').textContent  = t.btnEvil;
+
+  const monsterEl = document.getElementById('predictionMonster');
+  // Always show smiling while guessing
+  monsterEl.innerHTML = renderMonster(monster, 130, false, true);
+  monsterEl.style.opacity = '1';
+  monsterEl.style.transform = 'scale(1)';
+
+  document.getElementById('predictionTraits').innerHTML = traitLine(monster);
+  document.getElementById('btnGood').disabled  = false;
+  document.getElementById('btnEvil').disabled  = false;
+
+  showScreen('predictionScreen');
+}
+
+function makeGuess(guessGood) {
+  document.getElementById('btnGood').disabled  = true;
+  document.getElementById('btnEvil').disabled  = true;
+
+  const monster   = predictionMonsters[predictionIndex];
+  const isEvil    = evaluateRule(monster);
+  const isRight   = (guessGood === !isEvil);
+  const t         = T[lang];
+  const monsterEl = document.getElementById('predictionMonster');
+
+  if (isRight) {
+    levelCorrect++;
+    totalCorrect++;
+    if (isEvil) {
+      // Briefly reveal evil face, then disappear
+      monsterEl.innerHTML = renderMonster(monster, 130, true, false);
+      setTimeout(() => {
+        monsterEl.style.transition = 'opacity 0.5s, transform 0.5s';
+        monsterEl.style.opacity = '0';
+        monsterEl.style.transform = 'scale(0.3)';
+      }, 300);
+    } else {
+      monsterEl.classList.add('shake');
+      setTimeout(() => monsterEl.classList.remove('shake'), 600);
+    }
+    showFeedback(true);
+  } else {
+    levelWrong++;
+    totalWrong++;
+    // Reveal the true face
+    monsterEl.innerHTML = renderMonster(monster, 130, isEvil, false);
+
+    const dead = loseLife();
+    showFeedback(false, null, lives, dead);
+  }
+
+  window.nextStep = () => {
+    if (lives <= 0) {
+      showGameOver();
+      return;
+    }
+    predictionIndex++;
+    showPredictionQuestion();
+  };
+}
+
+/* ================================================================
+   REVIEW PANEL
+================================================================ */
+function showReviewPanel() {
+  const t  = T[lang];
+  const lv = currentLevel;
+
+  const evil = trainingMonsters.filter(m =>  evaluateRule(m));
+  const good = trainingMonsters.filter(m => !evaluateRule(m));
+
+  const popup = document.createElement('div');
+  popup.className = 'review-popup';
+  popup.id = 'reviewPopup';
+  popup.innerHTML = `
+    <div class="review-popup-inner">
+      <h2>${t.trainingTitle[lv - 1]}</h2>
+      <p style="color:var(--text2);font-size:0.9rem">${t.trainingSubtitle}</p>
+      <div class="section-title">${t.trainGoodLabel}</div>
+      <div class="monster-grid">${good.map(m => monsterCard(m)).join('')}</div>
+      <div class="section-title">${t.trainEvilLabel}</div>
+      <div class="monster-grid">${evil.map(m => monsterCard(m)).join('')}</div>
+      <button class="btn btn-primary" onclick="document.getElementById('reviewPopup').remove()">✅ OK</button>
+    </div>
+  `;
+  document.body.appendChild(popup);
+}
+
+/* ================================================================
+   GAME OVER
+================================================================ */
+function showGameOver() {
+  const t  = T[lang];
+  const lv = currentLevel;
+  document.getElementById('gameOverTitle').textContent   = t.gameOverTitle;
+  document.getElementById('gameOverMsg').textContent     = t.gameOverMsg;
+  document.getElementById('tryAgainBtn').textContent     = t.tryAgainBtn;
+  document.getElementById('gameOverMenuBtn').textContent = t.btnNextLevel.startsWith('🗺️') ? '🏠 ' + (lang === 'pt' ? 'Menu' : 'Menu') : '🏠 Menu';
+  document.getElementById('gameOverRuleText').textContent = t.ruleRevealOnGameOver(ruleLabel());
+  showScreen('gameOverScreen');
+}
+
+function retryLevel() {
+  // Keep same rule, just reset lives and prediction
+  predictionMonsters = generatePrediction();
+  predictionIndex = 0;
+  levelCorrect = 0;
+  levelWrong   = 0;
+  lives = MAX_LIVES;
+  updateLivesBar();
+  showPredictionQuestion();
+}
+
+/* ================================================================
+   FEEDBACK SYSTEM
+================================================================ */
+function showFeedback(correct, extraText = null, remainingLives = null, isDead = false) {
+  const overlay  = document.getElementById('feedbackOverlay');
+  const emoji    = document.getElementById('feedbackEmoji');
+  const text     = document.getElementById('feedbackText');
+  const hintBox  = document.getElementById('feedbackHintBox');
+  const hintText = document.getElementById('feedbackHintText');
+  const livesEl  = document.getElementById('feedbackLivesLost');
+  const reviewBtn= document.getElementById('feedbackReviewBtn');
+
+  overlay.className = 'feedback-overlay ' + (correct ? 'correct' : 'wrong');
+  overlay.style.display = 'flex';
+  hintBox.style.display = 'none';
+  livesEl.style.display = 'none';
+  reviewBtn.style.display = 'none';
+
+  if (correct) {
+    const msgs = T[lang].feedbackCorrect;
+    emoji.textContent = ['🎉','⭐','🌟','✨'][Math.floor(Math.random() * 4)];
+    text.textContent  = msgs[Math.floor(Math.random() * msgs.length)];
+    playSound('correct');
+  } else {
+    emoji.textContent = isDead ? '💀' : '😬';
+    text.textContent  = T[lang].feedbackWrong;
+    playSound('wrong');
+
+    if (remainingLives !== null) {
+      livesEl.style.display = 'block';
+      livesEl.textContent = T[lang].livesLostText(remainingLives);
+    }
+
+    // Show review button — don't reveal the hint immediately
+    reviewBtn.style.display = 'inline-block';
+    reviewBtn.textContent = T[lang].reviewBtnText;
+  }
+
+  document.getElementById('feedbackContinueBtn').textContent = T[lang].btnContinue;
+}
+
+function continueAfterFeedback() {
+  const overlay = document.getElementById('feedbackOverlay');
+  overlay.style.display = 'none';
+  if (window.nextStep) {
+    window.nextStep();
+    window.nextStep = null;
+  }
+}
+
+/* ================================================================
+   RULE GUESS SCREEN
+================================================================ */
+function showRuleGuess() {
+  const t  = T[lang];
+  const lv = currentLevel;
+
+  renderSteps('stepsRule', lv);
+  document.getElementById('ruleTitle').textContent    = t.ruleTitle;
+  document.getElementById('ruleQuestion').textContent = t.ruleQuestion;
+
+  document.getElementById('levelScoreDisplay').innerHTML = `
+    <div class="score-item">
+      <div class="score-num" style="color:var(--green)">${levelCorrect}</div>
+      <div class="score-lbl">${t.scoreLabel[0]}</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" style="color:var(--red)">${levelWrong}</div>
+      <div class="score-lbl">${t.scoreLabel[1]}</div>
+    </div>
+  `;
+
+  const correctRule = ruleLabel();
+  const dists = lang === 'pt' ? [...currentRule.distractorsPt] : [...currentRule.distractorsEn];
+  const chosen = [];
+  while (chosen.length < 2 && dists.length > 0) {
+    const idx = Math.floor(Math.random() * dists.length);
+    chosen.push(dists.splice(idx, 1)[0]);
+  }
+  const allChoices = [correctRule, ...chosen].sort(() => Math.random() - 0.5);
+
+  const listEl = document.getElementById('choicesList');
+  listEl.innerHTML = allChoices.map((c, i) =>
+    `<button class="btn btn-choice" onclick="handleRuleChoice(${c === correctRule}, this, '${escapeAttr(correctRule)}')">${String.fromCharCode(65+i)}. ${c}</button>`
+  ).join('');
+
+  document.getElementById('ruleReveal').style.display = 'none';
+  document.getElementById('ruleNextBtn').style.display = 'none';
+  guessedRule = false;
+
+  showScreen('ruleScreen');
+}
+
+function escapeAttr(s) { return s.replace(/'/g, '&apos;').replace(/"/g, '&quot;'); }
+
+function handleRuleChoice(isCorrect, btnEl, correctRule) {
+  if (guessedRule) return;
+  guessedRule = true;
+
+  document.querySelectorAll('.btn-choice').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+
+  if (isCorrect) {
+    btnEl.style.background = 'rgba(78,203,113,0.3)';
+    btnEl.style.borderColor = 'var(--green)';
+    btnEl.style.opacity = '1';
+    playSound('correct');
+  } else {
+    btnEl.style.background = 'rgba(255,79,79,0.2)';
+    btnEl.style.borderColor = 'var(--red)';
+    btnEl.style.opacity = '1';
+    playSound('wrong');
+  }
+
+  const revealEl = document.getElementById('ruleReveal');
+  document.getElementById('ruleRevealText').textContent = T[lang].ruleRevealPrefix + correctRule;
+  revealEl.style.display = 'block';
+
+  const nextBtn = document.getElementById('ruleNextBtn');
+  nextBtn.textContent = currentLevel < 3 ? T[lang].btnNextLevel : T[lang].btnFinish;
+  nextBtn.style.display = 'inline-block';
+}
+
+function endLevel() {
+  completedLevels.add(currentLevel);
+  saveProgress();
+  if (currentLevel < 3) {
+    currentLevel++;
+    showLevelSelect();
+  } else {
+    showFinalScreen();
+  }
+}
+
+/* ================================================================
+   FINAL SCREEN
+================================================================ */
+function showFinalScreen() {
+  const t = T[lang];
+  document.getElementById('finalTitle').textContent   = t.finalTitle;
+  document.getElementById('finalMessage').textContent = t.finalMessage;
+  document.getElementById('restartBtn').textContent   = t.btnRestart;
+
+  const accuracy = totalCorrect + totalWrong > 0
+    ? Math.round((totalCorrect / (totalCorrect + totalWrong)) * 100)
+    : 0;
+
+  document.getElementById('finalScoreDisplay').innerHTML = `
+    <div class="score-item">
+      <div class="score-num" style="color:var(--green)">${totalCorrect}</div>
+      <div class="score-lbl">${t.scoreLabel[0]}</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" style="color:var(--accent1)">${accuracy}%</div>
+      <div class="score-lbl">Score</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" style="color:var(--red)">${totalWrong}</div>
+      <div class="score-lbl">${t.scoreLabel[1]}</div>
+    </div>
+  `;
+
+  const stars = accuracy >= 80 ? '⭐⭐⭐' : accuracy >= 50 ? '⭐⭐' : '⭐';
+  document.getElementById('finalStars').textContent = stars;
+
+  showScreen('finalScreen');
+}
+
+/* ================================================================
+   RESTART
+================================================================ */
+function confirmResetProgress() {
+  const msg = T[lang].resetProgressConfirm || 'Erase all progress?';
+  const yesText = lang === 'pt' ? 'Sim' : 'Yes';
+  const noText  = lang === 'pt' ? 'Não' : 'No';
+  const box = document.createElement('div');
+  box.className = 'confirm-dialog';
+  box.id = 'resetConfirm';
+  box.innerHTML = `<div class="confirm-inner"><div class="icon">🗑️</div><div class="msg">${msg}</div><div class="btn-row"><button class="btn btn-red" onclick="document.getElementById('resetConfirm').remove();restartGame();">${yesText}</button><button class="btn btn-ghost" onclick="document.getElementById('resetConfirm').remove();">${noText}</button></div></div>`;
+  document.body.appendChild(box);
+}
+
+function restartGame() {
+  currentLevel = 1;
+  totalCorrect = 0;
+  totalWrong   = 0;
+  lives = MAX_LIVES;
+  completedLevels = new Set();
+  saveProgress();   // clears saved progress
+  showLevelSelect();
+}
+
+/* ================================================================
+   SOUND
+================================================================ */
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
+  return audioCtx;
+}
+function playSound(type) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  gain.gain.setValueAtTime(0.18, ctx.currentTime);
+  if (type === 'correct') {
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(520, ctx.currentTime);
+    osc.frequency.setValueAtTime(660, ctx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.2);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.5);
+  } else {
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(280, ctx.currentTime);
+    osc.frequency.setValueAtTime(200, ctx.currentTime + 0.15);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4);
+  }
+}
+
+/* ================================================================
+   TRAIT HELPER
+================================================================ */
+function traitLine(monster) {
+  const t = T[lang].traits;
+  const lines = T[lang].traitLine(t.color[monster.color], t.spots[monster.spots], t.eyes(monster.eyes)).split('\n');
+  return lines.map(l => `<div>${l}</div>`).join('');
+}
+
+/* ================================================================
+   HOME BUTTON
+================================================================ */
+function goToLangScreen() {
+  // Reset everything and go to language selection
+  currentLevel = 1; predictionIndex = 0;
+  levelCorrect = 0; levelWrong = 0;
+  totalCorrect = 0; totalWrong = 0;
+  lives = MAX_LIVES;
+  // Keep completedLevels — progress persists when going back to language screen
+  document.getElementById('feedbackOverlay').style.display = 'none';
+  showScreen('langScreen');
+}
+
+function goHome() {
+  const confirmText = lang === 'pt' ? 'Queres voltar ao início?' : 'Go back to the start?';
+  const yesText = lang === 'pt' ? 'Sim' : 'Yes';
+  const noText  = lang === 'pt' ? 'Não' : 'No';
+
+  const box = document.createElement('div');
+  box.className = 'confirm-dialog';
+  box.id = 'homeConfirm';
+  box.innerHTML = `
+    <div class="confirm-inner">
+      <div class="icon">🏠</div>
+      <div class="msg">${confirmText}</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="document.getElementById('homeConfirm').remove(); resetAndGoHome();">${yesText}</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('homeConfirm').remove();">${noText}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(box);
+}
+
+function resetAndGoHome() {
+  currentLevel = 1;
+  predictionIndex = 0;
+  levelCorrect = 0;
+  levelWrong = 0;
+  totalCorrect = 0;
+  totalWrong = 0;
+  lives = MAX_LIVES;
+  document.getElementById('feedbackOverlay').style.display = 'none';
+  // Remove any open popups
+  ['reviewPopup','homeConfirm'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
+  showLevelSelect();
+}
+
+/* ================================================================
+   SCREEN MANAGEMENT
+================================================================ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  const homeBtn = document.getElementById('homeBtn');
+  const livesBar = document.getElementById('livesBar');
+  const backBtn = document.getElementById('backToLangBtn');
+  const isLang  = id === 'langScreen';
+  const isLevel = id === 'levelScreen';
+  // Hide home button on lang screen AND level select (← already handles going back there)
+  homeBtn.style.display = (isLang || isLevel) ? 'none' : 'block';
+  // Show ← lang arrow only on level select
+  if (backBtn) {
+    if (isLevel) backBtn.classList.add('show');
+    else backBtn.classList.remove('show');
+  }
+
+  // Show lives bar only during prediction
+  if (id === 'predictionScreen') {
+    livesBar.classList.add('show');
+    updateLivesBar();
+  } else {
+    livesBar.classList.remove('show');
+  }
+}
+
+function renderSteps(containerId, currentLevel) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const names = T[lang].levelNames;
+  let html = '';
+  for (let i = 1; i <= 3; i++) {
+    const isCurrent = i === currentLevel;
+    if (i > 1) html += `<div class="level-step-line"></div>`;
+    html += `<div class="level-step">
+      <div class="level-step-dot ${isCurrent ? 'current' : ''}">${i}</div>
+      <div class="level-step-lbl ${isCurrent ? 'current' : ''}">${names[i-1]}</div>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+/* ================================================================
+   LANGUAGE & LEVEL
+================================================================ */
+function selectLang(l) {
+  lang = l;
+  totalCorrect = 0;
+  totalWrong   = 0;
+  showLevelSelect();
+}
+
+
+
+
+function showLevelSelect() {
+  const t = T[lang];
+  document.getElementById('levelTitle').textContent  = t.levelSelectTitle;
+  document.getElementById('levelStory').textContent  = t.levelSelectStory;
+
+  // Hero monsters for level select (one good, one evil, one good)
+  const lhEl = document.getElementById('levelHeroMonsters');
+  if (lhEl) {
+    lhEl.innerHTML =
+      `<span style="animation:heroFloat1 3.2s ease-in-out infinite;display:inline-block">${renderMonster({color:'green', spots:'few', eyes:2}, 80, false, false)}</span>` +
+      `<span style="animation:heroFloat2 2.8s ease-in-out infinite;display:inline-block;position:relative;z-index:2">${renderMonster({color:'purple', spots:'many', eyes:1}, 96, true, false)}</span>` +
+      `<span style="animation:heroFloat3 3.5s ease-in-out infinite;display:inline-block">${renderMonster({color:'blue', spots:'few', eyes:3}, 80, false, false)}</span>`;
+  }
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById(`lvlName${i}`).textContent  = t.levelNames[i - 1];
+    document.getElementById(`lvlDesc${i}`).textContent  = t.levelDescs[i - 1];
+    document.getElementById(`lvlBadge${i}`).textContent = t.levelBadges[i - 1];
+  }
+  // Lab curiosity box
+  document.getElementById('labCuriosityText').innerHTML = t.labCuriosity;
+  document.getElementById('labCuriosityLink').textContent = t.labCuriosityLink;
+  const rpBtn = document.getElementById('resetProgressBtn');
+  if (rpBtn) rpBtn.textContent = t.resetProgressBtn;
+  showScreen('levelScreen');
+}
+
+function selectLevel(lv) {
+  currentLevel = lv;
+  currentRule  = pickRule(lv);   // pick ONCE here, shared by training + prediction
+  levelCorrect = 0;
+  levelWrong   = 0;
+  lives = MAX_LIVES;
+  showIntro();
+}
+
+function showIntro() {
+  const t = T[lang];
+  const lv = currentLevel;
+  renderSteps('stepsIntro', lv);
+  document.getElementById('introTitle').textContent = t.introTitles[lv - 1];
+
+  const illEl = document.getElementById('introIllustration');
+  illEl.innerHTML = `<div style="display:flex;gap:12px;justify-content:center">
+    ${renderMonster({ color: 'green',  spots: 'few',  eyes: 2 }, 72, false, false)}
+    ${renderMonster({ color: 'purple', spots: 'many', eyes: 1 }, 72, true,  false)}
+    ${renderMonster({ color: 'blue',   spots: 'few',  eyes: 3 }, 72, false, false)}
+  </div>`;
+
+  document.getElementById('introText').innerHTML = t.introTexts[lv - 1];
+
+  const featureLabel = lang === 'pt' ? '🔍 Presta atenção a:' : '🔍 Look closely at:';
+  const feats = t.introFeaturesSets[lv - 1];
+  document.getElementById('introFeatures').innerHTML =
+    `<div style="font-family:var(--font-head);font-size:1rem;color:var(--accent1);margin-bottom:4px;align-self:flex-start">${featureLabel}</div>` +
+    feats.map(f => `<div class="feature-pill">${f}</div>`).join('');
+
+  document.getElementById('introNextBtn').textContent = t.btnStart;
+  document.getElementById('livesIntroText').innerHTML = t.livesIntroText;
+  showScreen('introScreen');
+}
+
+/* ================================================================
+   TRAINING PHASE
+================================================================ */
+function startTraining() {
+  // currentRule already set by selectLevel
+  trainingMonsters = generateTraining();
+  const t  = T[lang];
+  const lv = currentLevel;
+
+  renderSteps('stepsTrain', lv);
+  document.getElementById('trainingTitle').textContent    = t.trainingTitle[lv - 1];
+  document.getElementById('trainingSubtitle').textContent = t.trainingSubtitle;
+  document.getElementById('trainGoodLabel').textContent   = t.trainGoodLabel;
+  document.getElementById('trainEvilLabel').textContent   = t.trainEvilLabel;
+  document.getElementById('trainingNextBtn').textContent  = t.btnReady;
+
+  const evil = trainingMonsters.filter(m =>  evaluateRule(m));
+  const good = trainingMonsters.filter(m => !evaluateRule(m));
+
+  // trainingGridYes = "Good monsters" section, trainingGridNo = "Evil monsters" section
+  document.getElementById('trainingGridYes').innerHTML = good.map(m => monsterCard(m)).join('');
+  document.getElementById('trainingGridNo').innerHTML  = evil.map(m => monsterCard(m)).join('');
+
+  showScreen('trainingScreen');
+}
+// Boot: load saved progress and render hero monsters
+loadProgress();
+(function bootHeroMonsters() {
+  const el = document.getElementById('langHeroMonsters');
+  if (!el) return;
+  el.innerHTML =
+    `<span class="lang-monster-wrap">${renderMonster({color:'green', spots:'few',  eyes:2}, 90, false, false)}</span>` +
+    `<span class="lang-monster-wrap">${renderMonster({color:'purple',spots:'many', eyes:1}, 110, true,  false)}</span>` +
+    `<span class="lang-monster-wrap">${renderMonster({color:'blue',  spots:'few',  eyes:3}, 90, false, false)}</span>`;
+})();
+</script>
+</body>
+</html>
