@@ -164,8 +164,22 @@ function loadBlueskyFeed() {
   const grid = document.getElementById('bsky-feed-grid');
   if (!grid) return;
 
-  fetch(API_URL)
-    .then(res => { if (!res.ok) throw new Error(`HTTP ${res.status}`); return res.json(); })
+  /* Safari-safe fetch: explicit CORS mode, no cache, 8-second timeout */
+  const controller = new AbortController();
+  const timeoutId  = setTimeout(() => controller.abort(), 8000);
+
+  fetch(API_URL, {
+    method: 'GET',
+    mode:   'cors',
+    cache:  'no-store',
+    signal: controller.signal
+  })
+    .then(res => {
+      clearTimeout(timeoutId);
+      /* Opaque responses (Safari cross-origin quirk) carry no data */
+      if (!res.ok || res.type === 'opaque') throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
     .then(data => {
       const feed = (data.feed || []).filter(item => !item.reason); // skip reposts
       if (!feed.length) {
@@ -175,6 +189,7 @@ function loadBlueskyFeed() {
       grid.innerHTML = feed.slice(0, LIMIT).map(renderCard).join('');
     })
     .catch(() => {
+      clearTimeout(timeoutId);
       grid.innerHTML =
         `<p class="bsky-error">Could not load posts. ` +
         `<a href="https://bsky.app/profile/${HANDLE}" target="_blank" rel="noopener">` +

@@ -432,21 +432,21 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.35); }
   margin-bottom: 2.5rem;
   display: grid;
   grid-template-columns: 320px 1fr;
+  /* default align-items: stretch — photo column grows to match bio height */
 }
 
 .pi-photo {
   background: linear-gradient(160deg, #e0eeec 0%, #b2d8d2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  min-height: 360px;
+  min-height: 380px;
+  /* stretches to match .pi-info height via grid align-items: stretch */
 }
 .pi-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
+  object-position: center top;  /* keep face in frame on tall portraits */
+  display: block;
 }
 .pi-photo-placeholder {
   width: 100px; height: 100px;
@@ -550,18 +550,17 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.35); }
 
 .member-photo {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 5/4;           /* consistent crop: slightly taller than 4/3 */
   background: linear-gradient(135deg, #e8f4f2 0%, #cce5e1 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .member-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
+  object-position: center top;  /* keep face in frame */
+  display: block;
 }
 .member-photo-placeholder {
   width: 64px; height: 64px;
@@ -912,31 +911,77 @@ a.outreach-header--link:hover .outreach-status-pill {
 }
 
 /* ----------------------------------------------------------------
-   PUBLICATIONS
+   PUBLICATIONS — timeline layout
    ---------------------------------------------------------------- */
 #publications { background: var(--fog); }
 
-.pub-list { list-style: none; display: flex; flex-direction: column; }
-
-.pub-item {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 0 1.5rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
-  align-items: start;
+/* Vertical track */
+.pub-timeline {
+  position: relative;
+  margin-top: 2.5rem;
+  padding-left: 2.25rem;
 }
-.pub-item:first-child { border-top: 1px solid var(--border); }
+.pub-timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--teal) 0%,
+    rgba(13,148,136,.15) 100%
+  );
+}
 
-.pub-year {
+/* Year group */
+.pub-year-group {
+  margin-bottom: 2.75rem;
+}
+.pub-year-group:last-child { margin-bottom: 0; }
+
+/* Year label row with dot on the track */
+.pub-year-header {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin-bottom: .9rem;
+  position: relative;
+}
+.pub-year-dot {
+  position: absolute;
+  left: calc(-2.25rem + 1px);   /* centres 14px dot on the 2px line at left:7px */
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(13,148,136,.2), 0 0 0 6px rgba(13,148,136,.07);
+  flex-shrink: 0;
+}
+.pub-year-label {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--teal);
-  padding-top: .1rem;
+  line-height: 1;
 }
 
-.pub-content { display: flex; flex-direction: column; gap: .3rem; }
+/* Papers under each year */
+.pub-year-papers {
+  display: flex;
+  flex-direction: column;
+}
+.pub-paper {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.pub-year-papers .pub-paper:first-child {
+  border-top: 1px solid var(--border);
+}
 
 .pub-title { font-size: .98rem; font-weight: 500; color: var(--navy); line-height: 1.45; }
 .pub-title a { color: var(--navy); }
@@ -945,7 +990,7 @@ a.outreach-header--link:hover .outreach-status-pill {
 .pub-authors { font-size: .82rem; color: var(--slate); font-style: italic; }
 .pub-journal  { font-size: .82rem; color: #475569; font-weight: 500; }
 
-.pub-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
+.pub-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .35rem; }
 .pub-tag {
   font-size: .7rem; font-weight: 500;
   background: #EFF6FF; color: #1D4ED8;
@@ -1167,6 +1212,19 @@ footer {
   font-style: italic;
 }
 
+/* Fun fact line — appears on member cards and PI card */
+.member-fun-fact {
+  font-size: .76rem;
+  color: #94a3b8;        /* lighter than --slate, so it reads as a footnote */
+  line-height: 1.5;
+  margin-top: .2rem;
+  font-style: italic;
+}
+.member-fun-fact::before {
+  content: '💡 ';
+  font-style: normal;
+}
+
 /* ----------------------------------------------------------------
    ALUMNI SECTION
    ---------------------------------------------------------------- */
@@ -1379,7 +1437,7 @@ footer {
    ---------------------------------------------------------------- */
 @media (max-width: 900px) {
   .pi-card { grid-template-columns: 1fr; }
-  .pi-photo { min-height: 280px; aspect-ratio: 16/9; }
+  .pi-photo { min-height: 280px; aspect-ratio: 16/9; position: static; }
   .mission-pillars { grid-template-columns: 1fr 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
 }
