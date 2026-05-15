@@ -1,191 +1,122 @@
 # Disease Transcriptomics Lab — Website
 
-> Built with [Claude Sonnet 4.6](https://www.anthropic.com/claude) (Anthropic).
-> All scientific content and logos belong to the Disease Transcriptomics Lab.
-
----
-
-## Overview
-
 Static website for the **Disease Transcriptomics Lab** at NOVA Medical School, Lisbon.  
-Hosted on **GitHub Pages** at `https://diseasetranscriptomicslab.github.io` (or a custom domain).
+Hosted on **GitHub Pages** at [`https://nmoraislab.github.io`](https://nmoraislab.github.io).
 
 ---
 
-## File Architecture
+## File structure
 
 ```
 nmoraislab.github.io/
 │
-├── index.html                   ← Shell: nav + section placeholders + footer
-│                                  (do not put content here — edit sections/ instead)
+├── index.html                   ← Shell: nav, section placeholders, funding block, footer
+│                                  (edit section content in sections/ instead)
 ├── css/
 │   └── styles.css               ← All design tokens, layout, and component styles
-│
 ├── js/
-│   └── main.js                  ← Section loader · Nav · Animations · Bluesky feed
+│   └── main.js                  ← Section loader · nav · animations · Bluesky feed
 │
-├── sections/                    ← ★ EDIT CONTENT HERE ★
+├── sections/                    ← ★ Edit content here ★
 │   ├── hero.html                ← Hero / landing section
-│   ├── about.html               ← About the lab + lab photo
+│   ├── about.html               ← About the lab + graphical abstract
 │   ├── team.html                ← PI card + team member cards
 │   ├── software.html            ← Web apps, R packages, tools in development
-│   ├── publications.html        ← Selected publications list
-│   ├── news.html                ← Social follow buttons (Bluesky feed is auto-loaded)
+│   ├── publications.html        ← Selected publications (year-grouped timeline)
+│   ├── news.html                ← Social buttons; Bluesky feed is auto-loaded
+│   ├── outreach.html            ← Science communication games
 │   ├── alumni.html              ← Former lab members
 │   └── location.html            ← Address + OpenStreetMap embed
 │
-└── assets/
-    ├── logos/
-    │   ├── logo-icon.png        ← DNA icon (white on transparent) — nav + footer
-    │   └── logo-full-dark.png   ← Full logo (white on transparent) — hero
-    └── photos/                  ← Team photos (add here, reference in team.html)
+├── assets/
+│   ├── logos/
+│   │   ├── logo-icon.png        ← DNA icon (white on transparent) — nav + footer
+│   │   ├── logo-icon-black.png  ← Same icon inverted — favicon on light-mode tabs
+│   │   ├── logo-full-dark.png   ← Full logo (white on transparent) — hero
+│   │   └── funding/             ← Funder logos (EMBO, FCT, BIOMICS, EU flag)
+│   └── photos/                  ← Team + group photos
+│
+└── games/
+    └── monster-scientists.html  ← Outreach game (bilingual EN/PT)
 ```
 
 ---
 
-## How It Works
+## How it works
 
-`index.html` is a **shell** — it contains only the navigation, placeholder `<div>`s, and the footer. When the page loads, `js/main.js` fetches each `sections/*.html` file over HTTP and injects it into the matching placeholder. This keeps every section independently editable.
+`index.html` is a shell containing only the nav, empty `<div>` placeholders, a static funding block, and the footer. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into its placeholder — keeping every section independently editable without touching `index.html`.
 
 ---
 
-### ⚠ Local preview — you must use an HTTP server
+## Local preview
 
 > **Opening `index.html` directly in your browser will show a blank page.**  
-> Browsers block `fetch()` on `file://` for security. This is expected behaviour.
+> Browsers block `fetch()` on `file://`. You need a local HTTP server.
 
-**To preview the site locally:**
+```bash
+cd /path/to/diseasetranscriptomicslab.github.io
+python3 -m http.server 8000
+```
 
-1. Open a **Terminal** (on Mac: Spotlight → "Terminal")
-2. Navigate to the site folder:
-   ```bash
-   cd /path/to/nmoraislab.github.io
-   ```
-3. Start a local server:
-   ```bash
-   python3 -m http.server 8000
-   ```
-4. Open **[http://localhost:8000](http://localhost:8000)** in your browser
-
-If you see a yellow banner at the top of the page, you opened the file directly — follow the instructions in the banner.
-
-> **On GitHub Pages (HTTPS), everything works automatically** — no server needed after pushing.
+Then open **[http://localhost:8000](http://localhost:8000)**. A yellow banner appears automatically if you've opened the file directly.
 
 ---
 
----
-
-## How to Edit Content
-
-Open the relevant file in `sections/`, make your changes, then commit and push.
+## Editing content
 
 | File | What to edit |
 |---|---|
-| `sections/team.html` | Add/remove team members, update names, emails, roles, ORCID, social links, bios |
+| `sections/team.html` | Add/remove members, update names, roles, emails, bios, fun facts, social links |
+| `sections/publications.html` | Add papers grouped by year |
 | `sections/software.html` | Add tools, update links and descriptions |
-| `sections/publications.html` | Add papers (newest first) |
-| `sections/alumni.html` | Add former members (newest departure first) |
-| `sections/about.html` | Lab description, replace lab photo placeholder |
+| `sections/alumni.html` | Add former members (most recent departure first) |
+| `sections/outreach.html` | Add/update science communication games |
+| `sections/about.html` | Lab description, graphical abstract |
 | `sections/hero.html` | Headline, tagline, affiliation badges |
-| `sections/news.html` | Social button URLs (Bluesky/LinkedIn/X); Bluesky feed is automatic |
-| `sections/location.html` | Address text, map pin coordinates |
+| `sections/news.html` | Social button URLs (Bluesky feed is automatic) |
+| `sections/location.html` | Address text, map pin |
+| `index.html` | Funding logos (static block near the footer) |
 
 ### Adding a team member
 
 Copy any `.member-card` block in `sections/team.html` and update:
 - Name, flag emoji, role badge
-- Bio text (`.member-bio`)
-- Research interests (`.member-interests`)
+- Bio (`.member-bio`), research interests (`.member-interests`), fun fact (`.member-fun-fact`)
 - Email `href` and display text
-- Social links: ORCID, LinkedIn, Bluesky, GitHub (use `href="#"` to hide unused ones)
-- Photo: replace `<div class="member-photo-placeholder">XX</div>` with `<img src="assets/photos/firstname-lastname.jpg" />`
+- Social links (ORCID, LinkedIn, Bluesky, GitHub — use `href="#"` to hide unused ones)
+- Photo: replace `<div class="member-photo"><img src="..." /></div>` with your image path
+
+Photos are automatically cropped to a consistent `5/4` aspect ratio — any size works.
 
 ### Adding a publication
 
-Copy a `.pub-item` block in `sections/publications.html` and update the year, title, DOI link, authors, journal, and tags.
+Publications are grouped by year. Copy a `.pub-paper` block inside the matching `.pub-year-papers` container (or copy a full `.pub-year-group` block to start a new year). Keep years in reverse chronological order.
 
 ### Adding an alumni entry
 
-Add an `<li class="alumni-item">` to the list in `sections/alumni.html`:
+Add an `<li class="alumni-item">` in `sections/alumni.html`:
 ```html
 <li class="alumni-item">
   <a href="https://linkedin.com/in/..." target="_blank" rel="noopener">Full Name</a>
   <span class="alumni-meta">· Role · (2021–2025)</span>
 </li>
 ```
-Keep entries ordered by most recent departure date.
 
 ---
 
-## Bluesky Live Feed
+## Bluesky feed
 
-The News section automatically fetches and displays the 6 most recent posts from `@nmoraislab.bsky.social` using the **public AT Protocol API** — no account or API key required.
-
-- Posts include images when present (single, pair, or grid layout)
-- Reposts are filtered out (original posts only)
-- To change the account, edit the `HANDLE` constant at the top of `loadBlueskyFeed()` in `js/main.js`
+The News section automatically fetches the most recent posts from `@nmoraislab.bsky.social` via the public AT Protocol API (no key required). Reposts are filtered out. To change the account, edit the `HANDLE` constant at the top of `loadBlueskyFeed()` in `js/main.js`.
 
 ---
 
-## Design Tokens
+## Deploying
 
-To retheme the site, edit the CSS variables at the top of `css/styles.css`:
+Push to `main` — GitHub Pages redeploys automatically within ~60 seconds.
 
-```css
-:root {
-  --navy:       #0D1B2A;   /* dark background, headings */
-  --teal:       #0D9488;   /* accent colour             */
-  --teal-light: #14B8A6;   /* hover states              */
-  --slate:      #64748B;   /* secondary text            */
-  --fog:        #F0F4F8;   /* alternate section bg      */
-}
-```
+**First-time setup:** Settings → Pages → Source → Deploy from branch → `main` → `/ (root)`.
 
----
-
-## Deploying to GitHub Pages
-
-1. Push the repository to GitHub.
-2. Go to **Settings → Pages → Source → Deploy from branch → main → / (root)**.
-3. The site is live at `https://YOUR_ORG.github.io` within ~2 minutes.
-
-### Custom domain
-
-Create a `CNAME` file in the repository root containing your domain:
-```
-lab.nmoraislab.org
-```
-Add DNS **A records** pointing to GitHub's IPs:
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
-And a **CNAME record**: `www` → `YOUR_ORG.github.io`.
-
-Enable **Enforce HTTPS** in GitHub → Settings → Pages.
-
----
-
-## Updating the Site
-
-After any edit, commit and push to `main`. GitHub Pages redeploys automatically within ~60 seconds.
-
-For non-Git users: use the **GitHub web editor** (click a file → pencil icon ✏ → edit → Commit changes).
-
----
-
-## Credits
-
-- Website built with **Claude Sonnet 4.6** (Anthropic, 2025)
-- Fonts: [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) + [DM Sans](https://fonts.google.com/specimen/DM+Sans) via Google Fonts
-- Map: [OpenStreetMap](https://www.openstreetmap.org) (free, no API key)
-- Social feed: [AT Protocol public API](https://docs.bsky.app) (free, no key)
-- Hosting: [GitHub Pages](https://pages.github.com)
-- Icons: inline SVG (Simple Icons for brand logos)
-- Lab logo: Disease Transcriptomics Lab
+For non-Git users: edit any file on GitHub (click it → pencil icon ✏ → Commit changes).
 
 ---
 
