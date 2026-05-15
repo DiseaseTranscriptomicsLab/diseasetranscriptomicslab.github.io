@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Árvore Inteligente</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — warm, vivid, kid-friendly palette
+   ═══════════════════════════════════════════════════ */
+:root {
+  --bg:        #fdf6ee;
+  --surface:   #ffffff;
+  --surface2:  #f5ede0;
+  --border:    #e0cdb5;
+  --text:      #2d1f0e;
+  --muted:     #8a6d4e;
+
+  --green:     #2e9e5b;
+  --green-l:   #d4f5e2;
+  --green-d:   #1d6e3d;
+  --orange:    #e07620;
+  --orange-l:  #fdebd0;
+  --orange-d:  #a34f0a;
+  --red:       #cc3333;
+  --red-l:     #fde8e8;
+  --yellow:    #d4a017;
+  --yellow-l:  #fef8e1;
+  --teal:      #1a9080;
+  --teal-l:    #d0f0ec;
+  --purple:    #7b4fbf;
+  --purple-l:  #efe5ff;
+
+  --sh-sm: 0 2px 8px rgba(45,31,14,.10);
+  --sh-md: 0 4px 18px rgba(45,31,14,.14);
+  --sh-lg: 0 8px 36px rgba(45,31,14,.18);
+  --r:  16px;
+  --r-sm: 10px;
+  --r-xs: 6px;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html { font-size:16px; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── SCREENS ── */
+.screen { display:none; min-height:100vh; flex-direction:column; }
+.screen.active { display:flex; }
+
+/* ── BUTTONS ── */
+.btn {
+  font-family:'Nunito',sans-serif; font-weight:800;
+  border:none; border-radius:50px; cursor:pointer;
+  transition:all .18s; display:inline-flex;
+  align-items:center; justify-content:center; gap:6px;
+  white-space:nowrap;
+}
+.btn:hover  { transform:translateY(-2px); }
+.btn:active { transform:scale(.97); }
+.btn-green  { background:var(--green);  color:#fff; box-shadow:0 4px 14px rgba(46,158,91,.35); padding:13px 32px; font-size:17px; }
+.btn-orange { background:var(--orange); color:#fff; box-shadow:0 4px 14px rgba(224,118,32,.35); padding:11px 24px; font-size:15px; }
+.btn-teal   { background:var(--teal);   color:#fff; box-shadow:0 4px 14px rgba(26,144,128,.35); padding:11px 24px; font-size:15px; }
+.btn-ghost  { background:var(--surface); color:var(--text); border:2px solid var(--border); box-shadow:var(--sh-sm); padding:9px 20px; font-size:14px; }
+.btn-ghost:hover { background:var(--surface2); }
+.btn-sm     { padding:7px 16px!important; font-size:13px!important; }
+.btn-red    { background:var(--red); color:#fff; box-shadow:0 4px 14px rgba(204,51,51,.3); padding:9px 18px; font-size:14px; }
+
+/* ══════════════════════════════════════════════════
+   SPLASH
+   ══════════════════════════════════════════════════ */
+#splash {
+  align-items:center; justify-content:center;
+  text-align:center; padding:32px 20px;
+  background: radial-gradient(ellipse at 30% 20%, rgba(46,158,91,.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 75% 80%, rgba(224,118,32,.08) 0%, transparent 60%),
+              var(--bg);
+}
+.splash-inner { display:flex; flex-direction:column; align-items:center; gap:14px; max-width:460px; }
+.sp-tree { font-size:80px; animation:tBounce 2.8s ease-in-out infinite; display:block; }
+@keyframes tBounce { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-10px) rotate(2deg);} }
+.sp-title { font-family:'Fredoka One',sans-serif; font-size:clamp(36px,8vw,68px); line-height:1.05; color:var(--text); }
+.sp-title .g { color:var(--green); } .sp-title .o { color:var(--orange); }
+.sp-sub { font-size:15px; color:var(--muted); }
+.sp-animals { display:flex; gap:10px; justify-content:center; font-size:40px; flex-wrap:wrap; }
+.sp-animals span { animation:popIn .4s cubic-bezier(.34,1.56,.64,1) both; }
+.sp-animals span:nth-child(1){animation-delay:.08s} .sp-animals span:nth-child(2){animation-delay:.16s}
+.sp-animals span:nth-child(3){animation-delay:.24s} .sp-animals span:nth-child(4){animation-delay:.32s}
+.sp-animals span:nth-child(5){animation-delay:.40s} .sp-animals span:nth-child(6){animation-delay:.48s}
+.sp-animals span:nth-child(7){animation-delay:.56s}
+@keyframes popIn { from{opacity:0;transform:scale(.2) rotate(-20deg);} to{opacity:1;transform:scale(1);} }
+.sp-desc { font-size:15px; color:var(--muted); line-height:1.6; max-width:400px; }
+.sp-btns { display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; }
+
+/* ══════════════════════════════════════════════════
+   HOW TO PLAY
+   ══════════════════════════════════════════════════ */
+#howtoplay {
+  align-items:center; justify-content:center;
+  padding:24px 16px;
+  background:var(--bg);
+}
+.htp-inner {
+  max-width:520px; width:100%;
+  display:flex; flex-direction:column; gap:16px;
+}
+.htp-title { font-family:'Fredoka One',sans-serif; font-size:30px; text-align:center; color:var(--text); }
+.htp-section {
+  background:var(--surface); border:2px solid var(--border);
+  border-radius:var(--r-sm); padding:14px 16px;
+  box-shadow:var(--sh-sm);
+}
+.htp-section h3 { font-family:'Fredoka One',sans-serif; font-size:17px; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.htp-section p, .htp-section li { font-size:14px; color:var(--muted); line-height:1.6; }
+.htp-section ul { padding-left:16px; display:flex; flex-direction:column; gap:4px; }
+.score-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.score-pill {
+  display:flex; align-items:center; gap:6px;
+  background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:20px; padding:5px 12px; font-size:13px; font-weight:700;
+}
+.level-badges { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+.lvl-badge { display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.5; }
+.lvl-badge strong { color:var(--text); white-space:nowrap; }
+.htp-footer { text-align:center; }
+
+/* ══════════════════════════════════════════════════
+   LEVEL SELECT
+   ══════════════════════════════════════════════════ */
+#level-select {
+  align-items:center; justify-content:center;
+  padding:28px 16px; gap:24px;
+  background:var(--bg);
+}
+.ls-title { font-family:'Fredoka One',sans-serif; font-size:36px; color:var(--text); text-align:center; }
+.level-cards { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+.level-card {
+  background:var(--surface); border:2.5px solid var(--border);
+  border-radius:var(--r); padding:22px 18px;
+  width:175px; text-align:center; cursor:pointer;
+  transition:all .22s; box-shadow:var(--sh-sm);
+}
+.level-card:hover { transform:translateY(-4px); box-shadow:var(--sh-lg); }
+.lv1:hover { border-color:var(--green); }
+.lv2:hover { border-color:var(--orange); }
+.lv3:hover { border-color:var(--purple); }
+.lc-emoji { font-size:44px; margin-bottom:8px; display:block; }
+.lc-name { font-family:'Fredoka One',sans-serif; font-size:19px; margin-bottom:5px; }
+.lc-tag {
+  display:inline-block; padding:3px 12px; border-radius:16px;
+  font-size:11px; font-weight:800; letter-spacing:.3px; margin-top:8px;
+}
+.lv1 .lc-tag { background:var(--green-l); color:var(--green-d); }
+.lv2 .lc-tag { background:var(--orange-l); color:var(--orange-d); }
+.lv3 .lc-tag { background:var(--purple-l); color:var(--purple); }
+.lc-details { font-size:12px; color:var(--muted); line-height:1.5; margin-top:6px; }
+
+/* ══════════════════════════════════════════════════
+   GAME — SHARED HEADER
+   ══════════════════════════════════════════════════ */
+#game { background:var(--bg); }
+.ghdr {
+  background:var(--surface); border-bottom:2px solid var(--border);
+  padding:8px 14px; display:flex; align-items:center; gap:8px;
+  flex-wrap:wrap; box-shadow:var(--sh-sm);
+  position:sticky; top:0; z-index:200;
+}
+.ghdr-title { font-family:'Fredoka One',sans-serif; font-size:19px; color:var(--orange); flex:1; min-width:0; }
+.hpill {
+  background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:16px; padding:4px 11px; font-size:13px; font-weight:700;
+  display:flex; align-items:center; gap:4px; white-space:nowrap;
+}
+.hpill.timer { color:var(--orange); }
+.hpill.timer.urg { color:var(--red); animation:blk .5s ease-in-out infinite; }
+@keyframes blk { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+.hpill.score { color:var(--teal); }
+.phase-chip { padding:4px 13px; border-radius:16px; font-size:12px; font-weight:800; }
+.pc-train { background:var(--green-l); color:var(--green-d); }
+.pc-test  { background:var(--orange-l); color:var(--orange-d); }
+.pdots { display:flex; gap:3px; }
+.pdot { width:7px; height:7px; border-radius:50%; background:var(--border); transition:background .3s; }
+.pdot.done   { background:var(--teal); }
+.pdot.active { background:var(--orange); }
+
+/* ══════════════════════════════════════════════════
+   DESKTOP LAYOUT  (≥ 700px)
+   ══════════════════════════════════════════════════ */
+.game-body { flex:1; display:flex; overflow:hidden; min-height:0; }
+
+/* Left panel */
+.qpanel {
+  width:185px; min-width:155px; max-width:200px;
+  background:var(--surface); border-right:2px solid var(--border);
+  padding:10px; display:flex; flex-direction:column; gap:6px; overflow-y:auto;
+}
+.qp-title { font-family:'Fredoka One',sans-serif; font-size:14px; color:var(--muted); margin-bottom:2px; }
+.q-card {
+  background:var(--surface2); border:2px solid var(--border);
+  border-radius:var(--r-sm); padding:8px 10px;
+  font-size:12px; font-weight:700; cursor:grab;
+  transition:all .18s; user-select:none; touch-action:none;
+  display:flex; align-items:center; gap:6px; line-height:1.3;
+}
+.q-card:hover   { border-color:var(--orange); background:var(--orange-l); transform:translateX(3px); }
+.q-card.dragging{ opacity:.25; cursor:grabbing; }
+.q-card.used    { opacity:.32; pointer-events:none; text-decoration:line-through; }
+.q-card.sel-q   { border-color:var(--green); background:var(--green-l); }
+.q-card.lv3-disabled { opacity:.25; pointer-events:none; }
+.q-icon { font-size:14px; flex-shrink:0; }
+.hint-box {
+  background:var(--yellow-l); border:1.5px solid #d4b020;
+  border-radius:var(--r-xs); padding:8px 9px;
+  font-size:12px; color:#7a5800; line-height:1.5; margin-top:4px;
+}
+.node-limit-info {
+  background:var(--purple-l); border:1.5px solid var(--purple);
+  border-radius:var(--r-xs); padding:7px 9px;
+  font-size:11px; font-weight:700; color:var(--purple); margin-top:4px;
+  text-align:center;
+}
+
+/* Tree canvas */
+.tree-canvas {
+  flex:1; overflow:auto; padding:16px 12px;
+  display:flex; flex-direction:column; align-items:center; position:relative;
+}
+.phase-banner {
+  background:var(--surface); border:2px solid var(--border);
+  border-radius:var(--r-sm); padding:8px 16px;
+  font-size:13px; font-weight:700; color:var(--muted);
+  margin-bottom:14px; text-align:center; max-width:520px; box-shadow:var(--sh-sm);
+}
+.phase-banner strong { color:var(--text); }
+
+/* Right panel */
+.apanel {
+  width:150px; min-width:125px; max-width:165px;
+  background:var(--surface); border-left:2px solid var(--border);
+  padding:10px; display:flex; flex-direction:column; gap:6px; overflow-y:auto;
+}
+.ap-title { font-family:'Fredoka One',sans-serif; font-size:14px; color:var(--muted); }
+.cur-animal {
+  background:var(--yellow-l); border:3px solid var(--yellow);
+  border-radius:var(--r-sm); padding:10px 7px; text-align:center; box-shadow:var(--sh-sm);
+}
+.ca-emoji { font-size:42px; display:block; margin-bottom:2px; }
+.ca-name  { font-weight:800; font-size:13px; }
+.ql-label { font-size:10px; font-weight:700; color:var(--muted); letter-spacing:.4px; text-transform:uppercase; margin-top:6px; }
+.q-item {
+  background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:var(--r-xs); padding:5px 8px; font-size:12px;
+  font-weight:700; display:flex; align-items:center; gap:6px;
+}
+
+/* ══════════════════════════════════════════════════
+   TREE NODES
+   ══════════════════════════════════════════════════ */
+#tree-container { position:relative; width:100%; display:flex; flex-direction:column; align-items:center; }
+#tree-svg { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:1; }
+#tree-render { position:relative; z-index:2; width:100%; display:flex; flex-direction:column; align-items:center; }
+
+.t-node {
+  background:var(--surface); border:2.5px solid var(--border);
+  border-radius:var(--r-sm); min-width:130px; min-height:52px;
+  padding:8px 12px; display:flex; align-items:center; justify-content:center;
+  text-align:center; font-size:12px; font-weight:700;
+  cursor:default; transition:all .22s; position:relative; box-shadow:var(--sh-sm);
+}
+.t-node.drop-zone {
+  border-style:dashed; border-color:var(--orange); background:var(--orange-l);
+  cursor:pointer; animation:pz 1.6s ease-in-out infinite;
+}
+@keyframes pz { 0%,100%{box-shadow:0 0 0 0 rgba(224,118,32,.2);} 50%{box-shadow:0 0 0 7px rgba(224,118,32,0);} }
+.t-node.drop-zone:hover, .t-node.drag-over { border-color:var(--green); background:var(--green-l); }
+.t-node.has-q { border-color:var(--orange); background:var(--orange-l); border-style:solid; }
+.t-node.has-q.editable { cursor:pointer; }
+.t-node.has-q.editable:hover { border-color:var(--red); background:var(--red-l); }
+.t-node.lv3-locked { border-color:var(--red)!important; background:var(--red-l)!important; cursor:not-allowed; }
+.node-ph { color:var(--muted); font-size:11px; font-style:italic; }
+.edit-badge {
+  position:absolute; top:-8px; right:-6px;
+  background:var(--red); color:#fff; border-radius:50%;
+  width:18px; height:18px; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+.branch-lbl-row { display:flex; justify-content:space-between; padding:2px 14px; margin-top:2px; }
+.blbl { font-size:10px; font-weight:800; padding:2px 8px; border-radius:7px; }
+.blbl.no  { background:var(--red-l); color:#8a1a1a; }
+.blbl.yes { background:var(--green-l); color:var(--green-d); }
+
+/* Leaf */
+.t-leaf {
+  border-radius:var(--r-sm); min-width:105px; padding:10px 8px;
+  display:flex; flex-direction:column; align-items:center;
+  gap:3px; font-size:12px; font-weight:800;
+  box-shadow:var(--sh-sm); transition:all .3s; cursor:default;
+}
+.t-leaf.mammal { background:var(--yellow-l); border:2.5px solid var(--yellow);    color:#5a3e00; }
+.t-leaf.bird   { background:#fce4d6;         border:2.5px solid #d4724a;           color:#6a2800; }
+.t-leaf.fish   { background:#d6eaf8;         border:2.5px solid #2980b9;           color:#1a3a6a; }
+.t-leaf.insect { background:var(--purple-l); border:2.5px solid var(--purple);     color:#4a1a6a; }
+.t-leaf.mixed  {
+  background:var(--surface2); border:2.5px dashed var(--border);
+  color:var(--muted); cursor:pointer;
+  animation:pz 1.6s ease-in-out infinite;
+}
+.t-leaf.mixed:hover, .t-leaf.dov { border-color:var(--green)!important; background:var(--green-l)!important; }
+.leaf-em  { font-size:22px; }
+.leaf-lbl { font-size:11px; }
+.node-animals { display:flex; flex-wrap:wrap; justify-content:center; gap:2px; margin-top:4px; }
+.a-icon { font-size:17px; transition:all .4s cubic-bezier(.34,1.56,.64,1); }
+.a-icon.fi { animation:flyIn .45s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes flyIn { from{transform:scale(0) rotate(-20deg);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+/* ══════════════════════════════════════════════════
+   MOBILE LAYOUT  (< 700px)
+   ══════════════════════════════════════════════════ */
+@media(max-width:699px){
+  .game-body  { flex-direction:column; overflow:hidden; }
+  .qpanel     { width:100%; max-width:none; min-width:0; height:auto; max-height:140px; border-right:none; border-bottom:2px solid var(--border); padding:8px 10px; }
+  .qp-title   { display:none; }
+  #q-cards    { display:flex; flex-direction:row; flex-wrap:nowrap; gap:6px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .q-card     { flex-shrink:0; max-width:140px; white-space:nowrap; font-size:11px; padding:7px 9px; }
+  .hint-box   { display:none; }
+  .node-limit-info { display:none; }
+  .tree-canvas { flex:1; overflow:auto; padding:10px 8px; }
+  .apanel     { width:100%; max-width:none; min-width:0; height:auto; max-height:120px; border-left:none; border-top:2px solid var(--border); padding:8px 10px; flex-direction:row; flex-wrap:wrap; align-items:center; gap:8px; overflow-y:visible; overflow-x:auto; }
+  .ap-title   { display:none; }
+  .cur-animal { padding:6px 10px; display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .ca-emoji   { font-size:32px; display:inline; }
+  .ca-name    { font-size:12px; }
+  .ql-label   { display:none; }
+  #queue-list { display:flex; flex-direction:row; gap:6px; overflow-x:auto; flex-wrap:nowrap; }
+  .q-item     { flex-shrink:0; }
+  /* smaller tree nodes on mobile */
+  .t-node     { min-width:100px; font-size:11px; padding:7px 9px; }
+  .t-leaf     { min-width:86px; font-size:11px; padding:7px 7px; }
+  .leaf-em    { font-size:18px; }
+  .a-icon     { font-size:14px; }
+  .phase-banner { font-size:12px; padding:6px 12px; }
+}
+
+/* ══════════════════════════════════════════════════
+   LEADERBOARD
+   ══════════════════════════════════════════════════ */
+#leaderboard {
+  align-items:center; justify-content:center;
+  padding:28px 16px; gap:18px; background:var(--bg);
+}
+.lb-inner { max-width:560px; width:100%; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.lb-title { font-family:'Fredoka One',sans-serif; font-size:38px; color:var(--text); text-align:center; }
+.podium { display:flex; align-items:flex-end; justify-content:center; gap:8px; width:100%; }
+.ps { flex:1; max-width:130px; background:var(--surface); border:2px solid var(--border); border-radius:var(--r-sm) var(--r-sm) 0 0; padding:10px 6px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:3px; box-shadow:var(--sh-sm); }
+.ps1 { height:120px; border-color:var(--yellow); background:var(--yellow-l); }
+.ps2 { height:92px; border-color:#aaa; }
+.ps3 { height:72px; border-color:#c8a060; }
+.p-med { font-size:22px; } .p-nm { font-weight:800; font-size:13px; } .p-sc { color:var(--muted); font-size:11px; }
+.lb-list { width:100%; display:flex; flex-direction:column; gap:5px; }
+.lb-row { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--r-xs); padding:9px 12px; display:flex; align-items:center; gap:10px; box-shadow:var(--sh-sm); }
+.lb-rank { width:24px; font-weight:800; color:var(--muted); text-align:center; }
+.lb-name { flex:1; font-weight:700; }
+.lb-lv   { font-size:11px; color:var(--muted); }
+.lb-sc   { font-weight:800; color:var(--teal); }
+.lb-empty { text-align:center; color:var(--muted); padding:20px; width:100%; }
+.name-row { display:flex; gap:8px; width:100%; }
+.name-inp {
+  flex:1; background:var(--surface); border:2px solid var(--border);
+  border-radius:var(--r-sm); padding:11px 14px; font-size:15px; font-weight:700;
+  color:var(--text); font-family:'Nunito',sans-serif; outline:none; transition:border-color .18s;
+}
+.name-inp:focus { border-color:var(--green); }
+.name-inp::placeholder { color:var(--muted); font-weight:500; }
+
+/* ══════════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════════ */
+.mover {
+  display:none; position:fixed; inset:0;
+  background:rgba(45,31,14,.5); z-index:1000;
+  align-items:center; justify-content:center;
+  padding:16px; backdrop-filter:blur(3px);
+}
+.mover.open { display:flex; }
+.mbox {
+  background:var(--surface); border-radius:var(--r); padding:28px 22px;
+  max-width:440px; width:100%; text-align:center;
+  box-shadow:var(--sh-lg); animation:mPop .3s cubic-bezier(.34,1.56,.64,1);
+  border:3px solid var(--border); max-height:90vh; overflow-y:auto;
+}
+@keyframes mPop { from{opacity:0;transform:scale(.75) translateY(16px);} to{opacity:1;transform:scale(1);} }
+.mbox.correct { border-color:var(--green); }
+.mbox.wrong   { border-color:var(--red); animation:mPop .3s cubic-bezier(.34,1.56,.64,1), shake .55s ease .3s; }
+.mbox.insight { border-color:var(--yellow); }
+@keyframes shake { 0%,100%{transform:translateX(0);} 15%{transform:translateX(-9px);} 30%{transform:translateX(9px);} 45%{transform:translateX(-6px);} 60%{transform:translateX(6px);} 80%{transform:translateX(-3px);} }
+.mem { font-size:54px; margin-bottom:10px; display:block; }
+.mttl { font-family:'Fredoka One',sans-serif; font-size:24px; margin-bottom:8px; color:var(--text); }
+.mbdy { font-size:14px; color:var(--muted); line-height:1.7; margin-bottom:18px; }
+.mbdy strong { color:var(--text); }
+.mbtns { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.verdict-w {
+  font-size:17px; font-weight:900; color:var(--red);
+  background:var(--red-l); border:2.5px solid var(--red);
+  border-radius:var(--r-sm); padding:8px 12px; margin:8px 0; display:block;
+}
+.verdict-r {
+  font-size:16px; font-weight:800; color:var(--green);
+  background:var(--green-l); border:2px solid var(--green);
+  border-radius:var(--r-sm); padding:7px 12px; display:block;
+}
+.ins-box {
+  background:var(--yellow-l); border:2px solid var(--yellow);
+  border-radius:var(--r-sm); padding:10px 12px; margin-top:10px;
+  font-size:13px; line-height:1.6; color:#5a4000; text-align:left;
+}
+.ml-box {
+  background:var(--teal-l); border:2px solid var(--teal);
+  border-radius:var(--r-sm); padding:9px 12px; margin-top:7px;
+  font-size:13px; line-height:1.5; color:#0d3d36; text-align:left;
+}
+.score-bd {
+  background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:var(--r-sm); padding:12px; margin-bottom:14px; text-align:left;
+}
+.sb-row { display:flex; justify-content:space-between; padding:4px 0; font-size:14px; }
+.sb-row .sl { color:var(--muted); }
+.sb-row .sv { font-weight:800; }
+.sb-row.tot { border-top:1.5px solid var(--border); margin-top:5px; padding-top:9px; }
+.sb-row.tot .sv { font-size:20px; color:var(--teal); }
+.score-bar-wrap { background:var(--surface2); border-radius:4px; height:8px; overflow:hidden; margin-top:4px; flex:1; }
+.score-bar-fill { height:100%; border-radius:4px; transition:width .6s ease; }
+
+/* DRAG GHOST */
+#ghost {
+  position:fixed; pointer-events:none; z-index:9000;
+  background:var(--orange); color:#fff;
+  border-radius:var(--r-xs); padding:7px 12px;
+  font-size:12px; font-weight:700; box-shadow:var(--sh-md);
+  transform:translate(-50%,-50%); display:none;
+  max-width:160px; text-align:center; font-family:'Nunito',sans-serif;
+}
+/* CONFETTI */
+.cft { position:fixed; pointer-events:none; z-index:9999; width:10px; height:10px; border-radius:3px; animation:cfall linear forwards; }
+@keyframes cfall { from{opacity:1;transform:translateY(-20px) rotate(0deg);} to{opacity:0;transform:translateY(100vh) rotate(720deg);} }
+
+/* CATEGORIES BAR */
+.categories-bar {
+  display:flex; align-items:center; gap:7px; flex-wrap:wrap;
+  justify-content:center; margin-bottom:14px;
+}
+.cat-pill {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:4px 12px; border-radius:20px;
+  font-size:12px; font-weight:800;
+}
+.mammal-pill  { background:var(--yellow-l); border:2px solid var(--yellow);   color:#5a3e00; }
+.bird-pill    { background:#fce4d6;         border:2px solid #d4724a;          color:#6a2800; }
+.fish-pill    { background:#d6eaf8;         border:2px solid #2980b9;          color:#1a3a6a; }
+.insect-pill  { background:var(--purple-l); border:2px solid var(--purple);    color:#4a1a6a; }
+.cat-arrow    { font-size:11px; color:var(--muted); font-weight:700; margin-left:4px; }
+@media(max-width:699px){
+  .cat-arrow  { display:none; }
+  .cat-pill   { font-size:11px; padding:3px 9px; }
+  .categories-bar { gap:5px; margin-bottom:10px; }
+}
+
+/* QUESTION NOTES tooltip */
+.q-card-wrap { position:relative; }
+.q-note {
+  display:none; position:absolute; left:105%; top:0; z-index:500;
+  background:#2d1f0e; color:#fff; border-radius:var(--r-xs);
+  padding:8px 11px; font-size:12px; line-height:1.5;
+  width:180px; box-shadow:var(--sh-lg);
+  pointer-events:none; font-weight:600;
+}
+.q-card-wrap:hover .q-note { display:block; }
+@media(max-width:699px){
+  .q-note { display:none!important; }
+}
+
+/* NODE LIMIT BADGE (Lv3) */
+.node-limit-badge {
+  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background:var(--red); color:#fff;
+  border-radius:10px; padding:2px 9px; font-size:11px; font-weight:800;
+  white-space:nowrap; pointer-events:none;
+}
+.t-node.locked-node {
+  border-color:var(--red) !important;
+  background:var(--red-l) !important;
+  cursor:not-allowed !important;
+  opacity:0.7;
+}
+.t-leaf.locked-leaf {
+  cursor:not-allowed !important;
+  opacity:0.75;
+}
+
+/* ACTION BUTTONS */
+#act-btns { margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.act-info { font-size:13px; color:var(--muted); text-align:center; max-width:300px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div id="ghost"></div>
+
+<!-- ══════════════════ SPLASH ══════════════════ -->
+<div class="screen active" id="splash">
+  <div class="splash-inner" style="margin:auto;">
+    <span class="sp-tree">🌳</span>
+    <div class="sp-title"><span class="g">Árvore</span> <span class="o">Inteligente</span></div>
+    <div class="sp-sub">O jogo das árvores de decisão</div>
+    <div class="sp-animals">
+      <span>🦁</span><span>🦅</span><span>🐟</span><span>🐝</span><span>🐬</span><span>🦇</span><span>🐧</span>
+    </div>
+    <div class="sp-desc">Aprende como as máquinas classificam animais! Constrói uma árvore de decisão para separar:</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+      <span class="cat-pill mammal-pill">🦁 Mamíferos</span>
+      <span class="cat-pill bird-pill">🦅 Pássaros</span>
+      <span class="cat-pill fish-pill">🐟 Peixes</span>
+      <span class="cat-pill insect-pill">🐝 Insetos</span>
+    </div>
+    <div class="sp-btns" style="max-width:280px;width:100%;">
+      <button class="btn btn-green" style="width:100%;" onclick="showScreen('howtoplay')">Como se Joga?</button>
+      <button class="btn btn-orange" style="width:100%;" onclick="showScreen('level-select')">Jogar Já!</button>
+      <button class="btn btn-ghost" style="width:100%;font-size:13px;" onclick="initLeaderboard()">🏆 Leaderboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ HOW TO PLAY ══════════════════ -->
+<div class="screen" id="howtoplay">
+  <div class="htp-inner" style="margin:auto;">
+    <div class="htp-title">🌳 Como se Joga?</div>
+
+    <div class="htp-section">
+      <h3>🎯 Objetivo</h3>
+      <p>Constrói uma <strong>árvore de decisão</strong> que classifique animais corretamente nas <strong>4 categorias abaixo</strong>. Depois testa se a tua árvore funciona com animais que nunca viu!</p>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;">
+        <span class="cat-pill mammal-pill">🦁 Mamífero</span>
+        <span class="cat-pill bird-pill">🦅 Pássaro</span>
+        <span class="cat-pill fish-pill">🐟 Peixe</span>
+        <span class="cat-pill insect-pill">🐝 Inseto</span>
+      </div>
+    </div>
+
+    <div class="htp-section">
+      <h3>📚 Fase de Treino</h3>
+      <p>Arrasta (ou clica) perguntas para os nós da árvore. Cada pergunta divide os animais em dois grupos: <em>Sim</em> e <em>Não</em>. Vês os emojis moverem-se automaticamente! Continua até cada grupo ter só uma categoria.</p>
+      <p style="margin-top:8px;font-size:13px;color:var(--muted)">⚠️ Algumas perguntas são ambíguas ou pouco discriminatórias — descubres isso experimentando! Passa o rato por cima de uma pergunta para ver uma dica.</p>
+    </div>
+
+    <div class="htp-section">
+      <h3>🧪 Fase de Teste</h3>
+      <p>Aparecem <strong>animais novos</strong> que a árvore nunca viu — alguns são casos difíceis! Clica em "Classificar" e vê se a tua árvore acerta. Alguns vão surpreender-te...</p>
+    </div>
+
+    <div class="htp-section">
+      <h3>⭐ Pontuação (máx. 300 pts)</h3>
+      <div class="score-pills">
+        <div class="score-pill" style="border-color:var(--green);background:var(--green-l);color:var(--green-d)">✅ Precisão: até 100 pts</div>
+        <div class="score-pill" style="border-color:var(--orange);background:var(--orange-l);color:var(--orange-d)">⏱️ Velocidade: até 100 pts</div>
+        <div class="score-pill" style="border-color:var(--teal);background:var(--teal-l);color:var(--teal)">🌿 Eficiência: até 100 pts</div>
+      </div>
+      <ul style="margin-top:8px;">
+        <li><strong>Precisão:</strong> quantos animais de teste classificas corretamente</li>
+        <li><strong>Velocidade:</strong> quanto tempo te sobra no relógio</li>
+        <li><strong>Eficiência:</strong> menos perguntas usadas na árvore = mais pontos!</li>
+      </ul>
+    </div>
+
+    <div class="htp-section">
+      <h3>🎮 Níveis</h3>
+      <div class="level-badges">
+        <div class="lvl-badge"><strong style="color:var(--green)">🌱 Nível 1 — Principiante:</strong><span> 5 animais de treino, 3 de teste. Perguntas simples como "Tem asas?" ou "Habita na água?". A árvore <em>vai</em> falhar nalguns animais de teste — essa é a lição! 3 minutos.</span></div>
+        <div class="lvl-badge"><strong style="color:var(--orange)">🔬 Nível 2 — Explorador:</strong><span> 8 animais de treino, 4 de teste. Sem "Tem asas?" nem "Habita na água?" — precisas de conhecimento biológico real. 4 minutos.</span></div>
+        <div class="lvl-badge"><strong style="color:var(--purple)">⚗️ Nível 3 — Cientista:</strong><span> 12 animais de treino, 4 de teste. 18 perguntas disponíveis — mas muitas são armadilhas! Máximo 5 perguntas na árvore. Inclui o Ornitorrinco (mamífero que põe ovos!) e o Morcego (mamífero com asas!). Só 3-4 perguntas resolvem tudo — encontra-as. 5 minutos.</span></div>
+      </div>
+    </div>
+
+    <div class="htp-footer">
+      <button class="btn btn-green" onclick="showScreen('level-select')">Escolher Nível!</button>
+      <button class="btn btn-ghost" style="margin-top:10px;display:block;width:100%;" onclick="showScreen('splash')">← Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LEVEL SELECT ══════════════════ -->
+<div class="screen" id="level-select">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;gap:22px;min-height:100vh;">
+    <div class="ls-title">Escolhe o teu nível</div>
+    <div class="level-cards">
+
+      <div class="level-card lv1" onclick="startGame(1)">
+        <span class="lc-emoji">🌱</span>
+        <div class="lc-name">Principiante</div>
+        <div class="lc-details">5 animais de treino, 3 de teste. Perguntas básicas como "Tem asas?" ou "Habita na água?". Ideal para aprender como funciona uma árvore.</div>
+        <span class="lc-tag">Fácil · 3 min</span>
+      </div>
+
+      <div class="level-card lv2" onclick="startGame(2)">
+        <span class="lc-emoji">🔬</span>
+        <div class="lc-name">Explorador</div>
+        <div class="lc-details">8 animais, 4 de teste. Sem perguntas óbvias! Precisas de biologia: guelras, penas, sangue quente, amamenta...</div>
+        <span class="lc-tag">Médio · 4 min</span>
+      </div>
+
+      <div class="level-card lv3" onclick="startGame(3)">
+        <span class="lc-emoji">⚗️</span>
+        <div class="lc-name">Cientista</div>
+        <div class="lc-details">10 animais, 4 de teste. Só perguntas biológicas. Máximo <strong>5 perguntas</strong> na árvore. E o Ornitorrinco vai destruir qualquer árvore mal feita...</div>
+        <span class="lc-tag">Difícil · 5 min</span>
+      </div>
+
+    </div>
+    <button class="btn btn-ghost" onclick="showScreen('splash')">← Voltar</button>
+  </div>
+</div>
+
+<!-- ══════════════════ GAME ══════════════════ -->
+<div class="screen" id="game">
+  <div class="ghdr">
+    <div class="ghdr-title">🌳 Árvore Inteligente</div>
+    <div class="hpill" id="lv-pill" style="font-size:12px;color:var(--muted)">Nível 1</div>
+    <div class="hpill timer" id="timer-pill">180s</div>
+    <div class="hpill score">⭐ <span id="score-val">0</span></div>
+    <div class="pdots" id="pdots"></div>
+    <div class="phase-chip pc-train" id="pchip">Treino</div>
+    <button class="btn btn-ghost btn-sm" onclick="confirmQuit()">Sair</button>
+  </div>
+
+  <div class="game-body">
+    <!-- LEFT: questions -->
+    <div class="qpanel" id="qpanel">
+      <div class="qp-title" id="qp-title">Perguntas</div>
+      <div id="q-cards"></div>
+      <div class="node-limit-info" id="node-limit-info" style="display:none"></div>
+      <div class="hint-box" id="hint-box">Arrasta ou clica numa pergunta para a colocar num nó da árvore!</div>
+    </div>
+
+    <!-- CENTER: tree -->
+    <div class="tree-canvas" id="tree-canvas">
+      <div class="phase-banner" id="phase-banner">Constrói a árvore: arrasta perguntas para os nós!</div>
+      <div class="categories-bar" id="categories-bar">
+        <span class="cat-pill mammal-pill">🦁 Mamífero</span>
+        <span class="cat-pill bird-pill">🦅 Pássaro</span>
+        <span class="cat-pill fish-pill">🐟 Peixe</span>
+        <span class="cat-pill insect-pill">🐝 Inseto</span>
+        <span class="cat-arrow">← Objetivo: separar em 4 categorias</span>
+      </div>
+      <div id="tree-container">
+        <svg id="tree-svg"></svg>
+        <div id="tree-render"></div>
+      </div>
+      <div id="act-btns"></div>
+    </div>
+
+    <!-- RIGHT: animal panel -->
+    <div class="apanel" id="apanel">
+      <div class="ap-title" id="ap-title">Animais</div>
+      <div id="cur-animal"></div>
+      <div id="queue-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LEADERBOARD ══════════════════ -->
+<div class="screen" id="leaderboard">
+  <div class="lb-inner" style="margin:auto;">
+    <div class="lb-title">🏆 Leaderboard</div>
+    <div class="podium" id="lb-podium"></div>
+    <div class="lb-list" id="lb-list"></div>
+    <div class="name-row" id="name-row" style="display:none;">
+      <input class="name-inp" id="team-name" placeholder="Nome da equipa..." maxlength="20">
+      <button class="btn btn-green btn-sm" style="padding:10px 16px!important" onclick="submitScore()">💾 Guardar</button>
+    </div>
+    <button class="btn btn-ghost" onclick="showScreen('splash')">← Voltar</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL ══════════════════ -->
+<div class="mover" id="modal">
+  <div class="mbox" id="mbox">
+    <span class="mem" id="m-em">🎉</span>
+    <div class="mttl" id="m-ttl"></div>
+    <div class="mbdy" id="m-bdy"></div>
+    <div class="mbtns" id="m-btns"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// ANIMAL DATA
+// ══════════════════════════════════════════════════════
+const ANIMALS = {
+  // Training pool (used across levels)
+  lion:     {name:'Leão',          emoji:'🦁', cls:'mammal',
+    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
+  dog:      {name:'Cão',           emoji:'🐕', cls:'mammal',
+    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:true},
+  cat:      {name:'Gato',          emoji:'🐱', cls:'mammal',
+    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
+  rabbit:   {name:'Coelho',        emoji:'🐇', cls:'mammal',
+    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
+  parrot:   {name:'Papagaio',      emoji:'🦜', cls:'bird',
+    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
+  eagle:    {name:'Águia',         emoji:'🦅', cls:'bird',
+    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
+  ostrich:  {name:'Avestruz',      emoji:'🦤', cls:'bird',
+    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
+  owl:      {name:'Coruja',        emoji:'🦉', cls:'bird',
+    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
+  shark:    {name:'Tubarão',       emoji:'🦈', cls:'fish',
+    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
+  goldfish: {name:'Peixe-Dourado', emoji:'🐠', cls:'fish',
+    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
+  salmon:   {name:'Salmão',        emoji:'🐟', cls:'fish',
+    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
+  bee:      {name:'Abelha',        emoji:'🐝', cls:'insect',
+    ocean:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
+  ant:      {name:'Formiga',       emoji:'🐜', cls:'insect',
+    ocean:false, wings:false, exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
+  butterfly:{name:'Borboleta',     emoji:'🦋', cls:'insect',
+    ocean:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
+  // Test / edge cases
+  dolphin:  {name:'Golfinho',      emoji:'🐬', cls:'mammal',
+    ocean:true,  wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:0, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:true,
+    edgeCase:true, insight:'O Golfinho vive no oceano, mas é um mamífero! Respira com pulmões, amamenta as crias e tem sangue quente. A pergunta "Habita na água?" falha porque confunde habitat com biologia!'},
+  bat:      {name:'Morcego',       emoji:'🦇', cls:'mammal',
+    ocean:false, wings:true,  exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true,
+    edgeCase:true, insight:'O Morcego tem asas mas é um mamífero! As asas são membranas de pele, não penas. Tem pelo, amamenta as crias e tem sangue quente. "Tem asas?" não distingue pássaros de morcegos!'},
+  penguin:  {name:'Pinguim',       emoji:'🐧', cls:'bird',
+    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:false,
+    edgeCase:true, insight:'O Pinguim tem asas mas não voa! É um pássaro porque tem penas e põe ovos. As asas evoluíram para nadar em vez de voar. Será que a tua árvore acertou mesmo assim?'},
+  frog:     {name:'Rã',            emoji:'🐸', cls:'amphibian',
+    ocean:false, wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
+    laysEggs:true,  warmBlooded:false, legs:4, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:true,  hasTail:false, livesOnLand:true,  amamenta:false,
+    edgeCase:true, insight:'A Rã não é peixe, pássaro, mamífero nem inseto! É um anfíbio — uma classe que a árvore não conhece. Um modelo de ML só classifica o que foi treinado!'},
+  seahorse: {name:'Cavalo-Marinho',emoji:'🦄', cls:'fish',
+    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false,
+    edgeCase:true, insight:'O Cavalo-Marinho parece uma criatura fantástica, mas é um peixe! Tem guelras, escamas e vive na água. O facto de ter forma estranha não muda a sua biologia.'},
+  platypus: {name:'Ornitorrinco',  emoji:'🦆', cls:'mammal',
+    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:true,  warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:true,
+    edgeCase:true, insight:'O Ornitorrinco é um mamífero que PÕE OVOS! É o único mamífero ovíparo do mundo. Tem pelo, amamenta as crias (mesmo sem mamilos!) e tem sangue quente. A pergunta "Põe ovos?" NUNCA pode ser usada para excluir mamíferos!'},
+};
+
+// ══════════════════════════════════════════════════════
+// QUESTIONS PER LEVEL
+// ══════════════════════════════════════════════════════
+
+// LEVEL 1 — basic, the "obvious" ones that fail on edge cases
+const Q_LV1 = [
+  {id:'q_ocean',  text:'Habita na água?',      icon:'🌊', prop:'ocean'},
+  {id:'q_wings',  text:'Tem asas?',             icon:'🪶', prop:'wings'},
+  {id:'q_exo',    text:'Tem exoesqueleto?',     icon:'🦗', prop:'exo'},
+  {id:'q_fur',    text:'Tem pelo (como cão/gato)?', icon:'🐾', prop:'fur', note:'Pelos de mamífero, não os finos tricomas dos insetos'},
+  {id:'q_6legs',  text:'Tem exatamente 6 patas?', icon:'🦵', fn:a=>a.legs===6, note:'Todos os insetos adultos têm 6 patas'},
+  {id:'q_4legs',  text:'Tem 4 patas?',          icon:'🐾', fn:a=>a.legs===4},
+  {id:'q_0legs',  text:'Não tem patas?',        icon:'🚫', fn:a=>a.legs===0},
+];
+// LEVEL 2 — biological, NO "ocean" or "wings" or "exo" directly (harder to mis-use)
+// Guaranteed solution: guelras→Peixe / penas→Pássaro / exoesqueleto→Inseto / →Mamífero
+const Q_LV2 = [
+  {id:'q_gills',      text:'Tem guelras?',              icon:'💧', prop:'gills'},
+  {id:'q_feathers',   text:'Tem penas?',                icon:'🍃', prop:'feathers'},
+  {id:'q_exo',        text:'Tem exoesqueleto?',         icon:'🦗', prop:'exo'},
+  {id:'q_scales',     text:'Tem escamas?',              icon:'🐟', prop:'scales'},
+  {id:'q_fur',        text:'Tem pelo de mamífero?',     icon:'🐾', prop:'fur', note:'Pelo espesso como cão, gato ou leão — não os finos tricomas dos insetos'},
+  {id:'q_warm',       text:'Tem sangue quente?',        icon:'🌡️', prop:'warmBlooded'},
+  {id:'q_eggs',       text:'Põe ovos?',                 icon:'🥚', prop:'laysEggs', note:'Cuidado: pássaros, peixes E insetos põem ovos!'},
+  {id:'q_vertebrate', text:'Tem coluna vertebral?',     icon:'🦴', prop:'vertebrate'},
+  {id:'q_breathes',   text:'Respira com pulmões?',      icon:'💨', prop:'breathesAir'},
+  {id:'q_amamenta',   text:'Amamenta as crias?',        icon:'🍼', prop:'amamenta'},
+  {id:'q_6legs',      text:'Tem exatamente 6 patas?',   icon:'🦵', fn:a=>a.legs===6},
+  {id:'q_2legs',      text:'Tem 2 patas?',              icon:'🦶', fn:a=>a.legs===2},
+  {id:'q_0legs',      text:'Não tem patas?',            icon:'🚫', fn:a=>a.legs===0},
+  {id:'q_nocturnal',  text:'É nocturno?',               icon:'🌙', prop:'nocturnal'},
+  {id:'q_canSwim',    text:'Consegue nadar?',            icon:'🏊', prop:'canSwim'},
+  {id:'q_tail',       text:'Tem cauda?',                icon:'〰️', prop:'hasTail'},
+];
+// LEVEL 3 — only deep biological, NO wings/ocean/exo/fur/feathers directly
+// Guaranteed solution: guelras→Peixe / amamenta→Mamífero / warmBlooded+NOT mammal→Pássaro / 6legs→Inseto
+// Level 3: 18 questions, only 3-4 actually solve the puzzle cleanly.
+// Many are traps that look plausible but fail:
+//  - "Tem sangue quente?" → pássaros E mamíferos → sim (não separa os dois)
+//  - "Respira com pulmões?" → pássaros E mamíferos → sim (idem)
+//  - "Põe ovos?" → pássaros + peixes + insetos → sim (não separa mamíferos limpo)
+//  - "É nocturno?" → coruja + morcego mas classes diferentes
+//  - "Consegue nadar?" → golfinhos, pinguins, salmões, patos todos sim
+//  - "Tem cauda?" → quase todos têm
+//  - "Tem coluna vertebral?" → pássaros+peixes+mamíferos todos têm → inútil
+// CORRECT solution with 4 nodes: guelras→Peixe / amamenta→Mamífero / 6patas→Inseto / →Pássaro
+// (The 5th node can be used to split further if needed)
+const Q_LV3 = [
+  // The 3 that actually work cleanly:
+  {id:'q_gills',      text:'Tem guelras?',               icon:'💧', prop:'gills'},
+  {id:'q_amamenta',   text:'Amamenta as crias?',         icon:'🍼', prop:'amamenta'},
+  {id:'q_6legs',      text:'Tem exatamente 6 patas?',    icon:'🦵', fn:a=>a.legs===6},
+  // Plausible but tricky:
+  {id:'q_warm',       text:'Tem sangue quente?',         icon:'🌡️', prop:'warmBlooded',   note:'Cuidado: tanto pássaros como mamíferos têm sangue quente!'},
+  {id:'q_eggs',       text:'Põe ovos?',                  icon:'🥚', prop:'laysEggs',       note:'Cuidado: pássaros, peixes E insetos também põem ovos!'},
+  {id:'q_breathes',   text:'Respira com pulmões?',       icon:'💨', prop:'breathesAir',    note:'Cuidado: pássaros E mamíferos respiram com pulmões!'},
+  {id:'q_scales',     text:'Tem escamas?',               icon:'🐟', prop:'scales',         note:'Só os peixes têm escamas — mas nem todos os peixes aparecem aqui...'},
+  {id:'q_feathers',   text:'Tem penas?',                 icon:'🍃', prop:'feathers',       note:'Útil para isolar pássaros, mas não separa as outras classes'},
+  // Trap questions — look useful, aren't:
+  {id:'q_nocturnal',  text:'É nocturno?',                icon:'🌙', prop:'nocturnal',      note:'Armadilha: a coruja e o morcego são ambos nocturnos, mas são classes diferentes!'},
+  {id:'q_canSwim',    text:'Consegue nadar?',             icon:'🏊', prop:'canSwim',        note:'Armadilha: pinguins, golfinhos, salmões e até algumas aves nadam. Não discrimina bem.'},
+  {id:'q_tail',       text:'Tem cauda?',                  icon:'〰️', prop:'hasTail',       note:'Armadilha: quase todos os animais têm cauda. Separa muito pouco.'},
+  {id:'q_vertebrate', text:'Tem coluna vertebral?',      icon:'🦴', prop:'vertebrate',     note:'Armadilha: pássaros, peixes e mamíferos têm todos coluna vertebral!'},
+  {id:'q_0legs',      text:'Não tem patas?',             icon:'🚫', fn:a=>a.legs===0,      note:'Só isola peixes, mas "Tem guelras?" é mais fiável para o mesmo efeito.'},
+  {id:'q_wings',      text:'Tem asas?',                  icon:'🪶', prop:'wings',          note:'Armadilha: o morcego tem asas mas é mamífero! Insetos com asas também.'},
+  {id:'q_ocean',      text:'Habita na água?',            icon:'🌊', prop:'ocean',          note:'Armadilha clássica: golfinhos habitam na água mas são mamíferos!'},
+  {id:'q_exo',        text:'Tem exoesqueleto?',          icon:'🦗', prop:'exo'},
+  {id:'q_2legs',      text:'Tem 2 patas?',               icon:'🦶', fn:a=>a.legs===2,      note:'Pássaros E morcegos têm 2 patas — não discrimina bem entre eles.'},
+  {id:'q_fur',        text:'Tem pelo de mamífero?',      icon:'🐾', prop:'fur',            note:'Funciona razoavelmente, mas o ornitorrinco tem pelo E põe ovos...'},
+];
+
+// TRAIN/TEST SETS
+// Lv1: solution possible with gills(fish)/feathers(bird)/exo(insect)→mammal — BUT lv1 doesn't have gills/feathers!
+// That's intentional: Lv1 tree with ocean/wings/exo WILL fail on dolphin and bat.
+const TRAIN_LV1 = ['lion','parrot','goldfish','ant','dog'];
+const TEST_LV1  = ['dolphin','bat','penguin'];
+// Lv2: solution available (gills/feathers/exo) — guaranteed correct
+const TRAIN_LV2 = ['lion','parrot','goldfish','ant','eagle','shark','bee','cat'];
+const TEST_LV2  = ['dolphin','bat','penguin','frog'];
+// Lv3: more animals, solution via gills/amamenta/warm/6legs
+const TRAIN_LV3 = ['lion','rabbit','cat','parrot','owl','ostrich','shark','goldfish','salmon','bee','butterfly','ant'];
+const TEST_LV3  = ['dolphin','bat','penguin','platypus'];
+
+const CLASS_INFO = {
+  mammal:   {label:'Mamífero',  emoji:'🦁', css:'mammal'},
+  bird:     {label:'Pássaro',   emoji:'🦅', css:'bird'},
+  fish:     {label:'Peixe',     emoji:'🐟', css:'fish'},
+  insect:   {label:'Inseto',    emoji:'🐝', css:'insect'},
+  amphibian:{label:'Anfíbio?',  emoji:'🐸', css:'mammal'},
+};
+const LV_LABELS = {1:'Principiante', 2:'Explorador', 3:'Cientista'};
+const LV_TIME   = {1:180, 2:240, 3:360};
+const LV_MAXQ   = {1:99, 2:99, 3:5}; // Lv3: max 5 nodes in tree
+
+// ══════════════════════════════════════════════════════
+// TREE MODEL
+// ══════════════════════════════════════════════════════
+let nid = 0;
+function mkId(){ return 'n'+(nid++); }
+function mkLeaf(animalKeys){
+  const classes = new Set(animalKeys.map(k=>ANIMALS[k].cls));
+  return {id:mkId(), isLeaf:true, classes, animalKeys:[...animalKeys]};
+}
+
+// ══════════════════════════════════════════════════════
+// GAME STATE
+// ══════════════════════════════════════════════════════
+let G = {};
+
+function startGame(level){
+  nid = 0;
+  const trainKeys = level===1?TRAIN_LV1 : level===2?TRAIN_LV2 : TRAIN_LV3;
+  const testKeys  = level===1?TEST_LV1  : level===2?TEST_LV2  : TEST_LV3;
+  const questions = level===1?Q_LV1     : level===2?Q_LV2     : Q_LV3;
+  G = {
+    level, phase:'train',
+    tree: mkLeaf(trainKeys),
+    questions, trainKeys, testKeys,
+    animalQueue:[...testKeys],
+    timer:LV_TIME[level], timerMax:LV_TIME[level],
+    timerInterval:null,
+    score:0, classified:0, correct:0, pendingScore:0,
+    draggedQId:null, selQId:null, touchDragQId:null, touchTimer:null,
+    nodesUsed:0,
+  };
+  showScreen('game');
+  renderGame();
+  startTimer();
+}
+
+function countQNodes(node){
+  if(!node||node.isLeaf) return 0;
+  return (node.qId?1:0) + countQNodes(node.left) + countQNodes(node.right);
+}
+
+// ══════════════════════════════════════════════════════
+// TIMER
+// ══════════════════════════════════════════════════════
+function startTimer(){
+  clearInterval(G.timerInterval);
+  G.timerInterval=setInterval(()=>{
+    G.timer--; updateTimerUI();
+    if(G.timer<=0){ clearInterval(G.timerInterval); timeUp(); }
+  },1000);
+}
+function stopTimer(){ clearInterval(G.timerInterval); }
+function updateTimerUI(){
+  const el=document.getElementById('timer-pill');
+  el.textContent=G.timer+'s';
+  el.className='hpill timer'+(G.timer<=15?' urg':'');
+}
+function timeUp(){
+  showModal({emoji:'⏰',cls:'',title:'Tempo esgotado!',
+    body:`Classificaste <strong>${G.classified}</strong> animais no tempo disponível.`,
+    buttons:[
+      {text:'Ver Resultados',fn:()=>{closeModal();endGame();}},
+      {text:'Recomeçar',fn:()=>{closeModal();showScreen('level-select');}},
+    ]});
+}
+
+// ══════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════
+function renderGame(){
+  renderPhase();
+  renderQPanel();
+  renderTree();
+  renderAnimalPanel();
+  renderActionBtns();
+  renderDots();
+}
+
+function renderPhase(){
+  const chip=document.getElementById('pchip');
+  chip.textContent = G.phase==='train'?'Treino':'Teste';
+  chip.className='phase-chip '+(G.phase==='train'?'pc-train':'pc-test');
+  // Update level pill
+  const lvPill=document.getElementById('lv-pill');
+  if(lvPill){
+    const lvDescs={
+      1:'🌱 Principiante — perguntas básicas',
+      2:'🔬 Explorador — biologia real, sem pistas fáceis',
+      3:'⚗️ Cientista — máx '+LV_MAXQ[3]+' perguntas, sem pistas fáceis'
+    };
+    lvPill.textContent=lvDescs[G.level]||'Nível '+G.level;
+    lvPill.style.color=G.level===1?'var(--green-d)':G.level===2?'var(--orange-d)':'var(--purple)';
+    lvPill.style.background=G.level===1?'var(--green-l)':G.level===2?'var(--orange-l)':'var(--purple-l)';
+    lvPill.style.borderColor=G.level===1?'var(--green)':G.level===2?'var(--orange)':'var(--purple)';
+  }
+  const banner=document.getElementById('phase-banner');
+  const hint=document.getElementById('hint-box');
+  if(G.phase==='train'){
+    banner.innerHTML=`<strong>Treino:</strong> Arrasta ou clica nas perguntas para os nós. Os animais movem-se automaticamente!`;
+    if(hint) hint.textContent='Arrasta ou clica numa pergunta, depois clica num nó vazio da árvore.';
+  } else {
+    banner.innerHTML=`<strong>Teste:</strong> Novos animais desconhecidos vão testar a tua árvore. Será que ela os classifica bem?`;
+    if(hint) hint.textContent='Clica em "Classificar" para ver o que a árvore decide!';
+  }
+  // Lv3 node limit display
+  const limEl=document.getElementById('node-limit-info');
+  if(limEl){
+    if(G.level===3){
+      limEl.style.display='block';
+      const used=countQNodes(G.tree);
+      const remaining=LV_MAXQ[3]-used;
+      if(used===0){
+        limEl.textContent='Nível 3: tens 5 perguntas no máximo!';
+      } else if(remaining>0){
+        limEl.innerHTML=`<strong>${used} pergunta${used===1?'':'s'}</strong> usadas de ${LV_MAXQ[3]}. Ainda tens <strong>${remaining}</strong> disponíve${remaining===1?'l':'is'}.`;
+      } else {
+        limEl.innerHTML=`🔒 <strong>Limite atingido!</strong> Podes avançar para o teste ou remover (✎) uma pergunta.`;
+      }
+      limEl.style.background=remaining<=0?'var(--red-l)':'var(--purple-l)';
+      limEl.style.borderColor=remaining<=0?'var(--red)':'var(--purple)';
+      limEl.style.color=remaining<=0?'var(--red)':'var(--purple)';
+    } else {
+      limEl.style.display='none';
+    }
+  }
+}
+
+// ─── Q Panel ───
+function renderQPanel(){
+  const container=document.getElementById('q-cards');
+  container.innerHTML='';
+  const used=getUsedQIds(G.tree);
+
+  G.questions.forEach(q=>{
+    const isUsed=used.has(q.id);
+    // Wrap in a relative container for the tooltip
+    const wrap=document.createElement('div');
+    wrap.className='q-card-wrap';
+    const card=document.createElement('div');
+    card.className='q-card'+(isUsed?' used':'')+(G.selQId===q.id?' sel-q':'');
+    card.dataset.qid=q.id;
+    card.innerHTML=`<span class="q-icon">${q.icon}</span>${q.text}`;
+    wrap.appendChild(card);
+    // Tooltip note if question has one
+    if(q.note || G.level===2){
+      const note=document.createElement('div');
+      note.className='q-note';
+      note.textContent=q.note||'';
+      wrap.appendChild(note);
+    }
+    if(!isUsed){
+      card.draggable=true;
+      card.addEventListener('dragstart',onDragStart);
+      card.addEventListener('dragend',onDragEnd);
+      card.addEventListener('touchstart',onTouchStart,{passive:false});
+      card.addEventListener('click',()=>onQClick(q.id));
+    }
+    container.appendChild(wrap);
+  });
+}
+
+function getUsedQIds(node){
+  const s=new Set();
+  function w(n){ if(!n||n.isLeaf)return; if(n.qId)s.add(n.qId); w(n.left); w(n.right); }
+  w(node); return s;
+}
+
+function onQClick(qid){
+  G.selQId = G.selQId===qid ? null : qid;
+  renderQPanel();
+  const hb=document.getElementById('hint-box');
+  if(hb) hb.textContent = G.selQId
+    ? 'Pergunta selecionada! Clica num nó vazio ou numa categoria misturada.'
+    : 'Clica numa pergunta para a selecionar.';
+}
+
+// ─── Tree Render ───
+function renderTree(){
+  const render=document.getElementById('tree-render');
+  render.innerHTML='';
+  const svg=document.getElementById('tree-svg');
+  svg.innerHTML='';
+  render.appendChild(buildNodeEl(G.tree));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>drawSVG(G.tree,svg)));
+}
+
+function buildNodeEl(node){
+  const wrap=document.createElement('div');
+  wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:0;';
+  wrap.dataset.nodeId=node.id;
+  if(node.isLeaf){ wrap.appendChild(buildLeafEl(node)); return wrap; }
+
+  const box=document.createElement('div');
+  box.id='nd-'+node.id;
+  box.dataset.nodeId=node.id;
+
+  const lv3AtLimit = G.level===3 && countQNodes(G.tree)>=LV_MAXQ[3];
+
+  if(node.qId){
+    const q=G.questions.find(q=>q.id===node.qId);
+    box.className='t-node has-q editable';
+    box.innerHTML=`<span style="margin-right:4px">${q?.icon||'?'}</span>${q?.text||''}`;
+    const eb=document.createElement('div'); eb.className='edit-badge'; eb.title='Clica para remover'; eb.textContent='✎';
+    box.appendChild(eb);
+
+    box.addEventListener('click',()=>removeQ(node));
+  } else if(lv3AtLimit){
+    // Lv3 limit reached — locked node
+    box.className='t-node locked-node';
+    box.innerHTML=`<span class="node-ph">🔒 Limite (${LV_MAXQ[3]} perguntas)</span>`;
+    const lb=document.createElement('div'); lb.className='node-limit-badge'; lb.textContent='LIMITE ATINGIDO';
+    box.appendChild(lb);
+  } else {
+    box.className='t-node drop-zone';
+    box.innerHTML=`<span class="node-ph">Larga aqui</span>`;
+    box.addEventListener('dragover',e=>{e.preventDefault();box.classList.add('drag-over');});
+    box.addEventListener('dragleave',()=>box.classList.remove('drag-over'));
+    box.addEventListener('drop',e=>{e.preventDefault();box.classList.remove('drag-over');placeQ(node,G.draggedQId||G.touchDragQId);});
+    box.addEventListener('click',()=>{ if(G.selQId) placeQ(node,G.selQId); });
+  }
+  wrap.appendChild(box);
+
+  if(node.left||node.right){
+    const lblRow=document.createElement('div'); lblRow.className='branch-lbl-row';
+    lblRow.innerHTML='<span class="blbl no">NÃO</span><span class="blbl yes">SIM</span>';
+    wrap.appendChild(lblRow);
+    const cr=document.createElement('div');
+    cr.style.cssText='display:flex;gap:24px;justify-content:center;padding-top:28px;';
+    if(node.left)  cr.appendChild(buildNodeEl(node.left));
+    if(node.right) cr.appendChild(buildNodeEl(node.right));
+    wrap.appendChild(cr);
+  }
+  return wrap;
+}
+
+function buildLeafEl(node){
+  const pure=getPure(node);
+  const ci=pure?CLASS_INFO[pure]:null;
+  const leaf=document.createElement('div');
+  leaf.className='t-leaf '+(ci?ci.css:'mixed');
+  leaf.id='lf-'+node.id; leaf.dataset.nodeId=node.id;
+
+  if(ci){
+    leaf.innerHTML=`<span class="leaf-em">${ci.emoji}</span><span class="leaf-lbl">${ci.label}</span>`;
+  } else {
+    const icons=[...node.classes].map(c=>CLASS_INFO[c]?.emoji||'?').join('');
+    leaf.innerHTML=`<span class="leaf-em">${icons}</span><span class="leaf-lbl">Misturado</span>`;
+  }
+
+  if(node.animalKeys?.length){
+    const ad=document.createElement('div'); ad.className='node-animals';
+    node.animalKeys.forEach(k=>{
+      const sp=document.createElement('span');
+      sp.className='a-icon fi'; sp.textContent=ANIMALS[k].emoji; sp.title=ANIMALS[k].name;
+      ad.appendChild(sp);
+    });
+    leaf.appendChild(ad);
+  }
+
+  const lv3Limit = G.level===3 && countQNodes(G.tree)>=LV_MAXQ[3];
+  if(!pure && G.phase==='train'){
+    if(lv3Limit){
+      leaf.classList.add('locked-leaf');
+      leaf.title='Limite de ' + LV_MAXQ[3] + ' perguntas atingido!';
+    } else {
+      leaf.addEventListener('dragover',e=>{e.preventDefault();leaf.classList.add('dov');});
+      leaf.addEventListener('dragleave',()=>leaf.classList.remove('dov'));
+      leaf.addEventListener('drop',e=>{e.preventDefault();leaf.classList.remove('dov');expandLeaf(node,G.draggedQId||G.touchDragQId);});
+      leaf.addEventListener('click',()=>{ if(G.selQId) expandLeaf(node,G.selQId); });
+    }
+  }
+  return leaf;
+}
+
+function getPure(leaf){
+  if(!leaf.animalKeys?.length) return leaf.classes?.size===1?[...leaf.classes][0]:null;
+  const cs=new Set(leaf.animalKeys.map(k=>ANIMALS[k].cls));
+  return cs.size===1?[...cs][0]:null;
+}
+
+function drawSVG(node,svg){
+  if(!node||node.isLeaf) return;
+  const parentEl=document.getElementById('nd-'+node.id);
+  if(!parentEl) return;
+  const sr=svg.getBoundingClientRect();
+  const pr=parentEl.getBoundingClientRect();
+  const px=pr.left+pr.width/2-sr.left, py=pr.bottom-sr.top;
+  [node.left,node.right].forEach(child=>{
+    if(!child) return;
+    const cEl=document.getElementById('nd-'+child.id)||document.getElementById('lf-'+child.id);
+    if(!cEl) return;
+    const cr=cEl.getBoundingClientRect();
+    const cx=cr.left+cr.width/2-sr.left, cy=cr.top-sr.top;
+    const my=(py+cy)/2;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M${px},${py} C${px},${my} ${cx},${my} ${cx},${cy}`);
+    path.setAttribute('stroke','#d4b89a'); path.setAttribute('stroke-width','2.5');
+    path.setAttribute('fill','none'); path.setAttribute('stroke-linecap','round');
+    svg.appendChild(path);
+    drawSVG(child,svg);
+  });
+}
+
+// ─── Animal Panel ───
+function renderAnimalPanel(){
+  const cur=document.getElementById('cur-animal');
+  const ql=document.getElementById('queue-list');
+  cur.innerHTML=''; ql.innerHTML='';
+
+  if(G.phase==='test'){
+    document.getElementById('ap-title').textContent='A Testar';
+    if(G.animalQueue.length>0){
+      const a=ANIMALS[G.animalQueue[0]];
+      cur.innerHTML=`<div class="cur-animal"><span class="ca-emoji">${a.emoji}</span><div class="ca-name">${a.name}</div></div>`;
+      if(G.animalQueue.length>1){
+        const lbl=document.createElement('div'); lbl.className='ql-label'; lbl.textContent='A seguir:'; ql.appendChild(lbl);
+        G.animalQueue.slice(1).forEach(k=>{
+          const row=document.createElement('div'); row.className='q-item';
+          row.innerHTML=`<span>${ANIMALS[k].emoji}</span><span>${ANIMALS[k].name}</span>`; ql.appendChild(row);
+        });
+      }
+    } else {
+      cur.innerHTML='<div class="ql-label" style="text-align:center;padding:8px">Todos classificados!</div>';
+    }
+  } else {
+    // TRAIN phase: show animals NOT yet sorted into a pure leaf
+    // i.e. animals that are still in "misturado" nodes
+    document.getElementById('ap-title').textContent='Por classificar';
+    const inMixed = getAnimalKeysInMixedLeaves(G.tree);
+    const inTree  = new Set(getAllKeys(G.tree));
+    // Animals not yet placed: those not in tree at all (shouldn't happen)
+    // + those in mixed leaves (still need more questions to separate them)
+    if(inMixed.size===0 && inTree.size>0){
+      // All animals are in pure leaves — tree is complete
+      cur.innerHTML='<div style="text-align:center;padding:10px;font-size:13px;color:var(--green);font-weight:800">✅ Todos separados!<br>Podes avançar para o teste.</div>';
+    } else {
+      const lbl=document.createElement('div'); lbl.className='ql-label';
+      lbl.textContent = inMixed.size>0 ? 'Ainda misturados:' : 'Animais de treino:';
+      cur.appendChild(lbl);
+      const toShow = inMixed.size>0 ? [...inMixed] : G.trainKeys;
+      toShow.forEach(k=>{
+        const row=document.createElement('div'); row.className='q-item';
+        row.innerHTML=`<span>${ANIMALS[k].emoji}</span><span>${ANIMALS[k].name}</span>`; cur.appendChild(row);
+      });
+    }
+  }
+}
+
+// Returns Set of animal keys that are currently in "mixed" (non-pure) leaves
+function getAnimalKeysInMixedLeaves(node){
+  const result=new Set();
+  function walk(n){
+    if(!n) return;
+    if(n.isLeaf){
+      if(getPure(n)===null){ // mixed leaf
+        (n.animalKeys||[]).forEach(k=>result.add(k));
+      }
+      return;
+    }
+    walk(n.left); walk(n.right);
+  }
+  walk(node);
+  return result;
+}
+
+// ─── Action Buttons ───
+function renderActionBtns(){
+  const btns=document.getElementById('act-btns');
+  btns.innerHTML='';
+  if(G.phase==='train'){
+    if(isAllPure(G.tree)){
+      const b=document.createElement('button'); b.className='btn btn-orange';
+      b.innerHTML='🧪 Iniciar Fase de Teste!'; b.addEventListener('click',startTest); btns.appendChild(b);
+    } else {
+      const info=document.createElement('div'); info.className='act-info';
+      info.textContent='Continua a adicionar perguntas até separar todos os animais corretamente!'; btns.appendChild(info);
+    }
+  } else {
+    if(G.animalQueue.length>0){
+      const a=ANIMALS[G.animalQueue[0]];
+      const b=document.createElement('button'); b.className='btn btn-teal';
+      b.innerHTML=`Classificar ${a.emoji} ${a.name}`; b.addEventListener('click',classifyNext); btns.appendChild(b);
+    } else {
+      const b=document.createElement('button'); b.className='btn btn-green';
+      b.innerHTML='🏆 Ver Resultados!'; b.addEventListener('click',endGame); btns.appendChild(b);
+    }
+  }
+}
+
+function isAllPure(node){
+  if(!node) return true;
+  if(node.isLeaf) return getPure(node)!==null;
+  return isAllPure(node.left)&&isAllPure(node.right);
+}
+
+function renderDots(){
+  const row=document.getElementById('pdots'); row.innerHTML='';
+  const total=G.trainKeys.length+G.testKeys.length;
+  for(let i=0;i<Math.min(total,12);i++){
+    const d=document.createElement('div');
+    d.className='pdot'+(i<G.classified?' done':i===G.classified?' active':'');
+    row.appendChild(d);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// DRAG & DROP
+// ══════════════════════════════════════════════════════
+const ghost=document.getElementById('ghost');
+function onDragStart(e){
+  G.draggedQId=e.currentTarget.dataset.qid;
+  e.currentTarget.classList.add('dragging');
+  ghost.textContent=e.currentTarget.textContent.trim();
+  ghost.style.display='block';
+  e.dataTransfer.effectAllowed='move';
+}
+function onDragEnd(e){
+  G.draggedQId=null;
+  e.currentTarget.classList.remove('dragging');
+  ghost.style.display='none';
+}
+document.addEventListener('mousemove',e=>{
+  if(ghost.style.display==='block'){ ghost.style.left=e.clientX+'px'; ghost.style.top=e.clientY+'px'; }
+});
+function onTouchStart(e){
+  const card=e.currentTarget;
+  G.touchTimer=setTimeout(()=>{
+    G.touchDragQId=card.dataset.qid;
+    ghost.textContent=card.textContent.trim();
+    ghost.style.display='block';
+    card.classList.add('dragging');
+    document.addEventListener('touchmove',onTouchMove,{passive:false});
+    document.addEventListener('touchend',onTouchEnd);
+    document.addEventListener('touchcancel',onTouchEnd);
+  },260);
+  card.addEventListener('touchend',()=>clearTimeout(G.touchTimer),{once:true});
+  card.addEventListener('touchcancel',()=>clearTimeout(G.touchTimer),{once:true});
+}
+function onTouchMove(e){
+  e.preventDefault();
+  const t=e.touches[0];
+  ghost.style.left=t.clientX+'px'; ghost.style.top=t.clientY+'px';
+  document.querySelectorAll('.drop-zone,.t-leaf.mixed').forEach(el=>el.classList.remove('drag-over','dov'));
+  const el=document.elementFromPoint(t.clientX,t.clientY);
+  el?.closest('.drop-zone')?.classList.add('drag-over');
+  el?.closest('.t-leaf.mixed')?.classList.add('dov');
+}
+function onTouchEnd(e){
+  clearTimeout(G.touchTimer);
+  ghost.style.display='none';
+  document.querySelectorAll('.dragging').forEach(el=>el.classList.remove('dragging'));
+  document.removeEventListener('touchmove',onTouchMove);
+  document.removeEventListener('touchend',onTouchEnd);
+  document.removeEventListener('touchcancel',onTouchEnd);
+  if(!G.touchDragQId) return;
+  const t=e.changedTouches[0];
+  const el=document.elementFromPoint(t.clientX,t.clientY);
+  const nEl=el?.closest('[data-node-id]');
+  if(nEl){
+    const node=findNode(G.tree,nEl.dataset.nodeId);
+    if(node){
+      if(node.isLeaf) expandLeaf(node,G.touchDragQId);
+      else if(!node.qId) placeQ(node,G.touchDragQId);
+    }
+  }
+  document.querySelectorAll('.drag-over,.dov').forEach(el=>el.classList.remove('drag-over','dov'));
+  G.touchDragQId=null;
+}
+
+// ══════════════════════════════════════════════════════
+// TREE LOGIC
+// ══════════════════════════════════════════════════════
+function evalQ(q,animal){
+  if(q.fn) return !!q.fn(animal);
+  return !!animal[q.prop];
+}
+function placeQ(node,qid){
+  if(!qid||!node||node.isLeaf||node.qId) return;
+  const q=G.questions.find(q=>q.id===qid);
+  if(!q) return;
+  node.qId=qid;
+  if(node.left&&node.right) resplit(node,q);
+  G.selQId=null; G.draggedQId=null; G.touchDragQId=null;
+  renderGame();
+}
+function expandLeaf(leaf,qid){
+  if(!qid) return;
+  const q=G.questions.find(q=>q.id===qid);
+  if(!q) return;
+  const animals=leaf.animalKeys||[];
+  const lk=animals.filter(k=>!evalQ(q,ANIMALS[k]));
+  const rk=animals.filter(k=> evalQ(q,ANIMALS[k]));
+  // Allow even if all animals go one side — the user discovers it's useless
+  // Only block if there are literally 0 animals in this leaf (edge case guard)
+  if(!animals.length){ G.selQId=null; G.draggedQId=null; G.touchDragQId=null; return; }
+  leaf.isLeaf=false; leaf.qId=qid;
+  leaf.left=mkLeaf(lk); leaf.right=mkLeaf(rk);
+  delete leaf.classes; delete leaf.animalKeys;
+  G.selQId=null; G.draggedQId=null; G.touchDragQId=null;
+  renderGame();
+}
+function resplit(node,q){
+  const all=getAllKeys(node);
+  distribute(node.left, all.filter(k=>!evalQ(q,ANIMALS[k])));
+  distribute(node.right,all.filter(k=> evalQ(q,ANIMALS[k])));
+}
+function distribute(node,keys){
+  if(!node) return;
+  if(node.isLeaf){ node.animalKeys=keys; node.classes=new Set(keys.map(k=>ANIMALS[k].cls)); return; }
+  const q=G.questions.find(q=>q.id===node.qId);
+  if(!q) return;
+  distribute(node.left, keys.filter(k=>!evalQ(q,ANIMALS[k])));
+  distribute(node.right,keys.filter(k=> evalQ(q,ANIMALS[k])));
+}
+function getAllKeys(node){
+  if(!node) return [];
+  if(node.isLeaf) return node.animalKeys||[];
+  return [...getAllKeys(node.left),...getAllKeys(node.right)];
+}
+function removeQ(node){
+  const all=getAllKeys(node);
+  node.isLeaf=true; node.qId=null; node.left=null; node.right=null;
+  node.classes=new Set(all.map(k=>ANIMALS[k].cls)); node.animalKeys=all;
+  renderGame();
+}
+function findNode(root,id){
+  if(!root) return null;
+  if(root.id===id) return root;
+  return findNode(root.left,id)||findNode(root.right,id);
+}
+
+// ══════════════════════════════════════════════════════
+// TEST PHASE
+// ══════════════════════════════════════════════════════
+function startTest(){
+  G.phase='test'; G.animalQueue=[...G.testKeys];
+  renderGame();
+  showModal({emoji:'🧪',cls:'insight',title:'Fase de Teste!',
+    body:'A tua árvore está pronta. Agora vamos testar com <strong>animais que nunca viu</strong>! Alguns vão surpreender-te...',
+    buttons:[{text:'Vamos lá! 🚀',fn:closeModal}]});
+}
+
+function classifyNext(){
+  if(!G.animalQueue.length) return;
+  const key=G.animalQueue.shift();
+  const animal=ANIMALS[key];
+  const result=walkTree(G.tree,animal);
+  const correct=result===animal.cls;
+  G.classified++;
+  // Partial score per correct answer
+  if(correct){ G.correct++; }
+  renderDots();
+
+  if(!correct){
+    const wl=CLASS_INFO[result]?.label||'?';
+    const rl=CLASS_INFO[animal.cls]?.label||animal.cls;
+    const we=CLASS_INFO[result]?.emoji||'?';
+    const re=CLASS_INFO[animal.cls]?.emoji||animal.emoji;
+    const extra=animal.edgeCase
+      ?`<div class="ins-box">🔍 ${animal.insight}</div>
+        <div class="ml-box">💡 <strong>Machine Learning:</strong> um modelo só é tão bom quanto as perguntas que o definem. É o que se chama <em>Feature Engineering</em>!</div>`
+      :`<div class="ins-box">🤔 A árvore não tem perguntas suficientes para distinguir este animal. Que pergunta em falta poderia resolver isto?</div>`;
+    showModal({
+      emoji:'😬', cls:'wrong', title:'Ups! A árvore errou!',
+      body:`<div style="font-size:38px;margin-bottom:8px">${animal.emoji}</div>
+            <span class="verdict-w">❌ A árvore disse: ${we} ${wl}</span>
+            <span class="verdict-r">✅ Resposta certa: ${re} ${rl}</span>
+            ${extra}`,
+      buttons:[{text:'Continuar →',fn:()=>{closeModal();renderGame();}}]
+    });
+  } else {
+    const isEdge=!!animal.edgeCase;
+    const edgeBn=isEdge
+      ?`<div class="ins-box" style="background:var(--green-l);border-color:var(--green);color:var(--green-d)">🌟 <strong>Caso difícil:</strong> ${animal.insight}</div>`:'' ;
+    showModal({
+      emoji:isEdge?'🌟':'✅', cls:'correct',
+      title:isEdge?'Incrível! Acertaste num caso difícil!':animal.emoji+' '+animal.name+': Correto!',
+      body:`<p style="font-size:16px;margin-bottom:8px">A árvore classificou como <strong style="color:var(--green);font-size:18px">${CLASS_INFO[animal.cls]?.emoji} ${CLASS_INFO[animal.cls]?.label}</strong>. Muito bem!</p>${edgeBn}`,
+      buttons:[{text:'Continuar →',fn:()=>{closeModal();renderGame();}}]
+    });
+    spawnConfetti(isEdge?55:18);
+  }
+}
+
+function walkTree(node,animal){
+  if(!node) return null;
+  if(node.isLeaf) return getPure(node)||[...(node.classes||[])][0]||null;
+  const q=G.questions.find(q=>q.id===node.qId);
+  if(!q) return null;
+  return walkTree(evalQ(q,animal)?node.right:node.left,animal);
+}
+
+// ══════════════════════════════════════════════════════
+// SCORING (max 300: 100 accuracy + 100 speed + 100 efficiency)
+// ══════════════════════════════════════════════════════
+function calcScore(){
+  const total=G.testKeys.length;
+  // Accuracy: 100 pts scaled to correct/total
+  const accPts = total>0 ? Math.round((G.correct/total)*100) : 0;
+  // Speed: 100 pts scaled to time remaining / total time
+  const speedPts = Math.round((G.timer/G.timerMax)*100);
+  // Efficiency: 100 pts — fewer nodes = more points.
+  // Min nodes for 4 classes = 3. Each extra node above 3 costs ~10pts, floor at 10.
+  const nodesUsed=countQNodes(G.tree);
+  const effPts = nodesUsed<=0 ? 0 : Math.max(10, Math.round(100 - (nodesUsed-3)*12));
+  return {accPts, speedPts, effPts, total:accPts+speedPts+effPts, nodesUsed};
+}
+
+function endGame(){
+  stopTimer();
+  const {accPts,speedPts,effPts,total,nodesUsed}=calcScore();
+  G.pendingScore=total;
+  const emoji=total>=240?'🏆':total>=150?'🎯':'💡';
+  const title=total>=240?'Excelente! És um cientista de dados!':total>=150?'Bom trabalho!':'Continua a aprender!';
+
+  showModal({emoji,cls:total>=240?'correct':'insight',title,
+    body:`<div class="score-bd">
+      <div class="sb-row"><span class="sl">✅ Acertos (${G.correct}/${G.testKeys.length})</span><span class="sv" style="color:var(--green)">${accPts}/100</span></div>
+      <div style="padding:2px 0"><div class="score-bar-wrap"><div class="score-bar-fill" style="width:${accPts}%;background:var(--green)"></div></div></div>
+      <div class="sb-row"><span class="sl">⏱️ Velocidade (${G.timer}s restantes)</span><span class="sv" style="color:var(--orange)">${speedPts}/100</span></div>
+      <div style="padding:2px 0"><div class="score-bar-wrap"><div class="score-bar-fill" style="width:${speedPts}%;background:var(--orange)"></div></div></div>
+      <div class="sb-row"><span class="sl">🌿 Eficiência (${nodesUsed} nós)</span><span class="sv" style="color:var(--teal)">${effPts}/100</span></div>
+      <div style="padding:2px 0"><div class="score-bar-wrap"><div class="score-bar-fill" style="width:${effPts}%;background:var(--teal)"></div></div></div>
+      <div class="sb-row tot"><span class="sl">Total</span><span class="sv">${total}/300</span></div>
+    </div>`,
+    buttons:[
+      {text:'💾 Guardar Pontuação',fn:()=>{closeModal();gotoLB(total);}},
+      {text:'Jogar novamente',fn:()=>{closeModal();showScreen('level-select');}},
+    ]});
+  if(total>=240) spawnConfetti(70);
+}
+
+// ══════════════════════════════════════════════════════
+// LEADERBOARD (local)
+// ══════════════════════════════════════════════════════
+let LB=[];
+function loadLB(){ LB=JSON.parse(localStorage.getItem('ai_tree_lb4')||'[]'); }
+function saveLB(){ localStorage.setItem('ai_tree_lb4',JSON.stringify(LB)); }
+function initLeaderboard(){ loadLB(); showScreen('leaderboard'); document.getElementById('name-row').style.display='none'; renderLB(); }
+function gotoLB(score){ loadLB(); showScreen('leaderboard'); document.getElementById('name-row').style.display='flex'; renderLB(); }
+function submitScore(){
+  const name=document.getElementById('team-name').value.trim();
+  if(!name) return;
+  loadLB();
+  LB.push({name,score:G.pendingScore,level:G.level,ts:Date.now()});
+  LB.sort((a,b)=>b.score-a.score); LB=LB.slice(0,20); saveLB();
+  document.getElementById('team-name').value='';
+  document.getElementById('name-row').style.display='none';
+  renderLB();
+}
+function renderLB(){
+  const list=document.getElementById('lb-list');
+  const pod=document.getElementById('lb-podium');
+  list.innerHTML=''; pod.innerHTML='';
+  if(!LB.length){ list.innerHTML='<div class="lb-empty">Ainda não há pontuações. Joga para seres o primeiro! 🎮</div>'; return; }
+  const medals=['🥇','🥈','🥉'];
+  const podOrd=[1,0,2]; const podH=[92,120,72];
+  podOrd.forEach((idx,vi)=>{
+    const e=LB[idx]; if(!e) return;
+    const s=document.createElement('div');
+    s.className=`ps ps${idx+1}`; s.style.height=podH[vi]+'px';
+    s.innerHTML=`<div class="p-med">${medals[idx]}</div><div class="p-nm">${e.name}</div><div class="p-sc">${e.score}/300</div>`;
+    pod.appendChild(s);
+  });
+  LB.forEach((e,i)=>{
+    const row=document.createElement('div'); row.className='lb-row';
+    row.innerHTML=`<div class="lb-rank">${medals[i]||i+1}</div><div class="lb-name">${e.name}</div><div class="lb-lv">${LV_LABELS[e.level]||''}</div><div class="lb-sc">${e.score}/300</div>`;
+    list.appendChild(row);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════
+function showModal({emoji,cls,title,body,buttons}){
+  document.getElementById('m-em').textContent=emoji;
+  document.getElementById('m-ttl').textContent=title;
+  document.getElementById('m-bdy').innerHTML=body;
+  document.getElementById('mbox').className='mbox '+(cls||'');
+  const btns=document.getElementById('m-btns'); btns.innerHTML='';
+  buttons.forEach((b,i)=>{
+    const el=document.createElement('button');
+    el.className='btn '+(i===0?'btn-teal':'btn-ghost');
+    el.textContent=b.text; el.addEventListener('click',b.fn); btns.appendChild(el);
+  });
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click',e=>{ if(e.target===document.getElementById('modal')) closeModal(); });
+
+// ══════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function confirmQuit(){
+  stopTimer();
+  const {total}=calcScore();
+  showModal({emoji:'🚪',cls:'',title:'Sair do jogo?',
+    body:`A tua pontuação estimada é <strong>${total}/300</strong> pontos.`,
+    buttons:[
+      {text:'Ficar',fn:()=>{closeModal();startTimer();}},
+      {text:'Sair', fn:()=>{closeModal();stopTimer();showScreen('level-select');}},
+    ]});
+}
+function spawnConfetti(n=40){
+  const c=['#2e9e5b','#e07620','#d4a017','#1a9080','#7b4fbf','#cc3333','#3498db'];
+  for(let i=0;i<n;i++) setTimeout(()=>{
+    const p=document.createElement('div'); p.className='cft';
+    p.style.left=Math.random()*100+'vw';
+    p.style.background=c[Math.floor(Math.random()*c.length)];
+    p.style.animationDuration=(Math.random()*2+1.5)+'s';
+    document.body.appendChild(p); setTimeout(()=>p.remove(),4000);
+  },i*35);
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
