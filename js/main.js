@@ -32,6 +32,16 @@ async function loadSections() {
     loadSection('section-alumni',       'alumni.html'),
     loadSection('section-location',     'location.html'),
   ]);
+
+  /* Alternate section backgrounds automatically.
+     Hero, about, and location keep their own styles. */
+  const skipIds = new Set(['hero', 'about', 'location']);
+  document.querySelectorAll('body > section').forEach((section, i) => {
+    if (skipIds.has(section.id)) return;
+    section.style.background = i % 2 === 0
+      ? 'var(--fog)'
+      : 'var(--white)';
+  });
 }
 
 /* ── Navigation ─────────────────────────────────────────────────── */
@@ -96,10 +106,11 @@ function updateYear() {
    Images (single, pair, or grid) are rendered when present.
    ──────────────────────────────────────────────────────────────── */
 function loadBlueskyFeed() {
-  const HANDLE  = 'nmoraislab.bsky.social';
-  const LIMIT   = 6;
-  const API_URL = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed` +
-                  `?actor=${HANDLE}&limit=${LIMIT}&filter=posts_no_replies`;
+  const HANDLE   = 'nmoraislab.bsky.social';
+  const DISPLAY  = 6;   // posts to show (3 columns × 2 rows)
+  const FETCH    = 20;  // fetch more so filtering reposts still leaves enough
+  const API_URL  = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed` +
+                   `?actor=${HANDLE}&limit=${FETCH}&filter=posts_no_replies`;
 
   function formatDate(isoStr) {
     return new Date(isoStr).toLocaleDateString('en-GB', {
@@ -186,7 +197,7 @@ function loadBlueskyFeed() {
         grid.innerHTML = '<p class="bsky-loading">No posts yet — check back soon!</p>';
         return;
       }
-      grid.innerHTML = feed.slice(0, LIMIT).map(renderCard).join('');
+      grid.innerHTML = feed.slice(0, DISPLAY).map(renderCard).join('');
     })
     .catch(() => {
       clearTimeout(timeoutId);

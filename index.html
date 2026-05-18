@@ -10,10 +10,20 @@
   <meta property="og:image"        content="assets/logos/logo-full-dark.png" />
   <title>Disease Transcriptomics Lab · NMorais Lab</title>
 
-  <!-- Favicon — white icon for dark mode, black icon for light mode -->
-  <link rel="icon" href="assets/logos/logo-icon-black.png" type="image/png" media="(prefers-color-scheme: light)" />
-  <link rel="icon" href="assets/logos/logo-icon.png"       type="image/png" media="(prefers-color-scheme: dark)" />
-  <link rel="apple-touch-icon" href="assets/logos/logo-icon.png" />
+  <!-- Favicon — swapped dynamically by JS below for reliable cross-browser support -->
+  <link rel="icon" id="favicon" href="assets/logos/logo-icon-black.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/logos/logo-icon-black.png" />
+  <script>
+    (function () {
+      var icon  = document.getElementById('favicon');
+      var dark  = 'assets/logos/logo-icon.png';
+      var light = 'assets/logos/logo-icon-black.png';
+      var mq    = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(e) { icon.href = e.matches ? dark : light; }
+      apply(mq);
+      mq.addEventListener('change', apply);
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
