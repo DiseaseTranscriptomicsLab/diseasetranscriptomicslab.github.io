@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Árvore Inteligente</title>
+<meta name="author" content="Disease Transcriptomics Lab, NOVA Medical School" />
+<meta name="license" content="CC BY-NC-ND 4.0 — https://creativecommons.org/licenses/by-nc-nd/4.0/" />
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
@@ -1587,5 +1589,21 @@ function spawnConfetti(n=40){
 }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 </script>
+
+<!-- ── LICENSE FOOTER ── -->
+<footer style="
+  text-align:center; padding:14px 20px; font-size:11px;
+  color:#8a6d4e; background:#f5ede0; border-top:1px solid #e0cdb5;
+  font-family:'Nunito',sans-serif; line-height:1.7;">
+  <strong>Árvore Inteligente</strong> ·
+  © <span id="footer-year"></span>
+  <a href="https://nmoraislab.github.io" target="_blank" rel="noopener"
+     style="color:#2e9e5b;text-decoration:none;">Disease Transcriptomics Lab, NOVA Medical School</a>
+  ·
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener"
+     style="color:#2e9e5b;text-decoration:none;">CC BY-NC-ND 4.0</a>
+  — partilha permitida com crédito; uso comercial e modificações não autorizados.
+  <script>document.getElementById('footer-year').textContent=new Date().getFullYear();</script>
+</footer>
 </body>
 </html>

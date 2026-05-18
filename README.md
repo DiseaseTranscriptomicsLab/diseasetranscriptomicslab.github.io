@@ -121,4 +121,12 @@ For non-Git users: edit any file on GitHub (click it → pencil icon ✏ → Com
 
 ---
 
+---
+
+## Acknowledgements
+
+The first draft of this website — structure, layout, CSS design system, JavaScript, and outreach games — was built with **[Claude Sonnet 4.6](https://www.anthropic.com/claude)** (Anthropic) via Cowork mode.
+
+---
+
 *Disease Transcriptomics Lab · NOVA Medical School · Lisboa, Portugal*

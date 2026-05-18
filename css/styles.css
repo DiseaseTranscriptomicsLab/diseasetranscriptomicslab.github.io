@@ -887,6 +887,20 @@ a.outreach-header--link:hover .outreach-status-pill {
   border: 1px solid var(--border);
 }
 
+/* License credit line inside outreach cards */
+.outreach-license {
+  margin-top: .85rem;
+  font-size: .7rem;
+  color: var(--slate);
+  opacity: .7;
+}
+.outreach-license a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 600;
+}
+.outreach-license a:hover { text-decoration: underline; }
+
 /* Footer row */
 .outreach-card-footer {
   margin-top: .5rem;

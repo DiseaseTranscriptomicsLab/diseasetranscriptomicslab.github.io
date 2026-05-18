@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Monster Scientists / Cientistas de Monstros</title>
+<meta name="author" content="Disease Transcriptomics Lab, NOVA Medical School" />
+<meta name="license" content="CC BY-NC-ND 4.0 — https://creativecommons.org/licenses/by-nc-nd/4.0/" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@600;700&display=swap');
 
@@ -1930,5 +1932,21 @@ loadProgress();
     `<span class="lang-monster-wrap">${renderMonster({color:'blue',  spots:'few',  eyes:3}, 90, false, false)}</span>`;
 })();
 </script>
+
+<!-- ── LICENSE FOOTER ── -->
+<footer style="
+  text-align:center; padding:14px 20px; font-size:11px;
+  color:#555; background:#f0f4ff; border-top:1px solid #d0d8f0;
+  font-family:system-ui,sans-serif; line-height:1.7;">
+  <strong>Monster Scientists / Cientistas de Monstros</strong> ·
+  © <span id="footer-year"></span>
+  <a href="https://nmoraislab.github.io" target="_blank" rel="noopener"
+     style="color:#4a6cf7;text-decoration:none;">Disease Transcriptomics Lab, NOVA Medical School</a>
+  ·
+  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener"
+     style="color:#4a6cf7;text-decoration:none;">CC BY-NC-ND 4.0</a>
+  — partilha permitida com crédito; uso comercial e modificações não autorizados.
+  <script>document.getElementById('footer-year').textContent=new Date().getFullYear();</script>
+</footer>
 </body>
 </html>
