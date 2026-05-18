@@ -37,7 +37,8 @@ nmoraislab.github.io/
 │   └── photos/                  ← Team + group photos
 │
 └── games/
-    └── monster-scientists.html  ← Outreach game (bilingual EN/PT)
+    ├── monster-scientists.html  ← Outreach game (bilingual EN/PT)
+    └── arvore_inteligente.html  ← Outreach game (PT only; In development)
 ```
 
 ---

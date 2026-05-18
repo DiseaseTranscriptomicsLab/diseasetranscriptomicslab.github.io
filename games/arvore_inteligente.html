@@ -579,9 +579,9 @@ body {
     <div class="htp-section">
       <h3>🎮 Níveis</h3>
       <div class="level-badges">
-        <div class="lvl-badge"><strong style="color:var(--green)">🌱 Nível 1 — Principiante:</strong><span> 5 animais de treino, 3 de teste. Perguntas simples como "Tem asas?" ou "Habita na água?". A árvore <em>vai</em> falhar nalguns animais de teste — essa é a lição! 3 minutos.</span></div>
-        <div class="lvl-badge"><strong style="color:var(--orange)">🔬 Nível 2 — Explorador:</strong><span> 8 animais de treino, 4 de teste. Sem "Tem asas?" nem "Habita na água?" — precisas de conhecimento biológico real. 4 minutos.</span></div>
-        <div class="lvl-badge"><strong style="color:var(--purple)">⚗️ Nível 3 — Cientista:</strong><span> 12 animais de treino, 4 de teste. 18 perguntas disponíveis — mas muitas são armadilhas! Máximo 5 perguntas na árvore. Inclui o Ornitorrinco (mamífero que põe ovos!) e o Morcego (mamífero com asas!). Só 3-4 perguntas resolvem tudo — encontra-as. 5 minutos.</span></div>
+        <div class="lvl-badge"><strong style="color:var(--green)">🌱 Nível 1 — Principiante:</strong><span> 5 animais de treino, 3 de teste. Perguntas simples como "Tem asas?" ou "Vive na água?". A árvore <em>vai</em> falhar nalguns animais de teste — essa é a lição! 3 minutos.</span></div>
+        <div class="lvl-badge"><strong style="color:var(--orange)">🔬 Nível 2 — Explorador:</strong><span> 9 animais de treino, 4 de teste. Nenhuma pergunta isola os pássaros por si só — tens de combinar! Precisas de conhecimento biológico real. 4 minutos.</span></div>
+        <div class="lvl-badge"><strong style="color:var(--purple)">⚗️ Nível 3 — Cientista:</strong><span> 13 animais de treino, 4 de teste. Algumas perguntas que parecem óbvias são armadilhas. Duas categorias não têm nenhuma pergunta que as isole sozinha — descobres quais? 6 minutos.</span></div>
       </div>
     </div>
 
@@ -601,21 +601,21 @@ body {
       <div class="level-card lv1" onclick="startGame(1)">
         <span class="lc-emoji">🌱</span>
         <div class="lc-name">Principiante</div>
-        <div class="lc-details">5 animais de treino, 3 de teste. Perguntas básicas como "Tem asas?" ou "Habita na água?". Ideal para aprender como funciona uma árvore.</div>
+        <div class="lc-details">5 animais de treino, 3 de teste. Perguntas básicas como "Tem asas?" ou "Vive na água?". Ideal para aprender como funciona uma árvore.</div>
         <span class="lc-tag">Fácil · 3 min</span>
       </div>
 
       <div class="level-card lv2" onclick="startGame(2)">
         <span class="lc-emoji">🔬</span>
         <div class="lc-name">Explorador</div>
-        <div class="lc-details">8 animais, 4 de teste. Sem perguntas óbvias! Precisas de biologia: guelras, penas, sangue quente, amamenta...</div>
+        <div class="lc-details">9 animais de treino, 4 de teste. Nenhuma pergunta isola os pássaros diretamente — tens de combinar perguntas! Precisas de biologia real.</div>
         <span class="lc-tag">Médio · 4 min</span>
       </div>
 
       <div class="level-card lv3" onclick="startGame(3)">
         <span class="lc-emoji">⚗️</span>
         <div class="lc-name">Cientista</div>
-        <div class="lc-details">10 animais, 4 de teste. Só perguntas biológicas. Máximo <strong>5 perguntas</strong> na árvore. E o Ornitorrinco vai destruir qualquer árvore mal feita...</div>
+        <div class="lc-details">13 animais de treino, 4 de teste. Duas categorias não têm pergunta única que as isole — precisas de combinações. Alguns animais de teste vão surpreender-te. Consegues construir uma árvore à prova de tudo?</div>
         <span class="lc-tag">Difícil · 5 min</span>
       </div>
 
@@ -697,161 +697,163 @@ body {
 
 <script>
 // ══════════════════════════════════════════════════════
-// ANIMAL DATA
+// ANIMAL DATA  (v2026-05-18)
 // ══════════════════════════════════════════════════════
 const ANIMALS = {
   // Training pool (used across levels)
   lion:     {name:'Leão',          emoji:'🦁', cls:'mammal',
-    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
-    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
+    ocean:false, aquatic:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:true},
   dog:      {name:'Cão',           emoji:'🐕', cls:'mammal',
-    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
     laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:true},
   cat:      {name:'Gato',          emoji:'🐱', cls:'mammal',
-    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
     laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
   rabbit:   {name:'Coelho',        emoji:'🐇', cls:'mammal',
-    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
     laysEggs:false, warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true},
   parrot:   {name:'Papagaio',      emoji:'🦜', cls:'bird',
-    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
     laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
   eagle:    {name:'Águia',         emoji:'🦅', cls:'bird',
-    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
     laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
   ostrich:  {name:'Avestruz',      emoji:'🦤', cls:'bird',
-    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
     laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
   owl:      {name:'Coruja',        emoji:'🦉', cls:'bird',
-    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
     laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:false},
   shark:    {name:'Tubarão',       emoji:'🦈', cls:'fish',
-    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    ocean:true,  aquatic:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
     laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
   goldfish: {name:'Peixe-Dourado', emoji:'🐠', cls:'fish',
-    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    ocean:false, aquatic:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
     laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
   salmon:   {name:'Salmão',        emoji:'🐟', cls:'fish',
-    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+    ocean:true,  aquatic:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
     laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false},
   bee:      {name:'Abelha',        emoji:'🐝', cls:'insect',
-    ocean:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
     laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
   ant:      {name:'Formiga',       emoji:'🐜', cls:'insect',
-    ocean:false, wings:false, exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:false, exo:true,  scales:false, fur:false, feathers:false, gills:false,
     laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
   butterfly:{name:'Borboleta',     emoji:'🦋', cls:'insect',
-    ocean:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:true,  scales:false, fur:false, feathers:false, gills:false,
     laysEggs:true,  warmBlooded:false, legs:6, vertebrate:false, breathesAir:true, nocturnal:false, canSwim:false, hasTail:false, livesOnLand:true,  amamenta:false},
   // Test / edge cases
   dolphin:  {name:'Golfinho',      emoji:'🐬', cls:'mammal',
-    ocean:true,  wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
+    ocean:true,  aquatic:true,  wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
     laysEggs:false, warmBlooded:true,  legs:0, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:true,
-    edgeCase:true, insight:'O Golfinho vive no oceano, mas é um mamífero! Respira com pulmões, amamenta as crias e tem sangue quente. A pergunta "Habita na água?" falha porque confunde habitat com biologia!'},
+    edgeCase:true, insight:'O Golfinho vive na água, mas é um mamífero! Respira com pulmões, amamenta as crias e tem sangue quente. "Vive na água?" falha porque confunde habitat com biologia!'},
   bat:      {name:'Morcego',       emoji:'🦇', cls:'mammal',
-    ocean:false, wings:true,  exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:true,  feathers:false, gills:false,
     laysEggs:false, warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:false, hasTail:true,  livesOnLand:true,  amamenta:true,
     edgeCase:true, insight:'O Morcego tem asas mas é um mamífero! As asas são membranas de pele, não penas. Tem pelo, amamenta as crias e tem sangue quente. "Tem asas?" não distingue pássaros de morcegos!'},
   penguin:  {name:'Pinguim',       emoji:'🐧', cls:'bird',
-    ocean:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
+    ocean:false, aquatic:false, wings:true,  exo:false, scales:false, fur:false, feathers:true,  gills:false,
     laysEggs:true,  warmBlooded:true,  legs:2, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:false,
-    edgeCase:true, insight:'O Pinguim tem asas mas não voa! É um pássaro porque tem penas e põe ovos. As asas evoluíram para nadar em vez de voar. Será que a tua árvore acertou mesmo assim?'},
+    edgeCase:true, insight:'O Pinguim tem asas mas não voa! É um pássaro: tem penas, põe ovos e tem sangue quente. As asas evoluíram para nadar em vez de voar. A tua árvore acertou?'},
   frog:     {name:'Rã',            emoji:'🐸', cls:'amphibian',
-    ocean:false, wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
+    ocean:false, aquatic:true,  wings:false, exo:false, scales:false, fur:false, feathers:false, gills:false,
     laysEggs:true,  warmBlooded:false, legs:4, vertebrate:true,  breathesAir:true, nocturnal:true,  canSwim:true,  hasTail:false, livesOnLand:true,  amamenta:false,
     edgeCase:true, insight:'A Rã não é peixe, pássaro, mamífero nem inseto! É um anfíbio — uma classe que a árvore não conhece. Um modelo de ML só classifica o que foi treinado!'},
-  seahorse: {name:'Cavalo-Marinho',emoji:'🦄', cls:'fish',
-    ocean:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
+  seahorse: {name:'Cavalo-Marinho',emoji:'🌊🐴', cls:'fish',
+    ocean:true,  aquatic:true,  wings:false, exo:false, scales:true,  fur:false, feathers:false, gills:true,
     laysEggs:true,  warmBlooded:false, legs:0, vertebrate:true,  breathesAir:false,nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:false, amamenta:false,
-    edgeCase:true, insight:'O Cavalo-Marinho parece uma criatura fantástica, mas é um peixe! Tem guelras, escamas e vive na água. O facto de ter forma estranha não muda a sua biologia.'},
+    edgeCase:true, insight:'O Cavalo-Marinho parece uma criatura fantástica, mas é um peixe! Tem guelras, escamas e vive na água. A forma estranha não muda a sua biologia.'},
   platypus: {name:'Ornitorrinco',  emoji:'🦆', cls:'mammal',
-    ocean:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
+    ocean:false, aquatic:false, wings:false, exo:false, scales:false, fur:true,  feathers:false, gills:false,
     laysEggs:true,  warmBlooded:true,  legs:4, vertebrate:true,  breathesAir:true, nocturnal:false, canSwim:true,  hasTail:true,  livesOnLand:true,  amamenta:true,
     edgeCase:true, insight:'O Ornitorrinco é um mamífero que PÕE OVOS! É o único mamífero ovíparo do mundo. Tem pelo, amamenta as crias (mesmo sem mamilos!) e tem sangue quente. A pergunta "Põe ovos?" NUNCA pode ser usada para excluir mamíferos!'},
 };
+
+// Quick data-integrity check (visible in browser console)
+console.info('[Árvore Inteligente v2026-05-18] Dados carregados.',
+  'Abelha.wings =', ANIMALS.bee.wings,    // expected: true
+  '| Formiga.wings =', ANIMALS.ant.wings, // expected: false
+  '| Morcego.wings =', ANIMALS.bat.wings  // expected: true
+);
 
 // ══════════════════════════════════════════════════════
 // QUESTIONS PER LEVEL
 // ══════════════════════════════════════════════════════
 
-// LEVEL 1 — basic, the "obvious" ones that fail on edge cases
+// LEVEL 1 — perguntas "óbvias" que falham nos casos extremos
+// "Vive na água?" usa a propriedade aquatic (água doce OU salgada) — o peixe-dourado responde SIM!
+// Mas o golfinho também responde SIM — essa é a armadilha!
 const Q_LV1 = [
-  {id:'q_ocean',  text:'Habita na água?',      icon:'🌊', prop:'ocean'},
-  {id:'q_wings',  text:'Tem asas?',             icon:'🪶', prop:'wings'},
-  {id:'q_exo',    text:'Tem exoesqueleto?',     icon:'🦗', prop:'exo'},
-  {id:'q_fur',    text:'Tem pelo (como cão/gato)?', icon:'🐾', prop:'fur', note:'Pelos de mamífero, não os finos tricomas dos insetos'},
-  {id:'q_6legs',  text:'Tem exatamente 6 patas?', icon:'🦵', fn:a=>a.legs===6, note:'Todos os insetos adultos têm 6 patas'},
-  {id:'q_4legs',  text:'Tem 4 patas?',          icon:'🐾', fn:a=>a.legs===4},
-  {id:'q_0legs',  text:'Não tem patas?',        icon:'🚫', fn:a=>a.legs===0},
+  {id:'q_aquatic', text:'Vive na água?',              icon:'🌊', fn:a=>a.aquatic},
+  {id:'q_wings',   text:'Tem asas?',                  icon:'🪶', prop:'wings'},
+  {id:'q_exo',     text:'Tem exoesqueleto?',          icon:'🦗', prop:'exo'},
+  {id:'q_fur',     text:'Tem pelo (como cão/gato)?',  icon:'🐾', prop:'fur', note:'Pelos de mamífero, não os finos tricomas dos insetos'},
+  {id:'q_6legs',   text:'Tem exatamente 6 patas?',    icon:'🦵', fn:a=>a.legs===6, note:'Todos os insetos adultos têm 6 patas'},
+  {id:'q_4legs',   text:'Tem 4 patas?',               icon:'🐾', fn:a=>a.legs===4},
+  {id:'q_0legs',   text:'Não tem patas?',             icon:'🚫', fn:a=>a.legs===0},
 ];
-// LEVEL 2 — biological, NO "ocean" or "wings" or "exo" directly (harder to mis-use)
-// Guaranteed solution: guelras→Peixe / penas→Pássaro / exoesqueleto→Inseto / →Mamífero
+// LEVEL 2 — perguntas biológicas; o morcego está no treino → "Tem asas?" já não isola pássaros!
+// Sem "Tem penas?" na lista → pássaros precisam de combinação de perguntas.
+// Solução robusta: guelras→Peixe / exoesqueleto ou 6patas→Inseto / pelo ou amamenta→Mamífero / resto→Pássaro
+// Combinação para pássaros: sangue quente + põe ovos (sem ornitorrinco neste nível, funciona!)
 const Q_LV2 = [
   {id:'q_gills',      text:'Tem guelras?',              icon:'💧', prop:'gills'},
-  {id:'q_feathers',   text:'Tem penas?',                icon:'🍃', prop:'feathers'},
   {id:'q_exo',        text:'Tem exoesqueleto?',         icon:'🦗', prop:'exo'},
   {id:'q_scales',     text:'Tem escamas?',              icon:'🐟', prop:'scales'},
   {id:'q_fur',        text:'Tem pelo de mamífero?',     icon:'🐾', prop:'fur', note:'Pelo espesso como cão, gato ou leão — não os finos tricomas dos insetos'},
-  {id:'q_warm',       text:'Tem sangue quente?',        icon:'🌡️', prop:'warmBlooded'},
-  {id:'q_eggs',       text:'Põe ovos?',                 icon:'🥚', prop:'laysEggs', note:'Cuidado: pássaros, peixes E insetos põem ovos!'},
+  {id:'q_warm',       text:'Tem sangue quente?',        icon:'🌡️', prop:'warmBlooded', note:'Cuidado: tanto pássaros como mamíferos têm sangue quente!'},
+  {id:'q_eggs',       text:'Põe ovos?',                 icon:'🥚', prop:'laysEggs',    note:'Cuidado: pássaros, peixes E insetos põem ovos!'},
   {id:'q_vertebrate', text:'Tem coluna vertebral?',     icon:'🦴', prop:'vertebrate'},
-  {id:'q_breathes',   text:'Respira com pulmões?',      icon:'💨', prop:'breathesAir'},
+  {id:'q_breathes',   text:'Respira com pulmões?',      icon:'💨', prop:'breathesAir', note:'Cuidado: pássaros E mamíferos respiram com pulmões!'},
   {id:'q_amamenta',   text:'Amamenta as crias?',        icon:'🍼', prop:'amamenta'},
+  {id:'q_wings',      text:'Tem asas?',                 icon:'🪶', prop:'wings',       note:'Cuidado: o morcego tem asas mas é mamífero! Não distingue pássaros sozinho.'},
   {id:'q_6legs',      text:'Tem exatamente 6 patas?',   icon:'🦵', fn:a=>a.legs===6},
-  {id:'q_2legs',      text:'Tem 2 patas?',              icon:'🦶', fn:a=>a.legs===2},
+  {id:'q_2legs',      text:'Tem 2 patas?',              icon:'🦶', fn:a=>a.legs===2,   note:'Pássaros E morcegos têm 2 patas — não discrimina bem entre eles.'},
   {id:'q_0legs',      text:'Não tem patas?',            icon:'🚫', fn:a=>a.legs===0},
   {id:'q_nocturnal',  text:'É nocturno?',               icon:'🌙', prop:'nocturnal'},
-  {id:'q_canSwim',    text:'Consegue nadar?',            icon:'🏊', prop:'canSwim'},
+  {id:'q_canSwim',    text:'Consegue nadar?',           icon:'🏊', prop:'canSwim'},
   {id:'q_tail',       text:'Tem cauda?',                icon:'〰️', prop:'hasTail'},
 ];
-// LEVEL 3 — only deep biological, NO wings/ocean/exo/fur/feathers directly
-// Guaranteed solution: guelras→Peixe / amamenta→Mamífero / warmBlooded+NOT mammal→Pássaro / 6legs→Inseto
-// Level 3: 18 questions, only 3-4 actually solve the puzzle cleanly.
-// Many are traps that look plausible but fail:
-//  - "Tem sangue quente?" → pássaros E mamíferos → sim (não separa os dois)
-//  - "Respira com pulmões?" → pássaros E mamíferos → sim (idem)
-//  - "Põe ovos?" → pássaros + peixes + insetos → sim (não separa mamíferos limpo)
-//  - "É nocturno?" → coruja + morcego mas classes diferentes
-//  - "Consegue nadar?" → golfinhos, pinguins, salmões, patos todos sim
-//  - "Tem cauda?" → quase todos têm
-//  - "Tem coluna vertebral?" → pássaros+peixes+mamíferos todos têm → inútil
-// CORRECT solution with 4 nodes: guelras→Peixe / amamenta→Mamífero / 6patas→Inseto / →Pássaro
-// (The 5th node can be used to split further if needed)
+// LEVEL 3 — o ornitorrinco está no treino → "Põe ovos?" deixa de excluir mamíferos!
+// Sem "Tem penas?" → pássaros também precisam de combinação.
+// Solução robusta: guelras→Peixe / 6patas→Inseto / amamenta→Mamífero (apanha ornitorrinco!) / resto→Pássaro
+// Para pássaros sem penas: sangue quente + NÃO amamenta (exclui morcego e ornitorrinco)
+// "Põe ovos?" é armadilha: pássaros + peixes + insetos + ORNITORRINCO (mamífero!)
+// "Tem asas?" é armadilha: pássaros + morcego (mamífero!)
 const Q_LV3 = [
-  // The 3 that actually work cleanly:
+  // As 3 que funcionam de forma limpa:
   {id:'q_gills',      text:'Tem guelras?',               icon:'💧', prop:'gills'},
   {id:'q_amamenta',   text:'Amamenta as crias?',         icon:'🍼', prop:'amamenta'},
   {id:'q_6legs',      text:'Tem exatamente 6 patas?',    icon:'🦵', fn:a=>a.legs===6},
-  // Plausible but tricky:
-  {id:'q_warm',       text:'Tem sangue quente?',         icon:'🌡️', prop:'warmBlooded',   note:'Cuidado: tanto pássaros como mamíferos têm sangue quente!'},
-  {id:'q_eggs',       text:'Põe ovos?',                  icon:'🥚', prop:'laysEggs',       note:'Cuidado: pássaros, peixes E insetos também põem ovos!'},
-  {id:'q_breathes',   text:'Respira com pulmões?',       icon:'💨', prop:'breathesAir',    note:'Cuidado: pássaros E mamíferos respiram com pulmões!'},
-  {id:'q_scales',     text:'Tem escamas?',               icon:'🐟', prop:'scales',         note:'Só os peixes têm escamas — mas nem todos os peixes aparecem aqui...'},
-  {id:'q_feathers',   text:'Tem penas?',                 icon:'🍃', prop:'feathers',       note:'Útil para isolar pássaros, mas não separa as outras classes'},
-  // Trap questions — look useful, aren't:
-  {id:'q_nocturnal',  text:'É nocturno?',                icon:'🌙', prop:'nocturnal',      note:'Armadilha: a coruja e o morcego são ambos nocturnos, mas são classes diferentes!'},
-  {id:'q_canSwim',    text:'Consegue nadar?',             icon:'🏊', prop:'canSwim',        note:'Armadilha: pinguins, golfinhos, salmões e até algumas aves nadam. Não discrimina bem.'},
-  {id:'q_tail',       text:'Tem cauda?',                  icon:'〰️', prop:'hasTail',       note:'Armadilha: quase todos os animais têm cauda. Separa muito pouco.'},
-  {id:'q_vertebrate', text:'Tem coluna vertebral?',      icon:'🦴', prop:'vertebrate',     note:'Armadilha: pássaros, peixes e mamíferos têm todos coluna vertebral!'},
-  {id:'q_0legs',      text:'Não tem patas?',             icon:'🚫', fn:a=>a.legs===0,      note:'Só isola peixes, mas "Tem guelras?" é mais fiável para o mesmo efeito.'},
-  {id:'q_wings',      text:'Tem asas?',                  icon:'🪶', prop:'wings',          note:'Armadilha: o morcego tem asas mas é mamífero! Insetos com asas também.'},
-  {id:'q_ocean',      text:'Habita na água?',            icon:'🌊', prop:'ocean',          note:'Armadilha clássica: golfinhos habitam na água mas são mamíferos!'},
+  // Úteis em combinação:
+  {id:'q_warm',       text:'Tem sangue quente?',         icon:'🌡️', prop:'warmBlooded',  note:'Cuidado: tanto pássaros como mamíferos têm sangue quente!'},
+  {id:'q_breathes',   text:'Respira com pulmões?',       icon:'💨', prop:'breathesAir',  note:'Cuidado: pássaros E mamíferos respiram com pulmões!'},
+  {id:'q_scales',     text:'Tem escamas?',               icon:'🐟', prop:'scales',        note:'Útil para peixes — mas nem todos os peixes têm escamas típicas.'},
+  // Armadilhas:
+  {id:'q_eggs',       text:'Põe ovos?',                  icon:'🥚', prop:'laysEggs',      note:'Armadilha: pássaros, peixes, insetos E o ornitorrinco (mamífero!) põem ovos!'},
+  {id:'q_wings',      text:'Tem asas?',                  icon:'🪶', prop:'wings',         note:'Armadilha: o morcego tem asas mas é mamífero! Insetos com asas também.'},
+  {id:'q_nocturnal',  text:'É nocturno?',                icon:'🌙', prop:'nocturnal',     note:'Armadilha: a coruja e o morcego são nocturnos, mas são classes diferentes!'},
+  {id:'q_canSwim',    text:'Consegue nadar?',            icon:'🏊', prop:'canSwim',       note:'Armadilha: pinguins, golfinhos, salmões, leões nadam. Não discrimina bem.'},
+  {id:'q_tail',       text:'Tem cauda?',                 icon:'〰️', prop:'hasTail',      note:'Armadilha: quase todos os animais têm cauda. Separa muito pouco.'},
+  {id:'q_vertebrate', text:'Tem coluna vertebral?',      icon:'🦴', prop:'vertebrate',    note:'Armadilha: pássaros, peixes e mamíferos têm todos coluna vertebral!'},
+  {id:'q_ocean',      text:'Vive no mar?',               icon:'🌊', prop:'ocean',         note:'Armadilha: golfinhos vivem no mar mas são mamíferos! E o peixe-dourado vive em água doce.'},
   {id:'q_exo',        text:'Tem exoesqueleto?',          icon:'🦗', prop:'exo'},
-  {id:'q_2legs',      text:'Tem 2 patas?',               icon:'🦶', fn:a=>a.legs===2,      note:'Pássaros E morcegos têm 2 patas — não discrimina bem entre eles.'},
-  {id:'q_fur',        text:'Tem pelo de mamífero?',      icon:'🐾', prop:'fur',            note:'Funciona razoavelmente, mas o ornitorrinco tem pelo E põe ovos...'},
+  {id:'q_fur',        text:'Tem pelo de mamífero?',      icon:'🐾', prop:'fur',           note:'Funciona para a maioria dos mamíferos — mas e o ornitorrinco?'},
+  {id:'q_0legs',      text:'Não tem patas?',             icon:'🚫', fn:a=>a.legs===0,     note:'Isola peixes — mas "Tem guelras?" é mais fiável.'},
+  {id:'q_2legs',      text:'Tem 2 patas?',               icon:'🦶', fn:a=>a.legs===2,     note:'Pássaros E morcegos têm 2 patas — não discrimina bem.'},
 ];
 
 // TRAIN/TEST SETS
-// Lv1: solution possible with gills(fish)/feathers(bird)/exo(insect)→mammal — BUT lv1 doesn't have gills/feathers!
-// That's intentional: Lv1 tree with ocean/wings/exo WILL fail on dolphin and bat.
+// Lv1: perguntas simples que falham nos casos extremos — intencional!
 const TRAIN_LV1 = ['lion','parrot','goldfish','ant','dog'];
 const TEST_LV1  = ['dolphin','bat','penguin'];
-// Lv2: solution available (gills/feathers/exo) — guaranteed correct
-const TRAIN_LV2 = ['lion','parrot','goldfish','ant','eagle','shark','bee','cat'];
-const TEST_LV2  = ['dolphin','bat','penguin','frog'];
-// Lv3: more animals, solution via gills/amamenta/warm/6legs
-const TRAIN_LV3 = ['lion','rabbit','cat','parrot','owl','ostrich','shark','goldfish','salmon','bee','butterfly','ant'];
-const TEST_LV3  = ['dolphin','bat','penguin','platypus'];
+// Lv2: morcego no treino → "Tem asas?" já não isola pássaros; sem "Tem penas?" → combinação obrigatória
+const TRAIN_LV2 = ['lion','parrot','goldfish','ant','eagle','shark','bee','cat','bat'];
+const TEST_LV2  = ['dolphin','penguin','frog','ostrich'];
+// Lv3: ornitorrinco no treino → "Põe ovos?" já não exclui mamíferos; pássaros precisam de combinação
+const TRAIN_LV3 = ['lion','rabbit','cat','parrot','owl','ostrich','shark','goldfish','salmon','bee','butterfly','ant','platypus'];
+const TEST_LV3  = ['dolphin','bat','penguin','seahorse'];
 
 const CLASS_INFO = {
   mammal:   {label:'Mamífero',  emoji:'🦁', css:'mammal'},
@@ -862,7 +864,7 @@ const CLASS_INFO = {
 };
 const LV_LABELS = {1:'Principiante', 2:'Explorador', 3:'Cientista'};
 const LV_TIME   = {1:180, 2:240, 3:360};
-const LV_MAXQ   = {1:99, 2:99, 3:5}; // Lv3: max 5 nodes in tree
+const LV_MAXQ   = {1:99, 2:99, 3:99}; // sem limite de nós — a dificuldade vem das perguntas
 
 // ══════════════════════════════════════════════════════
 // TREE MODEL
