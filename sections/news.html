@@ -17,7 +17,7 @@
     <span class="section-label fade-up">Latest</span>
     <h2 class="section-title fade-up">News &amp; updates</h2>
 
-    <p class="section-intro fade-up">
+    <p class="section-intro fade-up" style="margin-top:0;">
       Follow us for real-time lab updates, paper announcements, and more.
     </p>
 
@@ -27,7 +27,7 @@
       <a class="news-social-btn"
          href="https://bsky.app/profile/nmoraislab.bsky.social"
          target="_blank" rel="noopener">
-        <!-- Bluesky butterfly logo (Simple Icons, 24×24) -->
+        <!-- Bluesky butterfly logo (Simple Icons, 24x24) -->
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.347.906.36 1.495c-1.066.637-.31 2.83.098 4.39l1.716 6.463c-2.187-.211-4.04.354-4.174 2.07-.144 1.84 1.65 3.002 3.476 3.184 1.083.108 2.216-.068 3.131-.432-1.524 1.22-2.607 3.082-2.607 5.83H12v.004-.004c0-2.748-1.083-4.61-2.607-5.83.915.364 2.048.54 3.131.432 1.826-.182 3.62-1.344 3.476-3.184-.134-1.716-1.987-2.281-4.174-2.07L13.542 5.885c.408-1.56 1.164-3.753.098-4.39C12.653.906 11.434.944 8.798 2.805 6.046 4.747 3.087 8.686 2 10.8"/>
         </svg>
@@ -47,7 +47,6 @@
       <a class="news-social-btn"
          href="https://x.com/NMoraisLab"
          target="_blank" rel="noopener">
-        <!-- X / Twitter logo -->
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.726-8.836L1.254 2.25H8.08l4.254 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
         </svg>
@@ -56,10 +55,10 @@
 
     </div>
 
-    <!-- Live Bluesky feed — populated by loadBlueskyFeed() in main.js -->
+    <!-- Live Bluesky feed - populated by loadBlueskyFeed() in main.js -->
     <div class="bsky-feed-wrap fade-up" style="transition-delay:.1s;">
       <div id="bsky-feed-grid" class="bsky-grid">
-        <div class="bsky-loading">Loading posts from Bluesky…</div>
+        <div class="bsky-loading">Loading posts from Bluesky...</div>
       </div>
     </div>
 
@@ -67,9 +66,66 @@
       <a class="bsky-follow-btn"
          href="https://bsky.app/profile/nmoraislab.bsky.social"
          target="_blank" rel="noopener">
-        See more on Bluesky ↗
+        See more on Bluesky &#8599;
       </a>
     </div>
+
+    <!-- ── BIOMICS SPOTLIGHT ──────────────────────────────────── -->
+    <div class="biomics-news-block fade-up" style="margin-top:4rem; transition-delay:.25s;">
+      <div class="biomics-news-header">
+        <img src="assets/logos/funding/biomics.png" alt="BIOMICS" class="biomics-news-logo" />
+        <div class="biomics-news-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          BIOMICS - Horizon Europe Twinning
+        </div>
+      </div>
+      <p class="biomics-news-desc">
+        We coordinate <a href="https://biomics.gimm.pt/" target="_blank" rel="noopener">BIOMICS</a>,
+        a <a href="https://cordis.europa.eu/project/id/101159926" target="_blank" rel="noopener">Twinning project funded by the European Union</a>
+        uniting GIMM with CRG, EMBL-EBI and ETH Zurich to foster excellence in biomedical data science.
+      </p>
+      <!-- Auto-populated by loadBiomicsVideos() in main.js -->
+      <div class="biomics-video-grid" id="biomics-video-grid">
+        <p class="bsky-loading" style="color:rgba(255,255,255,.55);grid-column:1/-1;padding:1.5rem 0;">Loading videos…</p>
+      </div><!-- /biomics-video-grid -->
+
+      <div class="biomics-action-btns">
+        <a href="https://www.youtube.com/@BIOMICSTwinning"
+           class="btn btn-outline"
+           target="_blank" rel="noopener"
+           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
+          YouTube &#8599;
+        </a>
+        <a href="https://www.linkedin.com/in/biomics-twinning/"
+           class="btn btn-outline"
+           target="_blank" rel="noopener"
+           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
+          LinkedIn &#8599;
+        </a>
+        <a href="https://x.com/BiomicsTwinning"
+           class="btn btn-outline"
+           target="_blank" rel="noopener"
+           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
+          X &#8599;
+        </a>
+        <a href="https://bsky.app/profile/biomics-twinning.bsky.social"
+           class="btn btn-outline"
+           target="_blank" rel="noopener"
+           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
+          Bluesky &#8599;
+        </a>
+        <a href="https://biomics.gimm.pt/"
+           class="btn btn-outline"
+           target="_blank" rel="noopener"
+           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
+          BIOMICS website &#8599;
+        </a>
+      </div>
+
+    </div><!-- /biomics-news-block -->
 
   </div>
 </section>

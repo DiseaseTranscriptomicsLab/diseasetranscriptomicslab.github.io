@@ -2,8 +2,10 @@
      SOFTWARE SECTION — sections/software.html
 
      HOW TO EDIT:
-       Each tool is a .tool-card. Fields to update:
-         - .tool-badge class: "webapp", "pkg", or "dev"
+       Each tool is a .tool-card inside the single .software-grid.
+       Fields to update:
+         - data-tool-type on .tool-card: "webapp", "pkg", or "deprecated"
+         - .tool-badge class: match the data-tool-type
          - .tool-name      : tool name
          - .tool-desc      : one-line description
          - .tool-links structure (two rows):
@@ -11,7 +13,6 @@
              <a class="tool-link launch"> — primary CTA (Launch app / Bioconductor)
 
        To add a new tool: duplicate any .tool-card block.
-       Add class="software-only" for dashed border (non-web tools).
      ================================================================ -->
 <section id="software">
   <div class="container">
@@ -26,12 +27,19 @@
       <a href="https://github.com/DiseaseTranscriptomicsLab" target="_blank" rel="noopener">GitHub</a>.
     </p>
 
-    <!-- ── WEB APPS ─────────────────────────────────────────── -->
-    <div class="software-section-divider fade-up">Online Web Apps</div>
-    <div class="software-grid">
+    <!-- ── FILTER BAR ──────────────────────────────────────────── -->
+    <div class="software-filter-bar fade-up" id="software-filter-bar">
+      <button class="software-filter-btn active" data-filter="all">All tools</button>
+      <button class="software-filter-btn" data-filter="webapp">Web Apps</button>
+      <button class="software-filter-btn" data-filter="pkg">R / Bioconductor</button>
+      <button class="software-filter-btn" data-filter="deprecated">Deprecated</button>
+    </div>
+
+    <!-- ── ALL TOOLS (flat grid) ──────────────────────────────── -->
+    <div class="software-grid" id="software-all-grid">
 
       <!-- voyAGEr -->
-      <div class="tool-card fade-up">
+      <div class="tool-card fade-up" data-tool-type="webapp">
         <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -59,7 +67,7 @@
       </div>
 
       <!-- betAS -->
-      <div class="tool-card fade-up" style="transition-delay:.05s;">
+      <div class="tool-card fade-up" style="transition-delay:.05s;" data-tool-type="webapp">
         <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -87,7 +95,7 @@
       </div>
 
       <!-- cTRAP -->
-      <div class="tool-card fade-up" style="transition-delay:.1s;">
+      <div class="tool-card fade-up" style="transition-delay:.1s;" data-tool-type="webapp">
         <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -115,7 +123,7 @@
       </div>
 
       <!-- psichomics -->
-      <div class="tool-card fade-up" style="transition-delay:.15s;">
+      <div class="tool-card fade-up" style="transition-delay:.15s;" data-tool-type="webapp">
         <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -127,7 +135,7 @@
         <div class="tool-name">psichomics</div>
         <p class="tool-desc">
           Alternative splicing quantification, visualisation, and analysis from
-          TCGA, GTEx, and SRA datasets: with an R/Bioconductor package.
+          TCGA, GTEx, and SRA datasets; also available as an R/Bioconductor package.
         </p>
         <div class="tool-links">
           <div class="tool-link-row">
@@ -145,7 +153,7 @@
       </div>
 
       <!-- scStudio -->
-      <div class="tool-card fade-up" style="transition-delay:.2s;">
+      <div class="tool-card fade-up" style="transition-delay:.2s;" data-tool-type="webapp">
         <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -172,57 +180,15 @@
         </div>
       </div>
 
-    </div><!-- /software-grid web apps -->
-
-    <!-- ── R PACKAGES / SOFTWARE ─────────────────────────────── -->
-    <div class="software-section-divider fade-up" style="transition-delay:.25s;">
-      R Packages &amp; Software
-    </div>
-    <div class="software-grid">
-
-      <!-- markeR -->
-      <div class="tool-card software-only fade-up">
-        <span class="tool-badge pkg">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/>
-          </svg>
-          Bioconductor Package
-        </span>
-        <div class="tool-name">markeR</div>
-        <p class="tool-desc">
-          Toolkit for evaluating gene sets as phenotype markers from gene expression data in R. 
-        </p>
-        <div class="tool-links">
-          <div class="tool-link-row">
-            <a class="tool-link" href="https://www.biorxiv.org/content/10.64898/2025.12.05.692517v1"
-               target="_blank" rel="noopener">bioRxiv</a>
-            <a class="tool-link" href="https://github.com/DiseaseTranscriptomicsLab/markeR/"
-               target="_blank" rel="noopener">GitHub</a>
-            <a class="tool-link" href="https://diseasetranscriptomicslab.github.io/markeR/articles/markeR.html"
-               target="_blank" rel="noopener">Tutorial</a>
-          </div>
-          <a class="tool-link launch"
-             href="https://bioconductor.org/packages/release/bioc/html/markeR.html"
-             target="_blank" rel="noopener">Bioconductor ↗</a>
-        </div>
-      </div>
-
-    </div><!-- /software-grid packages -->
-
-    <!-- ── IN DEVELOPMENT ───────────────────────────────────── -->
-    <div class="software-section-divider fade-up">In Development</div>
-    <div class="software-grid">
-
       <!-- CHARM -->
-      <div class="tool-card software-only fade-up">
-        <span class="tool-badge dev">
+      <div class="tool-card fade-up" style="transition-delay:.25s;" data-tool-type="webapp">
+        <span class="tool-badge webapp">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
           </svg>
-          In Development
+          Web App (in development)
         </span>
         <div class="tool-name">CHARM</div>
         <p class="tool-desc">
@@ -237,28 +203,59 @@
         </div>
       </div>
 
-      <!-- CREOLE -->
-      <div class="tool-card software-only fade-up" style="transition-delay:.05s;">
-        <span class="tool-badge dev">
+      <!-- markeR -->
+      <div class="tool-card software-only fade-up" style="transition-delay:.3s;" data-tool-type="pkg">
+        <span class="tool-badge pkg">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            <path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/>
           </svg>
-          In Development
+          Bioconductor Package
+        </span>
+        <div class="tool-name">markeR</div>
+        <p class="tool-desc">
+          Toolkit for evaluating gene sets as phenotype markers from gene expression data in R.
+        </p>
+        <div class="tool-links">
+          <div class="tool-link-row">
+            <a class="tool-link" href="https://doi.org/10.1093/nargab/lqag057"
+               target="_blank" rel="noopener">Paper</a>
+            <a class="tool-link" href="https://github.com/DiseaseTranscriptomicsLab/markeR/"
+               target="_blank" rel="noopener">GitHub</a>
+            <a class="tool-link" href="https://diseasetranscriptomicslab.github.io/markeR/articles/markeR.html"
+               target="_blank" rel="noopener">Tutorial</a>
+          </div>
+          <a class="tool-link launch"
+             href="https://bioconductor.org/packages/release/bioc/html/markeR.html"
+             target="_blank" rel="noopener">Bioconductor ↗</a>
+        </div>
+      </div>
+
+      <!-- CREOLE -->
+      <div class="tool-card software-only deprecated-card fade-up" style="transition-delay:.35s;" data-tool-type="deprecated">
+        <span class="tool-badge deprecated">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          Python Package (archived)
         </span>
         <div class="tool-name">CREOLE</div>
         <p class="tool-desc">
           Reference-free identification of open reading frames and encoded
-          proteins from nanopore long-read transcriptomic data.
+          proteins from nanopore long-read transcriptomic data. No longer actively maintained.
         </p>
         <div class="tool-links">
           <div class="tool-link-row">
             <a class="tool-link" href="https://github.com/comprna/CREOLE"
-               target="_blank" rel="noopener">GitHub</a>
+               target="_blank" rel="noopener">GitHub (archived)</a>
           </div>
         </div>
       </div>
 
-    </div><!-- /software-grid dev -->
+    </div><!-- /software-all-grid -->
+
   </div>
 </section>

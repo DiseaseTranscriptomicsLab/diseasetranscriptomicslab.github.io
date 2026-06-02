@@ -21,9 +21,11 @@ nmoraislab.github.io/
 │   ├── hero.html                ← Hero / landing section
 │   ├── about.html               ← About the lab + graphical abstract
 │   ├── team.html                ← PI card + team member cards
+│   ├── nuno.html                ← Nuno Barbosa-Morais full profile page (standalone)
+│   ├── research.html            ← Research themes, ongoing projects, area publications
 │   ├── software.html            ← Web apps, R packages, tools in development
-│   ├── publications.html        ← Selected publications (year-grouped timeline)
-│   ├── news.html                ← Social buttons; Bluesky feed is auto-loaded
+│   ├── publications.html        ← Full publication list (year-grouped, filterable, searchable)
+│   ├── news.html                ← Social buttons; Bluesky feed + BIOMICS spotlight
 │   ├── outreach.html            ← Science communication games
 │   ├── alumni.html              ← Former lab members
 │   └── location.html            ← Address + OpenStreetMap embed
@@ -68,15 +70,23 @@ Then open **[http://localhost:8000](http://localhost:8000)**. A yellow banner ap
 | File | What to edit |
 |---|---|
 | `sections/team.html` | Add/remove members, update names, roles, emails, bios, fun facts, social links |
-| `sections/publications.html` | Add papers grouped by year |
-| `sections/software.html` | Add tools, update links and descriptions |
+| `sections/nuno.html` | Nuno's detailed profile page — background, **master publication list**, press |
+| `sections/research.html` | Research themes, ongoing project cards, area publications (collapsible) |
+| `sections/publications.html` | Container only — **do not add papers here**; manage via `nuno.html` (see below) |
+| `sections/software.html` | Add/update tools, badges, links |
 | `sections/alumni.html` | Add former members (most recent departure first) |
 | `sections/outreach.html` | Add/update science communication games |
 | `sections/about.html` | Lab description, graphical abstract |
 | `sections/hero.html` | Headline, tagline, affiliation badges |
-| `sections/news.html` | Social button URLs (Bluesky feed is automatic) |
+| `sections/news.html` | Social button URLs; BIOMICS videos; Bluesky feed is automatic |
 | `sections/location.html` | Address text, map pin |
-| `index.html` | Funding logos (static block near the footer) |
+| `index.html` | Funding logos (static block near the footer), footer links |
+
+### Nuno's profile page (`sections/nuno.html`)
+
+This is a standalone HTML page (not injected via the section loader) with its own `<head>`, inline CSS, and scripts. It uses relative paths (`../css/`, `../assets/`, `../js/`) because it lives inside `sections/`. The PI card in `sections/team.html` links to it.
+
+The "Back to team" link in `sections/nuno.html` points to `../index.html#team`. The `#team` hash scroll is handled by `js/main.js` after sections finish loading asynchronously.
 
 ### Adding a team member
 
@@ -91,7 +101,27 @@ Photos are automatically cropped to a consistent `5/4` aspect ratio — any size
 
 ### Adding a publication
 
-Publications are grouped by year. Copy a `.pub-paper` block inside the matching `.pub-year-papers` container (or copy a full `.pub-year-group` block to start a new year). Keep years in reverse chronological order.
+`sections/nuno.html` is the **single source of truth** for all publications. The main website's Publications section is auto-populated from it by `js/main.js` at page load — there is no paper data in `sections/publications.html`.
+
+To add a paper:
+
+1. Open `sections/nuno.html` and find the correct year section (or Preprints) in the publication list.
+2. Add a new `<li class="nuno-pub-item">` with the citation.
+3. If the paper should appear in the **main Publications section**, also add:
+   ```html
+   <li class="nuno-pub-item key-paper"
+       data-selected="true"
+       data-year="2025"
+       data-authors="Smith A, Jones B, Barbosa-Morais NL"
+       data-journal="Nature, 2025;123:456"
+       data-tags="cancer,RNA-seq">
+   ```
+   - `key-paper` shows a ★ star on Nuno's page.
+   - `data-selected="true"` makes the paper appear in the main publications section.
+   - `data-year` controls which year group it appears under (`"preprint"` for preprints).
+   - `data-tags` enables keyword filtering.
+
+4. Push — both pages update automatically.
 
 ### Adding an alumni entry
 

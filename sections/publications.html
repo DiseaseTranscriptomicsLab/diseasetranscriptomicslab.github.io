@@ -2,220 +2,60 @@
      PUBLICATIONS SECTION — sections/publications.html
 
      HOW TO EDIT:
-       Papers are grouped by year inside .pub-year-group blocks.
-       To add a paper to an existing year: copy a .pub-paper div
-         inside the matching .pub-year-papers container.
-       To add a new year: copy a full .pub-year-group block and
-         update the .pub-year-label text.
-       Keep years in reverse chronological order (newest first).
+       This section is AUTO-POPULATED from sections/nuno.html.
+       To add or change a selected publication:
+
+         1. Open sections/nuno.html and find the paper in the
+            publication list (All Journal Articles or Preprints).
+
+         2. Add these attributes to the <li> element:
+              data-selected="true"
+              data-year="YYYY"          (e.g. "2025", or "preprint")
+              data-authors="..."        (plain text, abbreviated if long)
+              data-journal="..."        (journal, year, volume)
+              data-tags="tag1,tag2"     (comma-separated, no spaces)
+
+         3. Push — the main website will pick it up automatically.
+
+     The ★ star in nuno.html (key-paper class) controls what's
+     highlighted on Nuno's page. data-selected="true" controls what
+     appears here in the main publications section.
      ================================================================ -->
 <section id="publications" style="background:var(--fog);">
   <div class="container">
 
     <span class="section-label fade-up">Research output</span>
-    <h2 class="section-title fade-up">Selected publications</h2>
+    <h2 class="section-title fade-up">Publications</h2>
     <p class="section-intro fade-up">
-      A curated list of key papers from the lab. For the full list, visit
-      <a href="https://orcid.org/0000-0002-1215-0538" target="_blank" rel="noopener">
-        Nuno Morais' ORCID profile ↗
-      </a>
+      Selected publications from the lab. For the complete record visit
+      <a href="sections/nuno.html#publications">Nuno's full publication list</a>,
+      <a href="https://orcid.org/0000-0002-1215-0538" target="_blank" rel="noopener">ORCID</a>,
+      or
+      <a href="http://scholar.google.pt/citations?user=LS9tM7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
     </p>
 
-    <div class="pub-timeline">
+    <div class="fade-up" style="text-align:center;margin-bottom:2.5rem;">
+      <a href="sections/nuno.html#publications" class="btn btn-outline"
+         style="border-color:var(--teal);color:var(--teal);background:transparent;">
+        View complete publication list ↗
+      </a>
+    </div>
 
-      <!-- 2025 ──────────────────────────────────────────────────── -->
-      <div class="pub-year-group fade-up">
-        <div class="pub-year-header">
-          <div class="pub-year-dot"></div>
-          <span class="pub-year-label">2025</span>
-        </div>
-        <div class="pub-year-papers">
+    <!-- ── KEYWORD SEARCH ─────────────────────────────────────── -->
+    <div class="pub-search-wrap fade-up">
+      <svg class="pub-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="search" id="pub-keyword-search" class="pub-keyword-input"
+             placeholder="Filter by keyword, author, or topic…" />
+    </div>
 
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1158/2326-6066.CIR-24-0797"
-                 target="_blank" rel="noopener">
-                Sustained Macrophage Reprogramming Is Required for CD8+ T cell-Dependent Long-Term Tumor Eradication
-              </a>
-            </div>
-            <div class="pub-authors">
-              Jardim C, Bica M, Reis-Sobreiro M, Teixeira da Mota A, Lopes R, Pinto MF, Sousa NS,
-              Mensurado S, Boekhoff H, Scolaro T, Reugebrink M, Goncalves-Sousa N, Kubo H, Gomes CM,
-              Brito C, Argüello RJ, Leites EP, Morais VA, Silva-Santos B, Barbosa-Morais NL, Serre K.
-            </div>
-            <div class="pub-journal">Cancer Immunol Res · 2025 · 13(8):1207–1225</div>
-            <div class="pub-tags">
-              <span class="pub-tag">cancer immunology</span>
-              <span class="pub-tag">macrophages</span>
-              <span class="pub-tag">T cells</span>
-            </div>
-          </div>
+    <!-- ── AUTO-POPULATED from nuno.html ─────────────────────── -->
+    <div id="pub-selected-container" class="pub-timeline">
+      <p class="bsky-loading" style="padding:2rem 0;color:var(--slate);">Loading publications…</p>
+    </div>
 
-        </div>
-      </div><!-- /2025 -->
 
-      <!-- 2024 ──────────────────────────────────────────────────── -->
-      <div class="pub-year-group fade-up" style="transition-delay:.06s;">
-        <div class="pub-year-header">
-          <div class="pub-year-dot"></div>
-          <span class="pub-year-label">2024</span>
-        </div>
-        <div class="pub-year-papers">
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.7554/eLife.88623"
-                 target="_blank" rel="noopener">
-                voyAGEr: a free web interface for the analysis of age-related gene expression alterations in human tissues
-              </a>
-            </div>
-            <div class="pub-authors">
-              Schneider AL, Martins-Silva R, Kaizeler A, Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">eLife · 2024 · 12:RP88623</div>
-            <div class="pub-tags">
-              <span class="pub-tag">ageing</span>
-              <span class="pub-tag">gene expression</span>
-              <span class="pub-tag">web tool</span>
-            </div>
-          </div>
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1261/rna.079764.123"
-                 target="_blank" rel="noopener">
-                betAS: intuitive analysis and visualization of differential alternative splicing using beta distributions
-              </a>
-            </div>
-            <div class="pub-authors">
-              Ascensão-Ferreira M, Martins-Silva R, Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">RNA · 2024 · 30(4):337–353</div>
-            <div class="pub-tags">
-              <span class="pub-tag">alternative splicing</span>
-              <span class="pub-tag">statistics</span>
-              <span class="pub-tag">software</span>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- /2024 -->
-
-      <!-- 2020 ──────────────────────────────────────────────────── -->
-      <div class="pub-year-group fade-up" style="transition-delay:.12s;">
-        <div class="pub-year-header">
-          <div class="pub-year-dot"></div>
-          <span class="pub-year-label">2020</span>
-        </div>
-        <div class="pub-year-papers">
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.3389/fnins.2020.607215"
-                 target="_blank" rel="noopener">
-                Unraveling Targetable Systemic and Cell-Type-Specific Molecular Phenotypes of Alzheimer's and Parkinson's Brains With Digital Cytometry
-              </a>
-            </div>
-            <div class="pub-authors">
-              Bordone MC, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">Front Neurosci · 2020 · 14:607215</div>
-            <div class="pub-tags">
-              <span class="pub-tag">neurodegeneration</span>
-              <span class="pub-tag">Alzheimer's</span>
-              <span class="pub-tag">Parkinson's</span>
-            </div>
-          </div>
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1261/rna.077446.120"
-                 target="_blank" rel="noopener">
-                NineTeen Complex-subunit Salsa is required for efficient splicing of a subset of introns and dorsal-ventral patterning
-              </a>
-            </div>
-            <div class="pub-authors">
-              Rathore OS, Silva RD, Ascensão-Ferreira M, Matos R, Carvalho C, Marques B, Tiago MN,
-              Prudêncio P, Andrade RP, Roignant JY, Barbosa-Morais NL, Martinho RG.
-            </div>
-            <div class="pub-journal">RNA · 2020 · 26(12):1935–1956</div>
-            <div class="pub-tags">
-              <span class="pub-tag">splicing</span>
-              <span class="pub-tag">Drosophila</span>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- /2020 -->
-
-      <!-- 2019 ──────────────────────────────────────────────────── -->
-      <div class="pub-year-group fade-up" style="transition-delay:.18s;">
-        <div class="pub-year-header">
-          <div class="pub-year-dot"></div>
-          <span class="pub-year-label">2019</span>
-        </div>
-        <div class="pub-year-papers">
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.7554/eLife.47678"
-                 target="_blank" rel="noopener">
-                Androgen-regulated transcription of ESRP2 drives alternative splicing patterns in prostate cancer
-              </a>
-            </div>
-            <div class="pub-authors">
-              Munkley J, Li L, Krishnan SRG, Hysenaj G, Scott E, Dalgliesh C, Oo HZ, Maia TM,
-              Cheung K, Ehrmann I, Livermore KE, Zielinska H, Thompson O, Knight B, McCullagh P,
-              McGrath J, Crundwell M, Harries LW, Daugaard M, Cockell S, Barbosa-Morais NL,
-              Oltean S, Elliott DJ.
-            </div>
-            <div class="pub-journal">eLife · 2019 · 8:e47678</div>
-            <div class="pub-tags">
-              <span class="pub-tag">prostate cancer</span>
-              <span class="pub-tag">alternative splicing</span>
-            </div>
-          </div>
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1371/journal.pcbi.1006832"
-                 target="_blank" rel="noopener">
-                Pan-cancer association of a centrosome amplification gene expression signature with genomic alterations and clinical outcome
-              </a>
-            </div>
-            <div class="pub-authors">
-              de Almeida BP, Vieira AF, Paredes J, Bettencourt-Dias M, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">PLoS Comput Biol · 2019 · 15(3):e1006832</div>
-            <div class="pub-tags">
-              <span class="pub-tag">pan-cancer</span>
-              <span class="pub-tag">centrosome</span>
-              <span class="pub-tag">gene expression</span>
-            </div>
-          </div>
-
-          <div class="pub-paper">
-            <div class="pub-title">
-              <a href="https://doi.org/10.1093/nar/gky888"
-                 target="_blank" rel="noopener">
-                psichomics: graphical application for alternative splicing quantification and analysis
-              </a>
-            </div>
-            <div class="pub-authors">
-              Saraiva-Agostinho N, Barbosa-Morais NL.
-            </div>
-            <div class="pub-journal">Nucleic Acids Res · 2019 · 47(2):e7</div>
-            <div class="pub-tags">
-              <span class="pub-tag">alternative splicing</span>
-              <span class="pub-tag">software</span>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- /2019 -->
-
-      <!-- ADD MORE YEARS: copy a .pub-year-group block above -->
-
-    </div><!-- /pub-timeline -->
   </div>
 </section>

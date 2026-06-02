@@ -25,10 +25,11 @@ async function loadSections() {
     loadSection('section-hero',         'hero.html'),
     loadSection('section-about',        'about.html'),
     loadSection('section-team',         'team.html'),
+    loadSection('section-research',     'research.html'),
     loadSection('section-software',     'software.html'),
-    loadSection('section-publications', 'publications.html'),
     loadSection('section-news',         'news.html'),
     loadSection('section-outreach',     'outreach.html'),
+    loadSection('section-publications', 'publications.html'),
     loadSection('section-alumni',       'alumni.html'),
     loadSection('section-location',     'location.html'),
   ]);
@@ -41,6 +42,154 @@ async function loadSections() {
     section.style.background = i % 2 === 0
       ? 'var(--fog)'
       : 'var(--white)';
+  });
+}
+
+/* ── Research area publications accordion ───────────────────────── */
+function initResearchAccordions() {
+  document.querySelectorAll('.research-area-pubs-toggle').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const list = this.closest('.research-area-pubs').querySelector('.research-pub-list');
+      const open = list.classList.toggle('open');
+      this.classList.toggle('open', open);
+      this.setAttribute('aria-expanded', open);
+    });
+  });
+}
+
+/* ── Software section filter ────────────────────────────────────── */
+function initSoftwareFilter() {
+  const bar = document.getElementById('software-filter-bar');
+  if (!bar) return;
+
+  bar.querySelectorAll('.software-filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const filter = this.dataset.filter;
+
+      // Update active button
+      bar.querySelectorAll('.software-filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      // Show/hide individual tool cards
+      document.querySelectorAll('#software-all-grid .tool-card').forEach(card => {
+        if (filter === 'all' || card.dataset.toolType === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+/* ── Publications — auto-populated from nuno.html ───────────────────
+   Selected papers are marked in sections/nuno.html with:
+     data-selected="true"
+     data-year="YYYY"        (or "preprint")
+     data-authors="..."
+     data-journal="..."
+     data-tags="tag1,tag2"
+   This function fetches nuno.html, extracts those papers, and
+   renders them grouped by year in #pub-selected-container.
+   ──────────────────────────────────────────────────────────────── */
+function escHtml(str) {
+  return (str || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+async function loadSelectedPublications() {
+  const container = document.getElementById('pub-selected-container');
+  if (!container) return;
+
+  try {
+    const res = await fetch('sections/nuno.html');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+
+    const selected = tmp.querySelectorAll('.nuno-pub-item[data-selected="true"]');
+    if (!selected.length) {
+      container.innerHTML = '<p style="color:var(--slate);padding:1rem 0;">No selected publications found.</p>';
+      return;
+    }
+
+    /* Group by year — "preprint" first, then numeric years desc */
+    const byYear = {};
+    selected.forEach(li => {
+      const year = (li.dataset.year || 'preprint').trim();
+      if (!byYear[year]) byYear[year] = [];
+      const link = li.querySelector('a');
+      byYear[year].push({
+        title:   (link?.textContent || '').trim().replace(/\.$/, ''),
+        url:     link?.getAttribute('href') || '#',
+        authors: (li.dataset.authors || '').trim(),
+        journal: (li.dataset.journal || '').trim(),
+        tags:    (li.dataset.tags   || '').split(',').map(t => t.trim()).filter(Boolean),
+      });
+    });
+
+    const numericYears = Object.keys(byYear)
+      .filter(y => y !== 'preprint' && !isNaN(parseInt(y)))
+      .sort((a, b) => parseInt(b) - parseInt(a));
+    const years = byYear['preprint']
+      ? ['preprint', ...numericYears]
+      : numericYears;
+
+    container.innerHTML = years.map(year => `
+      <div class="pub-year-group fade-up" data-pub-year="${escHtml(year)}">
+        <div class="pub-year-header">
+          <div class="pub-year-dot"></div>
+          <span class="pub-year-label">${year === 'preprint' ? 'Preprints' : escHtml(year)}</span>
+        </div>
+        <div class="pub-year-papers">
+          ${byYear[year].map(p => `
+            <div class="pub-paper" data-selected="true">
+              <div class="pub-title">
+                <a href="${escHtml(p.url)}" target="_blank" rel="noopener">${escHtml(p.title)}</a>
+              </div>
+              ${p.authors ? `<div class="pub-authors">${escHtml(p.authors)}</div>` : ''}
+              ${p.journal ? `<div class="pub-journal">${escHtml(p.journal)}</div>` : ''}
+              ${p.tags.length ? `<div class="pub-tags">${p.tags.map(t => `<span class="pub-tag">${escHtml(t)}</span>`).join('')}</div>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+
+    initPublicationsKeywordSearch();
+    initAnimations(); // animate freshly injected .fade-up elements
+
+  } catch (e) {
+    console.warn('Could not load selected publications:', e);
+    container.innerHTML =
+      `<p style="color:var(--slate);padding:1rem 0;">
+        Could not load publications.
+        <a href="sections/nuno.html#publications" style="color:var(--teal);">View on Nuno\'s page ↗</a>
+      </p>`;
+  }
+}
+
+/* ── Publications keyword search (no filter buttons) ────────────── */
+function initPublicationsKeywordSearch() {
+  const input = document.getElementById('pub-keyword-search');
+  if (!input) return;
+
+  /* Clone to remove any previous listener */
+  const fresh = input.cloneNode(true);
+  input.parentNode.replaceChild(fresh, input);
+
+  fresh.addEventListener('input', function () {
+    const q = this.value.toLowerCase().trim();
+    document.querySelectorAll('#pub-selected-container .pub-year-group').forEach(group => {
+      let anyVisible = false;
+      group.querySelectorAll('.pub-paper').forEach(paper => {
+        const show = !q || paper.textContent.toLowerCase().includes(q);
+        paper.style.display = show ? '' : 'none';
+        if (show) anyVisible = true;
+      });
+      group.style.display = anyVisible ? '' : 'none';
+    });
   });
 }
 
@@ -208,6 +357,110 @@ function loadBlueskyFeed() {
     });
 }
 
+/* ── BIOMICS YouTube feed ───────────────────────────────────────
+   Tries multiple CORS proxies in sequence to fetch the public
+   YouTube RSS feed. Shows all videos oldest-first (episode order),
+   capped at MAX. Falls back to hardcoded known videos only if every
+   proxy fails.
+   ──────────────────────────────────────────────────────────────── */
+async function loadBiomicsVideos() {
+  const CHANNEL_ID = 'UCfC8a-vm4VWLkw3OH3gR91w'; // @BIOMICSTwinning
+  const RSS_URL    = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+  const MAX        = 3; // maximum cards to show
+
+  /* Hardcoded fallback — only used if all proxies fail */
+  const FALLBACK_VIDEOS = [
+    { videoId: 'iqlB74ldyos', title: 'Getting to know BIOMICS members – Pedro Beltrão',  date: 'October 2025' },
+    { videoId: 'T5ZpgSiowY8', title: 'Getting to know BIOMICS members – Manuel Irimia',   date: 'May 2026'     },
+  ];
+
+  const grid = document.getElementById('biomics-video-grid');
+  if (!grid) return;
+
+  function renderCards(videos) {
+    if (!videos.length) return;
+    grid.innerHTML = videos.map((v, i) => `
+      <div class="biomics-video-card">
+        <div class="biomics-video-wrap">
+          <iframe src="https://www.youtube.com/embed/${escHtml(v.videoId)}"
+                  title="${escHtml(v.title)}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="biomics-video-info">
+          <span class="biomics-video-tag">Getting to know BIOMICS members · Ep. ${i + 1}</span>
+          <div class="biomics-video-title">${escHtml(v.title)}</div>
+          ${v.date ? `<span class="biomics-video-date">${escHtml(v.date)}</span>` : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  /* Parse XML text from YouTube RSS into video objects */
+  function parseRssXml(xmlText) {
+    const xml     = new DOMParser().parseFromString(xmlText, 'application/xml');
+    const entries = Array.from(xml.querySelectorAll('entry'));
+    if (!entries.length) return null;
+    /* YouTube returns newest-first; reverse for natural episode order */
+    const videos = entries.reverse().slice(-MAX).map(entry => {
+      const href    = entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '';
+      const videoId = (href.match(/[?&]v=([^&]+)/) || [])[1] || '';
+      if (!videoId) return null;
+      const title     = entry.querySelector('title')?.textContent?.trim() || '';
+      const published = entry.querySelector('published')?.textContent || '';
+      const date      = published
+        ? new Date(published).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
+        : '';
+      return { videoId, title, date };
+    }).filter(Boolean);
+    return videos.length ? videos : null;
+  }
+
+  /* Try each proxy in order; return parsed videos or null */
+  async function tryProxy(proxyUrl, extractFn) {
+    const ctrl = new AbortController();
+    const t    = setTimeout(() => ctrl.abort(), 7000);
+    try {
+      const res = await fetch(proxyUrl, { signal: ctrl.signal });
+      clearTimeout(t);
+      if (!res.ok) return null;
+      const body = await extractFn(res);
+      return body ? parseRssXml(body) : null;
+    } catch (_) {
+      clearTimeout(t);
+      return null;
+    }
+  }
+
+  /* Proxy 1 — allorigins (returns JSON wrapper) */
+  let videos = await tryProxy(
+    `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`,
+    async r => { const j = await r.json(); return j.contents || null; }
+  );
+
+  /* Proxy 2 — corsproxy.io (returns raw XML) */
+  if (!videos) {
+    videos = await tryProxy(
+      `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
+      async r => r.text()
+    );
+  }
+
+  /* Proxy 3 — allorigins raw endpoint */
+  if (!videos) {
+    videos = await tryProxy(
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
+      async r => r.text()
+    );
+  }
+
+  if (videos) {
+    renderCards(videos);
+  } else {
+    console.warn('All BIOMICS video proxies failed — using hardcoded fallback');
+    renderCards(FALLBACK_VIDEOS);
+  }
+}
+
 /* ── Local-server guard ─────────────────────────────────────────
    fetch() is blocked on file:// by all modern browsers.
    Show a clear on-screen banner instead of a blank page.
@@ -248,8 +501,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (checkProtocol()) return; // on file://, stop here — show banner only
 
-  await loadSections(); // fetch + inject all sections into placeholders
-  initAnimations();     // observe .fade-up elements now that sections are in the DOM
-  initSmoothScroll();   // wire anchor links in freshly-injected sections
-  loadBlueskyFeed();    // #bsky-feed-grid is now available in the DOM
+  await loadSections();              // fetch + inject all sections into placeholders
+  await loadSelectedPublications();  // fetch nuno.html → populate #pub-selected-container
+  initAnimations();                  // observe .fade-up elements now that sections are in the DOM
+  initSmoothScroll();                // wire anchor links in freshly-injected sections
+  initSoftwareFilter();              // wire up tool filter buttons now that software.html is injected
+  initResearchAccordions();          // wire up collapsible publication lists in research section
+  loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
+  loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
+
+  /* Scroll to URL hash after sections load — sections are injected
+     asynchronously, so the browser's native hash scroll fires before
+     the target element exists. Re-apply it here after injection. */
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 });
