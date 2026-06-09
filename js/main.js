@@ -45,14 +45,76 @@ async function loadSections() {
   });
 }
 
-/* ── Research area publications accordion ───────────────────────── */
-function initResearchAccordions() {
-  document.querySelectorAll('.research-area-pubs-toggle').forEach(btn => {
-    btn.addEventListener('click', function () {
-      const list = this.closest('.research-area-pubs').querySelector('.research-pub-list');
-      const open = list.classList.toggle('open');
-      this.classList.toggle('open', open);
-      this.setAttribute('aria-expanded', open);
+/* ── Research filter + pub-panel accordions ─────────────────────── */
+function initResearchFilter() {
+  // Filter bar — show/hide project cards and pub panels by theme
+  const bar = document.getElementById('research-filter-bar');
+  if (bar) {
+    bar.querySelectorAll('.research-filter-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const filter = this.dataset.filter;
+        bar.querySelectorAll('.research-filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        document.querySelectorAll('#research-card-grid .research-card').forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.theme === filter) ? '' : 'none';
+        });
+
+        document.querySelectorAll('#research-pub-panels .research-pub-panel').forEach(panel => {
+          panel.style.display = (filter === 'all' || panel.dataset.theme === filter) ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  // ── Research project modal ──────────────────────────────────────
+  const overlay = document.createElement('div');
+  overlay.className = 'research-modal-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.innerHTML = `
+    <div class="research-modal">
+      <button class="research-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="research-modal-content"></div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  function closeResearchModal() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeResearchModal(); });
+  overlay.querySelector('.research-modal-close').addEventListener('click', closeResearchModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResearchModal(); });
+
+  document.querySelectorAll('.research-card').forEach(card => {
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+
+      const pill     = this.querySelector('.research-theme-pill').outerHTML;
+      const title    = this.querySelector('.research-card-title').innerHTML;
+      const detail   = this.querySelector('.research-card-detail');
+      const desc     = detail.querySelector('.research-card-desc').innerHTML;
+      const pubItems = [...detail.querySelectorAll('.research-card-pub-list li')]
+                         .map(li => `<li>${li.innerHTML}</li>`).join('');
+
+      overlay.querySelector('.research-modal-content').innerHTML = `
+        ${pill}
+        <h3 class="research-modal-title">${title}</h3>
+        <p class="research-modal-desc">${desc}</p>
+        ${pubItems ? `
+          <p class="research-modal-pubs-label">Publications in this area</p>
+          <ul class="research-modal-pub-list">${pubItems}</ul>` : ''}
+      `;
+
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
     });
   });
 }
@@ -716,7 +778,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initAnimations();                  // observe .fade-up elements now that sections are in the DOM
   initSmoothScroll();                // wire anchor links in freshly-injected sections
   initSoftwareFilter();              // wire up tool filter buttons now that software.html is injected
-  initResearchAccordions();          // wire up collapsible publication lists in research section
+  initResearchFilter();              // wire up research theme filter + pub-panel accordions
   loadLabNews(4);                    // #lab-news-grid — 4 most recent; full list on news.html
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
   loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS

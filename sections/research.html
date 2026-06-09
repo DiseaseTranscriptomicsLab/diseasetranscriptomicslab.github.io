@@ -2,13 +2,17 @@
      RESEARCH SECTION — sections/research.html
 
      HOW TO EDIT:
-       Three theme blocks: Cancer, Neuro-biology, and Bioinformatics tools.
-       Each theme has two parts:
-         1. .research-projects-grid — compact cards for ongoing projects
-         2. .research-area-pubs — publications for the whole area
+       Project cards live in #research-card-grid.
+       Each card needs data-theme: "cancer", "neuro", or "bioinformatics".
 
-       To add an ongoing project: duplicate a .research-project-card block.
-       To add a publication: add a line inside .research-area-pubs.
+       Click a card to reveal its description + area publications.
+
+       To add a project: duplicate a .research-card block and update:
+         - data-theme on the outer div
+         - .research-card-stripe and .research-theme-pill class
+         - .research-card-title, .research-keywords, .research-card-people
+         - .research-card-desc (one short paragraph)
+         - .research-card-pub-list (publications relevant to this theme)
      ================================================================ -->
 <section id="research">
   <div class="container">
@@ -16,7 +20,6 @@
     <span class="section-label fade-up">Science</span>
     <h2 class="section-title fade-up">Research</h2>
 
-    <!-- ── Overview ────────────────────────────────────────────── -->
     <p class="section-intro fade-up">
       We apply mostly computational approaches, particularly those involving the analysis of
       high-throughput genomic and transcriptomic data, to fundamental questions in biomedical
@@ -25,209 +28,328 @@
       regulatory mechanisms and molecular targets across three interconnected research themes.
     </p>
 
-    <!-- ── CANCER ───────────────────────────────────────────────── -->
-    <div class="research-theme fade-up">
-      <div class="research-theme-header">
-        <div class="research-theme-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 8v4l3 3"/>
-          </svg>
-        </div>
-        <div class="research-theme-title">RNA (de)regulation in cancer</div>
-      </div>
+    <!-- ── FILTER BAR ────────────────────────────────────────────── -->
+    <div class="research-filter-bar fade-up" id="research-filter-bar">
+      <button class="research-filter-btn active" data-filter="all">All themes</button>
+      <button class="research-filter-btn" data-filter="cancer">
+        <span class="rfilter-dot cancer"></span>RNA in cancer
+      </button>
+      <button class="research-filter-btn" data-filter="neuro">
+        <span class="rfilter-dot neuro"></span>Neuro-biology
+      </button>
+      <button class="research-filter-btn" data-filter="bioinformatics">
+        <span class="rfilter-dot bioinformatics"></span>Bioinformatics tools
+      </button>
+    </div>
 
-      <p class="research-area-note fade-up">Ongoing projects</p>
-      <div class="research-projects-grid">
+    <!-- ── PROJECT CARDS ─────────────────────────────────────────── -->
+    <div class="research-card-grid" id="research-card-grid">
 
-        <div class="research-project-card fade-up">
-          <div class="research-project-title"><em>CDKN2A</em> in senescence and cancer</div>
+      <!-- ══ CANCER ════════════════════════════════════════════════ -->
+
+      <div class="research-card fade-up" data-theme="cancer">
+        <div class="research-card-stripe cancer"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill cancer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            RNA in cancer
+          </span>
+          <div class="research-card-title"><em>CDKN2A</em> in senescence and cancer</div>
           <div class="research-keywords">
             <span class="research-keyword">alternative splicing</span>
             <span class="research-keyword">senescence</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Rita Martins-Silva, Maria Guerra, Mariana Ascensao-Ferreira (alumna), Nuno Barbosa-Morais (PI)<br>
             <strong>Collaborators:</strong> <a href="https://www.researchgate.net/profile/Maria_Vivo" target="_blank" rel="noopener">Maria Vivo</a>
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            The <em>CDKN2A</em> locus encodes two tumour suppressors, p16<sup>INK4a</sup>
+            and p14<sup>ARF</sup>, whose expression is driven by alternative promoters.
+            This project investigated whether p16 expression, captured from transcriptomic
+            data, can be used as a reliable marker of cellular senescence across tissues
+            and disease contexts.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!--<li>Georgilis A et al. <em>Cancer Cell</em>, 2018;34(1):85–102. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29990503" target="_blank" rel="noopener">PubMed</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="research-project-card fade-up" style="transition-delay:.05s;">
-          <div class="research-project-title">Uncovering the stressome: a computational approach to define a stress granule signature and its implication in cancer</div>
-           <div class="research-keywords">
-            <span class="research-keyword">stress</span>
+      <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.05s;">
+        <div class="research-card-stripe cancer"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill cancer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            RNA in cancer
+          </span>
+          <div class="research-card-title">Uncovering the stressome: stress granule signature and its implication in cancer</div>
+          <div class="research-keywords">
+            <span class="research-keyword">stress granules</span>
             <span class="research-keyword">cancer</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Alexandre Kaizeler, Nuno Barbosa-Morais (PI)<br>
-            <strong>Collaborators:</strong> <a href="https://imm.medicina.ulisboa.pt/pt-pt/investigation/laboratories/vanessa-morais-lab-2/#intro" target="_blank" rel="noopener">Vanessa Morais</a>          
+            <strong>Collaborators:</strong> <a href="https://imm.medicina.ulisboa.pt/pt-pt/investigation/laboratories/vanessa-morais-lab-2/#intro" target="_blank" rel="noopener">Vanessa Morais</a>
+          </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Stress granules are phase-separated biomolecular condensates that assemble under
+            cellular stress conditions and have been implicated in cancer survival and drug
+            resistance. This project uses large-scale transcriptomic data to define a
+            computational "stressome" signature and characterise its clinical relevance across
+            cancer types.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!-- <li>Gomes I et al. <em>Oncotarget</em>, 2020;11(19):1714–1728. [<a href="https://pubmed.ncbi.nlm.nih.gov/32477461/" target="_blank" rel="noopener">PubMed</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="research-project-card fade-up" style="transition-delay:.1s;">
-          <div class="research-project-title">Alternative transcription of <em>CELF2</em> in colorectal cancer progression and therapeutics</div>
+      <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.1s;">
+        <div class="research-card-stripe cancer"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill cancer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            RNA in cancer
+          </span>
+          <div class="research-card-title">Alternative transcription of <em>CELF2</em> in colorectal cancer progression and therapeutics</div>
           <div class="research-keywords">
             <span class="research-keyword">alternative splicing</span>
+            <span class="research-keyword">colorectal cancer</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Francisca Xara-Brasil, Lina Gallego (alumna, Co-PI), Marta Bica, Nuno Barbosa-Morais (PI)<br>
             <strong>Collaborators:</strong>
             <a href="https://imm.medicina.ulisboa.pt/people/marta-martins/" target="_blank" rel="noopener">Marta Martins</a> (Co-PI),
             <a href="https://imm.medicina.ulisboa.pt/investigation/laboratories/luis-costa-lab/" target="_blank" rel="noopener">Luis Costa</a>,
             <a href="https://comics.dcv.fct.unl.pt/" target="_blank" rel="noopener">Ana Rita Grosso</a>
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            CELF2 is an RNA-binding protein whose expression and splicing are altered during
+            colorectal cancer progression. This project maps the landscape of alternative
+            <em>CELF2</em> isoforms across tumour stages and examines whether specific isoforms
+            represent therapeutic vulnerabilities or resistance mechanisms in colorectal cancer
+            treatment.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!-- <li>Jardim C, Bica M et al. <em>Cancer Immunol Res</em>, 2025;13(8):1207–1225. [<a href="https://pubmed.ncbi.nlm.nih.gov/40471151/" target="_blank" rel="noopener">PubMed</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="research-project-card fade-up" style="transition-delay:.15s;">
-          <div class="research-project-title">Alternative splicing during oncogene-induced senescence</div>
+      <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.15s;">
+        <div class="research-card-stripe cancer"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill cancer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            RNA in cancer
+          </span>
+          <div class="research-card-title">Alternative splicing during oncogene-induced senescence</div>
           <div class="research-keywords">
             <span class="research-keyword">alternative splicing</span>
             <span class="research-keyword">senescence</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Mariana Ascensao-Ferreira (alumna), Rita Martins-Silva, Alexandre Kaizeler, Nuno Barbosa-Morais (Co-PI)<br>
             <strong>Collaborators:</strong> <a href="https://lms.mrc.ac.uk/research-group/cell-proliferation/" target="_blank" rel="noopener">Jesus Gil</a> (PI)
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
-
-      </div><!-- /research-projects-grid -->
-
-      <div class="research-area-pubs fade-up" style="transition-delay:.2s;">
-        <button class="research-area-pubs-toggle" aria-expanded="false">
-          Publications in this area
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <ul class="research-pub-list">
-          <li>Wagner V, Bousset L, Ascensão-Ferreira M, …, Martins-Silva R, et al. <em>Nat Commun</em>, 2026. [<a href="https://doi.org/10.1038/s41467-026-71564-z" target="_blank" rel="noopener">Paper</a>]</li>
-          <li>Jardim C, Bica M et al. <em>Cancer Immunol Res</em>, 2025;13(8):1207-1225. [<a href="https://pubmed.ncbi.nlm.nih.gov/40471151/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Conde J et al. <em>ACS Central Science</em>, 2021;7(5):868-881. [<a href="https://pubmed.ncbi.nlm.nih.gov/34079902/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Gomes I et al. <em>Oncotarget</em>, 2020;11(19):1714-1728. [<a href="https://pubmed.ncbi.nlm.nih.gov/32477461/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Munkley J et al. <em>eLife</em>, 2019;8:e47678. [<a href="https://pubmed.ncbi.nlm.nih.gov/31478829/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>de Almeida BP et al. <em>PLoS Comput Biol</em>, 2019;15(3):e1006832. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30856170" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Braun S et al. <em>Nat Commun</em>, 2018;9(1):3315. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30120239" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Georgilis A et al. <em>Cancer Cell</em>, 2018;34(1):85-102. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29990503" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Marteil G et al. <em>Nat Commun</em>, 2018;9(1):1258. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/29593297" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Moreno-Marin N et al. <em>bioRxiv</em>, 2023.03.13.532472. [<a href="https://doi.org/10.1101/2023.03.13.532472" target="_blank" rel="noopener">Preprint</a>]</li>
-        </ul>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Oncogene-induced senescence (OIS) is a potent tumour-suppressive barrier that
+            arrests cell growth in response to aberrant oncogenic signalling. This project
+            profiles the alternative splicing landscape during OIS to identify splicing
+            events that regulate the senescence programme, contribute to the SASP, or
+            enable cancer cells to bypass senescence.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list"> 
+            <!-- <li>Georgilis A et al. <em>Cancer Cell</em>, 2018;34(1):85–102. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29990503" target="_blank" rel="noopener">PubMed</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
       </div>
 
-    </div><!-- /cancer -->
+      <!-- ══ NEURO-BIOLOGY ══════════════════════════════════════════ -->
 
-    <!-- ── NEURO-BIOLOGY ─────────────────────────────────────── -->
-    <div class="research-theme fade-up" style="transition-delay:.1s;">
-      <div class="research-theme-header">
-        <div class="research-theme-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/>
-            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/>
-          </svg>
-        </div>
-        <div class="research-theme-title">Neuro-biology</div>
-      </div>
-
-      <p class="research-area-note fade-up">Ongoing projects</p>
-      <div class="research-projects-grid">
-
-        <div class="research-project-card fade-up">
-          <div class="research-project-title">Investigating circadian disruption in a submarine crew: the health impact of alternating shift work in low-light and confined environments</div>
-          <div class="research-project-meta">
+      <div class="research-card fade-up" data-theme="neuro" style="transition-delay:.2s;">
+        <div class="research-card-stripe neuro"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill neuro">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/></svg>
+            Neuro-biology
+          </span>
+          <div class="research-card-title">Circadian disruption in a submarine crew: health impact of alternating shift work in confined environments</div>
+          <div class="research-keywords">
+            <span class="research-keyword">circadian rhythms</span>
+            <span class="research-keyword">shift work</span>
+          </div>
+          <div class="research-card-people">
             <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)<br>
             <strong>Collaborators:</strong> <a href="https://fch.lisboa.ucp.pt/pt-pt/pessoa/catia-reis" target="_blank" rel="noopener">Catia Reis</a> (Co-PI)
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
-
-      </div><!-- /research-projects-grid -->
-
-      <div class="research-area-pubs fade-up" style="transition-delay:.1s;">
-        <button class="research-area-pubs-toggle" aria-expanded="false">
-          Publications in this area
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <ul class="research-pub-list">
-          <li>Marques D et al. <em>bioRxiv</em>, 2025.06.16.659930. [<a href="https://doi.org/10.1101/2025.06.16.659930" target="_blank" rel="noopener">Preprint</a>]</li>
-          <li>Sousa NS et al. <em>Cell Reports</em>, 2024;43(11):114975. [<a href="https://pubmed.ncbi.nlm.nih.gov/39541212/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Bordone MC, Barbosa-Morais NL. <em>Front Neurosci</em>, 2020;14:607215. [<a href="https://pubmed.ncbi.nlm.nih.gov/33362460/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Godinho-Silva C et al. <em>Nature</em>, 2019;574(7777):254-258. [<a href="https://pubmed.ncbi.nlm.nih.gov/31534216/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Rijo-Ferreira F et al. <em>Nat Microbiol</em>, 2017;2:17032. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/28288095" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Cardoso V et al. <em>Nature</em>, 2017;549(7671):277-281. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/28869974" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Gallego-Paez LM et al. <em>Human Genetics</em>, 2017;136(9):1015-1042. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/28374191" target="_blank" rel="noopener">PubMed</a>]</li>
-        </ul>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Submarine duty combines prolonged light deprivation, irregular sleep–wake cycles,
+            and chronic stress — a uniquely severe challenge for the circadian clock. Using
+            transcriptomic profiling of crew members before, during, and after deployment,
+            this project characterises the molecular signatures of circadian disruption and
+            assesses downstream consequences for immune function, metabolism, and ageing.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!-- <li>Marques D et al. <em>bioRxiv</em>, 2025.06.16.659930. [<a href="https://doi.org/10.1101/2025.06.16.659930" target="_blank" rel="noopener">Preprint</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
       </div>
 
-    </div><!-- /neuro -->
+      <!-- ══ BIOINFORMATICS TOOLS ═══════════════════════════════════ -->
 
-    <!-- ── BIOINFORMATICS TOOLS ─────────────────────────────── -->
-    <div class="research-theme fade-up" style="transition-delay:.2s;">
-      <div class="research-theme-header">
-        <div class="research-theme-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <polyline points="16 18 22 12 16 6"/>
-            <polyline points="8 6 2 12 8 18"/>
-          </svg>
-        </div>
-        <div class="research-theme-title">Bioinformatics tools for RNA-seq analysis</div>
-      </div>
-
-      <p class="research-area-note fade-up">Ongoing projects</p>
-      <div class="research-projects-grid">
-
-        <div class="research-project-card fade-up">
-          <div class="research-project-title"><a href="https://github.com/nuno-agostinho/cTRAP" target="_blank" rel="noopener">cTRAP</a>: identification of candidate causal perturbations from differential gene expression data</div>
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.25s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill bioinformatics">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Bioinformatics
+          </span>
+          <div class="research-card-title"><a href="https://github.com/nuno-agostinho/cTRAP" target="_blank" rel="noopener">cTRAP</a>: candidate causal perturbations from differential gene expression data</div>
           <div class="research-keywords">
             <span class="research-keyword">pharmaco-transcriptomics</span>
+            <span class="research-keyword">CMap</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Bernardo Almeida (alumnus), Nuno Saraiva-Agostinho (alumnus), Juan Carlos Gomez Verjan (alumnus), Nuno Barbosa-Morais (PI)
           </div>
-        </div>
-
-        <div class="research-project-card fade-up" style="transition-delay:.05s;">
-          <div class="research-project-title"><a href="https://compbio.imm.medicina.ulisboa.pt/app/scStudio" target="_blank" rel="noopener">scStudio</a>: interactive interface for single-cell transcriptomics data exploration</div>
-          <div class="research-keywords">
-            <span class="research-keyword">immuno-senescence</span>
-            <span class="research-keyword">scRNA-seq</span>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="research-project-meta">
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            cTRAP connects differential gene expression signatures from disease or
+            perturbation experiments to the Connectivity Map (CMap) resource, identifying
+            compounds, genetic knockouts, or cell contexts that produce matching or opposing
+            transcriptomic changes — providing candidate causal or corrective perturbations
+            for further experimental validation.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!-- <li>Saraiva-Agostinho N, Barbosa-Morais NL. <em>Nucleic Acids Res</em>, 2019;47(2):e7. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30277515" target="_blank" rel="noopener">PubMed</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.3s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill bioinformatics">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Bioinformatics
+          </span>
+          <div class="research-card-title"><a href="https://compbio.imm.medicina.ulisboa.pt/app/scStudio" target="_blank" rel="noopener">scStudio</a>: interactive interface for single-cell transcriptomics data exploration</div>
+          <div class="research-keywords">
+            <span class="research-keyword">scRNA-seq</span>
+            <span class="research-keyword">immuno-senescence</span>
+          </div>
+          <div class="research-card-people">
             <strong>Members:</strong> Marta Bica, Nuno Barbosa-Morais (PI)<br>
             <strong>Collaborators:</strong> <a href="http://www.immunology.kserre.net/" target="_blank" rel="noopener">Karine Serre</a>
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            scStudio is a modular, browser-based platform for exploratory and reproducible
+            single-cell RNA-seq analysis. It supports workflows from raw count matrices
+            through dimensionality reduction, clustering, and biological interpretation,
+            and is being applied to characterise immunosenescence — the age-related
+            decline of immune function — at single-cell resolution.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!--<li>Bica M et al. <em>bioRxiv</em>, 2025.04.17.649161. [<a href="https://doi.org/10.1101/2025.04.17.649161" target="_blank" rel="noopener">Preprint</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="research-project-card fade-up" style="transition-delay:.1s;">
-          <div class="research-project-title"><a href="https://diseasetranscriptomicslab.github.io/markeR/" target="_blank" rel="noopener">markeR</a>: R toolkit for evaluating gene sets as phenotypic markers in transcriptomic data</div>
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.35s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <span class="research-theme-pill bioinformatics">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Bioinformatics
+          </span>
+          <div class="research-card-title"><a href="https://diseasetranscriptomicslab.github.io/markeR/" target="_blank" rel="noopener">markeR</a>: R toolkit for evaluating gene sets as phenotypic markers in transcriptomic data</div>
           <div class="research-keywords">
             <span class="research-keyword">gene signatures</span>
             <span class="research-keyword">senescence</span>
             <span class="research-keyword">bulk RNA-seq</span>
           </div>
-          <div class="research-project-meta">
+          <div class="research-card-people">
             <strong>Members:</strong> Rita Martins-Silva, Alexandre Kaizeler, Nuno Barbosa-Morais (PI)
           </div>
+          <div class="research-card-toggle">
+            <span>Learn more →</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
-
-      </div><!-- /research-projects-grid -->
-
-      <div class="research-area-pubs fade-up" style="transition-delay:.1s;">
-        <button class="research-area-pubs-toggle" aria-expanded="false">
-          Publications in this area
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <ul class="research-pub-list">
-          <li>Martins-Silva R, Kaizeler A, Barbosa-Morais NL. <em>NAR Genomics and Bioinformatics</em>, 2026. [<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Paper</a>]</li>
-          <li>Bica M et al. <em>bioRxiv</em>, 2025.04.17.649161. [<a href="https://doi.org/10.1101/2025.04.17.649161" target="_blank" rel="noopener">Preprint</a>]</li>
-          <li>Schneider AL, Martins-Silva R, Kaizeler A et al. <em>eLife</em>, 2024;12:RP88623. [<a href="https://pubmed.ncbi.nlm.nih.gov/38546191/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Ascensao-Ferreira M, Martins-Silva R et al. <em>RNA</em>, 2024;30(4):337-353. [<a href="https://pubmed.ncbi.nlm.nih.gov/38278530/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Saraiva-Agostinho N, Barbosa-Morais NL. <em>Methods Mol Biol</em>, 2020;2117:179-205. [<a href="https://pubmed.ncbi.nlm.nih.gov/31960379/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Rodrigues T et al. <em>Chem Commun</em>, 2019;55(45):6369-6372. [<a href="https://pubmed.ncbi.nlm.nih.gov/31089616/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Baker C et al. <em>Bioorg Med Chem</em>, 2019;27(12):2531-2536. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30885569" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Saraiva-Agostinho N, Barbosa-Morais NL. <em>Nucleic Acids Res</em>, 2019;47(2):e7. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30277515" target="_blank" rel="noopener">PubMed</a>]</li>
-        </ul>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            markeR is an R/Bioconductor package providing statistical frameworks to
+            evaluate whether a gene set functions as a reliable transcriptomic marker of
+            a biological phenotype across independent datasets. Its primary application
+            is benchmarking senescence gene signatures, enabling rigorous validation of
+            candidate markers before clinical or experimental use.
+          </p>
+          <p class="research-card-pubs-label">Publications in this area</p>
+          <ul class="research-card-pub-list">
+            <!--<li>Martins-Silva R, Kaizeler A, Barbosa-Morais NL. <em>NAR Genomics and Bioinformatics</em>, 2026. [<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Paper</a>]</li> -->
+            <li> Paper </li>
+          </ul>
+        </div>
       </div>
 
-    </div><!-- /bioinformatics tools -->
+    </div><!-- /research-card-grid -->
 
   </div>
 </section>
