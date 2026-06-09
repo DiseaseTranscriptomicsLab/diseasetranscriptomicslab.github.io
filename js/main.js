@@ -256,7 +256,7 @@ function updateYear() {
    ──────────────────────────────────────────────────────────────── */
 function loadBlueskyFeed() {
   const HANDLE   = 'nmoraislab.bsky.social';
-  const DISPLAY  = 6;   // posts to show (3 columns × 2 rows)
+  const DISPLAY  = 3;   // posts to show (3 columns × 1 row)
   const FETCH    = 20;  // fetch more so filtering reposts still leaves enough
   const API_URL  = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed` +
                    `?actor=${HANDLE}&limit=${FETCH}&filter=posts_no_replies`;
@@ -303,21 +303,11 @@ function loadBlueskyFeed() {
     const date    = formatDate(record.createdAt);
     const rkey    = post.uri.split('/').pop();
     const postUrl = `https://bsky.app/profile/${author.handle}/post/${rkey}`;
-    const avatar  = author.avatar
-      ? `<img src="${esc(author.avatar)}" alt="${esc(author.displayName || author.handle)}" loading="lazy" />`
-      : '';
     return `
       <div class="bsky-card">
-        <div class="bsky-card-header">
-          <div class="bsky-avatar">${avatar}</div>
-          <span class="bsky-handle">@${esc(author.handle)}</span>
-          <span class="bsky-date">${date}</span>
-        </div>
+        <span class="bsky-card-date"><span class="bsky-card-dot"></span>${date}</span>
         <p class="bsky-text">${text}</p>
-        ${renderImages(post.embed)}
-        <a class="bsky-link" href="${esc(postUrl)}" target="_blank" rel="noopener">
-          View on Bluesky ↗
-        </a>
+        <a class="bsky-link" href="${esc(postUrl)}" target="_blank" rel="noopener">View on Bluesky ↗</a>
       </div>`;
   }
 
@@ -366,12 +356,12 @@ function loadBlueskyFeed() {
 async function loadBiomicsVideos() {
   const CHANNEL_ID = 'UCfC8a-vm4VWLkw3OH3gR91w'; // @BIOMICSTwinning
   const RSS_URL    = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-  const MAX        = 3; // maximum cards to show
+  const MAX        = 2; // maximum cards to show
 
   /* Hardcoded fallback — only used if all proxies fail */
   const FALLBACK_VIDEOS = [
-    { videoId: 'iqlB74ldyos', title: 'Getting to know BIOMICS members – Pedro Beltrão',  date: 'October 2025' },
     { videoId: 'T5ZpgSiowY8', title: 'Getting to know BIOMICS members – Manuel Irimia',   date: 'May 2026'     },
+    { videoId: 'iqlB74ldyos', title: 'Getting to know BIOMICS members – Pedro Beltrão',  date: 'October 2025' },
   ];
 
   const grid = document.getElementById('biomics-video-grid');
@@ -388,7 +378,7 @@ async function loadBiomicsVideos() {
                   allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="biomics-video-info">
-          <span class="biomics-video-tag">Getting to know BIOMICS members · Ep. ${i + 1}</span>
+          <span class="biomics-video-tag">BIOMICS Twinning</span>
           <div class="biomics-video-title">${escHtml(v.title)}</div>
           ${v.date ? `<span class="biomics-video-date">${escHtml(v.date)}</span>` : ''}
         </div>
@@ -400,8 +390,8 @@ async function loadBiomicsVideos() {
     const xml     = new DOMParser().parseFromString(xmlText, 'application/xml');
     const entries = Array.from(xml.querySelectorAll('entry'));
     if (!entries.length) return null;
-    /* YouTube returns newest-first; reverse for natural episode order */
-    const videos = entries.reverse().slice(-MAX).map(entry => {
+    /* YouTube returns newest-first; take the first MAX (most recent) */
+    const videos = entries.slice(0, MAX).map(entry => {
       const href    = entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '';
       const videoId = (href.match(/[?&]v=([^&]+)/) || [])[1] || '';
       if (!videoId) return null;
@@ -461,6 +451,134 @@ async function loadBiomicsVideos() {
   }
 }
 
+/* ── Lab News ───────────────────────────────────────────────────
+   Reads the LAB_NEWS array from js/news-data.js and renders cards
+   into #lab-news-grid. Clicking a card opens a modal.
+   Pass max to cap the number of cards shown (index page uses 4).
+   ──────────────────────────────────────────────────────────────── */
+function loadLabNews(max) {
+  const grid = document.getElementById('lab-news-grid');
+  if (!grid) return;
+
+  const allItems   = (typeof LAB_NEWS !== 'undefined') ? LAB_NEWS : [];
+  if (!allItems.length) { grid.style.display = 'none'; return; }
+
+  const items      = max ? allItems.slice(0, max) : allItems;
+  const hasMore    = max && allItems.length > max;
+
+  grid.innerHTML = items.map((item, i) => {
+    const imgHtml = item.image
+      ? `<div class="lab-news-card-img">
+           <img src="${escHtml(item.image)}" alt="${escHtml(item.imageAlt || '')}" loading="lazy" />
+         </div>`
+      : '';
+    return `
+      <article class="lab-news-card" data-news-index="${i}" tabindex="0" role="button"
+               aria-label="Read more: ${escHtml(item.title)}">
+        ${imgHtml}
+        <div class="lab-news-card-body">
+          <span class="lab-news-date">${escHtml(item.date)}</span>
+          <h3 class="lab-news-card-title">${escHtml(item.title)}</h3>
+          <p class="lab-news-card-summary">${escHtml(item.summary)}</p>
+          <span class="lab-news-read-more">Read more ↗</span>
+        </div>
+      </article>`;
+  }).join('');
+
+  /* "See all news" button when capped */
+  if (hasMore) {
+    const wrap = grid.closest('.lab-news-wrap') || grid.parentElement;
+    if (wrap && !wrap.querySelector('.lab-news-see-all')) {
+      const btn = document.createElement('div');
+      btn.className = 'lab-news-see-all';
+      btn.innerHTML = `<a href="news.html" class="lab-news-see-all-btn">
+        See all news (${allItems.length}) ↗
+      </a>`;
+      grid.after(btn);
+    }
+  }
+
+  /* Wire up modal */
+  const modal      = document.getElementById('lab-news-modal');
+  const backdrop   = modal?.querySelector('.lab-news-modal-backdrop');
+  const closeBtn   = modal?.querySelector('.lab-news-modal-close');
+  const modalDate  = document.getElementById('lab-news-modal-date');
+  const modalTitle = document.getElementById('lab-news-modal-title');
+  const modalImg   = document.getElementById('lab-news-modal-img-wrap');
+  const modalBody  = document.getElementById('lab-news-modal-body');
+
+  function openModal(index) {
+    const item = items[index];
+    if (!item || !modal) return;
+    modalDate.textContent  = item.date  || '';
+    modalTitle.textContent = item.title || '';
+    /* Gallery: use images[] array if present, else fall back to single image */
+    const imgs = item.images && item.images.length
+      ? item.images
+      : (item.image ? [{ src: item.image, alt: item.imageAlt || '' }] : []);
+    if (imgs.length > 1) {
+      modalImg.innerHTML = `<div class="news-modal-gallery">${
+        imgs.map(im => `<img src="${escHtml(im.src)}" alt="${escHtml(im.alt || '')}" loading="lazy" />`).join('')
+      }</div>`;
+    } else if (imgs.length === 1) {
+      modalImg.innerHTML = `<img src="${escHtml(imgs[0].src)}" alt="${escHtml(imgs[0].alt || '')}" />`;
+    } else {
+      modalImg.innerHTML = '';
+    }
+    modalBody.innerHTML = item.content || `<p>${escHtml(item.summary)}</p>`;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn?.focus();
+    /* wire lightbox on newly-rendered images */
+    setTimeout(() => {
+      modal.querySelectorAll('.lab-news-modal-img-wrap img, .news-modal-gallery img').forEach(img => {
+        img.addEventListener('click', () => { if (window._openLightbox) window._openLightbox(img.src, img.alt); });
+      });
+    }, 0);
+  }
+
+  function closeModal() {
+    modal?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── Photo lightbox ─────────────────────────────────────── */
+  if (!document.getElementById('photo-lightbox')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div id="photo-lightbox" class="photo-lightbox" role="dialog" aria-modal="true" aria-label="Full-size photo">
+        <button class="photo-lightbox-close" aria-label="Close">&times;</button>
+        <img id="photo-lightbox-img" src="" alt="" />
+      </div>`);
+    const lb    = document.getElementById('photo-lightbox');
+    const lbImg = document.getElementById('photo-lightbox-img');
+    const lbClose = lb.querySelector('.photo-lightbox-close');
+    function openLightbox(src, alt) {
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.add('open');
+    }
+    function closeLightbox() { lb.classList.remove('open'); }
+    lbClose.addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+    lb.addEventListener('click', closeLightbox);
+    lbImg.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    /* expose so openModal can wire new images */
+    window._openLightbox = openLightbox;
+  }
+
+  grid.querySelectorAll('.lab-news-card').forEach(card => {
+    card.addEventListener('click',   () => openModal(+card.dataset.newsIndex));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') openModal(+card.dataset.newsIndex);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+}
+
 /* ── Local-server guard ─────────────────────────────────────────
    fetch() is blocked on file:// by all modern browsers.
    Show a clear on-screen banner instead of a blank page.
@@ -507,6 +625,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSmoothScroll();                // wire anchor links in freshly-injected sections
   initSoftwareFilter();              // wire up tool filter buttons now that software.html is injected
   initResearchAccordions();          // wire up collapsible publication lists in research section
+  loadLabNews(4);                    // #lab-news-grid — 4 most recent; full list on news.html
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
   loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
 

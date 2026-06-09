@@ -1,15 +1,15 @@
 <!-- ================================================================
      NEWS SECTION — sections/news.html
 
+     Lab News items are defined in js/news-data.js (LAB_NEWS array).
+     Edit that file to add or remove news cards.
+
      The Bluesky live feed is loaded automatically by js/main.js
      using the public AT Protocol API (no key required).
      Posts from @nmoraislab.bsky.social appear in the grid below.
 
      To change the Bluesky handle, edit the HANDLE constant in
      js/main.js.
-
-     To update social button URLs, edit the <a href="..."> values
-     in the .news-social-links block below.
      ================================================================ -->
 <section id="news">
   <div class="container">
@@ -21,13 +21,12 @@
       Follow us for real-time lab updates, paper announcements, and more.
     </p>
 
-    <!-- Social follow buttons — EDIT HREF values here -->
+    <!-- Social follow buttons -->
     <div class="news-social-links fade-up" style="margin-bottom:2.5rem; justify-content:center;">
 
       <a class="news-social-btn"
          href="https://bsky.app/profile/nmoraislab.bsky.social"
          target="_blank" rel="noopener">
-        <!-- Bluesky butterfly logo (Simple Icons, 24x24) -->
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.347.906.36 1.495c-1.066.637-.31 2.83.098 4.39l1.716 6.463c-2.187-.211-4.04.354-4.174 2.07-.144 1.84 1.65 3.002 3.476 3.184 1.083.108 2.216-.068 3.131-.432-1.524 1.22-2.607 3.082-2.607 5.83H12v.004-.004c0-2.748-1.083-4.61-2.607-5.83.915.364 2.048.54 3.131.432 1.826-.182 3.62-1.344 3.476-3.184-.134-1.716-1.987-2.281-4.174-2.07L13.542 5.885c.408-1.56 1.164-3.753.098-4.39C12.653.906 11.434.944 8.798 2.805 6.046 4.747 3.087 8.686 2 10.8"/>
         </svg>
@@ -55,6 +54,24 @@
 
     </div>
 
+    <!-- ── LAB NEWS ───────────────────────────────────────────────── -->
+    <div class="lab-news-wrap fade-up" style="transition-delay:.05s;">
+      <!-- Populated by loadLabNews(4) in main.js from js/news-data.js -->
+      <div id="lab-news-grid" class="lab-news-grid"></div>
+      <!-- "See all news" button injected here by JS when items > 4 -->
+    </div>
+
+    <!-- Visual separator -->
+    <div class="news-section-divider fade-up" style="transition-delay:.07s;"></div>
+
+    <!-- ── BLUESKY FEED ──────────────────────────────────────────── -->
+    <div class="news-subsection-header fade-up" style="transition-delay:.08s;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.347.906.36 1.495c-1.066.637-.31 2.83.098 4.39l1.716 6.463c-2.187-.211-4.04.354-4.174 2.07-.144 1.84 1.65 3.002 3.476 3.184 1.083.108 2.216-.068 3.131-.432-1.524 1.22-2.607 3.082-2.607 5.83H12v.004-.004c0-2.748-1.083-4.61-2.607-5.83.915.364 2.048.54 3.131.432 1.826-.182 3.62-1.344 3.476-3.184-.134-1.716-1.987-2.281-4.174-2.07L13.542 5.885c.408-1.56 1.164-3.753.098-4.39C12.653.906 11.434.944 8.798 2.805 6.046 4.747 3.087 8.686 2 10.8"/>
+      </svg>
+      Latest from Bluesky
+    </div>
+
     <!-- Live Bluesky feed - populated by loadBlueskyFeed() in main.js -->
     <div class="bsky-feed-wrap fade-up" style="transition-delay:.1s;">
       <div id="bsky-feed-grid" class="bsky-grid">
@@ -62,7 +79,7 @@
       </div>
     </div>
 
-    <div class="bsky-footer fade-up" style="transition-delay:.2s;">
+    <div class="bsky-footer fade-up" style="transition-delay:.15s;">
       <a class="bsky-follow-btn"
          href="https://bsky.app/profile/nmoraislab.bsky.social"
          target="_blank" rel="noopener">
@@ -70,8 +87,8 @@
       </a>
     </div>
 
-    <!-- ── BIOMICS SPOTLIGHT ──────────────────────────────────── -->
-    <div class="biomics-news-block fade-up" style="margin-top:4rem; transition-delay:.25s;">
+    <!-- ── BIOMICS SPOTLIGHT ──────────────────────────────────────── -->
+    <div class="biomics-news-block fade-up" style="margin-top:4rem; transition-delay:.2s;">
       <div class="biomics-news-header">
         <img src="assets/logos/funding/biomics.png" alt="BIOMICS" class="biomics-news-logo" />
         <div class="biomics-news-label">
@@ -90,14 +107,16 @@
       <!-- Auto-populated by loadBiomicsVideos() in main.js -->
       <div class="biomics-video-grid" id="biomics-video-grid">
         <p class="bsky-loading" style="color:rgba(255,255,255,.55);grid-column:1/-1;padding:1.5rem 0;">Loading videos…</p>
-      </div><!-- /biomics-video-grid -->
+      </div>
 
       <div class="biomics-action-btns">
         <a href="https://www.youtube.com/@BIOMICSTwinning"
-           class="btn btn-outline"
-           target="_blank" rel="noopener"
-           style="font-size:.85rem;padding:.55rem 1.25rem;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);">
-          YouTube &#8599;
+           class="btn biomics-yt-btn"
+           target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          More videos on YouTube &#8599;
         </a>
         <a href="https://www.linkedin.com/in/biomics-twinning/"
            class="btn btn-outline"
@@ -129,3 +148,17 @@
 
   </div>
 </section>
+
+<!-- ── Lab News Modal ─────────────────────────────────────────────── -->
+<div id="lab-news-modal" class="lab-news-modal" role="dialog" aria-modal="true" aria-labelledby="lab-news-modal-title">
+  <div class="lab-news-modal-backdrop"></div>
+  <div class="lab-news-modal-box">
+    <button class="lab-news-modal-close" aria-label="Close">&times;</button>
+    <div class="lab-news-modal-meta">
+      <span id="lab-news-modal-date" class="lab-news-modal-date"></span>
+    </div>
+    <h3 id="lab-news-modal-title" class="lab-news-modal-title"></h3>
+    <div id="lab-news-modal-img-wrap" class="lab-news-modal-img-wrap"></div>
+    <div id="lab-news-modal-body" class="lab-news-modal-body"></div>
+  </div>
+</div>

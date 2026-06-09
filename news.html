@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="All news and updates from the Disease Transcriptomics Lab (NMorais Lab) at NOVA Medical School, Lisbon." />
+  <title>News · Disease Transcriptomics Lab</title>
+
+  <link rel="icon" id="favicon" href="assets/logos/logo-icon-black.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/logos/logo-icon-black.png" />
+  <script>
+    (function () {
+      var icon  = document.getElementById('favicon');
+      var dark  = 'assets/logos/logo-icon.png';
+      var light = 'assets/logos/logo-icon-black.png';
+      var mq    = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(e) { icon.href = e.matches ? dark : light; }
+      apply(mq);
+      mq.addEventListener('change', apply);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+        rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    .news-page-wrap { padding-top: 64px; min-height: 100vh; background: var(--white); }
+
+    /* Page hero */
+    .news-page-hero {
+      background: linear-gradient(160deg, var(--navy) 0%, #1a3a5c 100%);
+      padding: 3.5rem 0 3rem;
+    }
+    .news-page-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .news-page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color .2s;
+    }
+    .news-page-back:hover { color: var(--teal); }
+    .news-page-label-hero {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .news-page-h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: var(--white);
+      margin: 0 0 .6rem;
+      line-height: 1.1;
+    }
+    .news-page-subtitle {
+      color: rgba(255,255,255,.6);
+      font-size: .95rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .news-page-subtitle a { color: var(--teal); text-decoration: none; }
+    .news-page-subtitle a:hover { text-decoration: underline; }
+
+    /* Content area */
+    .news-page-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation (same as nuno.html) ───────────────────────────── -->
+  <nav id="main-nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Disease Transcriptomics Lab home">
+        <img src="assets/logos/logo-icon.png" alt="Disease Transcriptomics Lab logo" />
+      </a>
+      <a href="mailto:eid-mesg-disease-transcriptomics@groups.nms.unl.pt"
+         class="btn btn-primary"
+         style="padding:.4rem 1rem;font-size:.85rem;margin-left:auto;">
+        Contact
+      </a>
+    </div>
+  </nav>
+
+  <div class="news-page-wrap">
+
+    <!-- Hero -->
+    <div class="news-page-hero">
+      <div class="news-page-hero-inner">
+        <a href="index.html#news" class="news-page-back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Back to main site
+        </a>
+        <span class="news-page-label-hero">Lab updates</span>
+        <h1 class="news-page-h1">All News</h1>
+        <p class="news-page-subtitle">
+          Updates from the Disease Transcriptomics Lab ·
+          <a href="https://bsky.app/profile/nmoraislab.bsky.social"
+             target="_blank" rel="noopener">Follow us on Bluesky ↗</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- All news cards -->
+    <div class="news-page-content">
+      <div id="lab-news-grid" class="lab-news-grid"></div>
+    </div>
+
+  </div><!-- /news-page-wrap -->
+
+  <!-- Modal (same structure as index) -->
+  <div id="lab-news-modal" class="lab-news-modal" role="dialog" aria-modal="true"
+       aria-labelledby="lab-news-modal-title">
+    <div class="lab-news-modal-backdrop"></div>
+    <div class="lab-news-modal-box">
+      <button class="lab-news-modal-close" aria-label="Close">&times;</button>
+      <div class="lab-news-modal-meta">
+        <span id="lab-news-modal-date" class="lab-news-modal-date"></span>
+      </div>
+      <h3 id="lab-news-modal-title" class="lab-news-modal-title"></h3>
+      <div id="lab-news-modal-img-wrap" class="lab-news-modal-img-wrap"></div>
+      <div id="lab-news-modal-body" class="lab-news-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/news-data.js"></script>
+  <script>
+    function escHtml(str) {
+      return (str || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderNewsPage() {
+      const grid  = document.getElementById('lab-news-grid');
+      const items = (typeof LAB_NEWS !== 'undefined') ? LAB_NEWS : [];
+
+      if (!items.length) {
+        grid.innerHTML = '<p style="color:var(--slate);">No news yet — check back soon!</p>';
+        return;
+      }
+
+      grid.innerHTML = items.map((item, i) => {
+        const imgHtml = item.image
+          ? `<div class="lab-news-card-img">
+               <img src="${escHtml(item.image)}" alt="${escHtml(item.imageAlt || '')}" loading="lazy" />
+             </div>`
+          : '';
+        return `
+          <article class="lab-news-card" data-news-index="${i}" tabindex="0" role="button"
+                   aria-label="Read more: ${escHtml(item.title)}">
+            ${imgHtml}
+            <div class="lab-news-card-body">
+              <span class="lab-news-date">${escHtml(item.date)}</span>
+              <h2 class="lab-news-card-title">${escHtml(item.title)}</h2>
+              <p class="lab-news-card-summary">${escHtml(item.summary)}</p>
+              <span class="lab-news-read-more">Read more ↗</span>
+            </div>
+          </article>`;
+      }).join('');
+
+      /* Wire modal */
+      const modal    = document.getElementById('lab-news-modal');
+      const backdrop = modal?.querySelector('.lab-news-modal-backdrop');
+      const closeBtn = modal?.querySelector('.lab-news-modal-close');
+      const mDate    = document.getElementById('lab-news-modal-date');
+      const mTitle   = document.getElementById('lab-news-modal-title');
+      const mImg     = document.getElementById('lab-news-modal-img-wrap');
+      const mBody    = document.getElementById('lab-news-modal-body');
+
+      function openModal(index) {
+        const item = items[index];
+        if (!item || !modal) return;
+        mDate.textContent  = item.date  || '';
+        mTitle.textContent = item.title || '';
+
+        /* Gallery */
+        const imgs = item.images && item.images.length
+          ? item.images
+          : (item.image ? [{ src: item.image, alt: item.imageAlt || '' }] : []);
+        if (imgs.length > 1) {
+          mImg.innerHTML = `<div class="news-modal-gallery">${
+            imgs.map(im => `<img src="${escHtml(im.src)}" alt="${escHtml(im.alt || '')}" loading="lazy" />`).join('')
+          }</div>`;
+        } else if (imgs.length === 1) {
+          mImg.innerHTML = `<img src="${escHtml(imgs[0].src)}" alt="${escHtml(imgs[0].alt || '')}" />`;
+        } else {
+          mImg.innerHTML = '';
+        }
+        mBody.innerHTML = item.content || `<p>${escHtml(item.summary)}</p>`;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        closeBtn?.focus();
+        /* wire lightbox on newly-rendered images */
+        setTimeout(() => {
+          modal.querySelectorAll('.lab-news-modal-img-wrap img, .news-modal-gallery img').forEach(img => {
+            img.addEventListener('click', () => { if (window._openLightbox) window._openLightbox(img.src, img.alt); });
+          });
+        }, 0);
+      }
+
+      function closeModal() {
+        modal?.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      grid.querySelectorAll('.lab-news-card').forEach(card => {
+        card.addEventListener('click',   () => openModal(+card.dataset.newsIndex));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') openModal(+card.dataset.newsIndex);
+        });
+      });
+      closeBtn?.addEventListener('click', closeModal);
+      backdrop?.addEventListener('click', closeModal);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { closeModal(); }
+      });
+
+      /* ── Photo lightbox ──────────────────────────────────── */
+      if (!document.getElementById('photo-lightbox')) {
+        document.body.insertAdjacentHTML('beforeend', `
+          <div id="photo-lightbox" class="photo-lightbox" role="dialog" aria-modal="true" aria-label="Full-size photo">
+            <button class="photo-lightbox-close" aria-label="Close">&times;</button>
+            <img id="photo-lightbox-img" src="" alt="" />
+          </div>`);
+        const lb    = document.getElementById('photo-lightbox');
+        const lbImg = document.getElementById('photo-lightbox-img');
+        const lbClose = lb.querySelector('.photo-lightbox-close');
+        function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt || ''; lb.classList.add('open'); }
+        function closeLightbox() { lb.classList.remove('open'); }
+        lbClose.addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+        lb.addEventListener('click', closeLightbox);
+        lbImg.addEventListener('click', e => e.stopPropagation());
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+        window._openLightbox = openLightbox;
+      }
+    }
+
+    renderNewsPage();
+
+    /* Nav scroll effect */
+    (function () {
+      var nav = document.getElementById('main-nav');
+      if (nav) {
+        window.addEventListener('scroll', function () {
+          nav.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+      }
+    })();
+  </script>
+</body>
+</html>
