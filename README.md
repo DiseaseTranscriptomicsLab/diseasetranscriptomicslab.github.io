@@ -15,7 +15,8 @@ nmoraislab.github.io/
 ├── css/
 │   └── styles.css               ← All design tokens, layout, and component styles
 ├── js/
-│   └── main.js                  ← Section loader · nav · animations · Bluesky feed
+│   ├── main.js                  ← Section loader · nav · animations · Bluesky feed
+│   └── news-data.js             ← ★ All lab news items (LAB_NEWS array) — edit here ★
 │
 ├── sections/                    ← ★ Edit content here ★
 │   ├── hero.html                ← Hero / landing section
@@ -36,7 +37,8 @@ nmoraislab.github.io/
 │   │   ├── logo-icon-black.png  ← Same icon inverted — favicon on light-mode tabs
 │   │   ├── logo-full-dark.png   ← Full logo (white on transparent) — hero
 │   │   └── funding/             ← Funder logos (EMBO, FCT, BIOMICS, EU flag)
-│   └── photos/                  ← Team + group photos
+│   ├── photos/                  ← Team + group photos
+│   └── news/                    ← ★ Photos for news items — store new ones here ★
 │
 └── games/
     ├── monster-scientists.html  ← Outreach game (bilingual EN/PT)
@@ -131,6 +133,95 @@ Add an `<li class="alumni-item">` in `sections/alumni.html`:
   <a href="https://linkedin.com/in/..." target="_blank" rel="noopener">Full Name</a>
   <span class="alumni-meta">· Role · (2021–2025)</span>
 </li>
+```
+
+---
+
+## Adding news items
+
+All news lives in **`js/news-data.js`** as a JavaScript array called `LAB_NEWS`. Items are displayed newest-first: the first item in the array is the most recent. The homepage shows the 4 most recent; `news.html` shows all of them.
+
+### Basic structure
+
+```js
+{
+  date:     "June 2025",            // Month + year (displayed as-is)
+  title:    "Short, clear headline",
+  image:    "assets/news/my-photo.jpg",   // ← always try to include a photo (see below)
+  imageAlt: "Brief description of the image for accessibility",
+  summary:  "One or two sentences shown on the news card.",
+  content: `
+    <p>Full HTML content shown when the card is clicked. Can include
+    <a href="https://..." target="_blank" rel="noopener">links</a>,
+    <strong>bold text</strong>, multiple paragraphs, etc.</p>
+  `,
+},
+```
+
+Add new items at the **top** of the array (before the current first item) so they appear first.
+
+### Photos — best practices
+
+**Always try to include a photo.** News cards without images look sparse; a graphical abstract, screenshot, group photo, or poster image makes a big difference.
+
+- **Store photos in `assets/news/`** — not in `assets/photos/` (that folder is for team photos).
+- **Use descriptive filenames**: `voyAGEr.jpg`, `icsa2019-poster.jpg`, `lab-retreat-2025.jpg`. Avoid generic names like `image1.jpg`.
+- **Preferred formats**: JPEG for photos/graphical abstracts, PNG if transparency is needed.
+- **Size**: aim for images at least 800 px wide. Very large files (>2 MB) should be compressed before adding — free tools like [Squoosh](https://squoosh.app) work well.
+- Set a meaningful `imageAlt` string — it is read by screen readers and shown if the image fails to load.
+
+Good sources for paper news items:
+- **Graphical abstracts** from the paper PDF or journal page
+- **Key figures** that summarise the main finding
+- **Screenshots** of web tools (voyAGEr, betAS, psichomics…)
+- **Event photos** for conferences, awards, retreats
+
+### Multiple images (gallery)
+
+If you want a gallery inside the modal (click to expand, lightbox on click), use the `images` array instead of a single `image`:
+
+```js
+{
+  date:  "June 2025",
+  title: "Lab retreat 2025",
+  images: [
+    { src: "assets/news/retreat-2025-group.jpg",   alt: "Lab group photo at retreat" },
+    { src: "assets/news/retreat-2025-hiking.jpg",  alt: "Hiking on day two" },
+    { src: "assets/news/retreat-2025-dinner.jpg",  alt: "Dinner on the last evening" },
+  ],
+  summary: "...",
+  content: `...`,
+},
+```
+
+The first image in the `images` array is also used as the card thumbnail.
+
+### Links in content
+
+Always open external links in a new tab:
+```html
+<a href="https://doi.org/10.xxxx/xxxxx" target="_blank" rel="noopener">Read the paper ↗</a>
+```
+
+### Example — paper announcement
+
+```js
+{
+  date:     "June 2025",
+  title:    "Our new paper on RNA splicing published in Nature",
+  image:    "assets/news/splicing-2025.jpg",
+  imageAlt: "Graphical abstract: exon inclusion rates across cancer types",
+  summary:  "Our study on tissue-specific alternative splicing dysregulation in cancer is now published in Nature.",
+  content: `
+    <p>
+      Our paper <em>"Widespread alternative splicing dysregulation in cancer"</em>
+      is now published in <em>Nature</em>. 🎉
+    </p>
+    <p>
+      <a href="https://doi.org/10.1038/..." target="_blank" rel="noopener">Read the paper ↗</a>
+    </p>
+  `,
+},
 ```
 
 ---
