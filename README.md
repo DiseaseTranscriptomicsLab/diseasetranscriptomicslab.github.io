@@ -127,13 +127,47 @@ To add a paper:
 
 ### Adding an alumni entry
 
-Add an `<li class="alumni-item">` in `sections/alumni.html`:
+Add a new `<div class="alumni-card">` block in `sections/alumni.html`, **inserting it before the first card whose end year is earlier** (list is sorted most-recent departure first).
+
 ```html
-<li class="alumni-item">
-  <a href="https://linkedin.com/in/..." target="_blank" rel="noopener">Full Name</a>
-  <span class="alumni-meta">· Role · (2021–2025)</span>
-</li>
+<div class="alumni-card">
+  <img class="alumni-card-photo" src="assets/photos/alumni/Filename.jpg"
+       alt="Full Name" loading="lazy" />
+  <span class="alumni-role-badge badge-phd">PhD</span>
+  <span class="alumni-card-name">Full Name</span>
+  <span class="alumni-card-years">2020–2025</span>
+  <span class="alumni-card-at">Current Organisation</span>
+</div>
 ```
+
+**Badge classes** (pick one):
+
+| Class | Colour | Use for |
+|---|---|---|
+| `badge-postdoc` | teal | Postdoctoral researcher |
+| `badge-phd` | blue | PhD student |
+| `badge-visiting` | purple | Visiting researcher |
+| `badge-msc` | amber | MSc student |
+| `badge-trainee` | rose | Intern / trainee |
+
+**Photo**: save the photo to `assets/photos/alumni/` (square crop looks best). The `src` just needs to match the filename you used. If no photo is available, remove the `<img>` tag entirely — a placeholder will show.
+
+**"now at"** text (`.alumni-card-at`) is hidden by default and revealed on hover. Leave it empty or omit it if the current position is unknown.
+
+### Adding a group photo to the slideshow
+
+1. Save the photo to **`assets/photos/group_old/`**.  
+   → Photos **must be 960 × 300 px** (16:5 ratio). Any other ratio will appear cropped or letterboxed. Free tools like [Squoosh](https://squoosh.app) can resize and crop.
+
+2. Open **`js/main.js`** and find the `SLIDES` array inside `initAlumniSlideshow()`.
+
+3. Add one entry at the correct chronological position (array runs oldest → newest, which is the reverse of display order):
+
+```js
+{ src: "assets/photos/group_old/Jun2026_retreat.jpg", caption: "Lab retreat — June 2026" },
+```
+
+4. Push — the slideshow updates automatically.
 
 ---
 

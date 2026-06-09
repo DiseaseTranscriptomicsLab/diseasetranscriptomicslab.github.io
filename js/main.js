@@ -579,6 +579,98 @@ function loadLabNews(max) {
   });
 }
 
+/* ── Alumni group-photo slideshow ──────────────────────────────────
+   Called after sections are injected. Builds the slides + dots from
+   the SLIDES array and runs an auto-advancing crossfade loop.
+   To add a new group photo: add an entry to SLIDES below.
+   ──────────────────────────────────────────────────────────────── */
+function initAlumniSlideshow() {
+  const track   = document.getElementById('alumni-slides-track');
+  const caption = document.getElementById('alumni-slideshow-caption');
+  const dotsEl  = document.getElementById('alumni-slide-dots');
+  const prevBtn = document.getElementById('alumni-slide-prev');
+  const nextBtn = document.getElementById('alumni-slide-next');
+  if (!track) return;
+
+  const SLIDES = [
+    { src: 'assets/photos/group_old/Sep2015_1.jpg',   label: 'September 2015' },
+    { src: 'assets/photos/group_old/Sep2015_2.jpg',   label: 'September 2015' },
+    { src: 'assets/photos/group_old/Oct2015.jpg',     label: 'October 2015'   },
+    { src: 'assets/photos/group_old/Xmas2015.jpg',    label: 'December 2015'  },
+    { src: 'assets/photos/group_old/Jul2016.jpg',     label: 'July 2016'      },
+    { src: 'assets/photos/group_old/Oct2016.jpg',     label: 'October 2016'   },
+    { src: 'assets/photos/group_old/Oct2016b.jpg',    label: 'October 2016'   },
+    { src: 'assets/photos/group_old/Apr2017.jpg',     label: 'April 2017'     },
+    { src: 'assets/photos/group_old/Nov2017.jpg',     label: 'November 2017'  },
+    { src: 'assets/photos/group_old/Mar2018.jpg',     label: 'March 2018'     },
+    { src: 'assets/photos/group_old/Jul2018.jpg',     label: 'July 2018'      },
+    { src: 'assets/photos/group_old/Dec2018.jpg',     label: 'December 2018'  },
+    { src: 'assets/photos/group_old/Jun2019.jpg',     label: 'June 2019'      },
+    { src: 'assets/photos/group_old/Dec2019.jpg',     label: 'December 2019'  },
+    { src: 'assets/photos/group_old/Feb2020.jpg',     label: 'February 2020'  },
+    { src: 'assets/photos/group_old/Jun2020.jpg',     label: 'June 2020'      },
+    { src: 'assets/photos/group_old/Dec2021.jpg',     label: 'December 2021'  },
+    { src: 'assets/photos/group_old/June2022.jpg',    label: 'June 2022'      },
+    { src: 'assets/photos/group_old/January2023.jpg', label: 'January 2023'   },
+    { src: 'assets/photos/group_old/March2023.jpg',   label: 'March 2023'     },
+    { src: 'assets/photos/group_old/Feb2024.jpg',     label: 'February 2024'  },
+    { src: 'assets/photos/group_old/Mar2024.jpg',     label: 'March 2024'     },
+    { src: 'assets/photos/group_old/Sep2024.jpg',     label: 'September 2024' },
+    { src: 'assets/photos/group_old/Dec2024.jpg',     label: 'December 2024'  },
+  ];
+
+  const INTERVAL = 4500; // ms between auto-advances
+  let current = 0;
+  let timer;
+
+  /* Build DOM */
+  const imgs = SLIDES.map((s, i) => {
+    const img = document.createElement('img');
+    img.className = 'alumni-slide' + (i === 0 ? ' active' : '');
+    img.src  = s.src;
+    img.alt  = 'Lab group photo — ' + s.label;
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    track.appendChild(img);
+    return img;
+  });
+
+  const dots = SLIDES.map((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'alumni-slide-dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dotsEl.appendChild(btn);
+    return btn;
+  });
+
+  if (caption) caption.textContent = SLIDES[0].label;
+
+  function goTo(n) {
+    imgs[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + SLIDES.length) % SLIDES.length;
+    imgs[current].classList.add('active');
+    dots[current].classList.add('active');
+    if (caption) caption.textContent = SLIDES[current].label;
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), INTERVAL);
+  }
+
+  /* Controls */
+  prevBtn?.addEventListener('click', () => { goTo(current - 1); startTimer(); });
+  nextBtn?.addEventListener('click', () => { goTo(current + 1); startTimer(); });
+  dots.forEach((btn, i) => btn.addEventListener('click', () => { goTo(i); startTimer(); }));
+
+  /* Pause on hover */
+  const wrap = document.getElementById('alumni-slideshow');
+  wrap?.addEventListener('mouseenter', () => clearInterval(timer));
+  wrap?.addEventListener('mouseleave', startTimer);
+
+  startTimer();
+}
+
 /* ── Local-server guard ─────────────────────────────────────────
    fetch() is blocked on file:// by all modern browsers.
    Show a clear on-screen banner instead of a blank page.
@@ -628,6 +720,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadLabNews(4);                    // #lab-news-grid — 4 most recent; full list on news.html
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
   loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
+  initAlumniSlideshow();             // #alumni-slideshow — group photo crossfade carousel
 
   /* Scroll to URL hash after sections load — sections are injected
      asynchronously, so the browser's native hash scroll fires before
