@@ -2,23 +2,18 @@
      ALUMNI SECTION — sections/alumni.html
 
      HOW TO EDIT:
-       Each person is an .alumni-row inside .alumni-roster.
-       Rows are sorted most-recent-first by end year.
+       Each .alumni-year-group has two children:
+         ul.alumni-year-people  — one <li class="alumni-entry"> per person
+         div.alumni-year-photos — one <img class="alumni-year-photo"> per person
 
-         <div class="alumni-card">
-           <img class="alumni-card-photo"
-                src="assets/photos/alumni/Name.jpg" alt="Full Name" />
-           <span class="alumni-role-badge badge-postdoc">Postdoc</span>
-           <span class="alumni-card-name">Full Name</span>
-           <span class="alumni-card-years">2021–2025</span>
-           <span class="alumni-card-at">Organisation</span>  ← omit if unknown
-         </div>
+       Keep entries and photos in the SAME ORDER — the hover interaction
+       links them by index.
+
+       To add a person:
+         1. Add an <li> to the ul (at the right position)
+         2. Add a matching <img> to the div.alumni-year-photos
 
      BADGE CLASSES: badge-postdoc  badge-phd  badge-visiting  badge-msc  badge-trainee
-
-     GROUP PHOTOS SLIDESHOW:
-       Add new group photos to assets/photos/group_old/ and register
-       them in the SLIDES array inside initAlumniSlideshow() in main.js.
      ================================================================ -->
 <section id="alumni">
   <div class="container">
@@ -38,292 +33,325 @@
       <div class="alumni-slide-dots" id="alumni-slide-dots"></div>
     </div>
 
-    <!-- ── ALUMNI ROSTER — sorted most-recent departure first ─────── -->
-    <div class="alumni-card-grid fade-up">
+    <!-- ── TIMELINE ──────────────────────────────────────────────── -->
+    <div class="alumni-timeline fade-up">
 
       <!-- 2024 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/MarianaNew.jpg" alt="Mariana Ascensão Ferreira" loading="lazy" />
-        <span class="alumni-role-badge badge-phd">PhD Student</span>
-        <span class="alumni-card-name">Mariana Ascensão Ferreira</span>
-        <span class="alumni-card-years">2017–2024</span>
-        <span class="alumni-card-at">Value for Health CoLAB</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Beatriz.jpg" alt="Beatriz Pimentel" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Beatriz Pimentel</span>
-        <span class="alumni-card-years">2024</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Catarina.jpg" alt="Catarina Gonçalves" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Catarina Gonçalves</span>
-        <span class="alumni-card-years">2024</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Diogo.jpg" alt="Diogo Velez" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Diogo Velez</span>
-        <span class="alumni-card-years">2024</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Marcia.png" alt="Márcia Saldanha" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Márcia Saldanha</span>
-        <span class="alumni-card-years">2024</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/InesP.jpg" alt="Inês Pacheco" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Inês Pacheco</span>
-        <span class="alumni-card-years">2024</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2024</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Mariana Ascensão Ferreira</span>
+            <span class="alumni-role-badge badge-phd">PhD Student</span>
+            <span class="alumni-entry-years">2017–2024</span>
+            <span class="alumni-entry-at">Value for Health CoLAB</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Beatriz Pimentel</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Catarina Gonçalves</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Diogo Velez</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Márcia Saldanha</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Inês Pacheco</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/MarianaNew.jpg" alt="Mariana Ascensão Ferreira" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Beatriz.jpg" alt="Beatriz Pimentel" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Catarina.jpg" alt="Catarina Gonçalves" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Diogo.jpg" alt="Diogo Velez" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Marcia.png" alt="Márcia Saldanha" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/InesP.jpg" alt="Inês Pacheco" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2023 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/NunoANew.jpg" alt="Nuno Agostinho" loading="lazy" />
-        <span class="alumni-role-badge badge-phd">PhD Student</span>
-        <span class="alumni-card-name">Nuno Agostinho</span>
-        <span class="alumni-card-years">2017–2023</span>
-        <span class="alumni-card-at">Centre for Genomic Regulation</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/MiguelNew.jpg" alt="Miguel Casanova" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Miguel Casanova</span>
-        <span class="alumni-card-years">2020–2023</span>
-        <span class="alumni-card-at">FIRALIS</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Joel_Indi.jpeg" alt="Joel Indi" loading="lazy" />
-        <span class="alumni-role-badge badge-phd">PhD Student</span>
-        <span class="alumni-card-name">Joel Indi</span>
-        <span class="alumni-card-years">2021–2023</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Goncalo.png" alt="Gonçalo Jubilado" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Gonçalo Jubilado</span>
-        <span class="alumni-card-years">2023</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2023</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Nuno Agostinho</span>
+            <span class="alumni-role-badge badge-phd">PhD Student</span>
+            <span class="alumni-entry-years">2017–2023</span>
+            <span class="alumni-entry-at">Centre for Genomic Regulation</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Joel Indi</span>
+            <span class="alumni-role-badge badge-phd">PhD Student</span>
+            <span class="alumni-entry-years">2021–2023</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Miguel Casanova</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2020–2023</span>
+            <span class="alumni-entry-at">FIRALIS</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Gonçalo Jubilado</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/NunoANew.jpg" alt="Nuno Agostinho" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Joel_Indi.jpeg" alt="Joel Indi" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/MiguelNew.jpg" alt="Miguel Casanova" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Goncalo.png" alt="Gonçalo Jubilado" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2022 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Ze.jpg" alt="José Ferrão" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">José Ferrão</span>
-        <span class="alumni-card-years">2020–2022</span>
-        <span class="alumni-card-at">INSA</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Claudia.jpg" alt="Claudia Cifuentes" loading="lazy" />
-        <span class="alumni-role-badge badge-visiting">Visiting</span>
-        <span class="alumni-card-name">Claudia Cifuentes</span>
-        <span class="alumni-card-years">2022</span>
-        <span class="alumni-card-at">EFIS Fellowship</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Mafalda.jpg" alt="Mafalda Sá Pereira" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Mafalda Sá Pereira</span>
-        <span class="alumni-card-years">2022</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2022</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">José Ferrão</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2020–2022</span>
+            <span class="alumni-entry-at">INSA</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Claudia Cifuentes</span>
+            <span class="alumni-role-badge badge-visiting">Visiting</span>
+            <span class="alumni-entry-at">EFIS Fellowship</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Mafalda Sá Pereira</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Ze.jpg" alt="José Ferrão" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Claudia.jpg" alt="Claudia Cifuentes" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Mafalda.jpg" alt="Mafalda Sá Pereira" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2021 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Marie.jpg" alt="Marie Bordone" loading="lazy" />
-        <span class="alumni-role-badge badge-phd">PhD Student</span>
-        <span class="alumni-card-name">Marie Bordone</span>
-        <span class="alumni-card-years">2015–2021</span>
-        <span class="alumni-card-at">Zambon</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Rita.jpg" alt="Rita Belo" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Rita Belo</span>
-        <span class="alumni-card-years">2020–2021</span>
-        <span class="alumni-card-at">Clarity AI</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2021</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Marie Bordone</span>
+            <span class="alumni-role-badge badge-phd">PhD Student</span>
+            <span class="alumni-entry-years">2015–2021</span>
+            <span class="alumni-entry-at">Zambon</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Rita Belo</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-years">2020–2021</span>
+            <span class="alumni-entry-at">Clarity AI</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Marie.jpg" alt="Marie Bordone" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Rita.jpg" alt="Rita Belo" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2020 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Arthur.jpg" alt="Arthur Schneider" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Arthur Schneider</span>
-        <span class="alumni-card-years">2018–2020</span>
-        <span class="alumni-card-at">Sia Partners</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Sara.jpg" alt="Sara Rodrigues Mendes" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Sara Rodrigues Mendes</span>
-        <span class="alumni-card-years">2018–2020</span>
-        <span class="alumni-card-at">Novartis</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2020</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Arthur Schneider</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2018–2020</span>
+            <span class="alumni-entry-at">Sia Partners</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Sara Rodrigues Mendes</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2018–2020</span>
+            <span class="alumni-entry-at">Novartis</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Arthur.jpg" alt="Arthur Schneider" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Sara.jpg" alt="Sara Rodrigues Mendes" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2019 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/AnaSofiaBorges.png" alt="Ana Sofia Borges" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Ana Sofia Borges</span>
-        <span class="alumni-card-years">2019</span>
-        <span class="alumni-card-at">PhD student, Kiel University</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2019</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Ana Sofia Borges</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">PhD student, Kiel University</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/AnaSofiaBorges.png" alt="Ana Sofia Borges" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2018 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Javi.jpg" alt="Javier Tapial" loading="lazy" />
-        <span class="alumni-role-badge badge-visiting">Visiting</span>
-        <span class="alumni-card-name">Javier Tapial</span>
-        <span class="alumni-card-years">2018</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Nora.jpg" alt="Nora Fresmann" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Nora Fresmann</span>
-        <span class="alumni-card-years">2018</span>
-        <span class="alumni-card-at">MDC Berlin</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Bernardo.jpg" alt="Bernardo de Almeida" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Bernardo de Almeida</span>
-        <span class="alumni-card-years">2016–2018</span>
-        <span class="alumni-card-at">InstaDeep</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Lina.jpg" alt="Lina Gallego" loading="lazy" />
-        <span class="alumni-role-badge badge-postdoc">Postdoc</span>
-        <span class="alumni-card-name">Lina Gallego</span>
-        <span class="alumni-card-years">2015–2018</span>
-        <span class="alumni-card-at">LS4Future</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/foto_JoanaXavier.jpg" alt="Joana Xavier" loading="lazy" />
-        <span class="alumni-role-badge badge-postdoc">Postdoc</span>
-        <span class="alumni-card-name">Joana Xavier</span>
-        <span class="alumni-card-years">2015–2018</span>
-        <span class="alumni-card-at">University of Algarve</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2018</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Lina Gallego</span>
+            <span class="alumni-role-badge badge-postdoc">Postdoc</span>
+            <span class="alumni-entry-years">2015–2018</span>
+            <span class="alumni-entry-at">LS4Future</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Joana Xavier</span>
+            <span class="alumni-role-badge badge-postdoc">Postdoc</span>
+            <span class="alumni-entry-years">2015–2018</span>
+            <span class="alumni-entry-at">University of Algarve</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Bernardo de Almeida</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2016–2018</span>
+            <span class="alumni-entry-at">InstaDeep</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Nora Fresmann</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-at">MDC Berlin</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Javier Tapial</span>
+            <span class="alumni-role-badge badge-visiting">Visiting</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Lina.jpg" alt="Lina Gallego" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/foto_JoanaXavier.jpg" alt="Joana Xavier" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Bernardo.jpg" alt="Bernardo de Almeida" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Nora.jpg" alt="Nora Fresmann" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Javi.jpg" alt="Javier Tapial" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2017 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Teresa.jpg" alt="Teresa Maia" loading="lazy" />
-        <span class="alumni-role-badge badge-postdoc">Postdoc</span>
-        <span class="alumni-card-name">Teresa Maia</span>
-        <span class="alumni-card-years">2015–2017</span>
-        <span class="alumni-card-at">VIB Proteomics Core</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Carolina.jpg" alt="Ana Carolina Leote" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Ana Carolina Leote</span>
-        <span class="alumni-card-years">2016–2017</span>
-        <span class="alumni-card-at">Genentech</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Luis.jpg" alt="Luís Bento" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Luís Bento</span>
-        <span class="alumni-card-years">2017</span>
-        <span class="alumni-card-at">NTT DATA</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Francisco.jpg" alt="Francisco Baptista" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Francisco Baptista</span>
-        <span class="alumni-card-years">2017</span>
-        <span class="alumni-card-at">Hospital de Cascais</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Tiago.jpg" alt="Tiago Ligeiro" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Tiago Ligeiro</span>
-        <span class="alumni-card-years">2017</span>
-        <span class="alumni-card-at">NTT DATA</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Renata.jpg" alt="Renata Quintino" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Renata Quintino</span>
-        <span class="alumni-card-years">2017</span>
-        <span class="alumni-card-at">Schmiede.one</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2017</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Teresa Maia</span>
+            <span class="alumni-role-badge badge-postdoc">Postdoc</span>
+            <span class="alumni-entry-years">2015–2017</span>
+            <span class="alumni-entry-at">VIB Proteomics Core</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Ana Carolina Leote</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-years">2016–2017</span>
+            <span class="alumni-entry-at">Genentech</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Luís Bento</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">NTT DATA</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Francisco Baptista</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">Hospital de Cascais</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Tiago Ligeiro</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">NTT DATA</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Renata Quintino</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">Schmiede.one</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Teresa.jpg" alt="Teresa Maia" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Carolina.jpg" alt="Ana Carolina Leote" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Luis.jpg" alt="Luís Bento" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Francisco.jpg" alt="Francisco Baptista" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Tiago.jpg" alt="Tiago Ligeiro" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Renata.jpg" alt="Renata Quintino" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2016 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Marta.jpg" alt="Marta Amorim" loading="lazy" />
-        <span class="alumni-role-badge badge-visiting">Visiting</span>
-        <span class="alumni-card-name">Marta Amorim</span>
-        <span class="alumni-card-years">2014–2016</span>
-        <span class="alumni-card-at">SESARAM</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/JuanCarlos.jpg" alt="Juan Carlos Gómez Verján" loading="lazy" />
-        <span class="alumni-role-badge badge-visiting">Visiting</span>
-        <span class="alumni-card-name">Juan Carlos Gómez Verján</span>
-        <span class="alumni-card-years">2016</span>
-        <span class="alumni-card-at">INGER Mexico</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Luisa.jpg" alt="Luísa Leitão" loading="lazy" />
-        <span class="alumni-role-badge badge-trainee">Trainee</span>
-        <span class="alumni-card-name">Luísa Leitão</span>
-        <span class="alumni-card-years">2016</span>
-        <span class="alumni-card-at">Amgen</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2016</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Marta Amorim</span>
+            <span class="alumni-role-badge badge-visiting">Visiting</span>
+            <span class="alumni-entry-years">2014–2016</span>
+            <span class="alumni-entry-at">SESARAM</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Juan Carlos Gómez Verján</span>
+            <span class="alumni-role-badge badge-visiting">Visiting</span>
+            <span class="alumni-entry-at">INGER Mexico</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Luísa Leitão</span>
+            <span class="alumni-role-badge badge-trainee">Trainee</span>
+            <span class="alumni-entry-at">Amgen</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/Marta.jpg" alt="Marta Amorim" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/JuanCarlos.jpg" alt="Juan Carlos Gómez Verján" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Luisa.jpg" alt="Luísa Leitão" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2015 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/AnaRita.jpg" alt="Ana Rita Grosso" loading="lazy" />
-        <span class="alumni-role-badge badge-postdoc">Postdoc</span>
-        <span class="alumni-card-name">Ana Rita Grosso</span>
-        <span class="alumni-card-years">2015</span>
-        <span class="alumni-card-at">Group Leader, FCT-NOVA</span>
-      </div>
-
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/Barbara.jpg" alt="Bárbara Caravela" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Bárbara Caravela</span>
-        <span class="alumni-card-years">2015</span>
-        <span class="alumni-card-at">Biorelate</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2015</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Ana Rita Grosso</span>
+            <span class="alumni-role-badge badge-postdoc">Postdoc</span>
+            <span class="alumni-entry-at">Group Leader, FCT-NOVA</span>
+          </li>
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Bárbara Caravela</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-at">Biorelate</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/AnaRita.jpg" alt="Ana Rita Grosso" loading="lazy" />
+          <img class="alumni-year-photo" src="assets/photos/alumni/Barbara.jpg" alt="Bárbara Caravela" loading="lazy" />
+        </div>
       </div>
 
       <!-- 2014 -->
-      <div class="alumni-card">
-        <img class="alumni-card-photo" src="assets/photos/alumni/PFaria.jpg" alt="Pedro Faria" loading="lazy" />
-        <span class="alumni-role-badge badge-msc">MSc Student</span>
-        <span class="alumni-card-name">Pedro Faria</span>
-        <span class="alumni-card-years">2014</span>
-        <span class="alumni-card-at">Banque Intl. Luxembourg</span>
+      <div class="alumni-year-group">
+        <span class="alumni-year-label">2014</span>
+        <ul class="alumni-year-people">
+          <li class="alumni-entry">
+            <span class="alumni-entry-name">Pedro Faria</span>
+            <span class="alumni-role-badge badge-msc">MSc Student</span>
+            <span class="alumni-entry-at">Banque Intl. Luxembourg</span>
+          </li>
+        </ul>
+        <div class="alumni-year-photos" aria-hidden="true">
+          <img class="alumni-year-photo" src="assets/photos/alumni/PFaria.jpg" alt="Pedro Faria" loading="lazy" />
+        </div>
       </div>
 
-    </div><!-- /alumni-card-grid -->
+    </div><!-- /alumni-timeline -->
 
   </div>
 </section>

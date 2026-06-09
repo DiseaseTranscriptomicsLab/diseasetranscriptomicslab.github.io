@@ -766,6 +766,28 @@ function checkProtocol() {
   return true;
 }
 
+/* ── Alumni timeline hover interaction ──────────────────────────── */
+function initAlumniTimeline() {
+  document.querySelectorAll('.alumni-year-group').forEach(group => {
+    const entries = [...group.querySelectorAll('.alumni-entry')];
+    const photos  = [...group.querySelectorAll('.alumni-year-photo')];
+    if (!entries.length || !photos.length) return;
+
+    entries.forEach((entry, i) => {
+      entry.addEventListener('mouseenter', () => {
+        group.classList.add('is-hovering');
+        entries.forEach((e, j) => e.classList.toggle('is-active', j === i));
+        photos.forEach((p, j)  => p.classList.toggle('is-active',  j === i));
+      });
+      entry.addEventListener('mouseleave', () => {
+        group.classList.remove('is-hovering');
+        entries.forEach(e => e.classList.remove('is-active'));
+        photos.forEach(p  => p.classList.remove('is-active'));
+      });
+    });
+  });
+}
+
 /* ── Bootstrap ──────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   updateYear();
@@ -783,6 +805,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
   loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
   initAlumniSlideshow();             // #alumni-slideshow — group photo crossfade carousel
+  initAlumniTimeline();              // hover highlight: dim other photos + names
 
   /* Scroll to URL hash after sections load — sections are injected
      asynchronously, so the browser's native hash scroll fires before
