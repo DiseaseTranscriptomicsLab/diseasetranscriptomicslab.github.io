@@ -86,9 +86,9 @@ Then open **[http://localhost:8000](http://localhost:8000)**.
 
 ## Deploying
 
-Push to `main` — GitHub Pages redeploys automatically within ~60 seconds.
+Deployment happens automatically when a pull request is merged into `main` — GitHub Pages rebuilds within ~60 seconds.
 
-For non-Git users: edit files directly on GitHub (click the file → pencil icon ✏ → Commit changes).
+**Never push directly to `main`** — see the branch workflow above.
 
 **First-time setup:** Settings → Pages → Source → Deploy from branch → `main` → `/ (root)`.
 
