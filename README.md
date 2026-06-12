@@ -50,10 +50,11 @@ nmoraislab.github.io/
 
 ## Branch workflow
 
-> 🔒 **`main` is protected and deploys automatically to the live website. Never push directly to it.**
+> ⚠️ **`main` deploys automatically to the live website. Please do not push directly to it.**
 
-All changes should go through a pull request:
-1. **Before starting**, make sure your branch is up to date — pull the latest changes from `main` first so you're not working on outdated code.
+`main` is not technically protected, so GitHub will let you push — but doing so updates the live site immediately. All changes should go through a pull request instead:
+
+1. **Before starting**, pull the latest changes from `main` into your branch so you're not working on outdated code.
 2. Create a new branch (e.g. `add-new-member`) or work in the `dev` branch.
 3. Make your changes and commit them.
 4. Open a pull request into `main` on GitHub.
