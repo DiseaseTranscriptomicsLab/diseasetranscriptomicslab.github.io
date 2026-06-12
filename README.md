@@ -54,8 +54,8 @@ nmoraislab.github.io/
 
 `main` is not technically protected, so GitHub will let you push — but doing so updates the live site immediately. All changes should go through a pull request instead:
 
-1. **Before starting**, pull the latest changes from `main` into your branch so you're not working on outdated code.
-2. Create a new branch (e.g. `add-new-member`) or work in the `dev` branch.
+1. Create a new branch (e.g. `add-new-member`) or switch to the `dev` branch.
+2. **Make sure your branch is up to date with `main`** — on GitHub, open your branch, and if it shows "X commits behind main", click **Sync fork** or **Update branch** to pull in the latest changes.
 3. Make your changes and commit them.
 4. Open a pull request into `main` on GitHub.
 5. Someone reviews and merges — the site updates within ~60 seconds.
