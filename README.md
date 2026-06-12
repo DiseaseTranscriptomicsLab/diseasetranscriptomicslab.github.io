@@ -48,6 +48,19 @@ nmoraislab.github.io/
 
 ---
 
+## Branch workflow
+
+> 🔒 **`main` is protected and deploys automatically to the live website. Never push directly to it.**
+
+All changes should go through a pull request:
+1. **Before starting**, make sure your branch is up to date — pull the latest changes from `main` first so you're not working on outdated code.
+2. Create a new branch (e.g. `add-new-member`) or work in the `dev` branch.
+3. Make your changes and commit them.
+4. Open a pull request into `main` on GitHub.
+5. Someone reviews and merges — the site updates within ~60 seconds.
+
+---
+
 ## How it works
 
 `index.html` is a shell. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into the right placeholder — so every section is independently editable without touching `index.html`.
