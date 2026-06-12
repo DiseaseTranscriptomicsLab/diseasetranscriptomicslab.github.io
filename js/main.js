@@ -165,14 +165,14 @@ async function loadSelectedPublications() {
   if (!container) return;
 
   try {
-    const res = await fetch('sections/nuno.html');
+    const res = await fetch('publications.html');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const html = await res.text();
 
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
 
-    const selected = tmp.querySelectorAll('.nuno-pub-item[data-selected="true"]');
+    const selected = tmp.querySelectorAll('.pubs-item[data-selected="true"]');
     if (!selected.length) {
       container.innerHTML = '<p style="color:var(--slate);padding:1rem 0;">No selected publications found.</p>';
       return;

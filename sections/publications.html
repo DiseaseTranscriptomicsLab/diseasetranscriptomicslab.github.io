@@ -2,24 +2,22 @@
      PUBLICATIONS SECTION — sections/publications.html
 
      HOW TO EDIT:
-       This section is AUTO-POPULATED from sections/nuno.html.
+       This section is AUTO-POPULATED from publications.html
+       (the lab publications page).
        To add or change a selected publication:
 
-         1. Open sections/nuno.html and find the paper in the
-            publication list (All Journal Articles or Preprints).
+         1. Open publications.html and find the paper in the list.
 
-         2. Add these attributes to the <li> element:
+         2. Add these attributes to the <li class="pubs-item"> element:
               data-selected="true"
               data-year="YYYY"          (e.g. "2025", or "preprint")
               data-authors="..."        (plain text, abbreviated if long)
               data-journal="..."        (journal, year, volume)
               data-tags="tag1,tag2"     (comma-separated, no spaces)
+            Also add the class "pubs-selected" to show the ★ star.
 
          3. Push — the main website will pick it up automatically.
 
-     The ★ star in nuno.html (key-paper class) controls what's
-     highlighted on Nuno's page. data-selected="true" controls what
-     appears here in the main publications section.
      ================================================================ -->
 <section id="publications" style="background:var(--fog);">
   <div class="container">
@@ -27,17 +25,19 @@
     <span class="section-label fade-up">Research output</span>
     <h2 class="section-title fade-up">Publications</h2>
     <p class="section-intro fade-up">
-      Selected publications from the lab. For the complete record visit
-      <a href="sections/nuno.html#publications">Nuno's full publication list</a>,
+      Selected publications from the lab. For the complete lab record visit
+      <a href="publications.html">all lab publications</a>, and for Nuno's
+      full personal record (including pre-lab work) visit
+      <a href="sections/nuno.html#publications">Nuno's publication list</a>,
       <a href="https://orcid.org/0000-0002-1215-0538" target="_blank" rel="noopener">ORCID</a>,
       or
       <a href="http://scholar.google.pt/citations?user=LS9tM7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
     </p>
 
     <div class="fade-up" style="text-align:center;margin-bottom:2.5rem;">
-      <a href="sections/nuno.html#publications" class="btn btn-outline"
+      <a href="publications.html" class="btn btn-outline"
          style="border-color:var(--teal);color:var(--teal);background:transparent;">
-        View complete publication list ↗
+        View all lab publications ↗
       </a>
     </div>
 

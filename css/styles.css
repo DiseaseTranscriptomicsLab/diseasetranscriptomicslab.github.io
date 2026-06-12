@@ -1347,7 +1347,6 @@ footer {
   display: grid;
   grid-template-columns: 3.5rem 1fr 200px;
   gap: 0 .5rem;
-  padding-bottom: 1.6rem;
   align-items: start;
 }
 
@@ -1366,13 +1365,16 @@ footer {
   margin: 0; padding: 0;
   border-left: 2px solid var(--border);
   padding-left: 1.25rem;
+  padding-bottom: 1.6rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  align-self: stretch;
 }
 
 .alumni-year-group:last-child .alumni-year-people {
   border-left-color: transparent;
+  padding-bottom: 0;
 }
 
 .alumni-entry {
@@ -2090,6 +2092,69 @@ footer {
 .research-modal-pub-list li:last-child { border-bottom: none; padding-bottom: 0; }
 .research-modal-pub-list a { color: var(--teal); text-decoration: none; }
 .research-modal-pub-list a:hover { text-decoration: underline; }
+
+/* ----------------------------------------------------------------
+   RESEARCH PUB PANELS (finished-work accordions by theme)
+   ---------------------------------------------------------------- */
+.research-pub-panels-wrap {
+  margin-top: 3rem;
+}
+.research-pub-panels-heading {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 1.2rem;
+  letter-spacing: .01em;
+}
+.research-pub-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: .6rem;
+  overflow: hidden;
+  background: var(--white);
+}
+.research-pub-panel-summary {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--navy);
+  background: var(--fog);
+  user-select: none;
+  transition: background .18s;
+}
+.research-pub-panel-summary::-webkit-details-marker { display: none; }
+.research-pub-panel-summary:hover { background: var(--border); }
+.research-pub-panel-summary.cancer  { border-left: 4px solid #fca5a5; }
+.research-pub-panel-summary.neuro   { border-left: 4px solid #c4b5fd; }
+.research-pub-panel-summary.bioinformatics { border-left: 4px solid #5eead4; }
+.research-pub-panel-chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform .22s;
+}
+details[open] .research-pub-panel-chevron { transform: rotate(180deg); }
+.research-pub-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.research-pub-panel-list li {
+  padding: .7rem 1.25rem;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--body);
+  border-bottom: 1px solid var(--border);
+}
+.research-pub-panel-list li:last-child { border-bottom: none; }
+.research-pub-panel-list a { color: var(--teal); text-decoration: none; }
+.research-pub-panel-list a:hover { text-decoration: underline; }
+.research-pub-panel-list em { font-style: italic; }
 
 /* ----------------------------------------------------------------
    NUNO STANDALONE PAGE
