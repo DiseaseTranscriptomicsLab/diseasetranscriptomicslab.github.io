@@ -3,6 +3,8 @@
 Static website for the **Disease Transcriptomics Lab** at NOVA Medical School, Lisbon.  
 Hosted on **GitHub Pages** at [`https://nmoraislab.github.io`](https://nmoraislab.github.io).
 
+> ⚠️ **Keep this repository private.** GitHub Pages can serve a public website from a private repo, so there's no need to make the source public. Keeping it private means photos, assets, and drafts don't need to be shared beyond the lab. It also protects content that isn't secret but benefits from limited exposure — such as the science communication games, archived materials, and development work — which may be relevant for future intellectual property or patent considerations.
+
 ---
 
 ## File structure
