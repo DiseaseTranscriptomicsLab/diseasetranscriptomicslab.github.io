@@ -533,8 +533,20 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.35); }
 /* Team grid — regular members */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .member-card {
