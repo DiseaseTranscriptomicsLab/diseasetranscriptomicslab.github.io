@@ -1,0 +1,40 @@
+# Netlify configuration for Disease Transcriptomics Lab website
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # No build step — this is a plain static site
+  publish = "."
+
+# Cache static assets aggressively; HTML is revalidated on every visit
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Redirect bare index paths cleanly (optional but tidy)
+[[redirects]]
+  from   = "/index.html"
+  to     = "/"
+  status = 301
