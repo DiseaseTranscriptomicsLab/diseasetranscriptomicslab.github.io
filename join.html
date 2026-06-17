@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="Join the Disease Transcriptomics Lab – open positions and how to apply for Postdoc, PhD, Masters, and short-term training opportunities." />
+  <title>Join Us · Disease Transcriptomics Lab</title>
+
+  <link rel="icon" id="favicon" href="assets/logos/logo-icon-black.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/logos/logo-icon-black.png" />
+  <script>
+    (function () {
+      var icon  = document.getElementById('favicon');
+      var dark  = 'assets/logos/logo-icon.png';
+      var light = 'assets/logos/logo-icon-black.png';
+      var mq    = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(e) { icon.href = e.matches ? dark : light; }
+      apply(mq);
+      mq.addEventListener('change', apply);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+        rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ── Page wrapper ─────────────────────────────────────── */
+    .join-page { padding-top: 64px; min-height: 100vh; background: var(--white); }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .join-hero {
+      background: linear-gradient(160deg, var(--navy) 0%, #1a3a5c 100%);
+      padding: 3.5rem 0 3rem;
+    }
+    .join-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .join-back {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color .2s;
+    }
+    .join-back:hover { color: var(--teal); }
+    .join-hero-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .join-hero-h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: var(--white);
+      margin: 0 0 .6rem;
+      line-height: 1.1;
+    }
+    .join-hero-subtitle {
+      color: rgba(255,255,255,.6);
+      font-size: .95rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .join-hero-subtitle a { color: var(--teal); text-decoration: none; }
+    .join-hero-subtitle a:hover { text-decoration: underline; }
+
+    /* ── Body ─────────────────────────────────────────────── */
+    .join-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Open position alert banner ─────────────────────── */
+    .open-positions-banner {
+      background: linear-gradient(135deg, #e6f9f6 0%, #d0f5ef 100%);
+      border: 1.5px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .open-positions-banner-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: .4rem;
+    }
+    .open-positions-banner h2 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 .75rem;
+    }
+
+    /* ── Position cards ───────────────────────────────────── */
+    .position-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .position-card-type {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: .3rem;
+    }
+    .position-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 .5rem;
+    }
+    .position-card p {
+      font-size: .88rem;
+      color: var(--body);
+      line-height: 1.65;
+      margin: 0 0 .85rem;
+    }
+    .position-card-deadline {
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .position-card-deadline span {
+      color: #c0392b;
+    }
+    .position-card .btn {
+      font-size: .82rem;
+      padding: .4rem 1rem;
+      margin-top: .75rem;
+      display: inline-flex;
+    }
+
+    /* No open positions message */
+    .no-positions {
+      font-size: .9rem;
+      color: var(--muted);
+      font-style: italic;
+      padding: .25rem 0;
+    }
+
+    /* ── Section headings ────────────────────────────────── */
+    .join-section-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 3rem 0 .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .join-intro {
+      font-size: .95rem;
+      line-height: 1.75;
+      color: var(--body);
+      margin: 0 0 1rem;
+    }
+    .join-intro a { color: var(--teal); text-decoration: none; }
+    .join-intro a:hover { text-decoration: underline; }
+
+    /* ── Opportunity type blocks ──────────────────────────── */
+    .opportunity-block {
+      background: var(--fog);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .opportunity-block-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: .75rem;
+    }
+    .opportunity-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--teal);
+      color: var(--white);
+      border-radius: 999px;
+      padding: .25rem .75rem;
+      white-space: nowrap;
+    }
+    .opportunity-block h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0;
+    }
+    .opportunity-block p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--body);
+      margin: 0;
+    }
+    .opportunity-block p + p { margin-top: .6rem; }
+    .opportunity-block a { color: var(--teal); text-decoration: none; }
+    .opportunity-block a:hover { text-decoration: underline; }
+    .opportunity-block ul {
+      margin: .5rem 0 0 1.25rem;
+      padding: 0;
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--body);
+    }
+
+    /* ── What we expect box ───────────────────────────────── */
+    .expectations-box {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0 1rem;
+      background: var(--white);
+    }
+    .expectations-box h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 .75rem;
+    }
+    .expectations-box ul {
+      margin: 0 0 0 1.25rem;
+      padding: 0;
+      font-size: .88rem;
+      line-height: 1.8;
+      color: var(--body);
+    }
+    .expectations-box p {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--body);
+      margin: .75rem 0 0;
+    }
+
+    /* ── CTA ─────────────────────────────────────────────── */
+    .join-cta {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: linear-gradient(160deg, var(--navy) 0%, #1a3a5c 100%);
+      border-radius: var(--radius);
+      text-align: center;
+      color: rgba(255,255,255,.75);
+      font-size: .9rem;
+      line-height: 1.7;
+    }
+    .join-cta p { margin: 0 0 1.25rem; }
+    .join-cta a.btn { display: inline-flex; font-size: .88rem; }
+    .join-cta strong { color: var(--white); }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Navigation ────────────────────────────────────────────── -->
+  <nav id="main-nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Disease Transcriptomics Lab home">
+        <img src="assets/logos/logo-icon.png" alt="Disease Transcriptomics Lab logo" />
+      </a>
+      <a href="mailto:eid-mesg-disease-transcriptomics@groups.nms.unl.pt"
+         class="btn btn-primary"
+         style="padding:.4rem 1rem;font-size:.85rem;margin-left:auto;">
+        Contact
+      </a>
+    </div>
+  </nav>
+
+  <div class="join-page">
+
+    <!-- ── Hero ─────────────────────────────────────────────────── -->
+    <div class="join-hero">
+      <div class="join-hero-inner">
+        <a href="index.html#team" class="join-back">← Back to Team</a>
+        <span class="join-hero-label">Opportunities</span>
+        <h1 class="join-hero-h1">Join the Lab</h1>
+        <p class="join-hero-subtitle">
+          We welcome motivated scientists passionate about computational biology,
+          transcriptomics, and understanding disease. Get in touch with
+          <a href="sections/nuno.html">Nuno</a> if you are interested in our work.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Content ───────────────────────────────────────────────── -->
+    <div class="join-body">
+
+      <!-- ════════════════════════════════════════════════════════════════
+           OPEN POSITIONS
+           ════════════════════════════════════════════════════════════════
+
+           HOW TO ADD A NEW OPEN POSITION:
+           ─────────────────────────────────
+           1. Delete (or comment out) the <p class="no-positions"> paragraph below.
+           2. Copy the example .position-card block below and paste it ABOVE that
+              paragraph (or where the paragraph was).
+           3. Fill in: position-card-type, h3 title, description, deadline, and
+              update the mailto subject line.
+           4. For multiple open positions, add multiple .position-card blocks.
+
+           HOW TO CLOSE A POSITION (call is over):
+           ─────────────────────────────────────────
+           1. Delete the relevant .position-card block.
+           2. If no cards remain, restore the <p class="no-positions"> paragraph.
+
+           POSITION TYPE OPTIONS:
+             Postdoctoral Fellowship · PhD Fellowship · Masters Thesis
+             Short-term Training · Research Assistant
+
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="open-positions-banner">
+        <span class="open-positions-banner-label">Now open</span>
+        <h2>Current Open Positions</h2>
+
+        <!-- ── POSITION CARD TEMPLATE — copy, paste, and fill in ──────────
+
+        <div class="position-card">
+          <div class="position-card-type">PhD Fellowship</div>
+          <h3>Computational dissection of alternative splicing in neurodegeneration</h3>
+          <p>
+            We are looking for a PhD candidate to join our group and work on …
+            Add eligibility requirements here (nationality, degree, etc.).
+          </p>
+          <p class="position-card-deadline">
+            Application deadline: <span>31 July 2025</span>
+          </p>
+          <a href="mailto:eid-mesg-disease-transcriptomics@groups.nms.unl.pt?subject=PhD%20application%20enquiry"
+             class="btn btn-primary">Apply / Enquire</a>
+        </div>
+
+        ────────────────────────────────────────────────────────────────── -->
+
+        <!-- When no positions are open, keep this paragraph visible.
+             Delete it when at least one .position-card is active above. -->
+        <p class="no-positions">
+          No positions are currently advertised. Please check back or get in touch speculatively — we are always happy to hear from exceptional candidates.
+        </p>
+
+      </div>
+      <!-- /open-positions-banner -->
+
+
+      <!-- ── How to apply ─────────────────────────────────────── -->
+      <div class="join-section-title">How to Apply</div>
+      <p class="join-intro">
+        Please get in touch with <a href="sections/nuno.html">Nuno</a>
+        (<a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>) if you are
+        interested in our work and would like to be part of the lab.
+        Include a brief letter of motivation describing your research interests,
+        your CV, and the contacts of two references.
+      </p>
+      <p class="join-intro">
+        By default, candidates are expected to apply to their own fellowships.
+        When funded positions are available, they are announced above.
+        We encourage prospective candidates to contact us <strong>before</strong>
+        calls open so there is time to prepare a competitive application together.
+      </p>
+
+      <!-- ── What we look for ────────────────────────────────── -->
+      <div class="expectations-box">
+        <h3>What we look for</h3>
+        <ul>
+          <li>Genuine scientific curiosity and intellectual rigour</li>
+          <li>Motivation to ask important biological questions using computational approaches</li>
+          <li>Commitment to reproducible, high-quality research</li>
+          <li>Collaborative spirit and willingness to engage critically with ideas</li>
+        </ul>
+        <p>
+          We are <strong>not</strong> the right fit for candidates primarily seeking to learn
+          specific technical skills as an end in themselves. We value people driven by
+          scientific questions, for whom methodology is a means rather than a goal.
+        </p>
+      </div>
+
+
+      <!-- ── Opportunity types ────────────────────────────────── -->
+      <div class="join-section-title">Opportunity Types</div>
+
+      <!-- Postdoc -->
+      <div class="opportunity-block">
+        <div class="opportunity-block-header">
+          <span class="opportunity-badge">Postdoc</span>
+          <h3>Postdoctoral Researchers</h3>
+        </div>
+        <p>
+          We are particularly happy to support the application of very promising young scientists
+          — with the quality, motivation, and ambition to become group leaders — to competitive
+          fellowship schemes. Funding sources we can support applications to include:
+        </p>
+        <ul>
+          <li><a href="https://lacaixafoundation.org/en/postdoctoral-junior-leader-fellowships-description" target="_blank" rel="noopener">La Caixa Junior Leader Fellowships</a></li>
+          <li><a href="https://ec.europa.eu/research/mariecurieactions/actions/individual-fellowships_en" target="_blank" rel="noopener">Marie Skłodowska-Curie Individual Fellowships</a></li>
+          <li><a href="https://www.fct.pt/en/financiamento/programas-de-financiamento/emprego-cientifico/" target="_blank" rel="noopener">FCT Individual Call to Scientific Employment Stimulus</a></li>
+          <li><a href="https://www.embo.org/funding/fellowships-grants-and-career-support/postdoctoral-fellowships/" target="_blank" rel="noopener">EMBO Postdoctoral Fellowships</a></li>
+          <li><a href="https://www.hfsp.org/funding/hfsp-funding/postdoctoral-fellowships" target="_blank" rel="noopener">Human Frontier Science Program Fellowships</a></li>
+        </ul>
+      </div>
+
+      <!-- PhD -->
+      <div class="opportunity-block">
+        <div class="opportunity-block-header">
+          <span class="opportunity-badge">PhD</span>
+          <h3>PhD Candidates</h3>
+        </div>
+        <p>
+          We regularly consider applications from PhD candidates with their own funding
+          or applying to competitive PhD fellowship programmes, including:
+        </p>
+        <ul>
+          <li><a href="https://www.fct.pt/en/financiamento/bolsas-de-investigacao-para-doutoramento/" target="_blank" rel="noopener">FCT Individual PhD Studentships</a></li>
+          <li><a href="https://fundacionlacaixa.org/es/becas-doctorado-inphinit-descripcion" target="_blank" rel="noopener">La Caixa INPhINIT Fellowships</a></li>
+          <li><a href="https://www.bifonds.de/fellowships-grants/phd-fellowships.html" target="_blank" rel="noopener">Boehringer Ingelheim Fonds PhD Fellowships</a> (international students)</li>
+        </ul>
+        <p>
+          Please contact us <strong>well in advance</strong> of call deadlines — not when calls
+          are already open — to allow time for the selection process and to build a competitive
+          application together. We also consider co-supervision of PhDs in industry.
+        </p>
+      </div>
+
+      <!-- Masters -->
+      <div class="opportunity-block">
+        <div class="opportunity-block-header">
+          <span class="opportunity-badge">Masters</span>
+          <h3>Masters Theses</h3>
+        </div>
+        <p>
+          Some of our projects are compatible with Masters theses in Biomedical Research,
+          Bioinformatics, Computational Biology, Biomedical Engineering, and related subjects.
+          Exceptionally skilled and motivated candidates are welcome to get in touch about
+          future academic years.
+        </p>
+      </div>
+
+      <!-- Short-term -->
+      <div class="opportunity-block">
+        <div class="opportunity-block-header">
+          <span class="opportunity-badge">Short-term</span>
+          <h3>Short-term Training &amp; Academic Visits</h3>
+        </div>
+        <p>
+          We occasionally host short-term trainees and visiting scientists.
+          Amongst potential sources of funding, we highlight the
+          <a href="http://www.embo.org/funding-awards/fellowships/short-term-fellowships" target="_blank" rel="noopener">EMBO Short-Term Fellowships</a>.
+          At the more junior level, we favour trainees with Bioengineering and Bioinformatics backgrounds.
+        </p>
+      </div>
+
+
+      <!-- ── Contact CTA ───────────────────────────────────────── -->
+      <div class="join-cta">
+        <p>
+          Interested? We'd love to hear from you.<br>
+          <strong>Send Nuno a brief introduction</strong> — include your research interests,
+          CV, and two references.
+        </p>
+        <a href="mailto:nmorais@nms.unl.pt?subject=Lab%20application%20enquiry"
+           class="btn btn-primary">Get in touch →</a>
+      </div>
+
+    </div><!-- /join-body -->
+  </div><!-- /join-page -->
+
+</body>
+</html>

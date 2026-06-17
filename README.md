@@ -15,6 +15,7 @@ nmoraislab.github.io/
 ├── index.html                   ← Shell: nav, section placeholders, funding block, footer
 ├── publications.html            ← Standalone full publications page
 ├── news.html                    ← Standalone all-news page
+├── join.html                    ← Standalone "Join the Lab" page (open positions + how to apply)
 │
 ├── css/
 │   └── styles.css               ← All design tokens, layout, and component styles
@@ -66,7 +67,7 @@ nmoraislab.github.io/
 
 `index.html` is a shell. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into the right placeholder — so every section is independently editable without touching `index.html`.
 
-`publications.html`, `news.html`, and `sections/nuno.html` are fully standalone pages (not injected).
+`publications.html`, `news.html`, `join.html`, and `sections/nuno.html` are fully standalone pages (not injected).
 
 ---
 
@@ -439,6 +440,67 @@ Smith A<sup>*</sup>, <strong>Jones B</strong><sup>*</sup>, ...
 **For preprints**, add to the existing `Preprints` section at the top.
 
 **Numbering is fully automatic** — JavaScript numbers all peer-reviewed lab publications from oldest [1] to newest. Never add or edit numbers manually.
+
+---
+
+### 🔬 Join the Lab page — `join.html`
+
+This page has three parts: (1) an **Open Positions** banner at the top for active calls, (2) a general **How to Apply** description, and (3) fixed **Opportunity type** blocks (Postdoc, PhD, Masters, Short-term).
+
+The opportunity type blocks and how-to-apply text should be edited directly in `join.html` when the lab's situation changes. The section below covers the most common task: **advertising and closing open positions**.
+
+---
+
+#### Adding an open position
+
+When a funded call or specific position opens:
+
+1. Open `join.html` and find the comment block that starts with:
+   ```
+   <!-- ── Add position cards here when calls are open ──
+   ```
+2. **Remove** (or leave, it's harmless) the `<p class="no-positions">` paragraph.
+3. **Uncomment the example card** (remove the `<!--` and `-->` around it), then fill in the details:
+
+```html
+<div class="position-card">
+  <div class="position-card-type">PhD Fellowship</div>
+  <h3>Title of the position</h3>
+  <p>
+    Short description of what the candidate will work on and any
+    eligibility requirements (nationality, degree, etc.).
+  </p>
+  <p class="position-card-deadline">
+    Application deadline: <span>31 July 2025</span>
+  </p>
+  <a href="mailto:eid-mesg-disease-transcriptomics@groups.nms.unl.pt?subject=PhD%20application"
+     class="btn btn-primary">Apply / Enquire</a>
+</div>
+```
+
+**`position-card-type` values** — use whichever fits:
+- `Postdoctoral Fellowship`
+- `PhD Fellowship`
+- `Masters Thesis`
+- `Short-term Training`
+- `Research Assistant`
+
+**Multiple open positions:** add multiple `.position-card` blocks one after another — each becomes its own card.
+
+**Linking to a full call document:** replace or supplement the `mailto:` link with a link to the PDF/URL of the official call if one exists.
+
+---
+
+#### Closing a position (call is over)
+
+1. **Delete** the `.position-card` block for that position.
+2. If no other cards remain, **restore** (or uncomment) the "no positions" message:
+   ```html
+   <p class="no-positions">
+     No positions are currently advertised. Please check back or get in touch
+     speculatively — we are always happy to hear from exceptional candidates.
+   </p>
+   ```
 
 ---
 
