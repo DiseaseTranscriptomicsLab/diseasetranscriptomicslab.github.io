@@ -136,13 +136,30 @@ Two parts: **project cards** (ongoing work) and **publications by theme** (finis
 #### Adding or editing a project card
 
 Copy any existing `.research-card` block and update:
-- `data-theme` on the outer div: `"cancer"`, `"neuro"`, or `"bioinformatics"`
-- `.research-card-stripe` and `.research-theme-pill` class (must match `data-theme`)
+- `data-theme` on the outer div. Valid values: `"cancer"`, `"neuro"`, `"bioinformatics"`, `"biostatistics"`
+- **Multi-theme cards:** space-separate values — e.g. `data-theme="neuro biostatistics"`. JS automatically renders a gradient stripe and both pills.
+- `.research-card-stripe` — set the class to the **primary** theme; JS overwrites the background for gradients
+- `.research-theme-pills` wrapper — add one `.research-theme-pill.THEME` per theme
 - `.research-card-title` — short project name
 - `.research-keywords` — add/remove `<span class="research-keyword">` tags
 - `.research-card-people` — current members and collaborators
-- `.research-card-desc` — one paragraph description
+- `.research-card-desc` — one paragraph description shown when the card is clicked
 - `.research-card-pub-list` — relevant papers (use bold for lab members, `<sup>*</sup>` for co-firsts)
+
+**To add a preprint link** on a card, include a `.research-card-preprint` paragraph inside `.research-card-detail`, with the link wrapping both the icon and label:
+
+```html
+<p class="research-card-preprint">
+  <a href="https://www.biorxiv.org/content/10.1101/XXXX" target="_blank" rel="noopener">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Preprint (bioRxiv)
+  </a>
+</p>
+```
+
+This renders as a pill badge inside the card and also appears in the modal when the card is opened. Preprints should appear on the card, **not** in the "Finished work" panels below (those are for peer-reviewed publications only — with the exception of preprints that are intentionally kept in a panel for historical reasons).
+
+Each card has a visible **"Read abstract"** label with a chevron at the bottom. Clicking anywhere on the card (or pressing Enter/Space) opens a modal with the full description and any preprint link.
 
 #### Adding a paper to a theme panel
 
@@ -153,6 +170,15 @@ In the "Finished work: publications by theme" section, find the right `<details>
 ```
 
 The legend (`* co-first authors`) is already shown above the panels — no per-entry note needed here.
+
+#### Adding a new research theme
+
+To add a new theme (e.g. `myfield`):
+
+1. Add a CSS block in `css/styles.css` for the dot, pill, hover, and panel colours (follow the pattern of `biostatistics` — choose colours that pass WCAG AA 4.5:1 contrast).
+2. Add `myfield: '#hexcolor'` to the `RESEARCH_THEME_COLOURS` object in `js/main.js`.
+3. Add a filter button in the `#research-filter-bar` in `sections/research.html`.
+4. Optionally add a `<details class="research-pub-panel" data-theme="myfield">` panel in the publications section.
 
 ---
 
@@ -201,6 +227,28 @@ Save photos to `assets/news/`. Aim for at least 800 px wide, under 2 MB (compres
 ```
 
 The first image in the array is also used as the card thumbnail.
+
+---
+
+### 📡 BIOMICS news feed — `sections/news.html`
+
+The News section includes a **BIOMICS spotlight** that auto-fetches the latest news items from [biomics.gimm.pt/news/feed/](https://biomics.gimm.pt/news/feed/) via an RSS-to-JSON proxy (`rss2json.com`). No API key is required. The feed is loaded by `loadBiomicsNews()` in `js/main.js` and rendered as photo cards.
+
+To change the feed URL, update the `BIOMICS_FEED_URL` constant near the top of `loadBiomicsNews()`.
+
+### 🎬 BIOMICS videos — `sections/news.html`
+
+The BIOMICS YouTube videos also live in the News section and are specified in the `BIOMICS_VIDEOS` array in `js/main.js`. Each entry has a `videoId` and `title`.
+
+**To add a video**, push a new entry to the array:
+
+```js
+{ videoId: 'dQw4w9WgXcQ', title: 'BIOMICS Talk — June 2026' }
+```
+
+**Click-to-play pattern** — videos render as a static thumbnail with a play button overlay. Clicking loads the YouTube iframe with autoplay. This defers the iframe until the user explicitly plays the video, keeping the page fast. Thumbnails are fetched directly from YouTube's CDN (`hqdefault.jpg`, 480×360) — no API key needed.
+
+**Play button ARIA**: each thumbnail wrap has `role="button"`, `tabindex="0"`, and an `aria-label` of `"Play <title>"` for keyboard and screen-reader access.
 
 ---
 
@@ -448,9 +496,148 @@ Always open external links in a new tab:
 
 ---
 
+## Accessibility (ARIA)
+
+**ARIA** stands for *Accessible Rich Internet Applications*. It is a set of HTML attributes defined by the W3C (the web standards body) that describe the *purpose and state* of UI elements to assistive technologies — primarily screen readers used by people with visual impairments.
+
+Without ARIA, a screen reader encountering a `<div>` that opens a modal when clicked has no idea what it does. ARIA lets you annotate it: `role="button"` says "this is a button", `aria-label="Close modal"` says what the button does, `aria-modal="true"` tells the screen reader the dialog is modal so it doesn't read background content.
+
+### What has been implemented on this site
+
+- **Research card modals** — each card has `role="button"`, `tabindex="0"` (keyboard focusable), and responds to Enter/Space. The modal itself has `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to the modal title heading. Focus is moved to the Close button when the modal opens.
+- **Modal close button** — labelled with `aria-label="Close modal"` (visible icon only, no text).
+- **Bluesky feed cards** — each post card has `tabindex="0"`, `role="button"`, and an `aria-label` with the post text.
+- **Photo lightbox** — `role="dialog"`, `aria-modal="true"`, `aria-label="Full-size photo"`.
+- **Carousel navigation buttons** — each dot/button has `aria-label="Go to slide N"`.
+- **Decorative icons and images** — marked `aria-hidden="true"` so screen readers skip them.
+- **RSS feed icon** in the BIOMICS news label — `aria-hidden="true"`.
+- **BIOMICS video thumbnails** — each thumbnail wrapper has `role="button"`, `tabindex="0"`, and `aria-label="Play <video title>"`. The SVG play icon is `aria-hidden="true"`. Pressing Enter or Space triggers playback.
+
+### WCAG AA colour contrast
+
+All foreground/background colour combinations were audited programmatically against the WCAG 2.1 Level AA threshold (4.5:1 for normal text, 3:1 for large text). Several colours were adjusted to pass — see the colour variables in `css/styles.css` (`:root`) for the current accessible values. The key changes were:
+
+| Token | Before | After | Reason |
+|---|---|---|---|
+| `--teal` | `#0D9488` | `#087c72` | Failed on white (3.74:1) |
+| `--teal-on-dark` | — | `#14B8A6` | Separate token for dark-bg contexts |
+| `--slate` | `#64748B` | `#5f6e85` | Failed on fog bg (4.31:1) |
+| Muted captions | `#94A3B8` | `#65707e` | Failed on white (2.56:1) |
+| Cancer pill text | `#e11d48` | `#c71640` | Failed on pill bg (4.28:1) |
+| Bio pill text | `#0d9488` | `#087c72` | Failed on pill bg (3.59:1) |
+| Biostatistics pill text | — | `#92400e` (amber-800) | New theme; ~7.5:1 on `#fffbeb` pill bg |
+
+### Further improvements to consider
+
+- Add `lang="en"` to the `<html>` tag in all pages (already present in `index.html` — verify standalone pages).
+- Add `<title>` elements to standalone pages that are currently generic.
+- Ensure all form inputs (if any are added in future) have associated `<label>` elements.
+- Test with an actual screen reader (e.g. VoiceOver on macOS: Cmd+F5) for a real-world check.
+
+---
+
 ## Bluesky feed
 
 The News section automatically fetches the most recent posts from `@nmoraislab.bsky.social` via the public AT Protocol API (no key required). Reposts are filtered out. To change the account, edit the `HANDLE` constant at the top of `loadBlueskyFeed()` in `js/main.js`.
+
+---
+
+## Visual content editor (Decap CMS) — optional setup
+
+> **What this gives you:** a web interface at `https://diseasetranscriptomicslab.github.io/admin/` where anyone with GitHub access can edit site content (news, team members, publications) through forms — no git knowledge or terminal needed. Changes are committed directly to GitHub and deploy automatically.
+
+This is optional. The site works fine without it. Set it up when you're ready to let non-technical collaborators edit content.
+
+---
+
+### Step 1 — Create the GitHub OAuth App
+
+GitHub OAuth is what lets Decap log people in using their GitHub account.
+
+1. Go to **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App** (direct link: <https://github.com/settings/developers>).
+2. Fill in:
+   - **Application name:** `Disease Transcriptomics Lab CMS`
+   - **Homepage URL:** `https://diseasetranscriptomicslab.github.io`
+   - **Authorization callback URL:** `https://api.netlify.com/auth/done`
+3. Click **Register application**.
+4. On the next page, copy the **Client ID** and click **Generate a new client secret** — copy that too. Keep both safe.
+
+---
+
+### Step 2 — Connect Netlify as the OAuth broker
+
+Decap uses Netlify purely as an OAuth middleman (free, no hosting required).
+
+1. Create a free account at <https://app.netlify.com> if you don't have one.
+2. Go to **Sites → Add new site → Deploy manually** and drag any dummy folder to create a placeholder site. The site URL doesn't matter.
+3. Go to **Site configuration → Access & security → OAuth**.
+4. Under **Authentication providers**, click **Install provider → GitHub**.
+5. Paste your **Client ID** and **Client secret** from Step 1, then click **Install**.
+
+---
+
+### Step 3 — Add the `admin/` folder to this repo
+
+Create these two files and commit them (to a branch, then PR into `main`):
+
+**`admin/index.html`** — the CMS entry point:
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disease Transcriptomics Lab CMS</title>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
+</html>
+```
+
+**`admin/config.yml`** — tells Decap which files to edit:
+
+```yaml
+backend:
+  name: github
+  repo: YOUR-ORG/nmoraislab.github.io   # ← replace with actual repo path
+  branch: main
+
+media_folder: assets/news
+public_folder: assets/news
+
+collections:
+  - name: news
+    label: Lab News
+    folder: _data/news
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - { label: Title,   name: title,   widget: string }
+      - { label: Date,    name: date,    widget: string, hint: "e.g. June 2026" }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Content, name: content, widget: markdown }
+      - { label: Image,   name: image,   widget: image, required: false }
+```
+
+> **Note:** Decap works best when content is stored as Markdown/YAML files. Adapting the current JavaScript-array format (`js/news-data.js`) to file-based content requires a small migration — contact the person who built the site for help with that step.
+
+---
+
+### Step 4 — Open the editor
+
+Once the `admin/` folder is live on GitHub Pages:
+
+1. Visit `https://diseasetranscriptomicslab.github.io/admin/`
+2. Click **Login with GitHub** and authorise.
+3. You'll see the content collections. Edit, save — changes commit to the repo and deploy automatically.
+
+---
+
+### Access control
+
+Only GitHub accounts that have **read access to this repository** can log in via Decap. Manage collaborators under **GitHub → Repository → Settings → Collaborators and teams**. There is no separate Decap user list.
 
 ---
 

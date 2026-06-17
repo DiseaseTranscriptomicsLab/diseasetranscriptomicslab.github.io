@@ -46,6 +46,30 @@ async function loadSections() {
 }
 
 /* ── Research filter + pub-panel accordions ─────────────────────── */
+
+// Theme colours used for stripe gradients and filter logic
+const RESEARCH_THEME_COLOURS = {
+  cancer:          '#fca5a5',
+  neuro:           '#c4b5fd',
+  bioinformatics:  '#5eead4',
+  biostatistics:   '#fcd34d',
+};
+
+// Render the coloured top stripe for each card.
+// Supports a single theme (solid) or multiple themes (gradient).
+function initResearchStripes() {
+  document.querySelectorAll('#research-card-grid .research-card').forEach(card => {
+    const stripe = card.querySelector('.research-card-stripe');
+    if (!stripe) return;
+    const themes = (card.dataset.theme || '').split(' ').map(t => t.trim()).filter(Boolean);
+    const colours = themes.map(t => RESEARCH_THEME_COLOURS[t]).filter(Boolean);
+    if (colours.length === 0) return;
+    stripe.style.background = colours.length === 1
+      ? colours[0]
+      : `linear-gradient(to right, ${colours.join(', ')})`;
+  });
+}
+
 function initResearchFilter() {
   // Filter bar — show/hide project cards and pub panels by theme
   const bar = document.getElementById('research-filter-bar');
@@ -57,7 +81,9 @@ function initResearchFilter() {
         this.classList.add('active');
 
         document.querySelectorAll('#research-card-grid .research-card').forEach(card => {
-          card.style.display = (filter === 'all' || card.dataset.theme === filter) ? '' : 'none';
+          // A card matches if it has the filter theme anywhere in its space-separated list
+          const themes = (card.dataset.theme || '').split(' ');
+          card.style.display = (filter === 'all' || themes.includes(filter)) ? '' : 'none';
         });
 
         document.querySelectorAll('#research-pub-panels .research-pub-panel').forEach(panel => {
@@ -72,9 +98,10 @@ function initResearchFilter() {
   overlay.className = 'research-modal-overlay';
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-labelledby', 'research-modal-title-heading');
   overlay.innerHTML = `
     <div class="research-modal">
-      <button class="research-modal-close" aria-label="Close">
+      <button class="research-modal-close" aria-label="Close modal">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.5" stroke-linecap="round">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -94,20 +121,30 @@ function initResearchFilter() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResearchModal(); });
 
   document.querySelectorAll('.research-card').forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+
     card.addEventListener('click', function (e) {
       if (e.target.closest('a')) return;
 
-      const pill     = this.querySelector('.research-theme-pill').outerHTML;
+      // Collect all theme pills (single pill or multiple inside .research-theme-pills)
+      const pillsEl  = this.querySelector('.research-theme-pills') || this.querySelector('.research-theme-pill');
+      const pillsHTML = pillsEl ? pillsEl.outerHTML : '';
       const title    = this.querySelector('.research-card-title').innerHTML;
-      const detail   = this.querySelector('.research-card-detail');
-      const desc     = detail.querySelector('.research-card-desc').innerHTML;
-      const pubItems = [...detail.querySelectorAll('.research-card-pub-list li')]
-                         .map(li => `<li>${li.innerHTML}</li>`).join('');
+      const detail    = this.querySelector('.research-card-detail');
+      const desc      = detail.querySelector('.research-card-desc').innerHTML;
+      const preprint  = detail.querySelector('.research-card-preprint');
+      const pubItems  = [...detail.querySelectorAll('.research-card-pub-list li')]
+                          .map(li => `<li>${li.innerHTML}</li>`).join('');
 
       overlay.querySelector('.research-modal-content').innerHTML = `
-        ${pill}
-        <h3 class="research-modal-title">${title}</h3>
+        ${pillsHTML}
+        <h3 id="research-modal-title-heading" class="research-modal-title">${title}</h3>
         <p class="research-modal-desc">${desc}</p>
+        ${preprint ? preprint.outerHTML : ''}
         ${pubItems ? `
           <p class="research-modal-pubs-label">Publications in this area</p>
           <ul class="research-modal-pub-list">${pubItems}</ul>` : ''}
@@ -115,6 +152,7 @@ function initResearchFilter() {
 
       overlay.classList.add('is-open');
       document.body.style.overflow = 'hidden';
+      overlay.querySelector('.research-modal-close').focus();
     });
   });
 }
@@ -431,13 +469,26 @@ async function loadBiomicsVideos() {
 
   function renderCards(videos) {
     if (!videos.length) return;
-    grid.innerHTML = videos.map((v, i) => `
+    /* Click-to-play: show a high-quality thumbnail and only load the
+       iframe when the user clicks play. hqdefault.jpg = 480×360 (crisp).
+       Mid-video frames are available at 1.jpg/2.jpg/3.jpg but are only
+       120×90 px and look blurry when scaled up — not recommended. */
+    grid.innerHTML = videos.map(v => `
       <div class="biomics-video-card">
-        <div class="biomics-video-wrap">
-          <iframe src="https://www.youtube.com/embed/${escHtml(v.videoId)}"
-                  title="${escHtml(v.title)}"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen loading="lazy"></iframe>
+        <div class="biomics-video-wrap biomics-video-thumb-wrap"
+             data-videoid="${escHtml(v.videoId)}"
+             role="button" tabindex="0"
+             aria-label="Play ${escHtml(v.title)}">
+          <img class="biomics-video-thumb"
+               src="https://img.youtube.com/vi/${escHtml(v.videoId)}/hqdefault.jpg"
+               alt="${escHtml(v.title)}"
+               loading="lazy">
+          <div class="biomics-video-play-btn" aria-hidden="true">
+            <svg viewBox="0 0 68 48" width="68" height="48" xmlns="http://www.w3.org/2000/svg">
+              <rect width="68" height="48" rx="10" fill="rgba(0,0,0,.65)"/>
+              <polygon points="27,13 27,35 51,24" fill="#fff"/>
+            </svg>
+          </div>
         </div>
         <div class="biomics-video-info">
           <span class="biomics-video-tag">BIOMICS Twinning</span>
@@ -445,6 +496,23 @@ async function loadBiomicsVideos() {
           ${v.date ? `<span class="biomics-video-date">${escHtml(v.date)}</span>` : ''}
         </div>
       </div>`).join('');
+
+    /* Attach click / keyboard handlers — swap thumbnail → autoplay iframe */
+    grid.querySelectorAll('.biomics-video-thumb-wrap').forEach(wrap => {
+      function activateVideo() {
+        const videoId = wrap.dataset.videoid;
+        const label   = wrap.getAttribute('aria-label') || 'BIOMICS video';
+        wrap.innerHTML = `<iframe
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
+          title="${label}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>`;
+      }
+      wrap.addEventListener('click', activateVideo);
+      wrap.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateVideo(); }
+      });
+    });
   }
 
   /* Parse XML text from YouTube RSS into video objects */
@@ -511,6 +579,182 @@ async function loadBiomicsVideos() {
     console.warn('All BIOMICS video proxies failed — using hardcoded fallback');
     renderCards(FALLBACK_VIDEOS);
   }
+}
+
+/* ── BIOMICS News Feed ──────────────────────────────────────────
+   Fetches the WordPress RSS from biomics.gimm.pt/news/feed/ via a
+   CORS proxy. All parsing is done on the raw XML text (no
+   namespace issues). Only wp-content/uploads images are accepted
+   so we never show Gravatars or logos as article thumbnails.
+   A "See all news →" card is always the last item.
+   ──────────────────────────────────────────────────────────────── */
+async function loadBiomicsNews() {
+  const container = document.getElementById('biomics-news-items');
+  if (!container) return;
+
+  const RSS_URL   = 'https://biomics.gimm.pt/news/feed/';
+  const NEWS_PAGE = 'https://biomics.gimm.pt/news/';
+  const MAX_ITEMS = 7;
+
+  /* ── helpers ─────────────────────────────────────────────────── */
+
+  /* Extract a simple text tag value from raw XML: <tag>value</tag>
+     Works reliably without namespace or DOMParser quirks. */
+  function tagText(chunk, tag) {
+    const re = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([^<]*)<\\/${tag}>`, 'i');
+    const m  = chunk.match(re);
+    return m ? (m[1] || m[2] || '').trim() : '';
+  }
+
+  /* Only accept images that are real article photos (wp-content/uploads).
+     This filters out Gravatars, plugin icons, logos, etc. */
+  function extractImage(chunk) {
+    // Patterns tried in order of reliability:
+    const patterns = [
+      // media:thumbnail or media:content with uploads URL
+      /url="(https?:\/\/[^"]+\/wp-content\/uploads\/[^"]+\.(?:jpe?g|png|gif|webp)(?:\?[^"]*)?)"/i,
+      // enclosure element pointing to an image
+      /<enclosure[^>]+url="(https?:\/\/[^"]+\/wp-content\/uploads\/[^"]+)"[^>]+type="image[^"]*"/i,
+      // <img src> inside post content, uploads only
+      /src=["'](https?:\/\/[^"']+\/wp-content\/uploads\/[^"']+\.(?:jpe?g|png|gif|webp)[^"']*)["']/i,
+    ];
+    for (const re of patterns) {
+      const m = chunk.match(re);
+      if (m) return m[1];
+    }
+    return '';
+  }
+
+  /* ── parser ──────────────────────────────────────────────────── */
+  function parseBiomicsRss(xmlText) {
+    /* Split on raw <item>…</item> blocks — avoids all namespace issues */
+    const chunks = [];
+    let pos = 0;
+    while (pos < xmlText.length) {
+      const s = xmlText.indexOf('<item', pos);
+      if (s === -1) break;
+      const e = xmlText.indexOf('</item>', s);
+      chunks.push(e > -1 ? xmlText.slice(s, e + 7) : xmlText.slice(s));
+      pos = e > -1 ? e + 7 : xmlText.length;
+    }
+    if (!chunks.length) return null;
+
+    return chunks.slice(0, MAX_ITEMS).map(chunk => {
+      const title = tagText(chunk, 'title');
+      if (!title) return null;
+
+      /* Link: prefer <link> tag text; fall back to <guid> permalink */
+      const link = tagText(chunk, 'link') || tagText(chunk, 'guid') || NEWS_PAGE;
+
+      /* Sanity-check: must be an absolute URL pointing to biomics.gimm.pt */
+      const safeLink = /^https?:\/\//.test(link) ? link : NEWS_PAGE;
+
+      const rawDate = tagText(chunk, 'pubDate');
+      const date    = rawDate
+        ? new Date(rawDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+        : '';
+
+      const image = extractImage(chunk);
+      return { title, link: safeLink, date, image };
+    }).filter(Boolean);
+  }
+
+  /* ── proxy fetch ─────────────────────────────────────────────── */
+  async function tryProxy(proxyUrl, extractFn) {
+    const ctrl = new AbortController();
+    const t    = setTimeout(() => ctrl.abort(), 9000);
+    try {
+      const res = await fetch(proxyUrl, { signal: ctrl.signal });
+      clearTimeout(t);
+      if (!res.ok) return null;
+      const body = await extractFn(res);
+      return body ? parseBiomicsRss(body) : null;
+    } catch (_) { clearTimeout(t); return null; }
+  }
+
+  /* ── "See all news" card ─────────────────────────────────────── */
+  const seeMoreCard = `
+    <a class="biomics-news-card biomics-nc-seemore"
+       href="${NEWS_PAGE}" target="_blank" rel="noopener"
+       aria-label="See all BIOMICS news">
+      <div class="biomics-nc-img-wrap biomics-nc-placeholder" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)"
+             stroke-width="1.5" stroke-linecap="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+      <div class="biomics-nc-body biomics-nc-seemore-body">
+        <span class="biomics-nc-title">See all BIOMICS news</span>
+        <span class="biomics-nc-read">biomics.gimm.pt/news/ &#8599;</span>
+      </div>
+    </a>`;
+
+  /* ── card renderer ───────────────────────────────────────────── */
+  function renderBiomicsCards(newsItems) {
+    const cards = newsItems.map(item => {
+      const imgHtml = item.image
+        ? `<img class="biomics-nc-img" src="${escHtml(item.image)}" alt="" loading="lazy" />`
+        : `<div class="biomics-nc-placeholder" aria-hidden="true">
+             <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                  stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round">
+               <rect x="3" y="3" width="18" height="18" rx="3"/>
+               <circle cx="8.5" cy="8.5" r="1.5"/>
+               <path d="m21 15-5-5L5 21"/>
+             </svg>
+           </div>`;
+      return `
+        <a class="biomics-news-card" href="${escHtml(item.link)}" target="_blank" rel="noopener"
+           aria-label="${escHtml(item.title)}">
+          <div class="biomics-nc-img-wrap">${imgHtml}</div>
+          <div class="biomics-nc-body">
+            <span class="biomics-nc-title">${escHtml(item.title)}</span>
+            ${item.date ? `<span class="biomics-nc-date">${escHtml(item.date)}</span>` : ''}
+            <span class="biomics-nc-read">Read more →</span>
+          </div>
+        </a>`;
+    });
+    container.innerHTML = cards.join('') + seeMoreCard;
+
+    /* Hide broken images gracefully (show placeholder instead) */
+    container.querySelectorAll('.biomics-nc-img').forEach(img => {
+      img.addEventListener('error', () => {
+        const wrap = img.closest('.biomics-nc-img-wrap');
+        if (wrap) wrap.innerHTML = `<div class="biomics-nc-placeholder" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg></div>`;
+      });
+    });
+  }
+
+  /* ── fetch with proxy fallback chain ─────────────────────────── */
+  let items = await tryProxy(
+    `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`,
+    async r => { const j = await r.json(); return j.contents || null; }
+  );
+  if (!items) {
+    items = await tryProxy(
+      `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
+      async r => r.text()
+    );
+  }
+  if (!items) {
+    items = await tryProxy(
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
+      async r => r.text()
+    );
+  }
+
+  container.innerHTML = items?.length ? '' : '';  // clear loading text
+  if (!items || !items.length) {
+    container.innerHTML = seeMoreCard;
+    return;
+  }
+
+  renderBiomicsCards(items);
 }
 
 /* ── Lab News ───────────────────────────────────────────────────
@@ -800,10 +1044,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   initAnimations();                  // observe .fade-up elements now that sections are in the DOM
   initSmoothScroll();                // wire anchor links in freshly-injected sections
   initSoftwareFilter();              // wire up tool filter buttons now that software.html is injected
+  initResearchStripes();             // set gradient stripes on multi-theme cards
   initResearchFilter();              // wire up research theme filter + pub-panel accordions
   loadLabNews(4);                    // #lab-news-grid — 4 most recent; full list on news.html
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
   loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
+  loadBiomicsNews();                 // #biomics-news-items — auto-fetched from biomics.gimm.pt RSS
   initAlumniSlideshow();             // #alumni-slideshow — group photo crossfade carousel
   initAlumniTimeline();              // hover highlight: dim other photos + names
 

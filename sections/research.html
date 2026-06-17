@@ -3,16 +3,26 @@
 
      HOW TO EDIT:
        Project cards live in #research-card-grid.
-       Each card needs data-theme: "cancer", "neuro", or "bioinformatics".
 
-       Click a card to reveal its description + area publications.
+       Single theme:  data-theme="cancer"
+       Multi-theme:   data-theme="cancer neuro"   ← space-separated
+
+       The top stripe is automatically a gradient for multi-theme cards.
+       Valid theme names: cancer | neuro | bioinformatics | biostatistics
 
        To add a project: duplicate a .research-card block and update:
-         - data-theme on the outer div
-         - .research-card-stripe and .research-theme-pill class
+         - data-theme on the outer div (space-separated for multi-theme)
+         - .research-card-stripe class (first/primary theme; JS sets gradient)
+         - .research-theme-pills wrapper with one .research-theme-pill per theme
          - .research-card-title, .research-keywords, .research-card-people
          - .research-card-desc (one short paragraph)
          - .research-card-pub-list (publications relevant to this theme)
+
+       Multi-theme pill example:
+         <div class="research-theme-pills">
+           <span class="research-theme-pill cancer">…RNA in cancer</span>
+           <span class="research-theme-pill neuro">…Neuro-biology</span>
+         </div>
      ================================================================ -->
 <section id="research">
   <div class="container">
@@ -40,6 +50,9 @@
       <button class="research-filter-btn" data-filter="bioinformatics">
         <span class="rfilter-dot bioinformatics"></span>Bioinformatics tools
       </button>
+      <button class="research-filter-btn" data-filter="biostatistics">
+        <span class="rfilter-dot biostatistics"></span>Biostatistics
+      </button>
     </div>
 
     <!-- ── PROJECT CARDS ─────────────────────────────────────────── -->
@@ -50,10 +63,12 @@
       <div class="research-card fade-up" data-theme="cancer">
         <div class="research-card-stripe cancer"></div>
         <div class="research-card-body">
-          <span class="research-theme-pill cancer">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            RNA in cancer
-          </span>
+          <div class="research-theme-pills">
+            <span class="research-theme-pill cancer">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              RNA in cancer
+            </span>
+          </div>
           <div class="research-card-title"><em>CDKN2A</em> in senescence and cancer</div>
           <div class="research-keywords">
             <span class="research-keyword">alternative promoters</span>
@@ -63,10 +78,10 @@
           </div>
           <div class="research-card-people">
             <strong>Members:</strong> Rita Martins-Silva, Maria Guerra (alumna), Mariana Ascensão-Ferreira (alumna), Nuno Barbosa-Morais (PI)<br>
-            <strong>Collaborators:</strong> Jesús Gil, <a href="https://www.researchgate.net/profile/Maria_Vivo" target="_blank" rel="noopener">Maria Vivo</a>
+            <strong>Collaborators:</strong> <a href="https://lms.mrc.ac.uk/research/senescence/" target="_blank" rel="noopener">Jesús Gil</a>, <a href="https://www.researchgate.net/profile/Maria_Vivo" target="_blank" rel="noopener">Maria Vivo</a>
           </div>
           <div class="research-card-toggle">
-            <span>Learn more →</span>
+            <span>Read abstract</span>
             <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -95,10 +110,12 @@
       <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.05s;">
         <div class="research-card-stripe cancer"></div>
         <div class="research-card-body">
-          <span class="research-theme-pill cancer">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            RNA in cancer
-          </span>
+          <div class="research-theme-pills">
+            <span class="research-theme-pill cancer">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              RNA in cancer
+            </span>
+          </div>
           <div class="research-card-title">Uncovering the stressome: stress granule signature and its implication in cancer</div>
           <div class="research-keywords">
             <span class="research-keyword">stress granules</span>
@@ -111,28 +128,13 @@
             <strong>Collaborators:</strong> <a href="https://imm.medicina.ulisboa.pt/pt-pt/investigation/laboratories/vanessa-morais-lab-2/#intro" target="_blank" rel="noopener">Vanessa Morais</a>
           </div>
           <div class="research-card-toggle">
-            <span>Learn more →</span>
+            <span>Read abstract</span>
             <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
         <div class="research-card-detail">
           <p class="research-card-desc">
-            Stress granules (SGs) are membraneless cytoplasmic condensates that form rapidly in
-            response to a wide range of cellular stressors — including hypoxia, nutrient
-            deprivation, oxidative stress, viral infection, and chemotherapy — and dissolve upon
-            stress resolution. Composed of stalled preinitiation complexes, mRNAs, and a rich
-            complement of RNA-binding proteins, they are thought to selectively sequester specific
-            transcripts and proteins — including regulators of apoptosis, senescence, and immune
-            signalling — thereby fine-tuning the cellular response to environmental challenge.
-            Beyond their physiological roles, SGs have been implicated in cancer, where they
-            may promote survival and confer resistance to therapy, as well as in neurodegeneration
-            and antiviral defence. Nevertheless, the precise composition of SGs and the functional
-            significance of their molecular cargo remain contested, partly due to methodological
-            inconsistencies between purification approaches. This project performs an unbiased
-            integration of publicly available human SG transcriptomic datasets, spanning multiple
-            cell lines, stressors, and purification methods, to resolve these discrepancies,
-            identify reproducible features of SG-enriched transcriptomes, and probe the
-            implications of SG biology for cancer and other pathological contexts.
+            Stress granules (SGs) are membraneless cytoplasmic condensates that form rapidly in response to a wide range of cellular stressors, including hypoxia, nutrient deprivation, oxidative stress, viral infection, and chemotherapy, and dissolve upon stress resolution. Composed of stalled preinitiation complexes, mRNAs, and a rich complement of RNA-binding proteins, they are thought to selectively sequester specific transcripts and proteins, including regulators of apoptosis, senescence, and immune signalling, thereby fine-tuning the cellular response to environmental challenge. Beyond their physiological roles, SGs have been implicated in cancer, where they may promote survival and confer resistance to therapy, as well as in neurodegeneration and antiviral defence. Nevertheless, the precise composition of SGs and the functional significance of their molecular cargo remain contested, partly due to methodological inconsistencies between purification approaches. This project performs an unbiased integration of publicly available human SG transcriptomic datasets, spanning multiple cell lines, stressors, and purification methods, to resolve these discrepancies, identify reproducible features of SG-enriched transcriptomes, and probe the implications of SG biology for cancer and other pathological contexts.
           </p>
         </div>
       </div>
@@ -140,10 +142,12 @@
       <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.1s;">
         <div class="research-card-stripe cancer"></div>
         <div class="research-card-body">
-          <span class="research-theme-pill cancer">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            RNA in cancer
-          </span>
+          <div class="research-theme-pills">
+            <span class="research-theme-pill cancer">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              RNA in cancer
+            </span>
+          </div>
           <div class="research-card-title">Predicting response to neoadjuvant therapy in locally advanced rectal cancer</div>
           <div class="research-keywords">
             <span class="research-keyword">cancer</span>
@@ -154,7 +158,7 @@
             <strong>Members:</strong> Francisca Xara-Brasil, Nuno Barbosa-Morais (PI)
           </div>
           <div class="research-card-toggle">
-            <span>Learn more →</span>
+            <span>Read abstract</span>
             <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -164,50 +168,185 @@
         </div>
       </div>
 
+      <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.15s;">
+        <div class="research-card-stripe cancer"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill cancer">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              RNA in cancer
+            </span>
+          </div>
+          <div class="research-card-title">Limited bone marrow chimerism impairs cell competition in the thymus and causes leukemia</div>
+          <div class="research-keywords">
+            <span class="research-keyword">cancer</span>
+            <span class="research-keyword">leukaemia</span>
+            <span class="research-keyword">cell competition</span>
+            <span class="research-keyword">immunodeficiency</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Francisca Xara-Brasil, Alexandre Kaizeler, Nuno Barbosa-Morais (co-PI)<br>
+            <strong>Collaborators:</strong> Carolina Pinto, <a href="https://www.vmartinslab.com/contact" target="_blank" rel="noopener">Vera Martins</a> (PI)
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Cell competition in the thymus is a critical tumour suppressor process that prevents leukemia. We show that suboptimal bone marrow correction of γc-deficient mice disrupts this process, inducing thymus autonomy and promoting T cell acute lymphoblastic leukemia (T-ALL). γc-deficiency causes severe combined immunodeficiency in mice and humans and is treated by hematopoietic stem and progenitor cell (HSPC) transplantation. However, inefficient correction led to intermittent thymic activity and the emergence of an aberrant thymocyte population that preceded overt leukemia. Leukemia incidence and latency were exacerbated when HSPCs were pre-cultured under conditions mimicking gene-editing protocols, whereas delaying thymopoietic support in the host mitigated disease. Critically, the extent of bone marrow reconstitution determined the ability to suppress thymus autonomy and leukemia development. These findings demonstrate that inadequate bone marrow correction directly compromises thymic cell competition, creating a permissive niche for malignant transformation, and highlight thymus autonomy as a risk in immunodeficiency treatment.
+          </p>
+          <p class="research-card-preprint">
+              <a href="https://www.biorxiv.org/content/10.1101/2025.12.16.694652" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Preprint (bioRxiv)</a>
+            </p>
+        </div>
+      </div>
+
       <!-- ══ NEURO-BIOLOGY ══════════════════════════════════════════ -->
 
-      <div class="research-card fade-up" data-theme="neuro" style="transition-delay:.2s;">
+      <div class="research-card fade-up" data-theme="neuro biostatistics" style="transition-delay:.2s;">
         <div class="research-card-stripe neuro"></div>
         <div class="research-card-body">
-          <span class="research-theme-pill neuro">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/></svg>
-            Neuro-biology
-          </span>
-          <div class="research-card-title">Circadian disruption in a submarine crew: health impact of alternating shift work in confined environments</div>
+          <div class="research-theme-pills">
+            <span class="research-theme-pill neuro">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/></svg>
+              Neuro-biology
+            </span>
+            <span class="research-theme-pill biostatistics">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 3 3 21 21 21"/><polyline points="7 16 11 9 15 14 19 7"/></svg>
+              Biostatistics
+            </span>
+          </div>
+          <div class="research-card-title">An effect size-based screening approach to identify actigraphy markers of the submarine environment</div>
           <div class="research-keywords">
             <span class="research-keyword">circadian rhythms</span>
+            <span class="research-keyword">actigraphy</span>
             <span class="research-keyword">shift work</span>
+            <span class="research-keyword">sleep</span>
           </div>
           <div class="research-card-people">
             <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)<br>
             <strong>Collaborators:</strong> <a href="https://fch.lisboa.ucp.pt/pt-pt/pessoa/catia-reis" target="_blank" rel="noopener">Catia Reis</a> (Co-PI)
           </div>
           <div class="research-card-toggle">
-            <span>Learn more →</span>
+            <span>Read abstract</span>
             <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
         <div class="research-card-detail">
           <p class="research-card-desc">
-            Submarine duty combines prolonged light deprivation, irregular sleep–wake cycles,
-            and chronic stress — a uniquely severe challenge for the circadian clock. Using
-            transcriptomic profiling of crew members before, during, and after deployment,
-            this project characterises the molecular signatures of circadian disruption and
-            assesses downstream consequences for immune function, metabolism, and ageing.
+            Identifying behavioural markers of disease risk associated with circadian disruption
+            is challenging due to reproducibility concerns in under-powered human studies.
+            Submarines provide an extreme model of circadian disruption — depriving crew of
+            natural light–dark cycles and limiting physical activity. We developed an effect
+            size-based method to screen potential actigraphy-derived markers of the submarine
+            environment, collecting data across pre-mission, mission, and post-mission periods.
+            Forty-one actigraphy variables were screened for their ability to differentiate
+            between study periods and shift types using Monte Carlo permutation testing and ROC
+            curve analysis. Light-related features and DLMO trajectory slopes showed the
+            strongest discriminatory potential. These findings support the use of actigraphy in
+            dimly-lit, isolated, confined, and extreme (DICE) environments and its
+            applicability to other operational or clinical populations with reduced activity.
+          </p>
+          <p class="research-card-preprint">
+              <a href="https://www.biorxiv.org/content/10.1101/2025.06.16.659930v2" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Preprint (bioRxiv)</a>
+            </p>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="neuro" style="transition-delay:.25s;">
+        <div class="research-card-stripe neuro"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill neuro">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/></svg>
+              Neuro-biology
+            </span>
+          </div>
+          <div class="research-card-title">Effect of statin treatment in chronic sleep deprivation</div>
+          <div class="research-keywords">
+            <span class="research-keyword">neurobiology</span>
+            <span class="research-keyword">sleep deprivation</span>
+            <span class="research-keyword">statins</span>
+            <span class="research-keyword">behaviour</span>
+            <span class="research-keyword">transcriptomics</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Alexandre Kaizeler, Nuno Barbosa-Morais (co-PI)<br>
+            <strong>Collaborators:</strong> Gabriela Lima da Silva, <a href="https://www.medicina.ulisboa.pt/en/bio/anaseb" target="_blank" rel="noopener">Ana Sebastião</a> (PI)
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Statins are widely prescribed lipid-lowering drugs with well-established pleiotropic effects in the nervous system, including anti-inflammatory activity and modulation of neuronal signalling. Chronic sleep deprivation impairs cognitive function and alters brain gene expression, yet whether statin treatment can mitigate these consequences remains largely unexplored. Using a rat model of chronic sleep deprivation, this project investigates the effects of rosuvastatin, atorvastatin, and simvastatin on a battery of behavioural endpoints, including anxiety, locomotion, and spatial and recognition memory, alongside hippocampal transcriptomic profiling. Integrating differential gene expression and gene set enrichment analyses, we aim to characterise the molecular landscape of the sleep-deprived brain and its response to pharmacological intervention.
           </p>
         </div>
       </div>
 
       <!-- ══ BIOINFORMATICS TOOLS ═══════════════════════════════════ -->
 
-
       <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.3s;">
         <div class="research-card-stripe bioinformatics"></div>
         <div class="research-card-body">
-          <span class="research-theme-pill bioinformatics">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Bioinformatics
-          </span>
+          <div class="research-theme-pills">
+            <span class="research-theme-pill bioinformatics">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Bioinformatics
+            </span>
+          </div>
+          <div class="research-card-title"><em>circStudio</em>: a Python package for preprocessing, analyzing and modeling actigraphy data</div>
+          <div class="research-keywords">
+            <span class="research-keyword">actigraphy</span>
+            <span class="research-keyword">circadian rhythms</span>
+            <span class="research-keyword">Python</span>
+            <span class="research-keyword">wearables</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)<br>
+            <strong>Collaborators:</strong> <a href="https://fch.lisboa.ucp.pt/pt-pt/pessoa/catia-reis" target="_blank" rel="noopener">Cátia Reis</a> (Co-PI), Carina Fernandes
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Actigraphy is a non-invasive and cost-effective method for monitoring behavioural
+            rhythms under real-world conditions, collecting time-resolved measurements of
+            locomotor activity, light exposure, and temperature. Although several open-source
+            packages support specific aspects of actigraphy analysis, preprocessing, metric
+            calculation, and mathematical modelling are often distributed across separate
+            tools, limiting interoperability. <em>circStudio</em> is a Python package that
+            unifies actigraphy data processing and mathematical modelling of circadian rhythms
+            within a single framework. Built from the <em>pyActigraphy</em> codebase and
+            integrating circadian models from the Arcascope <em>circadian</em> package, it
+            provides flexible preprocessing tools, support for multiple actigraphy file
+            formats, standalone functions for commonly used actigraphy metrics, and
+            implementations of several mathematical models of circadian rhythms — enabling
+            users to move efficiently from raw wearable data to physiologically interpretable
+            circadian outputs.
+          </p>
+          <p class="research-card-preprint">
+              <a href="https://www.biorxiv.org/content/10.64898/2026.03.30.711342v1" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Preprint (bioRxiv)</a>
+            </p>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.35s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill bioinformatics">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Bioinformatics
+            </span>
+          </div>
           <div class="research-card-title"><a href="https://compbio.imm.medicina.ulisboa.pt/app/scStudio" target="_blank" rel="noopener">scStudio</a>: interactive interface for single-cell transcriptomics data exploration</div>
           <div class="research-keywords">
             <span class="research-keyword">scRNA-seq</span>
@@ -218,17 +357,70 @@
             <strong>Collaborators:</strong> <a href="http://www.immunology.kserre.net/" target="_blank" rel="noopener">Karine Serre</a>
           </div>
           <div class="research-card-toggle">
-            <span>Learn more →</span>
+            <span>Read abstract</span>
             <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
         <div class="research-card-detail">
           <p class="research-card-desc">
-            scStudio is a modular, browser-based platform for exploratory and reproducible
-            single-cell RNA-seq analysis. It supports workflows from raw count matrices
-            through dimensionality reduction, clustering, and biological interpretation,
-            and is being applied to characterise immunosenescence — the age-related
-            decline of immune function — at single-cell resolution.
+            Single-cell RNA sequencing (scRNA-seq) has revolutionised our understanding of
+            cellular heterogeneity, yet the complexity of its analysis poses challenges for
+            researchers without computational expertise. scStudio is a user-friendly,
+            comprehensive, and modular web-based application designed to democratise
+            scRNA-seq data analysis. It supports automated dataset retrieval from the Gene
+            Expression Omnibus, user-uploaded datasets in a variety of formats, multi-dataset
+            integration, and flexible parameter optimisation. The application covers all
+            essential steps — quality control, normalisation, dimensionality reduction,
+            clustering, differential expression, and functional enrichment analysis — and
+            includes analysis history tracking, session export, and data sharing features.
+            scStudio is being applied to characterise immunosenescence at single-cell
+            resolution.
+          </p>
+          <p class="research-card-preprint">
+              <a href="https://www.biorxiv.org/content/10.1101/2025.04.17.649161v2" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Preprint (bioRxiv)</a>
+            </p>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.4s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill bioinformatics">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Bioinformatics
+            </span>
+          </div>
+          <div class="research-card-title"><em>CHARM</em>: Comprehensive Hub for Alternative Regulatory Mapping</div>
+          <div class="research-keywords">
+            <span class="research-keyword">RNA-binding proteins</span>
+            <span class="research-keyword">alternative splicing</span>
+            <span class="research-keyword">ENCODE</span>
+            <span class="research-keyword">eCLIP</span>
+            <span class="research-keyword">regulatory networks</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Alexandre Kaizeler, Nuno Barbosa-Morais (PI)
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            RNA-binding proteins (RBPs) are key regulators of gene expression and RNA processing,
+            yet the interplay between their roles in transcription, splicing, and direct RNA
+            binding is not fully described. CHARM is an R Shiny web application that integrates
+            multi-layered data from 168 RBPs profiled in the ENCODE project across HepG2 and K562
+            cell lines. CHARM enables exploration of RBP-driven changes in gene expression,
+            alternative splicing, and RNA binding, and supports inference of regulatory networks
+            across these layers. Splicing maps are generated through <em>eCLIPSE</em>, a companion
+            tool that aligns eCLIP binding profiles to splicing event coordinates defined in VastDB,
+            enabling assessment of both direct and indirect splicing regulation. CHARM additionally
+            allows users to upload their own datasets to identify candidate RBPs relevant to their
+            system. Together, CHARM and eCLIPSE provide a unified discovery platform for dissecting
+            the regulatory landscape of RBPs in human disease contexts.
           </p>
         </div>
       </div>
@@ -272,7 +464,6 @@
           <svg class="research-pub-panel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
         <ul class="research-pub-panel-list">
-          <li><strong>Marques D</strong>, Fernandes C, <strong>Barbosa-Morais NL</strong>, Reis C. <em>bioRxiv</em>, 2025.06.16.659930. [<a href="https://doi.org/10.1101/2025.06.16.659930" target="_blank" rel="noopener">Preprint</a>]</li>
           <li>Sousa NS, <strong>Bica M</strong> et al. <em>Cell Reports</em>, 2024;43(11):114975. [<a href="https://pubmed.ncbi.nlm.nih.gov/39541212/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Martins I, Neves-Silva D, <strong>Ascensão-Ferreira M</strong> et al. <em>Int J Mol Sci</em>, 2023;24(7):6433. [<a href="https://pubmed.ncbi.nlm.nih.gov/37047406/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Goulielmaki E, Tsekrekou M, Batsiotos N, <strong>Ascensão-Ferreira M</strong> et al. <em>Nat Commun</em>, 2021;12(1):3153. [<a href="https://pubmed.ncbi.nlm.nih.gov/34039990/" target="_blank" rel="noopener">PubMed</a>]</li>
@@ -293,7 +484,6 @@
         </summary>
         <ul class="research-pub-panel-list">
           <li><strong>Martins-Silva R</strong>, <strong>Kaizeler A</strong>, <strong>Barbosa-Morais NL</strong>. <em>NAR Genomics and Bioinformatics</em>, 2026. [<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Paper</a>]</li>
-          <li><strong>Bica M</strong>, Serre K, <strong>Barbosa-Morais NL</strong>. <em>bioRxiv</em>, 2025.04.17.649161. [<a href="https://doi.org/10.1101/2025.04.17.649161" target="_blank" rel="noopener">Preprint</a>]</li>
           <li><strong>Schneider AL</strong><sup>*</sup>, <strong>Martins-Silva R</strong><sup>*</sup>, <strong>Kaizeler A</strong><sup>*</sup> et al. <em>eLife</em>, 2024;12:RP88623. [<a href="https://pubmed.ncbi.nlm.nih.gov/38546191/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li><strong>Ascensão-Ferreira M</strong><sup>*</sup>, <strong>Martins-Silva R</strong><sup>*</sup> et al. <em>RNA</em>, 2024;30(4):337–353. [<a href="https://pubmed.ncbi.nlm.nih.gov/38278530/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li><strong>Saraiva-Agostinho N</strong> &amp; <strong>Barbosa-Morais NL</strong>. <em>Methods Mol Biol</em>, 2020;2117:179–205. [<a href="https://pubmed.ncbi.nlm.nih.gov/31960379/" target="_blank" rel="noopener">PubMed</a>]</li>
