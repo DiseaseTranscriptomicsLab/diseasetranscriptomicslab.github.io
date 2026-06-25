@@ -1,19 +1,19 @@
 /* ================================================================
-   LAB NEWS — js/news-data.js
+   LAB NEWS - js/news-data.js
 
    Add or edit news items below. Each item appears as a card in
    the News section (4 most recent on the main page, all on news.html).
 
    Required:
-     date    — display string, e.g. "June 2026"
-     title   — short headline
-     summary — 1–2 sentence teaser shown on the card
+     date    - display string, e.g. "June 2026"
+     title   - short headline
+     summary - 1-2 sentence teaser shown on the card
 
    Optional:
-     image    — URL to the card thumbnail (first / best image)
-     imageAlt — alt text for the thumbnail
-     images   — array of {src, alt} objects shown as a gallery in the modal
-     content  — full HTML shown in the pop-up modal
+     image    - URL to the card thumbnail (first / best image)
+     imageAlt - alt text for the thumbnail
+     images   - array of {src, alt} objects shown as a gallery in the modal
+     content  - full HTML shown in the pop-up modal
 
    Items are listed most-recent-first.
    ================================================================ */
@@ -25,12 +25,12 @@ const LAB_NEWS = [
   {
     date:     "8 June 2026",
     title:    "markeR published in NAR Genomics & Bioinformatics",
-    summary:  "Our peer-reviewed article on markeR — an R toolkit for evaluating gene sets as phenotypic markers — is out in NAR Genomics & Bioinformatics.",
+    summary:  "Our peer-reviewed article on markeR - an R toolkit for evaluating gene sets as phenotypic markers - is out in NAR Genomics & Bioinformatics.",
     image:    "assets/news/bafkreigifqhty6ujjeo6vvt66v5laywhzmeipgnhgo6i7qq7t353ninsyu.jpg",
     imageAlt: "markeR paper cover",
     content: `
       <p>
-        Finally out — our peer-reviewed article is published in
+        Finally out - our peer-reviewed article is published in
         <strong>NAR Genomics &amp; Bioinformatics</strong>!
       </p>
       <p>
@@ -39,7 +39,7 @@ const LAB_NEWS = [
       </p>
       <p>
         markeR provides a modular, extensible framework for the systematic evaluation
-        of gene sets as phenotypic markers using transcriptomic data — tackling
+        of gene sets as phenotypic markers using transcriptomic data - tackling
         biological processes like cellular senescence that manifest as diverse
         phenotypes across cell types and conditions.
       </p>
@@ -57,7 +57,7 @@ const LAB_NEWS = [
   {
     date:     "28 March 2026",
     title:    "Lab at the Bioinformatics Open Days at UMinho",
-    summary:  "The Lab was well represented at the Bioinformatics Open Days (25–27 March), with Nuno giving a keynote and three members presenting posters.",
+    summary:  "The Lab was well represented at the Bioinformatics Open Days (25-27 March), with Nuno giving a keynote and three members presenting posters.",
     image:    "assets/news/bafkreigf74zxfgbd5uyzh3vtpnrderyilykofrvjmzclcjsyq4v64c7d54.jpg",
     imageAlt: "Lab members at the Bioinformatics Open Days at UMinho",
     images: [
@@ -70,7 +70,7 @@ const LAB_NEWS = [
       <p>
         The Lab was well represented at the
         <strong>Bioinformatics Open Days</strong> at the University of Minho
-        (25–27 March 2026).
+        (25-27 March 2026).
       </p>
       <p>
         Nuno gave a keynote lecture, while Alexandre Kaizeler, Francisca, and
@@ -82,7 +82,7 @@ const LAB_NEWS = [
 
   {
     date:     "19 March 2026",
-    title:    "Congratulations to our new Master — Daniel Marques, 20/20!",
+    title:    "Congratulations to our new Master - Daniel Marques, 20/20!",
     summary:  "Daniel Marques brilliantly defended his MSc dissertation and was awarded a perfect 20/20. We are so proud!",
     image:    "assets/news/bafkreifyr54xkx7rte5wkkych7gs7562enq7cmtsoj63ousfnsnarosjlm.jpg",
     imageAlt: "Daniel Marques MSc defence",
@@ -205,7 +205,7 @@ const LAB_NEWS = [
 
   {
     date:     "30 January 2026",
-    title:    "Lab shines at CAML & GIMM PhD Meeting — Rita wins Best Poster award",
+    title:    "Lab shines at CAML & GIMM PhD Meeting - Rita wins Best Poster award",
     summary:  "Alexandre Kaizeler, Rita Martins-Silva, and Francisca presented at the CAML & GIMM PhD Meeting. Rita won the Best Poster Presentation award for 4th-year PhD students!",
     image:    "assets/news/bafkreih6oaewmr6cd4wfrftxldgkb34lh7fgfne6pvv3avbnzm5utudpue.jpg",
     imageAlt: "Lab members at the CAML & GIMM PhD Meeting",
@@ -235,7 +235,7 @@ const LAB_NEWS = [
   {
     date:     "11 December 2025",
     title:    "markeR preprint now on bioRxiv",
-    summary:  "Our preprint on markeR — an R toolkit for evaluating gene sets as phenotypic markers of senescence — is now available on bioRxiv.",
+    summary:  "Our preprint on markeR - an R toolkit for evaluating gene sets as phenotypic markers of senescence - is now available on bioRxiv.",
     image:    "assets/news/bafkreicia5jvqrzlpowkuehu7tz6k4r2nbzc3ulojklrccrlw5vrzykozi.jpg",
     imageAlt: "markeR preprint thumbnail",
     content: `
@@ -264,7 +264,7 @@ const LAB_NEWS = [
 
   {
     date:     "May 2025",
-    title:    "Congratulations to Mariana — PhD defended!",
+    title:    "Congratulations to Mariana - PhD defended!",
     summary:  "Mariana brilliantly defended her PhD Thesis. The whole lab is incredibly proud of her achievement!",
     content: `
       <p>
@@ -293,13 +293,13 @@ const LAB_NEWS = [
   },
 
   {
-    date:     "June–July 2024",
+    date:     "June-July 2024",
     title:    "Maria and Daniel join the Lab for their Masters theses",
     summary:  "Maria and Daniel joined the Lab to develop their Masters theses, respectively in Regenerative and Precision Medicine (IST) and Biomedical Research (ULisboa).",
     content: `
       <p>
         <strong>Maria</strong> and <strong>Daniel</strong> joined the Lab
-        to develop their Masters theses — Maria in
+        to develop their Masters theses - Maria in
         <a href="https://tecnico.ulisboa.pt/en/education/courses/masters-programmes/bioengenharia-medicina-regenerativa-e-de-precisao/"
            target="_blank" rel="noopener">Regenerative and Precision Medicine at IST</a>
         and Daniel in
@@ -313,7 +313,7 @@ const LAB_NEWS = [
   {
     date:     "June 2024",
     title:    "Nuno receives the University of Lisbon / CGD 2024 Scientific Award",
-    summary:  "Nuno received the University of Lisbon / Caixa Geral de Depósitos 2024 Scientific Award in Biomedical Sciences — recognising collective work across the lab.",
+    summary:  "Nuno received the University of Lisbon / Caixa Geral de Depósitos 2024 Scientific Award in Biomedical Sciences - recognising collective work across the lab.",
     content: `
       <p>
         Nuno received the
@@ -322,7 +322,7 @@ const LAB_NEWS = [
         in Biomedical Sciences.
       </p>
       <p>
-        The award is individual but bibliometric — and therefore recognises the
+        The award is individual but bibliometric - and therefore recognises the
         collective work of everyone in the lab. Thank you all! 🙏
       </p>
     `,
@@ -383,7 +383,7 @@ const LAB_NEWS = [
 
   {
     date:     "May 2023",
-    title:    "Congratulations to Nuno A. — PhD defended!",
+    title:    "Congratulations to Nuno A. - PhD defended!",
     summary:  "Nuno Agostinho brilliantly defended his PhD Thesis. A huge milestone and a great achievement!",
     content: `
       <p>
@@ -426,8 +426,8 @@ const LAB_NEWS = [
 
   {
     date:     "March 2021",
-    title:    "Congratulations to Marie — PhD defended!",
-    summary:  "Marie brilliantly defended her PhD Thesis. A huge milestone — congratulations!",
+    title:    "Congratulations to Marie - PhD defended!",
+    summary:  "Marie brilliantly defended her PhD Thesis. A huge milestone - congratulations!",
     content: `
       <p>
         <strong>Marie</strong> brilliantly defended her PhD Thesis in March 2021!
@@ -492,7 +492,7 @@ const LAB_NEWS = [
   {
     date:     "September 2019",
     title:    "ESRP2 and alternative splicing in prostate cancer published in eLife",
-    summary:  "Our collaborative work with the Elliott Lab — \"Androgen-regulated transcription of ESRP2 drives alternative splicing patterns in prostate cancer\" — is published in eLife.",
+    summary:  "Our collaborative work with the Elliott Lab - \"Androgen-regulated transcription of ESRP2 drives alternative splicing patterns in prostate cancer\" - is published in eLife.",
     content: `
       <p>
         Our collaborative work with the <strong>Elliott Lab</strong>,
@@ -530,7 +530,7 @@ const LAB_NEWS = [
   {
     date:     "September 2019",
     title:    "Mariana wins 1st prize Young ICSA Poster Award in Athens",
-    summary:  "Mariana won the 1st prize of the Young ICSA Poster Award at ICSA 2019 – “Cellular Senescence: the bright &amp; dark side” in Athens.",
+    summary:  "Mariana won the 1st prize of the Young ICSA Poster Award at ICSA 2019 - “Cellular Senescence: the bright &amp; dark side” in Athens.",
     images: [
       { src: "assets/news/icsa2019-award.jpg", alt: "Mariana at ICSA 2019 with her award" },
       { src: "assets/news/icsa2019-poster.jpg", alt: "Mariana's poster at ICSA 2019" },
@@ -542,7 +542,7 @@ const LAB_NEWS = [
         <strong>Mariana</strong> won the <strong>1st prize of the Young ICSA Poster Award</strong>
         at the
         <a href="https://www.icsa2019-athens.gr/" target="_blank" rel="noopener">
-        ICSA 2019 conference – "Cellular Senescence: the bright &amp; dark side"</a>
+        ICSA 2019 conference - "Cellular Senescence: the bright &amp; dark side"</a>
         in Athens, Greece. 🏆🎉
       </p>
       <p>Congratulations, Mariana! Well deserved.</p>

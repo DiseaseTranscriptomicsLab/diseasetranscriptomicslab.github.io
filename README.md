@@ -1,9 +1,9 @@
-# Disease Transcriptomics Lab — Website
+# Disease Transcriptomics Lab - Website
 
 Static website for the **Disease Transcriptomics Lab** at NOVA Medical School, Lisbon.  
 Hosted on **GitHub Pages** at [`https://diseasetranscriptomicslab.github.io`](https://diseasetranscriptomicslab.github.io).
 
-> ⚠️ **Keep this repository private.** GitHub Pages can serve a public website from a private repo, so there's no need to make the source public. Keeping it private means photos, assets, and drafts don't need to be shared beyond the lab. It also protects content that isn't secret but benefits from limited exposure — such as the science communication games, archived materials, and development work — which may be relevant for future intellectual property or patent considerations.
+> ⚠️ **Keep this repository private.** GitHub Pages can serve a public website from a private repo, so there's no need to make the source public. Keeping it private means photos, assets, and drafts don't need to be shared beyond the lab. It also protects content that isn't secret but benefits from limited exposure - such as the science communication games, archived materials, and development work - which may be relevant for future intellectual property or patent considerations.
 
 ---
 
@@ -21,7 +21,7 @@ nmoraislab.github.io/
 │   └── styles.css               ← All design tokens, layout, and component styles
 ├── js/
 │   ├── main.js                  ← Section loader · nav · animations · Bluesky feed
-│   └── news-data.js             ← ★ All lab news items (LAB_NEWS array) — edit here ★
+│   └── news-data.js             ← ★ All lab news items (LAB_NEWS array) - edit here ★
 │
 ├── sections/                    ← ★ Edit section content here ★
 │   ├── hero.html                ← Hero / landing section
@@ -53,19 +53,19 @@ nmoraislab.github.io/
 
 > ⚠️ **`main` deploys automatically to the live website. Please do not push directly to it.**
 
-`main` is not technically protected, so GitHub will let you push — but doing so updates the live site immediately. All changes should go through a pull request instead:
+`main` is not technically protected, so GitHub will let you push - but doing so updates the live site immediately. All changes should go through a pull request instead:
 
 1. Create a new branch (e.g. `add-new-member`) or switch to the `dev` branch.
-2. **Make sure your branch is up to date with `main`** — on GitHub, open your branch, and if it shows "X commits behind main", click **Sync fork** or **Update branch** to pull in the latest changes.
+2. **Make sure your branch is up to date with `main`** - on GitHub, open your branch, and if it shows "X commits behind main", click **Sync fork** or **Update branch** to pull in the latest changes.
 3. Make your changes and commit them.
 4. Open a pull request into `main` on GitHub.
-5. Someone reviews and merges — the site updates within ~60 seconds.
+5. Someone reviews and merges - the site updates within ~60 seconds.
 
 ---
 
 ## How it works
 
-`index.html` is a shell. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into the right placeholder — so every section is independently editable without touching `index.html`.
+`index.html` is a shell. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into the right placeholder - so every section is independently editable without touching `index.html`.
 
 `publications.html`, `news.html`, `join.html`, and `sections/nuno.html` are fully standalone pages (not injected).
 
@@ -87,9 +87,9 @@ Then open **[http://localhost:8000](http://localhost:8000)**.
 
 ## Deploying
 
-Deployment happens automatically when a pull request is merged into `main` — GitHub Pages rebuilds within ~60 seconds.
+Deployment happens automatically when a pull request is merged into `main` - GitHub Pages rebuilds within ~60 seconds.
 
-**Never push directly to `main`** — see the branch workflow above.
+**Never push directly to `main`** - see the branch workflow above.
 
 **First-time setup:** Settings → Pages → Source → Deploy from branch → `main` → `/ (root)`.
 
@@ -101,28 +101,28 @@ Sections are listed in the order they appear on the website.
 
 ---
 
-### 🏠 Hero — `sections/hero.html`
+### 🏠 Hero - `sections/hero.html`
 
 Edit the headline, tagline, and affiliation badges. This is the first thing visitors see.
 
 ---
 
-### 🧪 About — `sections/about.html`
+### 🧪 About - `sections/about.html`
 
 Edit the lab description text and replace `assets/photos/graphical-abstract.png` to update the graphical abstract image.
 
 ---
 
-### 🧑‍🔬 Team — `sections/team.html`
+### 🧑‍🔬 Team - `sections/team.html`
 
 **To add a new member**, copy any existing `.member-card` block and update:
 - Name, flag emoji, role badge (`.member-role`)
 - Bio (`.member-bio`), research interests (`.member-interests`), fun fact (`.member-fun-fact`)
 - Email `href` and display text
-- Social links (ORCID, LinkedIn, Bluesky, GitHub) — set `href="#"` to hide unused ones
+- Social links (ORCID, LinkedIn, Bluesky, GitHub) - set `href="#"` to hide unused ones
 - Photo path in `<img src="assets/photos/YourPhoto.jpg" />`
 
-Save the photo to `assets/photos/`. Any size works — photos are automatically cropped to a 5:4 ratio.
+Save the photo to `assets/photos/`. Any size works - photos are automatically cropped to a 5:4 ratio.
 
 **To remove a member**, delete the entire `.member-card` block.
 
@@ -130,24 +130,46 @@ Save the photo to `assets/photos/`. Any size works — photos are automatically 
 
 ---
 
-### 🔬 Research — `sections/research.html`
+### 🔬 Research - `sections/research.html`
 
 Two parts: **project cards** (ongoing work) and **publications by theme** (finished work).
+
+---
+
+#### Research themes
+
+Each project card belongs to one or more **themes**. A theme controls three visual elements simultaneously: the coloured stripe at the top of the card, the pill badge(s) inside the card, and the filter button at the top of the section. A card can carry multiple themes - e.g. a neuro project that was brought in from outside the lab carries both `neuro` and `external`.
+
+**Current themes:**
+
+| Theme key | Label | Stripe / dot colour | Meaning |
+|---|---|---|---|
+| `cancer` | RNA in cancer | `#fca5a5` (red) | Projects where the main disease context is cancer |
+| `neuro` | Neuro-biology | `#c4b5fd` (violet) | Neuroscience and sleep biology |
+| `bioinformatics` | Bioinformatics | `#5eead4` (teal) | Software tools and computational pipelines - same teal as the Software section |
+| `biostatistics` | Biostatistics | `#fcd34d` (amber) | Projects with a primary methodological/statistical contribution |
+| `evolutionary` | Evolutionary biology | `#86efac` (green) | Molecular evolution and comparative genomics |
+| `external` | External collaboration | `#7dd3fc` (sky-blue) | Projects initiated by and led from another lab, where Nuno is co-PI |
+
+**In-house vs external collaboration:** projects where Nuno is listed as **PI** are in-house. Projects where Nuno is listed as **co-PI** alongside an external PI were brought in from outside - these cards carry `external` in addition to their scientific theme, e.g. `data-theme="neuro external"`.
+
+> The bioinformatics teal (`#5eead4`) intentionally matches the "Launch" button hover colour in the Software section, to visually link the two.
+
+---
 
 #### Adding or editing a project card
 
 Copy any existing `.research-card` block and update:
-- `data-theme` on the outer div. Valid values: `"cancer"`, `"neuro"`, `"bioinformatics"`, `"biostatistics"`
-- **Multi-theme cards:** space-separate values — e.g. `data-theme="neuro biostatistics"`. JS automatically renders a gradient stripe and both pills.
-- `.research-card-stripe` — set the class to the **primary** theme; JS overwrites the background for gradients
-- `.research-theme-pills` wrapper — add one `.research-theme-pill.THEME` per theme
-- `.research-card-title` — short project name
-- `.research-keywords` — add/remove `<span class="research-keyword">` tags
-- `.research-card-people` — current members and collaborators
-- `.research-card-desc` — one paragraph description shown when the card is clicked
-- `.research-card-pub-list` — relevant papers (use bold for lab members, `<sup>*</sup>` for co-firsts)
 
-**To add a preprint link** on a card, include a `.research-card-preprint` paragraph inside `.research-card-detail`, with the link wrapping both the icon and label:
+- `data-theme` on the outer div - one or more theme keys, space-separated. Example: `data-theme="cancer external"`. JS automatically renders a gradient stripe when multiple themes are present.
+- `.research-card-stripe` - set the class to the **primary** (first/main) theme; JS overwrites the background colour for gradients.
+- `.research-theme-pills` wrapper - add one `.research-theme-pill.THEME` per theme, in the same order as `data-theme`.
+- `.research-card-title` - the project title. Convention: use the project description (one sentence) as the title, not an invented headline.
+- `.research-keywords` - see the Keywords section below.
+- `.research-card-people` - list current members then collaborators. Format: `Name (role)`. Use `(PI)`, `(co-PI)`, `(Junior researcher)`, etc.
+- `.research-card-desc` - the full project abstract, shown when the card is clicked. Use verbatim text from project documents where available - do not paraphrase.
+
+**To add a preprint link** on a card, include a `.research-card-preprint` paragraph inside `.research-card-detail`:
 
 ```html
 <p class="research-card-preprint">
@@ -158,38 +180,173 @@ Copy any existing `.research-card` block and update:
 </p>
 ```
 
-This renders as a pill badge inside the card and also appears in the modal when the card is opened. Preprints should appear on the card, **not** in the "Finished work" panels below (those are for peer-reviewed publications only — with the exception of preprints that are intentionally kept in a panel for historical reasons).
+Preprints appear on the card and in the modal. They go on the **card** only - not in the "Finished work" panels below (those are for peer-reviewed publications).
 
-Each card has a visible **"Read abstract"** label with a chevron at the bottom. Clicking anywhere on the card (or pressing Enter/Space) opens a modal with the full description and any preprint link.
+Each card has a **"Read abstract"** toggle at the bottom. Clicking anywhere on the card (or pressing Enter/Space) opens a modal with the full abstract and any preprint link.
+
+---
+
+#### Keywords
+
+Keywords appear as small chips below the card title and power a **search field** above the cards. Typing in the field (with autocomplete suggestions) filters cards in real time - partial matches work. Clearing the field restores all cards.
+
+To add or edit keywords on a card, modify the `.research-keywords` block:
+
+```html
+<div class="research-keywords">
+  <span class="research-keyword">cancer</span>
+  <span class="research-keyword">transcriptomics</span>
+</div>
+```
+
+The autocomplete datalist is built dynamically from all `.research-keyword` spans - no manual list to maintain. Typing a theme filter resets the keyword search, and vice versa.
+
+---
 
 #### Adding a paper to a theme panel
 
 In the "Finished work: publications by theme" section, find the right `<details>` panel and add a `<li>`:
 
+**If a panel doesn't exist yet** (e.g. Evolutionary biology, Collaboration, Biostatistics), it is kept as a commented-out block at the bottom of the publications section. To activate it, find the large comment block that starts with `EMPTY PANELS`, locate the correct `<details>` block inside, and uncomment it by removing the `<!--` / `-->` delimiters around it. Then add `<li>` entries inside the `<ul>`.
+
 ```html
 <li><strong>Smith A</strong><sup>*</sup>, <strong>Barbosa-Morais NL</strong>. <em>Nature</em>, 2026;123:456. [<a href="https://doi.org/..." target="_blank" rel="noopener">Paper</a>]</li>
 ```
 
-The legend (`* co-first authors`) is already shown above the panels — no per-entry note needed here.
-
-#### Adding a new research theme
-
-To add a new theme (e.g. `myfield`):
-
-1. Add a CSS block in `css/styles.css` for the dot, pill, hover, and panel colours (follow the pattern of `biostatistics` — choose colours that pass WCAG AA 4.5:1 contrast).
-2. Add `myfield: '#hexcolor'` to the `RESEARCH_THEME_COLOURS` object in `js/main.js`.
-3. Add a filter button in the `#research-filter-bar` in `sections/research.html`.
-4. Optionally add a `<details class="research-pub-panel" data-theme="myfield">` panel in the publications section.
+The co-first-author legend is already shown globally - no per-entry note needed.
 
 ---
 
-### 🛠 Software — `sections/software.html`
+#### Adding a new research theme
+
+A theme lives in **three files**. You must edit all three for a new theme to work - missing any one of them will cause broken colours or a non-functional filter button.
+
+> **Pick a theme key first.** The key is a short, lowercase, no-spaces identifier (e.g. `ageing`, `immunology`). You'll use the exact same key string in all three files. Choose something you won't need to rename later - it's used as a CSS class, a JS object property, and an HTML `data-theme` value everywhere.
+
+---
+
+**Step 1 - `css/styles.css` (four rules)**
+
+Open `css/styles.css` and search for `rfilter-dot.cancer` to find the colour block. Add four lines for your new theme immediately after the last `.rfilter-dot` line in that block:
+
+```css
+/* Inside the "Theme colour dots in filter buttons" block - after the last .rfilter-dot line */
+.rfilter-dot.myfield  { background: #DOTCOLOUR; }
+
+/* Inside the ".research-theme-pill" block - after the last pill line */
+.research-theme-pill.myfield  { background: #PILLBG; color: #PILLTEXT; }
+
+/* Inside the ".research-card[data-theme~=...]" hover block - after the last hover rule */
+.research-card[data-theme~="myfield"]:hover { border-color: #DOTCOLOUR; background: #HOVERBG; }
+
+/* Inside the ".research-pub-panel-summary" block - after the last panel-summary line */
+.research-pub-panel-summary.myfield { border-left: 4px solid #DOTCOLOUR; }
+```
+
+**Choosing colours:** The dot/stripe colour should be a pastel (~300-weight). The pill text colour must have ≥ 4.5:1 contrast against the pill background to pass WCAG AA - use a dark shade of the same hue (700-800-weight). The hover background should be an extremely pale tint of the same hue. If the theme corresponds to a feature already present elsewhere on the site (e.g. bioinformatics tools also appear in the Software section), reuse that section's accent colour.
+
+```
+Example using a hypothetical "ageing" orange theme:
+  DOTCOLOUR  = #fdba74   (orange-300, pastel - used for dot, stripe, hover border, panel border)
+  PILLBG     = #fff7ed   (orange-50, near-white - pill chip background)
+  PILLTEXT   = #9a3412   (orange-800, dark - pill text, ≥ 4.5:1 on #fff7ed)
+  HOVERBG    = #fffaf5   (barely-there tint - card background on hover)
+```
+
+---
+
+**Step 2 - `js/main.js` (one line)**
+
+Open `js/main.js` and search for `RESEARCH_THEME_COLOURS`. You'll find an object near the top of the file:
+
+```js
+const RESEARCH_THEME_COLOURS = {
+  cancer:          '#fca5a5',
+  neuro:           '#c4b5fd',
+  bioinformatics:  '#5eead4',
+  biostatistics:   '#fcd34d',
+  evolutionary:    '#86efac',
+  external:        '#7dd3fc',
+  // ← add your theme here:
+  myfield:         '#DOTCOLOUR',
+};
+```
+
+This object is what drives the coloured stripe at the top of each card. Without this entry, multi-theme gradient stripes won't include your colour.
+
+---
+
+**Step 3 - `sections/research.html` (filter button + pub panel)**
+
+Open `sections/research.html`.
+
+**3a.** Search for `research-filter-bar`. Inside that `<div>`, add a button for your theme after the last existing `<button>`:
+
+```html
+<button class="research-filter-btn" data-filter="myfield">
+  <span class="rfilter-dot myfield"></span>My field label
+</button>
+```
+
+`data-filter` must match the key exactly. The text after the dot span is what appears in the UI.
+
+**3b.** Scroll to the bottom of the file, to the `<!-- ══ EMPTY PANELS` comment block. Add a new `<details>` block inside the comment (keeping it commented out until publications exist):
+
+```html
+<details class="research-pub-panel" data-theme="myfield">
+  <summary class="research-pub-panel-summary myfield">
+    <span class="rfilter-dot myfield" style="margin-right:.5rem;"></span>
+    My field label
+    <svg class="research-pub-panel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </summary>
+  <ul class="research-pub-panel-list">
+    <li>Author A, <strong>Barbosa-Morais NL</strong>. <em>Journal</em>, year. [<a href="#" target="_blank" rel="noopener">Paper</a>]</li>
+  </ul>
+</details>
+```
+
+When publications are ready, move this block out of the comment and into the live section above it.
+
+---
+
+**Step 4 - assign the theme to cards**
+
+On each `.research-card` that should carry this theme, add the key to `data-theme` (space-separated if multi-theme), add the matching `.research-card-stripe` class (for single-theme cards), and add a `.research-theme-pill.myfield` inside `.research-theme-pills`:
+
+```html
+<!-- Single theme -->
+<div class="research-card" data-theme="myfield">
+  <div class="research-card-stripe myfield"></div>
+  <div class="research-card-body">
+    <div class="research-theme-pills">
+      <span class="research-theme-pill myfield">My field label</span>
+    </div>
+    ...
+  </div>
+</div>
+
+<!-- Multi-theme (e.g. also neuro) - stripe uses primary theme; JS sets gradient -->
+<div class="research-card" data-theme="neuro myfield">
+  <div class="research-card-stripe neuro"></div>
+  <div class="research-card-body">
+    <div class="research-theme-pills">
+      <span class="research-theme-pill neuro">Neuro-biology</span>
+      <span class="research-theme-pill myfield">My field label</span>
+    </div>
+    ...
+  </div>
+</div>
+```
+
+---
+
+### 🛠 Software - `sections/software.html`
 
 Each tool is a card. Copy an existing card and update the tool name, description, links (paper, GitHub, web app), and status badge.
 
 ---
 
-### 📰 News — `js/news-data.js`
+### 📰 News - `js/news-data.js`
 
 All news lives in `js/news-data.js` as a JavaScript array called `LAB_NEWS`. The **first item in the array is the most recent**. The homepage shows the 4 most recent; `news.html` shows all of them.
 
@@ -231,35 +388,35 @@ The first image in the array is also used as the card thumbnail.
 
 ---
 
-### 📡 BIOMICS news feed — `sections/news.html`
+### 📡 BIOMICS news feed - `sections/news.html`
 
 The News section includes a **BIOMICS spotlight** that auto-fetches the latest news items from [biomics.gimm.pt/news/feed/](https://biomics.gimm.pt/news/feed/) via an RSS-to-JSON proxy (`rss2json.com`). No API key is required. The feed is loaded by `loadBiomicsNews()` in `js/main.js` and rendered as photo cards.
 
 To change the feed URL, update the `BIOMICS_FEED_URL` constant near the top of `loadBiomicsNews()`.
 
-### 🎬 BIOMICS videos — `sections/news.html`
+### 🎬 BIOMICS videos - `sections/news.html`
 
 The BIOMICS YouTube videos also live in the News section and are specified in the `BIOMICS_VIDEOS` array in `js/main.js`. Each entry has a `videoId` and `title`.
 
 **To add a video**, push a new entry to the array:
 
 ```js
-{ videoId: 'dQw4w9WgXcQ', title: 'BIOMICS Talk — June 2026' }
+{ videoId: 'dQw4w9WgXcQ', title: 'BIOMICS Talk - June 2026' }
 ```
 
-**Click-to-play pattern** — videos render as a static thumbnail with a play button overlay. Clicking loads the YouTube iframe with autoplay. This defers the iframe until the user explicitly plays the video, keeping the page fast. Thumbnails are fetched directly from YouTube's CDN (`hqdefault.jpg`, 480×360) — no API key needed.
+**Click-to-play pattern** - videos render as a static thumbnail with a play button overlay. Clicking loads the YouTube iframe with autoplay. This defers the iframe until the user explicitly plays the video, keeping the page fast. Thumbnails are fetched directly from YouTube's CDN (`hqdefault.jpg`, 480×360) - no API key needed.
 
 **Play button ARIA**: each thumbnail wrap has `role="button"`, `tabindex="0"`, and an `aria-label` of `"Play <title>"` for keyboard and screen-reader access.
 
 ---
 
-### 📚 Publications widget — `sections/publications.html`
+### 📚 Publications widget - `sections/publications.html`
 
-This is the short highlights widget shown on the **main page** (not the full publications page). It auto-populates from the entries marked `data-selected="true"` in `publications.html`. You generally don't need to edit this file directly — just toggle `pubs-selected` on the papers you want featured.
+This is the short highlights widget shown on the **main page** (not the full publications page). It auto-populates from the entries marked `data-selected="true"` in `publications.html`. You generally don't need to edit this file directly - just toggle `pubs-selected` on the papers you want featured.
 
 ---
 
-### 🎮 Outreach — `sections/outreach.html`
+### 🎮 Outreach - `sections/outreach.html`
 
 Each game is a `.outreach-card` block. There are currently two games:
 
@@ -294,18 +451,18 @@ Each game is a `.outreach-card` block. There are currently two games:
 
 **To add a new game**, copy an entire `.outreach-card` block (from any existing entry), paste it inside `.outreach-grid`, and update:
 - `href` to the game file in `games/`
-- `.outreach-card-title` — game name
-- `.outreach-card-subtitle` — one-liner (e.g. language badges)
-- `.outreach-card-desc` — short description for players
-- `.outreach-concept-box` — the science behind it
-- `.outreach-tags` — concept labels
+- `.outreach-card-title` - game name
+- `.outreach-card-subtitle` - one-liner (e.g. language badges)
+- `.outreach-card-desc` - short description for players
+- `.outreach-concept-box` - the science behind it
+- `.outreach-tags` - concept labels
 - Use `outreach-card--soon` if it's not ready yet; `outreach-card--live` once it's playable
 
 Game HTML files live in the `games/` folder.
 
 ---
 
-### 🎓 Alumni — `sections/alumni.html`
+### 🎓 Alumni - `sections/alumni.html`
 
 Former members are listed in a vertical timeline, grouped by year of departure (most recent first).
 
@@ -337,7 +494,7 @@ Former members are listed in a vertical timeline, grouped by year of departure (
     </a>
   </span>
   <span class="alumni-role-badge badge-phd">PhD Student</span>
-  <span class="alumni-entry-years">2021–2027</span>
+  <span class="alumni-entry-years">2021-2027</span>
   <span class="alumni-entry-context">Program or institution (optional)</span>
   <span class="alumni-entry-pubs">
     <span class="pubs-label">Pubs with lab:</span>
@@ -376,18 +533,18 @@ Save the photo to `assets/photos/alumni/`. Square crops look best.
 3. Add one entry at the correct chronological position (oldest → newest):
 
 ```js
-{ src: "assets/photos/group_old/Jun2026_retreat.jpg", caption: "Lab retreat — June 2026" },
+{ src: "assets/photos/group_old/Jun2026_retreat.jpg", caption: "Lab retreat - June 2026" },
 ```
 
 ---
 
-### 📍 Location — `sections/location.html`
+### 📍 Location - `sections/location.html`
 
 Update the address text and the OpenStreetMap `<iframe>` embed URL if the lab moves.
 
 ---
 
-### 💰 Funding logos — `index.html`
+### 💰 Funding logos - `index.html`
 
 Funding logos live in a static block near the footer of `index.html` (not in `sections/`). Add or remove logos there; images go in `assets/logos/funding/`.
 
@@ -399,7 +556,7 @@ These are full HTML pages not injected from `sections/`.
 
 ---
 
-### 📚 Full publications page — `publications.html`
+### 📚 Full publications page - `publications.html`
 
 **To add a paper**, find the correct year block (e.g. `<!-- 2026 -->`) and add a new `<li class="pubs-item">` inside the `<ul class="pubs-list">`. Copy the format of an existing entry:
 
@@ -439,11 +596,11 @@ Smith A<sup>*</sup>, <strong>Jones B</strong><sup>*</sup>, ...
 
 **For preprints**, add to the existing `Preprints` section at the top.
 
-**Numbering is fully automatic** — JavaScript numbers all peer-reviewed lab publications from oldest [1] to newest. Never add or edit numbers manually.
+**Numbering is fully automatic** - JavaScript numbers all peer-reviewed lab publications from oldest [1] to newest. Never add or edit numbers manually.
 
 ---
 
-### 🔬 Join the Lab page — `join.html`
+### 🔬 Join the Lab page - `join.html`
 
 This page has three parts: (1) an **Open Positions** banner at the top for active calls, (2) a general **How to Apply** description, and (3) fixed **Opportunity type** blocks (Postdoc, PhD, Masters, Short-term).
 
@@ -478,14 +635,14 @@ When a funded call or specific position opens:
 </div>
 ```
 
-**`position-card-type` values** — use whichever fits:
+**`position-card-type` values** - use whichever fits:
 - `Postdoctoral Fellowship`
 - `PhD Fellowship`
 - `Masters Thesis`
 - `Short-term Training`
 - `Research Assistant`
 
-**Multiple open positions:** add multiple `.position-card` blocks one after another — each becomes its own card.
+**Multiple open positions:** add multiple `.position-card` blocks one after another - each becomes its own card.
 
 **Linking to a full call document:** replace or supplement the `mailto:` link with a link to the PDF/URL of the official call if one exists.
 
@@ -498,13 +655,13 @@ When a funded call or specific position opens:
    ```html
    <p class="no-positions">
      No positions are currently advertised. Please check back or get in touch
-     speculatively — we are always happy to hear from exceptional candidates.
+     speculatively - we are always happy to hear from exceptional candidates.
    </p>
    ```
 
 ---
 
-### 👤 Nuno's page — `sections/nuno.html`
+### 👤 Nuno's page - `sections/nuno.html`
 
 Standalone page with Nuno's full profile: bio, CV timeline, complete publication list, press coverage.
 
@@ -515,12 +672,12 @@ Standalone page with Nuno's full profile: bio, CV timeline, complete publication
   <span class="nuno-pub-num"></span>
   Smith A, <strong>Barbosa-Morais NL</strong>.
   "Paper title."
-  <em>Journal Name</em>, 2026;1(1):1–10.
+  <em>Journal Name</em>, 2026;1(1):1-10.
   [<a href="https://pubmed.ncbi.nlm.nih.gov/XXXXXXXX/" target="_blank" rel="noopener">PubMed</a>]
 </li>
 ```
 
-Leave `<span class="nuno-pub-num">` **empty** — numbers are assigned automatically by JavaScript.
+Leave `<span class="nuno-pub-num">` **empty** - numbers are assigned automatically by JavaScript.
 
 For **highlighted papers**, add the class `key-paper`:
 ```html
@@ -548,7 +705,7 @@ Use `<sup>*</sup>` immediately after each co-first author name:
 Smith A<sup>*</sup>, <strong>Jones B</strong><sup>*</sup>
 ```
 In `publications.html` and `nuno.html`, add a note at the end of the entry: `(<sup>*</sup> co-first authors)`.  
-In the research section panels, the global legend is already shown — no per-entry note needed.
+In the research section panels, the global legend is already shown - no per-entry note needed.
 
 ### External links
 Always open external links in a new tab:
@@ -560,38 +717,40 @@ Always open external links in a new tab:
 
 ## Accessibility (ARIA)
 
-**ARIA** stands for *Accessible Rich Internet Applications*. It is a set of HTML attributes defined by the W3C (the web standards body) that describe the *purpose and state* of UI elements to assistive technologies — primarily screen readers used by people with visual impairments.
+**ARIA** stands for *Accessible Rich Internet Applications*. It is a set of HTML attributes defined by the W3C (the web standards body) that describe the *purpose and state* of UI elements to assistive technologies - primarily screen readers used by people with visual impairments.
 
 Without ARIA, a screen reader encountering a `<div>` that opens a modal when clicked has no idea what it does. ARIA lets you annotate it: `role="button"` says "this is a button", `aria-label="Close modal"` says what the button does, `aria-modal="true"` tells the screen reader the dialog is modal so it doesn't read background content.
 
 ### What has been implemented on this site
 
-- **Research card modals** — each card has `role="button"`, `tabindex="0"` (keyboard focusable), and responds to Enter/Space. The modal itself has `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to the modal title heading. Focus is moved to the Close button when the modal opens.
-- **Modal close button** — labelled with `aria-label="Close modal"` (visible icon only, no text).
-- **Bluesky feed cards** — each post card has `tabindex="0"`, `role="button"`, and an `aria-label` with the post text.
-- **Photo lightbox** — `role="dialog"`, `aria-modal="true"`, `aria-label="Full-size photo"`.
-- **Carousel navigation buttons** — each dot/button has `aria-label="Go to slide N"`.
-- **Decorative icons and images** — marked `aria-hidden="true"` so screen readers skip them.
-- **RSS feed icon** in the BIOMICS news label — `aria-hidden="true"`.
-- **BIOMICS video thumbnails** — each thumbnail wrapper has `role="button"`, `tabindex="0"`, and `aria-label="Play <video title>"`. The SVG play icon is `aria-hidden="true"`. Pressing Enter or Space triggers playback.
+- **Research card modals** - each card has `role="button"`, `tabindex="0"` (keyboard focusable), and responds to Enter/Space. The modal itself has `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to the modal title heading. Focus is moved to the Close button when the modal opens.
+- **Modal close button** - labelled with `aria-label="Close modal"` (visible icon only, no text).
+- **Bluesky feed cards** - each post card has `tabindex="0"`, `role="button"`, and an `aria-label` with the post text.
+- **Photo lightbox** - `role="dialog"`, `aria-modal="true"`, `aria-label="Full-size photo"`.
+- **Carousel navigation buttons** - each dot/button has `aria-label="Go to slide N"`.
+- **Decorative icons and images** - marked `aria-hidden="true"` so screen readers skip them.
+- **RSS feed icon** in the BIOMICS news label - `aria-hidden="true"`.
+- **BIOMICS video thumbnails** - each thumbnail wrapper has `role="button"`, `tabindex="0"`, and `aria-label="Play <video title>"`. The SVG play icon is `aria-hidden="true"`. Pressing Enter or Space triggers playback.
 
 ### WCAG AA colour contrast
 
-All foreground/background colour combinations were audited programmatically against the WCAG 2.1 Level AA threshold (4.5:1 for normal text, 3:1 for large text). Several colours were adjusted to pass — see the colour variables in `css/styles.css` (`:root`) for the current accessible values. The key changes were:
+All foreground/background colour combinations were audited programmatically against the WCAG 2.1 Level AA threshold (4.5:1 for normal text, 3:1 for large text). Several colours were adjusted to pass - see the colour variables in `css/styles.css` (`:root`) for the current accessible values. The key changes were:
 
 | Token | Before | After | Reason |
 |---|---|---|---|
 | `--teal` | `#0D9488` | `#087c72` | Failed on white (3.74:1) |
-| `--teal-on-dark` | — | `#14B8A6` | Separate token for dark-bg contexts |
+| `--teal-on-dark` | - | `#14B8A6` | Separate token for dark-bg contexts |
 | `--slate` | `#64748B` | `#5f6e85` | Failed on fog bg (4.31:1) |
 | Muted captions | `#94A3B8` | `#65707e` | Failed on white (2.56:1) |
 | Cancer pill text | `#e11d48` | `#c71640` | Failed on pill bg (4.28:1) |
 | Bio pill text | `#0d9488` | `#087c72` | Failed on pill bg (3.59:1) |
-| Biostatistics pill text | — | `#92400e` (amber-800) | New theme; ~7.5:1 on `#fffbeb` pill bg |
+| Biostatistics pill text | - | `#92400e` (amber-800) | New theme; ~7.5:1 on `#fffbeb` pill bg |
+| Evolutionary pill text  | - | `#166534` (green-800) | New theme; ~7:1 on `#f0fdf4` pill bg |
+| Collaboration pill text | - | `#0369a1` (sky-700)   | New theme; ~5.7:1 on `#f0f9ff` pill bg |
 
 ### Further improvements to consider
 
-- Add `lang="en"` to the `<html>` tag in all pages (already present in `index.html` — verify standalone pages).
+- Add `lang="en"` to the `<html>` tag in all pages (already present in `index.html` - verify standalone pages).
 - Add `<title>` elements to standalone pages that are currently generic.
 - Ensure all form inputs (if any are added in future) have associated `<label>` elements.
 - Test with an actual screen reader (e.g. VoiceOver on macOS: Cmd+F5) for a real-world check.
@@ -604,15 +763,15 @@ The News section automatically fetches the most recent posts from `@nmoraislab.b
 
 ---
 
-## Visual content editor (Decap CMS) — optional setup
+## Visual content editor (Decap CMS) - optional setup
 
-> **What this gives you:** a web interface at `https://diseasetranscriptomicslab.github.io/admin/` where anyone with GitHub access can edit site content (news, team members, publications) through forms — no git knowledge or terminal needed. Changes are committed directly to GitHub and deploy automatically.
+> **What this gives you:** a web interface at `https://diseasetranscriptomicslab.github.io/admin/` where anyone with GitHub access can edit site content (news, team members, publications) through forms - no git knowledge or terminal needed. Changes are committed directly to GitHub and deploy automatically.
 
 This is optional. The site works fine without it. Set it up when you're ready to let non-technical collaborators edit content.
 
 ---
 
-### Step 1 — Create the GitHub OAuth App
+### Step 1 - Create the GitHub OAuth App
 
 GitHub OAuth is what lets Decap log people in using their GitHub account.
 
@@ -622,11 +781,11 @@ GitHub OAuth is what lets Decap log people in using their GitHub account.
    - **Homepage URL:** `https://diseasetranscriptomicslab.github.io`
    - **Authorization callback URL:** `https://api.netlify.com/auth/done`
 3. Click **Register application**.
-4. On the next page, copy the **Client ID** and click **Generate a new client secret** — copy that too. Keep both safe.
+4. On the next page, copy the **Client ID** and click **Generate a new client secret** - copy that too. Keep both safe.
 
 ---
 
-### Step 2 — Connect Netlify as the OAuth broker
+### Step 2 - Connect Netlify as the OAuth broker
 
 Decap uses Netlify purely as an OAuth middleman (free, no hosting required).
 
@@ -638,11 +797,11 @@ Decap uses Netlify purely as an OAuth middleman (free, no hosting required).
 
 ---
 
-### Step 3 — Add the `admin/` folder to this repo
+### Step 3 - Add the `admin/` folder to this repo
 
 Create these two files and commit them (to a branch, then PR into `main`):
 
-**`admin/index.html`** — the CMS entry point:
+**`admin/index.html`** - the CMS entry point:
 
 ```html
 <!doctype html>
@@ -658,7 +817,7 @@ Create these two files and commit them (to a branch, then PR into `main`):
 </html>
 ```
 
-**`admin/config.yml`** — tells Decap which files to edit:
+**`admin/config.yml`** - tells Decap which files to edit:
 
 ```yaml
 backend:
@@ -683,17 +842,17 @@ collections:
       - { label: Image,   name: image,   widget: image, required: false }
 ```
 
-> **Note:** Decap works best when content is stored as Markdown/YAML files. Adapting the current JavaScript-array format (`js/news-data.js`) to file-based content requires a small migration — contact the person who built the site for help with that step.
+> **Note:** Decap works best when content is stored as Markdown/YAML files. Adapting the current JavaScript-array format (`js/news-data.js`) to file-based content requires a small migration - contact the person who built the site for help with that step.
 
 ---
 
-### Step 4 — Open the editor
+### Step 4 - Open the editor
 
 Once the `admin/` folder is live on GitHub Pages:
 
 1. Visit `https://diseasetranscriptomicslab.github.io/admin/`
 2. Click **Login with GitHub** and authorise.
-3. You'll see the content collections. Edit, save — changes commit to the repo and deploy automatically.
+3. You'll see the content collections. Edit, save - changes commit to the repo and deploy automatically.
 
 ---
 
@@ -705,7 +864,7 @@ Only GitHub accounts that have **read access to this repository** can log in via
 
 ## Analytics
 
-The site supports **Google Analytics 4**. To activate it, create a property at [analytics.google.com](https://analytics.google.com), then add the following snippet inside the `<head>` of `index.html`, `publications.html`, `news.html`, and `sections/nuno.html` — replacing `G-XXXXXXXXXX` with your Measurement ID:
+The site supports **Google Analytics 4**. To activate it, create a property at [analytics.google.com](https://analytics.google.com), then add the following snippet inside the `<head>` of `index.html`, `publications.html`, `news.html`, and `sections/nuno.html` - replacing `G-XXXXXXXXXX` with your Measurement ID:
 
 ```html
 <!-- Google Analytics -->
@@ -722,7 +881,7 @@ The site supports **Google Analytics 4**. To activate it, create a property at [
 
 ## Acknowledgements
 
-The first draft of this website — structure, layout, CSS design system, JavaScript, and outreach games — was built with **[Claude Sonnet 4.6](https://www.anthropic.com/claude)** (Anthropic) via Cowork mode.
+The first draft of this website - structure, layout, CSS design system, JavaScript, and outreach games - was built with **[Claude Sonnet 4.6](https://www.anthropic.com/claude)** (Anthropic) via Cowork mode.
 
 ---
 

@@ -1,5 +1,5 @@
 /* ================================================================
-   NMorais Lab — main.js
+   NMorais Lab - main.js
    Section loader · Navigation · Scroll animations · Bluesky feed
    ================================================================ */
 
@@ -53,6 +53,8 @@ const RESEARCH_THEME_COLOURS = {
   neuro:           '#c4b5fd',
   bioinformatics:  '#5eead4',
   biostatistics:   '#fcd34d',
+  evolutionary:    '#86efac',
+  external:   '#7dd3fc',
 };
 
 // Render the coloured top stripe for each card.
@@ -71,7 +73,7 @@ function initResearchStripes() {
 }
 
 function initResearchFilter() {
-  // Filter bar — show/hide project cards and pub panels by theme
+  // Filter bar - show/hide project cards and pub panels by theme
   const bar = document.getElementById('research-filter-bar');
   if (bar) {
     bar.querySelectorAll('.research-filter-btn').forEach(btn => {
@@ -157,6 +159,60 @@ function initResearchFilter() {
   });
 }
 
+/* ── Research keyword filter ────────────────────────────────────── */
+function initResearchKeywordFilter() {
+  const input    = document.getElementById('research-keyword-search');
+  const datalist = document.getElementById('research-keywords-datalist');
+  if (!input || !datalist) return;
+
+  const cards = [...document.querySelectorAll('#research-card-grid .research-card')];
+
+  // Collect all unique keywords, sorted alphabetically, populate datalist
+  const allKeywords = [...new Set(
+    cards.flatMap(card =>
+      [...card.querySelectorAll('.research-keyword')].map(el => el.textContent.trim())
+    )
+  )].sort((a, b) => a.localeCompare(b));
+
+  datalist.innerHTML = allKeywords.map(kw => `<option value="${kw}">`).join('');
+
+  function applyKeywordFilter(value) {
+    const kw = value.trim().toLowerCase();
+    if (!kw) {
+      // Empty - restore whatever the theme filter dictates
+      cards.forEach(card => { card.style.display = ''; });
+      const themeBar = document.getElementById('research-filter-bar');
+      const activeThemeBtn = themeBar && themeBar.querySelector('.research-filter-btn.active');
+      if (activeThemeBtn && activeThemeBtn.dataset.filter !== 'all') {
+        activeThemeBtn.click();
+      }
+      return;
+    }
+    // Reset theme filter to "all" visually
+    const themeBar = document.getElementById('research-filter-bar');
+    if (themeBar) {
+      themeBar.querySelectorAll('.research-filter-btn').forEach(b => b.classList.remove('active'));
+      const allBtn = themeBar.querySelector('[data-filter="all"]');
+      if (allBtn) allBtn.classList.add('active');
+    }
+    cards.forEach(card => {
+      const cardKeywords = [...card.querySelectorAll('.research-keyword')]
+        .map(el => el.textContent.trim().toLowerCase());
+      card.style.display = cardKeywords.some(k => k.includes(kw)) ? '' : 'none';
+    });
+  }
+
+  input.addEventListener('input', () => applyKeywordFilter(input.value));
+
+  // When theme filter is clicked, clear keyword search
+  const themeBar = document.getElementById('research-filter-bar');
+  if (themeBar) {
+    themeBar.querySelectorAll('.research-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => { input.value = ''; });
+    });
+  }
+}
+
 /* ── Software section filter ────────────────────────────────────── */
 function initSoftwareFilter() {
   const bar = document.getElementById('software-filter-bar');
@@ -182,7 +238,7 @@ function initSoftwareFilter() {
   });
 }
 
-/* ── Publications — auto-populated from nuno.html ───────────────────
+/* ── Publications - auto-populated from nuno.html ───────────────────
    Selected papers are marked in sections/nuno.html with:
      data-selected="true"
      data-year="YYYY"        (or "preprint")
@@ -216,7 +272,7 @@ async function loadSelectedPublications() {
       return;
     }
 
-    /* Group by year — "preprint" first, then numeric years desc */
+    /* Group by year - "preprint" first, then numeric years desc */
     const byYear = {};
     selected.forEach(li => {
       const year = (li.dataset.year || 'preprint').trim();
@@ -350,7 +406,7 @@ function updateYear() {
 }
 
 /* ── Bluesky live feed ──────────────────────────────────────────
-   Uses the public AT Protocol API — no API key required.
+   Uses the public AT Protocol API - no API key required.
    Posts are loaded after sections are injected into the DOM.
    Images (single, pair, or grid) are rendered when present.
    ──────────────────────────────────────────────────────────────── */
@@ -433,7 +489,7 @@ function loadBlueskyFeed() {
     .then(data => {
       const feed = (data.feed || []).filter(item => !item.reason); // skip reposts
       if (!feed.length) {
-        grid.innerHTML = '<p class="bsky-loading">No posts yet — check back soon!</p>';
+        grid.innerHTML = '<p class="bsky-loading">No posts yet - check back soon!</p>';
         return;
       }
       grid.innerHTML = feed.slice(0, DISPLAY).map(renderCard).join('');
@@ -458,10 +514,10 @@ async function loadBiomicsVideos() {
   const RSS_URL    = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
   const MAX        = 2; // maximum cards to show
 
-  /* Hardcoded fallback — only used if all proxies fail */
+  /* Hardcoded fallback - only used if all proxies fail */
   const FALLBACK_VIDEOS = [
-    { videoId: 'T5ZpgSiowY8', title: 'Getting to know BIOMICS members – Manuel Irimia',   date: 'May 2026'     },
-    { videoId: 'iqlB74ldyos', title: 'Getting to know BIOMICS members – Pedro Beltrão',  date: 'October 2025' },
+    { videoId: 'T5ZpgSiowY8', title: 'Getting to know BIOMICS members - Manuel Irimia',   date: 'May 2026'     },
+    { videoId: 'iqlB74ldyos', title: 'Getting to know BIOMICS members - Pedro Beltrão',  date: 'October 2025' },
   ];
 
   const grid = document.getElementById('biomics-video-grid');
@@ -472,7 +528,7 @@ async function loadBiomicsVideos() {
     /* Click-to-play: show a high-quality thumbnail and only load the
        iframe when the user clicks play. hqdefault.jpg = 480×360 (crisp).
        Mid-video frames are available at 1.jpg/2.jpg/3.jpg but are only
-       120×90 px and look blurry when scaled up — not recommended. */
+       120×90 px and look blurry when scaled up - not recommended. */
     grid.innerHTML = videos.map(v => `
       <div class="biomics-video-card">
         <div class="biomics-video-wrap biomics-video-thumb-wrap"
@@ -497,7 +553,7 @@ async function loadBiomicsVideos() {
         </div>
       </div>`).join('');
 
-    /* Attach click / keyboard handlers — swap thumbnail → autoplay iframe */
+    /* Attach click / keyboard handlers - swap thumbnail → autoplay iframe */
     grid.querySelectorAll('.biomics-video-thumb-wrap').forEach(wrap => {
       function activateVideo() {
         const videoId = wrap.dataset.videoid;
@@ -551,13 +607,13 @@ async function loadBiomicsVideos() {
     }
   }
 
-  /* Proxy 1 — allorigins (returns JSON wrapper) */
+  /* Proxy 1 - allorigins (returns JSON wrapper) */
   let videos = await tryProxy(
     `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`,
     async r => { const j = await r.json(); return j.contents || null; }
   );
 
-  /* Proxy 2 — corsproxy.io (returns raw XML) */
+  /* Proxy 2 - corsproxy.io (returns raw XML) */
   if (!videos) {
     videos = await tryProxy(
       `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
@@ -565,7 +621,7 @@ async function loadBiomicsVideos() {
     );
   }
 
-  /* Proxy 3 — allorigins raw endpoint */
+  /* Proxy 3 - allorigins raw endpoint */
   if (!videos) {
     videos = await tryProxy(
       `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
@@ -576,7 +632,7 @@ async function loadBiomicsVideos() {
   if (videos) {
     renderCards(videos);
   } else {
-    console.warn('All BIOMICS video proxies failed — using hardcoded fallback');
+    console.warn('All BIOMICS video proxies failed - using hardcoded fallback');
     renderCards(FALLBACK_VIDEOS);
   }
 }
@@ -627,7 +683,7 @@ async function loadBiomicsNews() {
 
   /* ── parser ──────────────────────────────────────────────────── */
   function parseBiomicsRss(xmlText) {
-    /* Split on raw <item>…</item> blocks — avoids all namespace issues */
+    /* Split on raw <item>…</item> blocks - avoids all namespace issues */
     const chunks = [];
     let pos = 0;
     while (pos < xmlText.length) {
@@ -934,7 +990,7 @@ function initAlumniSlideshow() {
     const img = document.createElement('img');
     img.className = 'alumni-slide' + (i === 0 ? ' active' : '');
     img.src  = s.src;
-    img.alt  = 'Lab group photo — ' + s.label;
+    img.alt  = 'Lab group photo - ' + s.label;
     img.loading = i === 0 ? 'eager' : 'lazy';
     track.appendChild(img);
     return img;
@@ -1032,28 +1088,151 @@ function initAlumniTimeline() {
   });
 }
 
+/* ── Hero typewriter animation ──────────────────────────────────
+   Types "Decoding RNA to understand disease" character by character,
+   with variable speed, occasional typos that self-correct, and a
+   permanently blinking cursor once typing finishes.
+   Ghost layer (opacity 0.18) holds the full text so layout never shifts.
+   ──────────────────────────────────────────────────────────────── */
+function initHeroTypewriter() {
+  const typed = document.querySelector('.hero-title-typed');
+  if (!typed) return;
+
+  const segments = [
+    { text: 'Decoding RNA',  teal: false },
+    { text: '\n',            teal: false },
+    { text: 'to understand', teal: false },
+    { text: '\n',            teal: false },
+    { text: 'disease',       teal: true  },
+  ];
+
+  // Flatten to individual char descriptors
+  const chars = [];
+  for (const seg of segments) {
+    for (const ch of seg.text) chars.push({ ch, teal: seg.teal });
+  }
+
+  /* ── Typo helper ───────────────────────────────────────────── */
+  // Plausible adjacent-key substitutions for characters in the text
+  const ADJACENT = {
+    d:'sf', e:'wr', c:'xv', o:'ip', i:'uo', n:'bm', g:'fh',
+    r:'et', a:'sq', s:'ad', u:'yi', t:'ry', h:'gj', l:'ko',
+    R:'ET', N:'BM', A:'SQ',
+  };
+  function wrongChar(ch) {
+    const pool = ADJACENT[ch] || ADJACENT[ch.toLowerCase()];
+    if (pool) {
+      const w = pool[Math.floor(Math.random() * pool.length)];
+      return ch === ch.toUpperCase() ? w.toUpperCase() : w;
+    }
+    // fallback: shift one letter
+    const code = ch.charCodeAt(0);
+    return String.fromCharCode(code + (code < 122 ? 1 : -1));
+  }
+
+  /* ── Choose 2 typo positions ───────────────────────────────── */
+  // Avoid spaces, newlines, first 2 and last 2 characters
+  const candidates = chars
+    .map((c, i) => i)
+    .filter(i => chars[i].ch !== '\n' && chars[i].ch !== ' ' && i > 2 && i < chars.length - 2);
+
+  const typoAt = new Set();
+  const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+  for (const idx of shuffled) {
+    if ([...typoAt].every(t => Math.abs(t - idx) >= 5)) {
+      typoAt.add(idx);
+      if (typoAt.size === 2) break;
+    }
+  }
+
+  /* ── Build action sequence ─────────────────────────────────── */
+  // { type:'type', ch, teal } | { type:'delete' } | { type:'pause', ms }
+  const actions = [];
+  for (let i = 0; i < chars.length; i++) {
+    const { ch, teal } = chars[i];
+    if (typoAt.has(i)) {
+      actions.push({ type: 'type',  ch: wrongChar(ch), teal });
+      actions.push({ type: 'pause', ms: 160 + Math.random() * 140 }); // brief "wait, that's wrong"
+      actions.push({ type: 'delete' });
+      actions.push({ type: 'pause', ms: 60  + Math.random() * 60  }); // brief re-think
+    }
+    actions.push({ type: 'type', ch, teal });
+  }
+
+  /* ── Render helper ─────────────────────────────────────────── */
+  let displayed = []; // { ch, teal }[]
+
+  function render() {
+    let html = '', inTeal = false;
+    for (const { ch, teal } of displayed) {
+      if (ch === '\n') {
+        if (inTeal) { html += '</span>'; inTeal = false; }
+        html += '<br>';
+        continue;
+      }
+      if ( teal && !inTeal) { html += '<span>'; inTeal = true;  }
+      if (!teal &&  inTeal) { html += '</span>'; inTeal = false; }
+      html += ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+    }
+    if (inTeal) html += '</span>';
+    typed.innerHTML = html;
+  }
+
+  /* ── Variable timing ───────────────────────────────────────── */
+  function nextDelay(action) {
+    if (action.type === 'pause')  return action.ms;
+    if (action.type === 'delete') return 65 + Math.random() * 55; // 65-120ms backspace
+    // Typing: slower after a break, faster mid-word
+    const prev = displayed[displayed.length - 1];
+    const afterBreak = !prev || prev.ch === ' ' || prev.ch === '\n';
+    return afterBreak
+      ? 100 + Math.random() * 90   // 100-190ms - slight hesitation at word start
+      : 30  + Math.random() * 65;  // 30-95ms   - fluent mid-word
+  }
+
+  /* ── Run ───────────────────────────────────────────────────── */
+  typed.classList.add('typing'); // cursor blinks from the start
+  let idx = 0;
+
+  function tick() {
+    if (idx >= actions.length) return; // typing done; cursor keeps blinking permanently
+
+    const action = actions[idx++];
+    if      (action.type === 'delete') displayed.pop();
+    else if (action.type === 'type')   displayed.push({ ch: action.ch, teal: action.teal });
+    // 'pause' actions leave displayed unchanged
+
+    if (action.type !== 'pause') render();
+    setTimeout(tick, nextDelay(action));
+  }
+
+  setTimeout(tick, 500); // short initial pause before first keystroke
+}
+
 /* ── Bootstrap ──────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   updateYear();
   initNav();
 
-  if (checkProtocol()) return; // on file://, stop here — show banner only
+  if (checkProtocol()) return; // on file://, stop here - show banner only
 
   await loadSections();              // fetch + inject all sections into placeholders
   await loadSelectedPublications();  // fetch nuno.html → populate #pub-selected-container
+  initHeroTypewriter();              // typewriter effect on hero title
   initAnimations();                  // observe .fade-up elements now that sections are in the DOM
   initSmoothScroll();                // wire anchor links in freshly-injected sections
   initSoftwareFilter();              // wire up tool filter buttons now that software.html is injected
   initResearchStripes();             // set gradient stripes on multi-theme cards
   initResearchFilter();              // wire up research theme filter + pub-panel accordions
-  loadLabNews(4);                    // #lab-news-grid — 4 most recent; full list on news.html
+  initResearchKeywordFilter();       // wire up keyword filter chips
+  loadLabNews(4);                    // #lab-news-grid - 4 most recent; full list on news.html
   loadBlueskyFeed();                 // #bsky-feed-grid is now available in the DOM
-  loadBiomicsVideos();               // #biomics-video-grid — auto-fetched from YouTube RSS
-  loadBiomicsNews();                 // #biomics-news-items — auto-fetched from biomics.gimm.pt RSS
-  initAlumniSlideshow();             // #alumni-slideshow — group photo crossfade carousel
+  loadBiomicsVideos();               // #biomics-video-grid - auto-fetched from YouTube RSS
+  loadBiomicsNews();                 // #biomics-news-items - auto-fetched from biomics.gimm.pt RSS
+  initAlumniSlideshow();             // #alumni-slideshow - group photo crossfade carousel
   initAlumniTimeline();              // hover highlight: dim other photos + names
 
-  /* Scroll to URL hash after sections load — sections are injected
+  /* Scroll to URL hash after sections load - sections are injected
      asynchronously, so the browser's native hash scroll fires before
      the target element exists. Re-apply it here after injection. */
   if (window.location.hash) {

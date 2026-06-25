@@ -1,5 +1,5 @@
 <!-- ================================================================
-     RESEARCH SECTION — sections/research.html
+     RESEARCH SECTION - sections/research.html
 
      HOW TO EDIT:
        Project cards live in #research-card-grid.
@@ -53,6 +53,23 @@
       <button class="research-filter-btn" data-filter="biostatistics">
         <span class="rfilter-dot biostatistics"></span>Biostatistics
       </button>
+      <button class="research-filter-btn" data-filter="evolutionary">
+        <span class="rfilter-dot evolutionary"></span>Evolutionary biology
+      </button>
+      <button class="research-filter-btn" data-filter="external">
+        <span class="rfilter-dot external"></span>External collaboration
+      </button>
+    </div>
+
+    <!-- ── KEYWORD SEARCH ───────────────────────────────────────── -->
+    <div class="research-keyword-search-wrap fade-up">
+      <svg class="research-keyword-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="research-keyword-search" class="research-keyword-search"
+             list="research-keywords-datalist"
+             placeholder="Filter by keyword…"
+             autocomplete="off"
+             spellcheck="false">
+      <datalist id="research-keywords-datalist"><!-- populated by JS --></datalist>
     </div>
 
     <!-- ── PROJECT CARDS ─────────────────────────────────────────── -->
@@ -168,13 +185,17 @@
         </div>
       </div>
 
-      <div class="research-card fade-up" data-theme="cancer" style="transition-delay:.15s;">
+      <div class="research-card fade-up" data-theme="cancer external" style="transition-delay:.15s;">
         <div class="research-card-stripe cancer"></div>
         <div class="research-card-body">
           <div class="research-theme-pills">
             <span class="research-theme-pill cancer">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               RNA in cancer
+            </span>
+            <span class="research-theme-pill external">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              External collaboration
             </span>
           </div>
           <div class="research-card-title">Limited bone marrow chimerism impairs cell competition in the thymus and causes leukemia</div>
@@ -218,12 +239,10 @@
               Biostatistics
             </span>
           </div>
-          <div class="research-card-title">An effect size-based screening approach to identify actigraphy markers of the submarine environment</div>
+          <div class="research-card-title">Circadian disruption in a submarine crew: health impact of alternating shift work in confined environments.</div>
           <div class="research-keywords">
             <span class="research-keyword">circadian rhythms</span>
-            <span class="research-keyword">actigraphy</span>
             <span class="research-keyword">shift work</span>
-            <span class="research-keyword">sleep</span>
           </div>
           <div class="research-card-people">
             <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)<br>
@@ -236,18 +255,7 @@
         </div>
         <div class="research-card-detail">
           <p class="research-card-desc">
-            Identifying behavioural markers of disease risk associated with circadian disruption
-            is challenging due to reproducibility concerns in under-powered human studies.
-            Submarines provide an extreme model of circadian disruption, depriving crew of
-            natural light–dark cycles and limiting physical activity. We developed an effect
-            size-based method to screen potential actigraphy-derived markers of the submarine
-            environment, collecting data across pre-mission, mission, and post-mission periods.
-            Forty-one actigraphy variables were screened for their ability to differentiate
-            between study periods and shift types using Monte Carlo permutation testing and ROC
-            curve analysis. Light-related features and DLMO trajectory slopes showed the
-            strongest discriminatory potential. These findings support the use of actigraphy in
-            dimly-lit, isolated, confined, and extreme (DICE) environments and its
-            applicability to other operational or clinical populations with reduced activity.
+            Identifying behavioral markers of disease risk associated with circadian disruption remains challenging due to reproducibility concerns, as human studies are often underpowered to detect the effects of interest. Submarines provide an extreme example of circadian disruption, depriving individuals of natural light-dark cycles and limiting opportunities for physical activity. To address these challenges, we developed an effect size-based method to robustly screen potential actigraphy-derived markers of the submarine environment. Actigraphy data was collected across the pre-mission, mission and post-mission periods. During the mission, crew members followed a 6-hours-on/6-hours-off split shift schedule, except for submariners with on-call duty or extended hours. Forty-one actigraphy variables were screened for their ability to differentiate between study periods and shifts. A Monte Carlo permutation test was used for this initial screening, followed by receiver operating characteristic (ROC) curve analysis for pairwise comparisons. Light-related features, the slopes of regression lines fitted to the daily predicted dim light melatonin onset (DLMO) trajectories, and Pearson correlation coefficients between each recording day and its corresponding predicted DLMO demonstrated the greatest potential to distinguish between study periods. Most high-performing features discriminated between split shift work schedules and on-call or extended-hours schedules. Only the relative amplitude (RA) and the average light intensity during the five least-illuminated hours of the day (L5) reliably distinguished between the shift performing the bulk of nighttime work and its counterpart. Although submarine settings offer an opportunity to study a healthy population living under confined movement and dim light, detecting biological signals through actigraphy in this environment is inherently challenging. Demonstrating robust effects under these conditions supports the use of actigraphy in dimly-lit, isolated, confined, and extreme (DICE) environments, but also its applicability to study other operational or clinical populations with reduced activity levels.
           </p>
           <p class="research-card-preprint">
               <a href="https://www.biorxiv.org/content/10.1101/2025.06.16.659930v2" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Preprint (bioRxiv)</a>
@@ -255,13 +263,17 @@
         </div>
       </div>
 
-      <div class="research-card fade-up" data-theme="neuro" style="transition-delay:.25s;">
+      <div class="research-card fade-up" data-theme="neuro external" style="transition-delay:.25s;">
         <div class="research-card-stripe neuro"></div>
         <div class="research-card-body">
           <div class="research-theme-pills">
             <span class="research-theme-pill neuro">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.07-4.6A3 3 0 0 1 3 12a3 3 0 0 1 2.96-3 2.5 2.5 0 0 1 3.54-4z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.07-4.6A3 3 0 0 0 21 12a3 3 0 0 0-2.96-3 2.5 2.5 0 0 0-3.54-4z"/></svg>
               Neuro-biology
+            </span>
+            <span class="research-theme-pill external">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              External collaboration
             </span>
           </div>
           <div class="research-card-title">Effect of statin treatment in chronic sleep deprivation</div>
@@ -391,6 +403,69 @@
               Bioinformatics
             </span>
           </div>
+          <div class="research-card-title">A LLM-based agent that can answer questions about biology and perform computational biology tasks, with a focus on uncertainty quantification.</div>
+          <div class="research-keywords">
+            <span class="research-keyword">LLM</span>
+            <span class="research-keyword">epistemic gating</span>
+            <span class="research-keyword">uncertainty quantification</span>
+            <span class="research-keyword">information geometry</span>
+            <span class="research-keyword">responsible AI</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)<br>
+            <strong>Collaborators:</strong> <a href="https://www.linkedin.com/in/duarte-miguel-folgado/" target="_blank" rel="noopener">Duarte Folgado</a> (Co-PI)
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Large language models (LLMs) have demonstrated remarkable capabilities in natural language processing, yet their application to scientific domains, particularly biology, remains limited by the inability to distinguish between what they know and what they don't. This project develops an LLM-based agent for biological research that addresses this gap through principled epistemic gating. Rather than generating plausible but unreliable answers under insufficient information, the agent operates under a formal sufficiency condition that determines when available context supports a response, withholding judgment when it does not. This principled refusal behavior, derived from information geometry, transforms uncertainty quantification from a post-hoc heuristic into a first-principles design criterion. The agent combines a general-purpose model for task decomposition and tool routing with a biology-specialized model for inference, integrating domain-specific knowledge with calibrated uncertainty. By making the limits of knowledge explicit and actionable, this project seeks to enhance the reliability of LLMs in biological research and contribute to the development of responsible AI applications in science.
+          </p>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="evolutionary" style="transition-delay:.45s;">
+        <div class="research-card-stripe evolutionary"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill evolutionary">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4"/><circle cx="12" cy="12" r="1.5"/></svg>
+              Evolutionary biology
+            </span>
+          </div>
+          <div class="research-card-title">Studying how conserved regulated alternative splicing affects the 3D structure of proteins across species.</div>
+          <div class="research-keywords">
+            <span class="research-keyword">alternative splicing</span>
+            <span class="research-keyword">protein structure</span>
+            <span class="research-keyword">evolution</span>
+          </div>
+          <div class="research-card-people">
+            <strong>Members:</strong> Daniel Marques, Nuno Barbosa-Morais (PI)
+          </div>
+          <div class="research-card-toggle">
+            <span>Read abstract</span>
+            <svg class="research-card-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="research-card-detail">
+          <p class="research-card-desc">
+            Alternative splicing expands proteomic diversity by allowing a single gene to produce multiple protein isoforms, yet the structural and functional consequences of many conserved splicing events remain poorly understood. This project focuses on alternative splicing events with intermediate percent-spliced-in (PSI) values and high PSI range across species or tissues, as these events are more likely to represent biologically regulated isoform variation rather than constitutive inclusion, exclusion, or transcriptional noise. Because both isoforms are expressed at meaningful levels and their relative abundance varies across biological contexts, these events provide a strong framework for studying how alternative splicing modulates protein structure during evolution. A particular focus will be placed on intrinsically disordered regions, which do not adopt a single fixed three-dimensional fold but instead exist as conformational ensembles: dynamic populations of interconverting structural states. These regions are often involved in fine-tuning protein-protein interactions, making them plausible targets through which alternative splicing can alter binding specificity, interaction strength, or regulatory flexibility. By comparing conserved regulated splicing events across species, this project aims to determine whether alternative splicing contributes to the evolution of protein function by reshaping the 3D structural landscape of protein isoforms.
+          </p>
+        </div>
+      </div>
+
+      <div class="research-card fade-up" data-theme="bioinformatics" style="transition-delay:.5s;">
+        <div class="research-card-stripe bioinformatics"></div>
+        <div class="research-card-body">
+          <div class="research-theme-pills">
+            <span class="research-theme-pill bioinformatics">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Bioinformatics
+            </span>
+          </div>
           <div class="research-card-title"><em>CHARM</em>: Comprehensive Hub for Alternative Regulatory Mapping</div>
           <div class="research-keywords">
             <span class="research-keyword">RNA-binding proteins</span>
@@ -442,16 +517,16 @@
           <li>Jardim C<sup>*</sup>, <strong>Bica M</strong><sup>*</sup>, Reis-Sobreiro M et al. <em>Cancer Immunology Research</em>, 2025. [<a href="https://pubmed.ncbi.nlm.nih.gov/40471151/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Wagner V, Bousset L, <strong>Ascensão-Ferreira M</strong>, …, <strong> Kaizeler A, Martins-Silva R</strong> et al. <em>Nature Communications</em>, 2026. [<a href="https://doi.org/10.1038/s41467-026-71564-z" target="_blank" rel="noopener">Paper</a>]</li>
           <li>Moreno-Marin N, Marteil G, <strong>Fresmann NC</strong>, <strong>de Almeida BP</strong> et al. <em>bioRxiv</em>, 2023.03.13.532472. [<a href="https://doi.org/10.1101/2023.03.13.532472" target="_blank" rel="noopener">Preprint</a>]</li>
-          <li>Conde J, Pumroy RA, Baker C et al. <em>ACS Central Science</em>, 2021;7(5):868–881. [<a href="https://pubmed.ncbi.nlm.nih.gov/34079902/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Gomes I, <strong>de Almeida BP</strong> et al. <em>Oncotarget</em>, 2020;11(19):1714–1728. [<a href="https://pubmed.ncbi.nlm.nih.gov/32477461/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Conde J, Pumroy RA, Baker C et al. <em>ACS Central Science</em>, 2021;7(5):868-881. [<a href="https://pubmed.ncbi.nlm.nih.gov/34079902/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Gomes I, <strong>de Almeida BP</strong> et al. <em>Oncotarget</em>, 2020;11(19):1714-1728. [<a href="https://pubmed.ncbi.nlm.nih.gov/32477461/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Munkley J et al. <em>eLife</em>, 2019;8:e47678. [<a href="https://pubmed.ncbi.nlm.nih.gov/31478829/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Rodrigues T, <strong>de Almeida BP</strong> et al. <em>Chem Commun</em>, 2019;55(45):6369–6372. [<a href="https://pubmed.ncbi.nlm.nih.gov/31089616/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Baker C, Rodrigues T, <strong>de Almeida BP</strong> et al. <em>Bioorg Med Chem</em>, 2019;27(12):2531–2536. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30885569" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Rodrigues T, <strong>de Almeida BP</strong> et al. <em>Chem Commun</em>, 2019;55(45):6369-6372. [<a href="https://pubmed.ncbi.nlm.nih.gov/31089616/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Baker C, Rodrigues T, <strong>de Almeida BP</strong> et al. <em>Bioorg Med Chem</em>, 2019;27(12):2531-2536. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30885569" target="_blank" rel="noopener">PubMed</a>]</li>
           <li><strong>de Almeida BP</strong>, Vieira AF et al. <em>PLoS Comput Biol</em>, 2019;15(3):e1006832. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30856170" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Braun S, Enculescu M et al. <em>Nat Commun</em>, 2018;9(1):3315. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30120239" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Georgilis A, Klotz S, Hanley CJ et al. <em>Cancer Cell</em>, 2018;34(1):85–102. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29990503" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Georgilis A, Klotz S, Hanley CJ et al. <em>Cancer Cell</em>, 2018;34(1):85-102. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29990503" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Marteil G, Guerrero A, Vieira AF, <strong>de Almeida BP</strong> et al. <em>Nat Commun</em>, 2018;9(1):1258. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/29593297" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li><strong>Gallego-Paez LM</strong>, <strong>Bordone MC</strong>, <strong>Leote AC</strong> et al. <em>Human Genetics</em>, 2017;136(9):1015–1042. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/28374191" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li><strong>Gallego-Paez LM</strong>, <strong>Bordone MC</strong>, <strong>Leote AC</strong> et al. <em>Human Genetics</em>, 2017;136(9):1015-1042. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/28374191" target="_blank" rel="noopener">PubMed</a>]</li>
         </ul>
         <p style="font-size:.75rem;color:var(--muted);margin:.6rem 0 0;font-style:italic;"><sup>*</sup> co-first authors</p>
       </details>
@@ -468,10 +543,10 @@
           <li>Martins I, Neves-Silva D, <strong>Ascensão-Ferreira M</strong> et al. <em>Int J Mol Sci</em>, 2023;24(7):6433. [<a href="https://pubmed.ncbi.nlm.nih.gov/37047406/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Goulielmaki E, Tsekrekou M, Batsiotos N, <strong>Ascensão-Ferreira M</strong> et al. <em>Nat Commun</em>, 2021;12(1):3153. [<a href="https://pubmed.ncbi.nlm.nih.gov/34039990/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li><strong>Bordone MC</strong> &amp; <strong>Barbosa-Morais NL</strong>. <em>Front Neurosci</em>, 2020;14:607215. [<a href="https://pubmed.ncbi.nlm.nih.gov/33362460/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Rathore OS, Silva RD, <strong>Ascensão-Ferreira M</strong> et al. <em>RNA</em>, 2020;26(12):1935–1956. [<a href="https://pubmed.ncbi.nlm.nih.gov/32963109/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Godinho-Silva C, Domingues RG et al. <em>Nature</em>, 2019;574(7777):254–258. [<a href="https://pubmed.ncbi.nlm.nih.gov/31534216/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Rathore OS, Silva RD, <strong>Ascensão-Ferreira M</strong> et al. <em>RNA</em>, 2020;26(12):1935-1956. [<a href="https://pubmed.ncbi.nlm.nih.gov/32963109/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Godinho-Silva C, Domingues RG et al. <em>Nature</em>, 2019;574(7777):254-258. [<a href="https://pubmed.ncbi.nlm.nih.gov/31534216/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li>Leznicki P, Natarajan J, <strong>Bordone MC</strong> et al. <em>J Cell Sci</em>, 2018;131(10):jcs212753. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/29685892" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li>Cardoso V, Chesné J et al. <em>Nature</em>, 2017;549(7671):277–281. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/28869974" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li>Cardoso V, Chesné J et al. <em>Nature</em>, 2017;549(7671):277-281. [<a href="http://www.ncbi.nlm.nih.gov/pubmed/28869974" target="_blank" rel="noopener">PubMed</a>]</li>
         </ul>
       </details>
 
@@ -485,12 +560,41 @@
         <ul class="research-pub-panel-list">
           <li><strong>Martins-Silva R</strong>, <strong>Kaizeler A</strong>, <strong>Barbosa-Morais NL</strong>. <em>NAR Genomics and Bioinformatics</em>, 2026. [<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Paper</a>]</li>
           <li><strong>Schneider AL</strong><sup>*</sup>, <strong>Martins-Silva R</strong><sup>*</sup>, <strong>Kaizeler A</strong><sup>*</sup> et al. <em>eLife</em>, 2024;12:RP88623. [<a href="https://pubmed.ncbi.nlm.nih.gov/38546191/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li><strong>Ascensão-Ferreira M</strong><sup>*</sup>, <strong>Martins-Silva R</strong><sup>*</sup> et al. <em>RNA</em>, 2024;30(4):337–353. [<a href="https://pubmed.ncbi.nlm.nih.gov/38278530/" target="_blank" rel="noopener">PubMed</a>]</li>
-          <li><strong>Saraiva-Agostinho N</strong> &amp; <strong>Barbosa-Morais NL</strong>. <em>Methods Mol Biol</em>, 2020;2117:179–205. [<a href="https://pubmed.ncbi.nlm.nih.gov/31960379/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li><strong>Ascensão-Ferreira M</strong><sup>*</sup>, <strong>Martins-Silva R</strong><sup>*</sup> et al. <em>RNA</em>, 2024;30(4):337-353. [<a href="https://pubmed.ncbi.nlm.nih.gov/38278530/" target="_blank" rel="noopener">PubMed</a>]</li>
+          <li><strong>Saraiva-Agostinho N</strong> &amp; <strong>Barbosa-Morais NL</strong>. <em>Methods Mol Biol</em>, 2020;2117:179-205. [<a href="https://pubmed.ncbi.nlm.nih.gov/31960379/" target="_blank" rel="noopener">PubMed</a>]</li>
           <li><strong>Saraiva-Agostinho N</strong> &amp; <strong>Barbosa-Morais NL</strong>. <em>Nucleic Acids Res</em>, 2019;47(2):e7. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30277515" target="_blank" rel="noopener">PubMed</a>]</li>
         </ul>
         <p style="font-size:.75rem;color:var(--muted);margin:.6rem 0 0;font-style:italic;"><sup>*</sup> co-first authors</p>
       </details>
+
+      <!-- ══ EMPTY PANELS - uncomment when publications are available ══
+
+      To activate a panel: remove the opening "<!-\-" and closing "-\->" lines
+      around the <details> block, then add <li> entries inside the <ul>.
+
+      <details class="research-pub-panel" data-theme="external">
+        <summary class="research-pub-panel-summary external">
+          <span class="rfilter-dot external" style="margin-right:.5rem;"></span>
+          External collaboration
+          <svg class="research-pub-panel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <ul class="research-pub-panel-list">
+          <li>Author A, <strong>Barbosa-Morais NL</strong> (co-PI). <em>Journal</em>, year. [<a href="#" target="_blank" rel="noopener">Paper</a>]</li>
+        </ul>
+      </details>
+
+      <details class="research-pub-panel" data-theme="evolutionary">
+        <summary class="research-pub-panel-summary evolutionary">
+          <span class="rfilter-dot evolutionary" style="margin-right:.5rem;"></span>
+          Evolutionary biology
+          <svg class="research-pub-panel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <ul class="research-pub-panel-list">
+          <li>Author A, <strong>Barbosa-Morais NL</strong>. <em>Journal</em>, year. [<a href="#" target="_blank" rel="noopener">Paper</a>]</li>
+        </ul>
+      </details>
+
+      ══ END EMPTY PANELS ══════════════════════════════════════════ -->
 
     </div><!-- /research-pub-panels -->
 

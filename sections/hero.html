@@ -1,5 +1,5 @@
 <!-- ================================================================
-     HERO SECTION — sections/hero.html
+     HERO SECTION - sections/hero.html
      Edit the headline, description, and affiliation badges here.
      ================================================================ -->
 <section id="hero">
@@ -21,9 +21,11 @@
       <!-- Lab name
       <div class="hero-lab-name">Disease Transcriptomics Lab</div> -->
 
-      <!-- EDIT HERO TITLE — the <span> is highlighted in teal -->
+      <!-- EDIT HERO TITLE - the <span> is highlighted in teal.
+           The ghost layer sets the height so layout never shifts during typing. -->
       <h1 class="hero-title">
-        Decoding RNA<br>to understand<br><span>disease</span>
+        <span class="hero-title-ghost" aria-hidden="true">Decoding RNA<br>to understand<br><span class="hero-title-ghost-teal">disease</span></span>
+        <span class="hero-title-typed" aria-label="Decoding RNA to understand disease"></span>
       </h1>
 
       <!-- EDIT HERO DESCRIPTION -->
@@ -33,19 +35,6 @@
         ageing-related pathologies, and we build open tools to make these
         analyses accessible to all researchers.
       </p>
-
-      <!-- EDIT CALL-TO-ACTION BUTTONS -->
-      <div class="hero-ctas">
-        <a href="#software" class="btn btn-primary">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-               stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-          Explore our tools
-        </a>
-        <a href="#publications" class="btn btn-outline">View publications</a>
-      </div>
 
     </div><!-- /hero-inner -->
 
