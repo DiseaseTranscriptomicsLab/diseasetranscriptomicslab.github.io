@@ -1099,7 +1099,9 @@ function initHeroTypewriter() {
   if (!typed) return;
 
   const segments = [
-    { text: 'Decoding RNA',  teal: false },
+    { text: 'Decoding',  teal: false },
+    { text: '\n',            teal: false },
+    { text: 'transcriptomes',  teal: false },
     { text: '\n',            teal: false },
     { text: 'to understand', teal: false },
     { text: '\n',            teal: false },
