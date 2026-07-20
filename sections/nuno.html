@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-        content="Nuno Luís Barbosa Morais - Principal Investigator, Disease Transcriptomics Lab, NOVA Medical School, Lisbon." />
-  <title>Nuno Barbosa-Morais · Disease Transcriptomics Lab</title>
+        content="Nuno L. Barbosa-Morais - Principal Investigator,
+Disease Transcriptomics Lab, NOVA Medical School, Lisbon. " />
+  <title>Nuno L. Barbosa-Morais · Disease Transcriptomics Lab</title>
 
   <link rel="icon" href="../assets/logos/logo-icon-black.png" type="image/png" />
   <script>
@@ -30,7 +31,7 @@
 
   <style>
     /* ── Page-level overrides ─────────────────────────────── */
-    .nuno-page { padding-top: 80px; min-height: 100vh; background: var(--white); }
+    .nuno-page { padding-top: 64px; min-height: 100vh; background: var(--white); }
 
     /* Hero */
     .nuno-hero {
@@ -193,7 +194,14 @@
       padding-left: 1.5rem;
     }
     .nuno-pub-item:last-child { border-bottom: none; }
-    /* key-paper star removed */
+    .nuno-pub-item.key-paper::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      top: .75rem;
+      color: var(--teal);
+      font-size: .85rem;
+    }
     .nuno-pub-item a { color: var(--teal); text-decoration: none; }
     .nuno-pub-item a:hover { text-decoration: underline; }
     .nuno-pub-item em { font-style: italic; }
@@ -252,7 +260,7 @@
       padding-bottom: .35rem;
       border-bottom: 2px solid var(--border);
     }
-    .press-items { list-style: none; padding: 0; margin: 0; }
+    .press-items { list-style: disc outside; padding: 0 0 0 1.25rem; margin: 0; }
     .press-items li {
       font-size: .9rem;
       line-height: 1.7;
@@ -260,6 +268,8 @@
       color: var(--body);
       border-bottom: 1px solid rgba(0,0,0,.05);
     }
+    .press-items li::marker { color: var(--teal); }
+    .press-items li::before { content: none; }
     .press-items li:last-child { border-bottom: none; }
     .press-items a { color: var(--teal); text-decoration: none; }
     .press-items a:hover { text-decoration: underline; }
@@ -299,7 +309,7 @@
       <a href="../index.html" class="nav-logo" aria-label="Disease Transcriptomics Lab home">
         <img src="../assets/logos/logo-icon.png" alt="Disease Transcriptomics Lab logo" />
       </a>
-      <a href="mailto:nmorais@nms.unl.pt"
+      <a href="mailto:nuno.morais@nms.unl.pt"
          class="btn btn-primary"
          style="padding:.4rem 1rem;font-size:.85rem;margin-left:auto;">
         Contact
@@ -321,13 +331,13 @@
 
         <img class="nuno-hero-photo"
              src="../assets/photos/Nuno.jpg"
-             alt="Nuno Luís Barbosa Morais" />
+             alt="Nuno L. Barbosa-Morais" />
 
         <div class="nuno-hero-info">
           <span class="nuno-hero-label">Principal Investigator</span>
-          <h1 class="nuno-hero-name">Nuno Luís Barbosa Morais</h1>
+          <h1 class="nuno-hero-name">Nuno L. Barbosa-Morais</h1>
           <p class="nuno-hero-title">
-            Disease Transcriptomics Lab · NOVA Medical School, Lisbon
+            Disease Transcriptomics Lab · NOVA Medical School &amp; GIMM, Lisbon
           </p>
           <p class="nuno-hero-interests">
             <strong>Research interests:</strong>
@@ -338,10 +348,6 @@
                class="cv-link" target="_blank" rel="noopener">CV (CiênciaVitae) ↗</a>
             <a href="https://orcid.org/0000-0002-1215-0538"
                target="_blank" rel="noopener">ORCID</a>
-            <a href="https://scholar.google.com/citations?user=LS9tM7sAAAAJ&hl=en"
-               target="_blank" rel="noopener">Google Scholar</a>
-            <a href="https://bsky.app/profile/nmoraislab.bsky.social"
-               target="_blank" rel="noopener">Bluesky</a>
             <a href="https://www.linkedin.com/in/nuno-barbosa-morais-8099612/"
                target="_blank" rel="noopener">LinkedIn</a>
           </div>
@@ -351,7 +357,7 @@
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
             </svg>
-            <a href="mailto:nmorais@nms.unl.pt">nmorais@nms.unl.pt</a>
+            <a href="mailto:nuno.morais@nms.unl.pt">nuno.morais@nms.unl.pt</a>
           </div>
         </div>
       </div>
@@ -456,12 +462,15 @@
                  placeholder="Search publications…" aria-label="Search publications" />
           <div class="pub-links">
             <a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=barbosa-morais+n" target="_blank" rel="noopener">PubMed</a>
-            <a href="https://orcid.org/0000-0002-1215-0538" target="_blank" rel="noopener">ORCID</a>
-            <a href="https://scholar.google.com/citations?user=LS9tM7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+            <a href="https://www.webofscience.com/wos/author/record/I-2743-2013" target="_blank" rel="noopener">WoS ResearcherID</a>
             <a href="https://www.scopus.com/authid/detail.uri?authorId=6507555084" target="_blank" rel="noopener">Scopus</a>
+            <a href="https://scholar.google.com/citations?user=LS9tM7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
           </div>
         </div>
 
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.5rem;">
+          ★ denotes key papers · (* co-first authors) · (<sup>+</sup> corresponding author)
+        </p>
 
         <div id="pub-list-container">
 
@@ -469,12 +478,12 @@
 
         <ul class="nuno-pub-list">
           <li class="nuno-pub-item key-paper">
-            Marques D, Fernandes C, <strong>Barbosa-Morais NL</strong>, Reis C.
+            Marques D<sup>+</sup>, Fernandes C, <strong>Barbosa-Morais NL</strong><sup>+</sup>, Reis C<sup>+</sup>.
             "<a href="https://doi.org/10.1101/2025.06.16.659930" target="_blank" rel="noopener">Circadian disruption beneath the surface: a screening approach to identify actigraphy-based markers of split shift work in submariners.</a>"
             <em>bioRxiv</em>, 2025.06.16.659930.
           </li>
           <li class="nuno-pub-item key-paper">
-            Bica M, Serre K, <strong>Barbosa-Morais NL</strong>.
+            Bica M<sup>+</sup>, Serre K, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://doi.org/10.1101/2025.04.17.649161" target="_blank" rel="noopener">scStudio: A User-Friendly Web Application Empowering Non-Computational Users with Intuitive scRNA-seq Data Analysis.</a>"
             <em>bioRxiv</em>, 2025.04.17.649161.
           </li>
@@ -487,39 +496,11 @@
 
         <div class="nuno-pub-section-title">All Journal Articles</div>
 
-        <div class="nuno-pub-year">2026</div>
-        <ul class="nuno-pub-list">
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
-            <span class="nuno-pub-num">[64]</span>
-            Martins-Silva R, Kaizeler A, <strong>Barbosa-Morais NL</strong>.
-            "<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Exploring molecular signatures of senescence with markeR, an R toolkit for evaluating gene sets as phenotypic markers.</a>"
-            <em>NAR Genomics and Bioinformatics</em>, 2026.
-            [<a href="https://doi.org/10.1093/nargab/lqag057" target="_blank" rel="noopener">Paper</a>]
-          </li>
-          <li class="nuno-pub-item">
-            <span class="nuno-pub-num">[63]</span>
-            Wagner V, Bousset L, Ascensão-Ferreira M, …, Martins-Silva R, et al.
-            "<a href="https://doi.org/10.1038/s41467-026-71564-z" target="_blank" rel="noopener">Spliceosome induction is a druggable dependency of RAS-driven senescence and cancer.</a>"
-            <em>Nature Communications</em>, 2026.
-            [<a href="https://doi.org/10.1038/s41467-026-71564-z" target="_blank" rel="noopener">Paper</a>]
-          </li>
-        </ul>
-
         <div class="nuno-pub-year">2025</div>
         <ul class="nuno-pub-list">
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[62]</span>
-            Jardim C, Bica M, Reis-Sobreiro M, da Mota AT, Lopes R, Pinto M, Sousa NS, Mensurado S, Boekhoff H, Scolaro T, Reugebrink M, Gonçalves-Sousa N, Kubo H, Gomes CM, Brito C, Arguello R, Leites EP, Morais VA, Silva-Santos B, <strong>Barbosa-Morais NL</strong>, Serre K.
+            Jardim C*, Bica M*, Reis-Sobreiro M, da Mota AT, Lopes R, Pinto M, Sousa NS, Mensurado S, Boekhoff H, Scolaro T, Reugebrink M, Gonçalves-Sousa N, Kubo H, Gomes CM, Brito C, Arguello R, Leites EP, Morais VA, Silva-Santos B, <strong>Barbosa-Morais NL</strong><sup>+</sup>, Serre K.
             "<a href="https://doi.org/10.1158/2326-6066.CIR-24-0797" target="_blank" rel="noopener">Sustained macrophage reprogramming is required for CD8 T cell-dependent long-term tumor eradication.</a>"
             <em>Cancer Immunology Research</em>, 2025 Jun 5; in press.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/40471151/" target="_blank" rel="noopener">PubMed</a>]
@@ -535,26 +516,16 @@
             <em>Cell Reports</em>, 2024 Nov 26;43(11):114975.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/39541212/" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[60]</span>
-            Schneider AL, Martins-Silva R, Kaizeler A, Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong>.
+            Schneider AL*, Martins-Silva R*, Kaizeler A*, Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://elifesciences.org/articles/88623" target="_blank" rel="noopener">voyAGEr, free web interface for the analysis of age-related gene expression alterations in human tissues.</a>"
             <em>eLife</em>, 2024;12:RP88623.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/38546191/" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[59]</span>
-            Ascensão-Ferreira M, Martins-Silva R, Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong>.
+            Ascensão-Ferreira M*, Martins-Silva R*, Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://doi.org/10.1261/rna.079764.123" target="_blank" rel="noopener">betAS: intuitive analysis and visualisation of differential alternative splicing using beta distributions.</a>"
             <em>RNA</em>, 2024;30(4):337-353.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/38278530/" target="_blank" rel="noopener">PubMed</a>]
@@ -592,27 +563,17 @@
 
         <div class="nuno-pub-year">2020</div>
         <ul class="nuno-pub-list">
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[55]</span>
-            Bordone MC, <strong>Barbosa-Morais NL</strong>.
+            Bordone MC, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://www.frontiersin.org/articles/10.3389/fnins.2020.607215/full" target="_blank" rel="noopener">Unraveling Targetable Systemic and Cell-Type-Specific Molecular Phenotypes of Alzheimer's and Parkinson's Brains With Digital Cytometry.</a>"
             <em>Frontiers in Neuroscience</em>, 2020 Dec 9;14:607215.
             [<a href="https://www.ncbi.nlm.nih.gov/pubmed/33362460" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[54]</span>
-            Rathore OS, Silva RD, Ascensão-Ferreira M, Matos R, Carvalho C, Marques B, Tiago MN, Prudencio P, Andrade RP, Roignant JY, <strong>Barbosa-Morais NL</strong>, Martinho RG.
-            "<a href="https://doi.org/10.1261/rna.077446.120" target="_blank" rel="noopener">NineTeen Complex-subunit Salsa is required for efficient splicing of a subset of introns and dorsal-ventral patterning.</a>"
+            Rathore OS, Silva RD, Ascensão-Ferreira M, Matos R, Carvalho C, Marques B, Tiago MN, Prudencio P, Andrade RP, Roignant JY, <strong>Barbosa-Morais NL</strong><sup>+</sup>, Martinho RG<sup>+</sup>.
+            "NineTeen Complex-subunit Salsa is required for efficient splicing of a subset of introns and dorsal-ventral patterning."
             <em>RNA</em>, 2020 Dec;26(12):1935-1956.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/32963109/" target="_blank" rel="noopener">PubMed</a>]
           </li>
@@ -632,7 +593,7 @@
           </li>
           <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[51]</span>
-            Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong>.
+            Saraiva-Agostinho N<sup>+</sup>, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://link.springer.com/protocol/10.1007%2F978-1-0716-0301-7_10" target="_blank" rel="noopener">Interactive Alternative Splicing Analysis of Human Stem Cells Using psichomics.</a>"
             <em>Methods in Molecular Biology</em>, 2020;2117:179-205.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/31960379/" target="_blank" rel="noopener">PubMed</a>]
@@ -648,14 +609,9 @@
             <em>Nature</em>, 2019 Oct;574(7777):254-258.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/31534216/" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[49]</span>
-            Munkley J, Li L, Krishnan SRG, Hysenaj G, Scott E, Dalgliesh C, Oo HZ, Maia TM, Cheung K, Ehrmann I, Livermore KE, Zielinska H, Thompson O, Knight B, McCullagh P, McGrath J, Crundwell M, Harries LW, Daugaard M, Cockell S, <strong>Barbosa-Morais NL</strong>, Oltean S, Elliott DJ.
+            Munkley J, Li L, Krishnan SRG, Hysenaj G, Scott E, Dalgliesh C, Oo HZ, Maia TM, Cheung K, Ehrmann I, Livermore KE, Zielinska H, Thompson O, Knight B, McCullagh P, McGrath J, Crundwell M, Harries LW, Daugaard M, Cockell S, <strong>Barbosa-Morais NL</strong><sup>+</sup>, Oltean S<sup>+</sup>, Elliott DJ<sup>+</sup>.
             "<a href="https://elifesciences.org/articles/47678" target="_blank" rel="noopener">Androgen-regulated transcription of ESRP2 drives alternative splicing patterns in prostate cancer.</a>"
             <em>eLife</em>, 2019 Sep 3;8:e47678.
             [<a href="https://pubmed.ncbi.nlm.nih.gov/31478829/" target="_blank" rel="noopener">PubMed</a>]
@@ -674,26 +630,16 @@
             <em>Bioorg Med Chem</em>, 2019 Jun 15;27(12):2531-2536.
             [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30885569" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[46]</span>
-            de Almeida BP, Vieira AF, Paredes J, Bettencourt-Dias M, <strong>Barbosa-Morais NL</strong>.
+            de Almeida BP, Vieira AF, Paredes J, Bettencourt-Dias M, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006832" target="_blank" rel="noopener">Pan-cancer association of a centrosome amplification gene expression signature with genomic alterations and clinical outcome.</a>"
             <em>PLoS Computational Biology</em>, 2019 Mar 11;15(3):e1006832.
             [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30856170" target="_blank" rel="noopener">PubMed</a>]
           </li>
-          <li class="nuno-pub-item key-paper"
-             
-             
-             
-             
-             >
+          <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[45]</span>
-            Saraiva-Agostinho N, <strong>Barbosa-Morais NL</strong>.
+            Saraiva-Agostinho N<sup>+</sup>, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="https://academic.oup.com/nar/article/47/2/e7/5114259" target="_blank" rel="noopener">psichomics: graphical application for alternative splicing quantification and analysis.</a>"
             <em>Nucleic Acids Research</em>, 2019 Jan 25;47(2):e7.
             [<a href="https://www.ncbi.nlm.nih.gov/pubmed/30277515" target="_blank" rel="noopener">PubMed</a>]
@@ -750,7 +696,7 @@
           </li>
           <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[38]</span>
-            Gallego-Paez LM, Bordone MC, Leote AC, Saraiva-Agostinho N, Ascensão-Ferreira M, <strong>Barbosa-Morais NL</strong>.
+            Gallego-Paez LM, Bordone MC, Leote AC, Saraiva-Agostinho N, Ascensão-Ferreira M, <strong>Barbosa-Morais NL</strong><sup>+</sup>.
             "<a href="http://link.springer.com/article/10.1007/s00439-017-1790-y" target="_blank" rel="noopener">Alternative splicing: the pledge, the turn, and the prestige - The key role of alternative splicing in human biological systems.</a>"
             <em>Human Genetics</em>, 2017 Sep;136(9):1015-1042.
             [<a href="https://www.ncbi.nlm.nih.gov/pubmed/28374191" target="_blank" rel="noopener">PubMed</a>]
@@ -847,7 +793,7 @@
           </li>
           <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[27]</span>
-            <strong>Barbosa-Morais NL</strong>, Dunning MJ, Samarajiwa SA, Darot JFJ, Ritchie ME, Lynch AG, Tavaré S.
+            <strong>Barbosa-Morais NL</strong><sup>+</sup>, Dunning MJ, Samarajiwa SA, Darot JFJ, Ritchie ME, Lynch AG, Tavaré S.
             "<a href="http://www.ncbi.nlm.nih.gov/pubmed/19923232" target="_blank" rel="noopener">A re-annotation pipeline for Illumina BeadArrays: improving the interpretation of gene expression data.</a>"
             <em>Nucleic Acids Research</em>, 2010 Jan 1;38(3):e17.
             [<a href="http://www.ncbi.nlm.nih.gov/pubmed/19923232" target="_blank" rel="noopener">PubMed</a>]
@@ -883,7 +829,7 @@
         <ul class="nuno-pub-list">
           <li class="nuno-pub-item key-paper">
             <span class="nuno-pub-num">[23]</span>
-            Wilson MD, <strong>Barbosa-Morais NL</strong>, Schmidt D, Conboy CM, Vanes L, Tybulewicz VLJ, Fisher EMC, Tavaré S, Odom DT.
+            Wilson MD*, <strong>Barbosa-Morais NL</strong>*, Schmidt D, Conboy CM, Vanes L, Tybulewicz VLJ, Fisher EMC, Tavaré S, Odom DT.
             "<a href="http://www.ncbi.nlm.nih.gov/pubmed/18787134" target="_blank" rel="noopener">Species-specific transcription in mice carrying human chromosome 21.</a>"
             <em>Science</em>, 2008 Oct 17;322(5900):434-8.
             [<a href="http://www.ncbi.nlm.nih.gov/pubmed/18787134" target="_blank" rel="noopener">PubMed</a>]
@@ -1054,7 +1000,7 @@
           <li class="nuno-pub-item">
             <span class="nuno-pub-num">[1]</span>
             Naderi A, Ahmed AA, <strong>Barbosa-Morais NL</strong>, Aparicio S, Brenton JD, Caldas C.
-            "Expression microarray reproducibility is improved by optimising purification steps in RNA amplification and labelling."
+            <a href="https://doi.org/10.1186/1471-2164-5-9">"Expression microarray reproducibility is improved by optimising purification steps in RNA amplification and labelling."</a>
             <em>BMC Genomics</em>, 2004 Jan 30;5(1):9.
             [<a href="http://www.ncbi.nlm.nih.gov/pubmed/15005798" target="_blank" rel="noopener">PubMed</a>]
           </li>
@@ -1070,7 +1016,7 @@
           </li>
           <li class="nuno-pub-item">
             Lynch AG, Smith ML, Dunning MJ, Cairns JM, <strong>Barbosa-Morais NL</strong>, Tavaré S.
-            "<a href="http://www.maths.leeds.ac.uk/lasr2009/proceedings/lynch.pdf" target="_blank" rel="noopener">beadarray, BASH and HULK - tools to increase the value of Illumina BeadArray experiments.</a>"
+            "<a href="nuno/BeadTools.pdf" target="_blank" rel="noopener">beadarray, BASH and HULK - tools to increase the value of Illumina BeadArray experiments.</a>"
             In <em>Statistical Tools for Challenges in Bioinformatics</em>, 2009 pp 33-37. Leeds University Press.
           </li>
         </ul>
@@ -1079,7 +1025,7 @@
         <ul class="nuno-pub-list">
           <li class="nuno-pub-item">
             <strong>Barbosa-Morais NL</strong> (2007).
-            "<a href="#" target="_blank" rel="noopener">Bioinformatics Studies on the Complexity of Splicing and Gene Expression.</a>"
+            "<a href="nuno/Thesis.pdf" target="_blank" rel="noopener">Bioinformatics Studies on the Complexity of Splicing and Gene Expression.</a>"
             Faculdade de Medicina, Universidade de Lisboa.
           </li>
         </ul>
@@ -1094,7 +1040,7 @@
           <h3 class="press-topic">About Critical Thinking</h3>
           <ul class="press-items">
             <li>
-              <a href="https://45grauspodcast.com/2023/03/02/140-nuno-barbosa-morais-vieses-cognitivos-incentivos-perversos-big-data-e-outros-desafios-boa-cincia/" target="_blank" rel="noopener">
+              <a href="https://open.spotify.com/episode/53oM9EdBExciOkqydLewJb" target="_blank" rel="noopener">
                 Podcast 45 Graus #140: Nuno Barbosa Morais - Vieses cognitivos, incentivos perversos, Big data, e outros desafios à boa Ciência
               </a>
               <span class="press-meta">45 Graus, 2023</span>
@@ -1139,23 +1085,21 @@
         </div>
 
         <div class="press-group">
-          <h3 class="press-topic">About the 2019 PLoS Computational Biology paper (centrosome signature in cancer)</h3>
+          <h3 class="press-topic">About <a href="https://doi.org/10.1371/journal.pcbi.1006832">the 2019 PLoS Computational Biology paper ("Pan-cancer association of a centrosome amplification gene expression signature with genomic alterations and clinical outcome")</a></h3>
           <ul class="press-items">
             <li>
               <a href="https://www.dn.pt/vida-e-futuro/interior/investigadores-portugueses-criam-novo-metodo-para-definir-agressividade-de-cancros-10667975.html" target="_blank" rel="noopener">
-                Investigadores portugueses criam novo método para definir agressividade de cancros
-              </a>
-              <span class="press-meta">Diário de Notícias, 2019</span>
+                Investigadores portugueses criam novo método para definir agressividade de cancros</a>
+              <span class="press-meta">Diário de Notícias, 2019/03/11</span>
               - also covered by
               <a href="https://www.rtp.pt/noticias/pais/investigadores-portugueses-criam-novo-metodo-para-definir-agressividade-de-cancros_n1134189" target="_blank" rel="noopener">RTP</a>,
-              <a href="https://www.tsf.pt/lusa/interior/investigadores-portugueses-criam-novo-metodo-para-definir-agressividade-de-cancros-10667976.html" target="_blank" rel="noopener">TSF</a>,
-              <a href="http://visao.sapo.pt/lusa/2019-03-11-Investigadores-portugueses-criam-novo-metodo-para-definir-agressividade-de-cancros" target="_blank" rel="noopener">Visão</a>
+              <a href="https://www.tsf.pt/lusa/interior/investigadores-portugueses-criam-novo-metodo-para-definir-agressividade-de-cancros-10667976.html" target="_blank" rel="noopener">TSF</a>
             </li>
             <li>
               <a href="https://www.sciencedaily.com/releases/2019/03/190311141259.htm" target="_blank" rel="noopener">
                 When a cell's 'fingerprint' can be a weapon against cancer
               </a>
-              <span class="press-meta">Science Daily, 2019</span>
+              <span class="press-meta">Science Daily, 2019/03/11</span>
               - also covered internationally by
               <a href="https://www.infosalus.com/salud-investigacion/noticia-huella-digital-celula-puede-ser-arma-contra-cancer-20190312074241.html" target="_blank" rel="noopener">InfoSalus (ES)</a>,
               <a href="http://www.ansa.it/canale_scienza_tecnica/notizie/biotech/2019/03/11/geni-etichetta-riconoscono-le-impronte-digitali-dei-tumori-_e5d4c341-e16b-482d-89cd-6d66b5929764.html" target="_blank" rel="noopener">ANSA (IT)</a>,
@@ -1168,6 +1112,12 @@
           <h3 class="press-topic">About the 2014 EMBO Installation Grant</h3>
           <ul class="press-items">
             <li>
+              <a href="nuno/AuroraLima20150108.pdf">Qualidade da
+		  investigação &eacute; altíssima em Portugal!
+              </a>
+              <span class="press-meta">Aurora do Lima, 2015/01/08</span>
+            </li>
+            <li>
               <a href="http://p3.publico.pt/actualidade/ciencia/14962/jovens-cientistas-portugueses-distinguidos-com-premio-europeu" target="_blank" rel="noopener">
                 Jovens cientistas portugueses distinguidos com prémio europeu
               </a>
@@ -1179,22 +1129,12 @@
               </a>
               <span class="press-meta">Observador, 2014/12/10</span>
             </li>
-            <li>
-              <a href="http://www.newsfarma.pt/noticias/2260-pr%C3%A9mio-de-instala%C3%A7%C3%A3o-da-embo-atribu%C3%ADdo-a-cientistas-portugueses-do-igc-e-do-imm" target="_blank" rel="noopener">
-                Prémio de Instalação da EMBO atribuído a cientistas portugueses do IGC e do IMM
-              </a>
-              <span class="press-meta">News Farma, 2014/12/10</span>
-            </li>
-          </ul>
+           </ul>
         </div>
 
         <div class="press-group">
-          <h3 class="press-topic">About the 2012 Science paper (evolutionary landscape of alternative splicing)</h3>
+          <h3 class="press-topic">About <a href="https://doi.org/10.1126/science.1230612">the 2012 Science paper ("The Evolutionary Landscape of Alternative Splicing in Vertebrate Species")</a></h3>
           <ul class="press-items">
-            <li>
-              <a href="http://www.the-scientist.com/?articles.view/articleNo/33782/title/Evolution-by-Splicing/" target="_blank" rel="noopener">Evolution by Splicing</a>
-              <span class="press-meta">The Scientist, 2012/12/20</span>
-            </li>
             <li>
               <a href="http://www.sciencedaily.com/releases/2012/12/121220144124.htm" target="_blank" rel="noopener">Major Source of Evolutionary Differences Among Species Uncovered</a>
               <span class="press-meta">Science Daily, 2012/12/20</span>
@@ -1207,14 +1147,22 @@
         </div>
 
         <div class="press-group">
-          <h3 class="press-topic">About the 2008 Science paper (species-specific transcription)</h3>
+          <h3 class="press-topic">About <a href="https://doi.org/10.1126/science.1160930">the 2008 Science paper ("Species-Specific Transcription in Mice Carrying Human Chromosome 21")</a></h3>
           <ul class="press-items">
+            <li>
+              <a href="nuno/MundoPortugues.pdf">Cientistas portugueses dão cartas em Portugal e no estrangeiro</a>
+              <span class="press-meta">Mundo Português, 2008/11/07</span>
+            </li>
+            <li>
+              Português da Semana (<a href="nuno/CM1.JPG">1</a>,<a href="nuno/CM2.JPG">2</a>)
+              <span class="press-meta">Correio da Manhã, 2008/10/26</span>
+            </li>
             <li>
               <a href="https://www.publico.pt/2008/10/17/ciencia/noticia/afinal-o-genoma-tem-mais-autonomia-do-que-se-pensava-1346510" target="_blank" rel="noopener">Afinal, o genoma tem mais autonomia do que se pensava</a>
               <span class="press-meta">Público, 2008/10/17</span>
             </li>
-            <li>
-              Português em Cambridge publica na 'Science'
+            <li><a href="nuno/DN081017.jpg">
+              Português em Cambridge publica na 'Science'</a>
               <span class="press-meta">Diário de Notícias, 2008/10/17</span>
             </li>
             <li>
@@ -1228,11 +1176,11 @@
           <h3 class="press-topic">About Portuguese scientists abroad</h3>
           <ul class="press-items">
             <li>
-              Português investiga assinaturas moleculares
+              <a href="nuno/GrandePorto.pdf">Português investiga assinaturas moleculares</a>
               <span class="press-meta">Grande Porto, 2010/06/25</span>
             </li>
             <li>
-              Que grandes crânios!
+               <a href="nuno/ExpressoMar09.pdf">Que grandes crânios!</a>
               <span class="press-meta">Expresso, 2009/03/14</span>
             </li>
           </ul>
@@ -1242,7 +1190,7 @@
           <h3 class="press-topic">About LUSO 2007</h3>
           <ul class="press-items">
             <li>
-              Jovens cientistas sonham voltar a Portugal para trabalhar
+              <a href="nuno/DNLuso07.jpg">Jovens cientistas sonham voltar a Portugal para trabalhar</a>
               <span class="press-meta">Diário de Notícias, 2007/06/11</span>
             </li>
           </ul>
@@ -1265,7 +1213,7 @@
           <h4>Disease Transcriptomics Lab</h4>
           <p>NOVA Medical School · Lisbon<br>Rua do Instituto Bacteriológico, 5<br>1150-190 Lisboa · Portugal</p>
           <br>
-          <p><a href="mailto:nmorais@nms.unl.pt" style="color:var(--teal);">nmorais@nms.unl.pt</a></p>
+          <p><a href="mailto:nuno.morais@nms.unl.pt" style="color:var(--teal);">nuno.morais@nms.unl.pt</a></p>
         </div>
         <div class="footer-col">
           <h4>Quick links</h4>
@@ -1296,22 +1244,6 @@
   <script src="../js/main.js"></script>
 
   <script>
-    /* ── Auto-number publications (oldest=1) ──────────────────── */
-    (function () {
-      const yearHeaders = document.querySelectorAll('.nuno-pub-year');
-      let allItems = [];
-      yearHeaders.forEach(function (yr) {
-        const list = yr.nextElementSibling;
-        if (list) allItems = allItems.concat(Array.from(list.querySelectorAll('.nuno-pub-item')));
-      });
-      // DOM order is newest-first; reverse to number oldest=1
-      const ordered = allItems.slice().reverse();
-      ordered.forEach(function (item, i) {
-        const numEl = item.querySelector('.nuno-pub-num');
-        if (numEl) numEl.textContent = '[' + (i + 1) + ']';
-      });
-    })();
-
     /* ── Tab switching ─────────────────────────────────────────── */
     document.querySelectorAll('.nuno-tab-btn').forEach(btn => {
       btn.addEventListener('click', function () {
@@ -1350,6 +1282,14 @@
         window.addEventListener('scroll', function () {
           nav.classList.toggle('scrolled', window.scrollY > 20);
         }, { passive: true });
+      }
+      var toggleBtn = document.getElementById('nav-toggle-btn');
+      var drawer    = document.getElementById('nav-drawer');
+      if (toggleBtn && drawer) {
+        toggleBtn.addEventListener('click', function () { drawer.classList.toggle('open'); });
+        drawer.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () { drawer.classList.remove('open'); });
+        });
       }
       var yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();

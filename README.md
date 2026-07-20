@@ -37,6 +37,7 @@ nmoraislab.github.io/
 │   └── location.html            ← Address + OpenStreetMap embed
 │
 ├── sections/nuno.html           ← Nuno Barbosa-Morais full profile page (standalone)
+├── sections/nuno/               ← Archived press clippings and documents linked from sections/nuno.html
 │
 └── assets/
     ├── logos/                   ← Lab logos and funder logos (logos/funding/)
@@ -664,6 +665,8 @@ When a funded call or specific position opens:
 ### 👤 Nuno's page - `sections/nuno.html`
 
 Standalone page with Nuno's full profile: bio, CV timeline, complete publication list, press coverage.
+
+Older press clippings and documents (PDFs, scanned photos) linked from the "In the Press" tab live in `sections/nuno/` - keep new attachments there too, and link to them as `nuno/filename.ext`.
 
 **To add a publication**, find the correct year section and add a `<li class="nuno-pub-item">` inside the matching `<ul class="nuno-pub-list">`:
 
