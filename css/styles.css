@@ -745,6 +745,8 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.35); }
 .tool-badge.pkg     { background: #EFF6FF; color: #1E40AF; }
 .tool-badge.dev     { background: #F1F5F9; color: #475569; }
 
+.tool-badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+
 .tool-links { display: flex; flex-direction: column; gap: .5rem; margin-top: .25rem; }
 .tool-link-row { display: flex; flex-wrap: wrap; gap: .45rem; }
 

@@ -228,7 +228,8 @@ function initSoftwareFilter() {
 
       // Show/hide individual tool cards
       document.querySelectorAll('#software-all-grid .tool-card').forEach(card => {
-        if (filter === 'all' || card.dataset.toolType === filter) {
+        const types = (card.dataset.toolType || '').split(/\s+/);
+        if (filter === 'all' || types.includes(filter)) {
           card.style.display = '';
         } else {
           card.style.display = 'none';
