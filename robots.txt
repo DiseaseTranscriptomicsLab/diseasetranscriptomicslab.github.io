@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nmoraislab.github.io/sitemap.xml
+Sitemap: https://diseasetranscriptomicslab.github.io/sitemap.xml
