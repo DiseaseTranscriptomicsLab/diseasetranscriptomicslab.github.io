@@ -3,7 +3,7 @@
 Static website for the **Disease Transcriptomics Lab** at NOVA Medical School, Lisbon.  
 Hosted on **GitHub Pages** at [`https://diseasetranscriptomicslab.github.io`](https://diseasetranscriptomicslab.github.io).
 
-> ⚠️ **Keep this repository private.** GitHub Pages can serve a public website from a private repo, so there's no need to make the source public. Keeping it private means photos, assets, and drafts don't need to be shared beyond the lab. It also protects content that isn't secret but benefits from limited exposure - such as the science communication games, archived materials, and development work - which may be relevant for future intellectual property or patent considerations.
+> ℹ️ **This repository is public.** GitHub Pages requires a public repo on the free plan (private-repo Pages needs a paid GitHub Team/Enterprise org plan), so the source - including photos, drafts, and the outreach games - is visible to anyone. Nothing sensitive should be committed here; if content ever needs to stay private (e.g. unpublished data, IP-sensitive material), keep it out of this repo entirely rather than relying on repo privacy.
 
 ---
 
@@ -38,6 +38,12 @@ nmoraislab.github.io/
 │
 ├── sections/nuno.html           ← Nuno Barbosa-Morais full profile page (standalone)
 ├── sections/nuno/               ← Archived press clippings and documents linked from sections/nuno.html
+│
+├── games/                       ← Standalone outreach game pages (own <head>, linked from sections/outreach.html)
+│   ├── monster-scientists.html
+│   └── arvore_inteligente.html
+│
+├── .github/workflows/deploy.yml ← GitHub Actions workflow that deploys to GitHub Pages on push to main
 │
 └── assets/
     ├── logos/                   ← Lab logos and funder logos (logos/funding/)
@@ -88,11 +94,15 @@ Then open **[http://localhost:8000](http://localhost:8000)**.
 
 ## Deploying
 
-Deployment happens automatically when a pull request is merged into `main` - GitHub Pages rebuilds within ~60 seconds.
+Deployment is handled by a **GitHub Actions workflow** at `.github/workflows/deploy.yml`. It runs automatically on every push to `main` (including PR merges) and can also be triggered manually from the **Actions** tab (`workflow_dispatch`). No build step is needed - it uploads the repository as-is and publishes it via `actions/deploy-pages`.
 
 **Never push directly to `main`** - see the branch workflow above.
 
-**First-time setup:** Settings → Pages → Source → Deploy from branch → `main` → `/ (root)`.
+**One-time repo setup (already done for this repo, kept here for reference):**
+1. Settings → Pages → **Source** → set to **GitHub Actions** (not "Deploy from a branch").
+2. The repository must be **public** on the free GitHub plan - Pages for private repos requires a paid GitHub Team/Enterprise org plan.
+
+Once merged, check the **Actions** tab for the workflow run; the deployed URL also appears there when it finishes.
 
 ---
 
@@ -343,7 +353,22 @@ On each `.research-card` that should carry this theme, add the key to `data-them
 
 ### 🛠 Software - `sections/software.html`
 
-Each tool is a card. Copy an existing card and update the tool name, description, links (paper, GitHub, web app), and status badge.
+Each tool is a `.tool-card`. Copy an existing card and update the tool name, description, links (paper, GitHub, web app), and badge(s).
+
+**`data-tool-type`** on the outer `.tool-card` drives the filter bar (All / Web Apps / R-Bioconductor / Deprecated) and accepts **one or more** space-separated values, e.g. `data-tool-type="webapp pkg"` for a tool that's both a hosted web app and an R package. A card matches a filter if any of its listed types match.
+
+**Badges** live inside a `.tool-badges` wrapper so a card can show more than one, e.g. markeR and psichomics each show both "Online Web App" and "R/Bioconductor":
+
+```html
+<div class="tool-badges">
+  <span class="tool-badge webapp">...svg... Online Web App</span>
+  <span class="tool-badge pkg">...svg... R/Bioconductor</span>
+</div>
+```
+
+Use `tool-badge pkg` with the text "R/Bioconductor" for packages on Bioconductor, or "R Package (GitHub)" for R packages distributed only via GitHub (e.g. betAS).
+
+Each card's `.tool-links` has a secondary `.tool-link-row` (Paper, Bioconductor, GitHub, etc.) and one primary `.tool-link.launch` CTA - use "Launch app ↗" linking to the hosted web app when one exists, otherwise "Bioconductor ↗" linking to the package page.
 
 ---
 
@@ -867,18 +892,33 @@ Only GitHub accounts that have **read access to this repository** can log in via
 
 ## Analytics
 
-The site supports **Google Analytics 4**. To activate it, create a property at [analytics.google.com](https://analytics.google.com), then add the following snippet inside the `<head>` of `index.html`, `publications.html`, `news.html`, and `sections/nuno.html` - replacing `G-XXXXXXXXXX` with your Measurement ID:
+The site runs **Google Analytics 4**, property Measurement ID **`G-6FLD1GNCMB`**. The Measurement ID is not a secret - it's meant to appear in public page source, and on its own can't be used to read the analytics dashboard or modify the site (only Google accounts granted access to the GA property can view data).
+
+The tag is installed in the `<head>` of every **standalone** page - i.e. every file with its own `<head>`, `<title>`, and URL:
+- `index.html`
+- `join.html`
+- `news.html`
+- `publications.html`
+- `sections/nuno.html`
+- `games/monster-scientists.html`
+- `games/arvore_inteligente.html`
+
+Files under `sections/` (other than `nuno.html`) are **fragments** with no `<head>` - they're fetched by `js/main.js` and injected into `index.html` at runtime, so they're already covered by the tag on `index.html` and must never get their own copy.
+
+**To change the Measurement ID** (e.g. new property), replace `G-6FLD1GNCMB` in the snippet below across all seven files listed above:
 
 ```html
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FLD1GNCMB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-6FLD1GNCMB');
 </script>
 ```
+
+**Per-page breakdowns** (e.g. news.html vs publications.html visits) are available in GA under Reports → Engagement → Pages and screens - one property, all pages, no separate setup needed per page.
 
 ---
 
