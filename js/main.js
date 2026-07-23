@@ -958,7 +958,7 @@ function initAlumniSlideshow() {
     { src: 'assets/photos/group_old/Sep2015_1.jpg',   label: 'September 2015' },
     { src: 'assets/photos/group_old/Sep2015_2.jpg',   label: 'September 2015' },
     { src: 'assets/photos/group_old/Oct2015.jpg',     label: 'October 2015'   },
-    { src: 'assets/photos/group_old/Xmas2015.jpg',    label: 'December 2015'  },
+/*    { src: 'assets/photos/group_old/Xmas2015.jpg',    label: 'December 2015'  }, */
     { src: 'assets/photos/group_old/Jul2016.jpg',     label: 'July 2016'      },
     { src: 'assets/photos/group_old/Oct2016.jpg',     label: 'October 2016'   },
     { src: 'assets/photos/group_old/Oct2016b.jpg',    label: 'October 2016'   },
