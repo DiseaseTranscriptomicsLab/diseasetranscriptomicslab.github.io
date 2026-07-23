@@ -922,6 +922,56 @@ Files under `sections/` (other than `nuno.html`) are **fragments** with no `<hea
 
 ---
 
+### Checking analytics data
+
+1. Go to [analytics.google.com](https://analytics.google.com) and sign in with an account that has access to this property.
+2. **Reports → Realtime** shows visits happening right now (within seconds/minutes) - the fastest way to confirm the tag is working. Open the live site yourself in a normal browser tab (no ad blocker, no "Do Not Track") and watch a visit appear.
+3. **Reports → Engagement → Pages and screens** shows visits broken down by individual page (homepage, news.html, publications.html, etc.) over a selected date range.
+4. **Reports → Acquisition** shows where visitors are coming from (Google search, direct link, social, referral).
+
+**New properties** can take 24-48 hours before data appears in the standard Reports section (not Realtime) - this is expected GA processing latency, not a sign anything is broken.
+
+If Realtime shows nothing after visiting the live site yourself, check that the GA tag is actually present in the page source (View Page Source in the browser, search for `G-6FLD1GNCMB`), and check GA Admin → Data Streams → your web stream to confirm the stream URL matches `https://diseasetranscriptomicslab.github.io`.
+
+---
+
+## Google Search - indexing & Search Console
+
+The site is registered with **Google Search Console** so its pages can be found via Google Search and to monitor indexing issues.
+
+### Checking indexing status
+
+1. Go to [search.google.com/search-console](https://search.google.com/search-console) and select the `diseasetranscriptomicslab.github.io` property.
+2. **URL Inspection** (search bar at the top) - paste any page URL (e.g. the homepage) to see whether Google has indexed it, when it was last crawled, and any errors found. Use **"Test Live URL"** to check the current live version rather than Google's last cached crawl.
+3. **Indexing → Pages** (left sidebar) shows a breakdown of indexed vs excluded pages sitewide, with reasons for any exclusions.
+4. To request indexing of a page that isn't showing up yet, run a URL Inspection on it and click **Request indexing** - this nudges Google to crawl it sooner rather than waiting for its own schedule (which can otherwise take weeks for new pages).
+
+### Checking the sitemap
+
+1. **Sitemaps** (left sidebar, under Indexing) shows the submission status of `sitemap.xml` - pages found, videos found, and last read date.
+2. The sitemap lives at `sitemap.xml` (repo root) and lists the standalone pages worth indexing (homepage, publications, news, join, Nuno's profile). It's referenced from `robots.txt`.
+3. **If Search Console shows "couldn't read" or "couldn't fetch" the sitemap**, first confirm the file itself is fine by opening `https://diseasetranscriptomicslab.github.io/sitemap.xml` directly in a browser - it should show XML content, not an error page. If it looks fine there, the Search Console status is usually just stale (cached from an earlier failed attempt, e.g. before a fix was deployed or before the repo was made public) - remove the sitemap entry and resubmit, then allow up to a day for Google to re-crawl. Search Console errors ("Ocorreu um erro" / "An error occurred, try again in a few hours") are sometimes just transient issues on Google's own backend, unrelated to the site.
+
+### Updating the sitemap
+
+When adding a new standalone page (not a `sections/*.html` fragment), add a `<url>` entry to `sitemap.xml`:
+
+```xml
+<url>
+  <loc>https://diseasetranscriptomicslab.github.io/your-new-page.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+```
+
+Fragments injected into `index.html` don't need their own sitemap entry - the homepage entry already covers them.
+
+### Structured data
+
+`index.html` includes a `ResearchOrganization` JSON-LD block (in `<head>`) that helps Google understand who the lab is for rich search results. If you ever edit it, validate the JSON syntax first (a single missing or trailing comma will break it) - Search Console's **Enhancements** report will flag `"Detected structured data with syntax errors"` if it's invalid.
+
+---
+
 ## Acknowledgements
 
 The first draft of this website - structure, layout, CSS design system, JavaScript, and outreach games - was built with **[Claude Sonnet 4.6](https://www.anthropic.com/claude)** (Anthropic) via Cowork mode.
