@@ -265,7 +265,7 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.35); }
   height: auto;
   max-height: 200px;
   width: auto;
-  max-width: 620px;
+  max-width: min(620px, 100%);
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(13,148,136,.25));
   /* Logo is white on transparent — displays correctly on dark hero bg */
@@ -1701,7 +1701,7 @@ footer {
    ---------------------------------------------------------------- */
 @media (max-width: 900px) {
   .pi-card { grid-template-columns: 1fr; }
-  .pi-photo { min-height: 280px; aspect-ratio: 16/9; position: static; }
+  .pi-photo { min-height: 280px; aspect-ratio: 3/4; position: static; }
   .mission-pillars { grid-template-columns: 1fr 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
 }
