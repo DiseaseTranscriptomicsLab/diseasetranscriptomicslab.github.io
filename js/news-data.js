@@ -23,6 +23,42 @@ const LAB_NEWS = [
   /* ── 2026 ─────────────────────────────────────────────────── */
 
   {
+    date:     "6 August 2026",
+    title:    "Farewell Marta, welcome Alessandro!",
+    summary:  "We say goodbye to Marta Bica after eight years as she moves to the Botton-Champalimaud Pancreatic Cancer Centre, and welcome Alessandro Minguzzi as he joins the lab and the EvoMG MSCA-Doctoral Network.",
+    image:    "assets/news/marta-bica-farewell.jpg",
+    imageAlt: "Marta Bica",
+    images: [
+      { src: "assets/news/marta-bica-farewell.jpg", alt: "Marta Bica" },
+      { src: "assets/news/alessandro-minguzzi-welcome.jpg", alt: "Alessandro Minguzzi" },
+    ],
+    content: `
+      <p>
+        As one chapter closes, another begins for the Disease Transcriptomics Lab ⏳
+      </p>
+      <p>
+        After eight years with us (2018-2026), we say goodbye to
+        <a href="https://www.linkedin.com/in/martabica/" target="_blank" rel="noopener">Marta Bica</a> 🇵🇹,
+        who moves on to the Botton-Champalimaud Pancreatic Cancer Centre as a single-cell
+        and spatial transcriptomics expert. We are proud to see her take the expertise
+        she developed during her MSc and PhD into pancreatic cancer research, a field of
+        pressing clinical importance given the disease's poor prognosis and low survival
+        rate, and we wish her every success in this next chapter 🧬
+      </p>
+      <p>
+        At the same time, we are excited to welcome
+        <a href="https://www.linkedin.com/in/alessandro-minguzzi-b817a4377/" target="_blank" rel="noopener">Alessandro Minguzzi</a> 🇮🇹,
+        who starts in the lab today and will officially become a PhD student in the
+        <a href="https://www.linkedin.com/in/evomg-msca-doctoral-network-35b513382/" target="_blank" rel="noopener">EvoMG MSCA-Doctoral Network</a> 🎓
+        in September. Alessandro holds a Master's degree in Molecular Biology and Genetics
+        from the University of Pavia, Italy. His doctoral research will investigate the
+        dual-coding gene CDKN2A and its roles in development, physiology and cancer, using
+        computational approaches that integrate genomics, transcriptomics and epigenomics.
+      </p>
+    `,
+  },
+
+  {
     date:     "8 June 2026",
     title:    "markeR published in NAR Genomics & Bioinformatics",
     summary:  "Our peer-reviewed article on markeR - an R toolkit for evaluating gene sets as phenotypic markers - is out in NAR Genomics & Bioinformatics.",

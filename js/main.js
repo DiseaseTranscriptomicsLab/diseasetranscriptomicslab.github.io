@@ -830,7 +830,12 @@ function loadLabNews(max) {
   const hasMore    = max && allItems.length > max;
 
   grid.innerHTML = items.map((item, i) => {
-    const imgHtml = item.image
+    const cardImgs = item.images && item.images.length > 1 ? item.images : null;
+    const imgHtml = cardImgs
+      ? `<div class="lab-news-card-img lab-news-card-img-split">
+           ${cardImgs.slice(0, 2).map(im => `<img src="${escHtml(im.src)}" alt="${escHtml(im.alt || '')}" loading="lazy" />`).join('')}
+         </div>`
+      : item.image
       ? `<div class="lab-news-card-img">
            <img src="${escHtml(item.image)}" alt="${escHtml(item.imageAlt || '')}" loading="lazy" />
          </div>`

@@ -2910,6 +2910,16 @@ details[open] .research-pub-panel-chevron { transform: rotate(180deg); }
   transform: scale(1.04);
 }
 
+/* Two-photo split thumbnail (e.g. farewell/welcome pairs) */
+.lab-news-card-img-split {
+  display: flex;
+  gap: 2px;
+}
+.lab-news-card-img-split img {
+  flex: 1 1 50%;
+  width: 50%;
+}
+
 /* Content column */
 .lab-news-card-body {
   padding: 1.5rem 1.75rem;
