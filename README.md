@@ -58,17 +58,16 @@ nmoraislab.github.io/
 
 ## Branch workflow
 
-> ⚠️ **`main` deploys automatically to the live website. Please do not push directly to it.**
+> ⚠️ **`main` is protected and deploys automatically to the live website. You cannot push to it directly.**
 
-`main` is not technically protected, so GitHub will let you push - but doing so updates the live site immediately. All changes should go through a pull request instead:
+`main` is a **protected branch**: direct pushes are blocked, and every change must go through a **pull request that is approved by at least one other person** before it can be merged. This keeps an accidental commit from breaking the live site, and guarantees a second pair of eyes on every change.
 
 1. Create a new branch (e.g. `add-new-member`) or switch to the `dev` branch.
-2. **Make sure your branch is up to date with `main`** - on GitHub, open your branch, and if it shows "X commits behind main", click **Sync fork** or **Update branch** to pull in the latest changes.
-3. Make your changes and commit them.
-4. Open a pull request into `main` on GitHub.
-5. Someone reviews and merges - the site updates within ~60 seconds.
-
----
+2. **Make sure your branch is up to date with `main`** - on GitHub, open your branch, and if it shows "X commits behind main", click **Update branch** to pull in the latest changes.
+3. Make your changes and commit them to your branch.
+4. Push the branch and open a **pull request** into `main` on GitHub.
+5. **Ask a colleague to review it.** GitHub will not let you approve your own pull request, so another lab member with write access has to approve it before the merge button unlocks. (Plan for this on time-sensitive changes - you always need someone else to click approve.)
+6. Once approved, **merge** the pull request. The GitHub Actions workflow runs automatically and the live site updates within ~60 seconds.
 
 ## How it works
 
@@ -96,7 +95,7 @@ Then open **[http://localhost:8000](http://localhost:8000)**.
 
 Deployment is handled by a **GitHub Actions workflow** at `.github/workflows/deploy.yml`. It runs automatically on every push to `main` (including PR merges) and can also be triggered manually from the **Actions** tab (`workflow_dispatch`). No build step is needed - it uploads the repository as-is and publishes it via `actions/deploy-pages`.
 
-**Never push directly to `main`** - see the branch workflow above.
+**`main` is protected - you can't push to it directly.** Every change reaches the live site by merging an approved pull request (see the branch workflow above).
 
 **One-time repo setup (already done for this repo, kept here for reference):**
 1. Settings → Pages → **Source** → set to **GitHub Actions** (not "Deploy from a branch").
