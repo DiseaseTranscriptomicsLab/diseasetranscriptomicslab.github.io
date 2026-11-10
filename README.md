@@ -56,20 +56,93 @@ nmoraislab.github.io/
 
 ---
 
-## Branch workflow
+## How to update the website
 
-> ⚠️ **`main` is protected and deploys automatically to the live website. You cannot push to it directly.**
+> ⚠️ **`main` is protected and is the live website. Nobody can push to it directly.**
+> Every change (even a typo) must go through **a new branch → a pull request (PR) → approval by someone else → merge**.
 
-`main` is a **protected branch**: direct pushes are blocked, and every change must go through a **pull request that is approved by at least one other person** before it can be merged. This keeps an accidental commit from breaking the live site, and guarantees a second pair of eyes on every change.
+Tools needed: **GitHub Desktop** (branches and commits) and **github.com** (pull request). 
+```
+ 1. Update main  →  2. New branch  →  3. Edit + commit  →  4. Publish + Pull Request  →  5. Review + merge
+ (GitHub Desktop)   (GitHub Desktop)  (editor + Desktop)    (Desktop + github.com)        (github.com)
+```
 
-1. Create a new branch (e.g. `add-new-member`) or switch to the `dev` branch.
-2. **Make sure your branch is up to date with `main`** - on GitHub, open your branch, and if it shows "X commits behind main", click **Update branch** to pull in the latest changes.
-3. Make your changes and commit them to your branch.
-4. Push the branch and open a **pull request** into `main` on GitHub.
-5. **Ask a colleague to review it.** GitHub will not let you approve your own pull request, so another lab member with write access has to approve it before the merge button unlocks. (Plan for this on time-sensitive changes - you always need someone else to click approve.)
-6. Once approved, **merge** the pull request. The GitHub Actions workflow runs automatically and the live site updates within ~60 seconds.
+**Rules**
+1. **Create the branch first**, before editing any file.
+2. **One branch per task.** Unrelated changes go in separate branches and PRs.
+3. **You cannot approve your own PR.** Another lab member with write access must do it.
 
-## How it works
+### One-time setup
+
+1. Install [GitHub Desktop](https://desktop.github.com) and sign in with your GitHub account.
+2. Ask the lab admin / other user with admin privileges to give your account **write access** to this repository.
+3. In GitHub Desktop: **File → Clone repository → GitHub.com** → select `diseasetranscriptomicslab.github.io` → **Clone**.
+
+### Step-by-step
+
+**1. Get the latest `main`**
+- Top bar → **Current Branch** → select `main`.
+- Click **Fetch origin**. If the button becomes **Pull origin**, click it.
+- ✅ Check: the button says *Fetch origin* again (nothing left to pull).
+
+**2. Create your branch** *(always before editing)*
+- Top bar → **Current Branch** → **New Branch**.
+- Name it with no spaces, e.g. `add-new-member`, `news-june-2026`. Keep *Create from `main`*. Click **Create Branch**.
+- ✅ Check: **Current Branch** now shows your branch name, **not** `main`.
+
+**3. Edit the files**
+- Open the repository folder (**Repository → Show in Finder / Show in Explorer**) and edit the files as described in the [editing guide](#section-by-section-editing-guide).
+- Back in GitHub Desktop, open the **Changes** tab and click each file.
+- ✅ Check: only the files and lines you meant to change are listed.
+
+**4. Commit**
+- Bottom-left: write a short **Summary** (e.g. `Add Jane Doe to team page`) → **Commit to *your-branch***.
+- ✅ Check: the Changes tab is empty and the commit appears in the **History** tab.
+
+**5. Publish the branch**
+- Top bar → **Publish branch** (later pushes use **Push origin**).
+- ✅ Check: the button changes to *Fetch origin*.
+
+**6. Open the pull request** *(github.com)*
+- In GitHub Desktop click **Create Pull Request** (or **Branch → Create Pull Request**). Your browser opens on GitHub.
+- Check the header reads **base: `main` ← compare: *your-branch***.
+- Write a title and one or two lines describing the change. Under **Reviewers**, choose a colleague. Click **Create pull request**.
+
+**7. Get it approved** *(github.com)*
+- Send the PR link to your reviewer. They open **Files changed → Review changes → Approve → Submit review**.
+- If they request changes: edit on the same branch in GitHub Desktop, commit (step 4), click **Push origin**. The PR updates by itself; ask for a new review.
+- If the PR says the branch is **out of date**, click **Update branch** on the PR page.
+
+**8. Merge** *(github.com)*
+- When the PR shows *Approved*: **Merge pull request → Confirm merge**, then **Delete branch**.
+- The site redeploys automatically in about 1 minute. Check the **Actions** tab: a green ✓ means it is live.
+
+**9. Reset for next time** *(GitHub Desktop)*
+- **Current Branch** → `main` → **Pull origin**. Start the next task at step 2.
+
+### I forgot to create a branch
+
+If you edited and committed while on `main`, GitHub Desktop shows a **protected-branch warning** and the commit **cannot be pushed**. Nothing is lost:
+
+1. Bottom-left corner: click **Undo** (your edits return to the Changes tab).
+2. **Current Branch** → **New Branch** → name it → choose **Bring my changes to the new branch** → **Create Branch**.
+3. Continue from step 4.
+
+If you have only edited (not committed), skip step 1.
+
+### Common problems
+
+| Problem | Fix |
+|---|---|
+| **Merge** button is disabled | The PR has no approval from another person yet, or a check is still running/failed. |
+| PR says **out of date** | Click **Update branch** on the PR page, then **Fetch origin / Pull origin** in GitHub Desktop. |
+| **Merge conflict** | Someone changed the same lines. In GitHub Desktop: **Branch → Update from main**, open the listed files, keep the correct text, delete the `<<<<<<<`, `=======`, `>>>>>>>` lines, save, commit, **Push origin**. Ask a colleague if unsure. |
+| Site not updated after merge | Check the **Actions** tab for a red ✗; otherwise hard-refresh the browser (`Ctrl+Shift+R` / `⇧⌘R`). |
+| Committed the wrong thing (not yet pushed) | **History** tab → right-click the commit → **Undo commit**. |
+
+---
+
+## How the website works
 
 `index.html` is a shell. On page load, `js/main.js` fetches each `sections/*.html` file and injects it into the right placeholder - so every section is independently editable without touching `index.html`.
 
@@ -95,7 +168,7 @@ Then open **[http://localhost:8000](http://localhost:8000)**.
 
 Deployment is handled by a **GitHub Actions workflow** at `.github/workflows/deploy.yml`. It runs automatically on every push to `main` (including PR merges) and can also be triggered manually from the **Actions** tab (`workflow_dispatch`). No build step is needed - it uploads the repository as-is and publishes it via `actions/deploy-pages`.
 
-**`main` is protected - you can't push to it directly.** Every change reaches the live site by merging an approved pull request (see the branch workflow above).
+**`main` is protected - you can't push to it directly.** Every change reaches the live site by merging an approved pull request (see [How to update the website](#how-to-update-the-website) above).
 
 **One-time repo setup (already done for this repo, kept here for reference):**
 1. Settings → Pages → **Source** → set to **GitHub Actions** (not "Deploy from a branch").
